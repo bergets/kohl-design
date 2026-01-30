@@ -7,9 +7,23 @@ export default function Home() {
         kohl.design
       </h1>
       <div className="pl-2">
-        <p className="text-2xl md:text-4xl font-normal">
-          <TypewriterText text="Your next partner in crime. Soon." delay={0.5} />
-        </p>
+        <div>
+          <TypewriterText
+            lines={[
+              { text: "Exceeding expectations is great business.", className: "text-2xl md:text-4xl font-normal" },
+              {
+                text: "Want help doing just that? Slide into my LinkedIn DMs.",
+                className: "text-2xl md:text-4xl font-normal",
+                content: (
+                  <span>
+                    Want help doing just that? Slide into my <a href="https://linkedin.com/in/henrikkohl" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">LinkedIn DMs</a>.
+                  </span>
+                )
+              }
+            ]}
+            delay={0.5}
+          />
+        </div>
       </div>
     </main>
   );
