@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 
+import BackgroundShader from "@/components/BackgroundShader";
+
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400"],
@@ -34,6 +36,7 @@ export default function RootLayout({
           <div className="absolute top-4 right-4 z-50">
             <ThemeToggle />
           </div>
+          <BackgroundShader />
           {children}
         </ThemeProvider>
       </body>
