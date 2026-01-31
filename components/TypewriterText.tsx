@@ -29,25 +29,27 @@ function TypewriterLineItem({ text, className, onComplete, keepCursor, content }
     }, [count, text.length, onComplete]);
 
     return (
-        <span className={`block ${className || ""}`}>
-            <span className="mr-2 text-primary/100">&gt;</span>
-            {!isDone || !content ? (
-                <motion.span>{displayText}</motion.span>
-            ) : (
-                <span>{content}</span>
-            )}
-            {(!isDone || keepCursor) && (
-                <motion.span
-                    animate={{ opacity: [0, 1, 0] }}
-                    transition={{
-                        duration: 0.8,
-                        repeat: Infinity,
-                        ease: "linear",
-                    }}
-                    className="inline-block w-[3px] h-[1em] bg-current ml-1 align-middle"
-                />
-            )}
-        </span>
+        <div className={`flex items-start ${className || ""}`}>
+            <span className="mr-2 text-primary/100 shrink-0 select-none">&gt;</span>
+            <span className="flex-1 min-w-0">
+                {!isDone || !content ? (
+                    <motion.span>{displayText}</motion.span>
+                ) : (
+                    <span>{content}</span>
+                )}
+                {(!isDone || keepCursor) && (
+                    <motion.span
+                        animate={{ opacity: [0, 1, 0] }}
+                        transition={{
+                            duration: 0.8,
+                            repeat: Infinity,
+                            ease: "linear",
+                        }}
+                        className="inline-block w-[3px] h-[1em] bg-current ml-1 align-middle"
+                    />
+                )}
+            </span>
+        </div>
     );
 }
 
