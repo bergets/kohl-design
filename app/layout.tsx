@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 import BackgroundShader from "@/components/BackgroundShader";
+import CustomCursor from "@/components/CustomCursor";
 
 import { dmSans, cooper } from "./fonts";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
             <ThemeToggle />
           </div>
           <BackgroundShader />
+          <CustomCursor />
           {children}
         </ThemeProvider>
       </body>
