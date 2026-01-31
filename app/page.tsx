@@ -1,9 +1,10 @@
+import { cooper } from "./fonts";
 import { TypewriterText } from "@/components/TypewriterText";
 
 export default function Home() {
   return (
     <main className="min-h-dvh flex flex-col justify-between pt-4 pb-4 sm:pt-8 sm:pb-8">
-      <h1 className="text-[15vw] leading-[0.8] font-normal tracking-tighter w-full text-left pl-2">
+      <h1 className={`${cooper.className} text-[15vw] leading-[0.8] font-normal tracking-tighter w-full text-left pl-2`}>
         kohl.design
       </h1>
       <div className="pl-2">

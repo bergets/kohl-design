@@ -1,20 +1,25 @@
-import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 import BackgroundShader from "@/components/BackgroundShader";
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-dm-sans",
-});
+import { dmSans, cooper } from "./fonts";
+
 
 export const metadata: Metadata = {
-  title: "Kohl Design",
-  description: "Minimalist design system",
+  title: "kohl.design | Product Designer",
+  description: "Portfolio of Henrik Kohl, a Product Designer based in Stockholm.",
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#01201a",
 };
 
 export default function RootLayout({
@@ -25,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${dmSans.className} antialiased transition-colors duration-300`}
+        className={`${dmSans.className} ${dmSans.variable} ${cooper.variable} antialiased transition-colors duration-300`}
       >
         <ThemeProvider
           attribute="class"
