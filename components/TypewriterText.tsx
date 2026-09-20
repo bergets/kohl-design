@@ -7,9 +7,27 @@ interface TypewriterTextProps {
     lines: { text: string; className?: string; content?: React.ReactNode }[];
     containerClassName?: string;
     delay?: number;
+    showPrompt?: boolean;
+    cursorClassName?: string;
 }
 
-function TypewriterLineItem({ text, className, onComplete, keepCursor, content }: { text: string, className?: string, onComplete: () => void, keepCursor: boolean, content?: React.ReactNode }) {
+function TypewriterLineItem({
+    text,
+    className,
+    onComplete,
+    keepCursor,
+    content,
+    showPrompt = false,
+    cursorClassName = "inline-block w-[3px] h-[1em] bg-primary dark:bg-accent ml-1.5 align-middle",
+}: {
+    text: string;
+    className?: string;
+    onComplete: () => void;
+    keepCursor: boolean;
+    content?: React.ReactNode;
+    showPrompt?: boolean;
+    cursorClassName?: string;
+}) {
     const count = useMotionValue(0);
     const rounded = useTransform(count, (latest) => Math.round(latest));
     const displayText = useTransform(rounded, (latest) => text.slice(0, latest));
@@ -18,7 +36,7 @@ function TypewriterLineItem({ text, className, onComplete, keepCursor, content }
     useEffect(() => {
         const controls = animate(count, text.length, {
             type: "tween",
-            duration: text.length * 0.05,
+            duration: text.length * 0.045,
             ease: "linear",
             onComplete: () => {
                 setIsDone(true);
@@ -30,7 +48,9 @@ function TypewriterLineItem({ text, className, onComplete, keepCursor, content }
 
     return (
         <div className={`flex items-start ${className || ""}`}>
-            <span className="mr-2 text-primary/100 shrink-0 select-none">&gt;</span>
+            {showPrompt && (
+                <span className="mr-2 text-primary/100 shrink-0 select-none">&gt;</span>
+            )}
             <span className="flex-1 min-w-0">
                 {!isDone || !content ? (
                     <motion.span>{displayText}</motion.span>
@@ -45,7 +65,7 @@ function TypewriterLineItem({ text, className, onComplete, keepCursor, content }
                             repeat: Infinity,
                             ease: "linear",
                         }}
-                        className="inline-block w-[3px] h-[1em] bg-current ml-1 align-middle"
+                        className={cursorClassName}
                     />
                 )}
             </span>
@@ -53,7 +73,13 @@ function TypewriterLineItem({ text, className, onComplete, keepCursor, content }
     );
 }
 
-export function TypewriterText({ lines, containerClassName, delay = 0 }: TypewriterTextProps) {
+export function TypewriterText({
+    lines,
+    containerClassName,
+    delay = 0,
+    showPrompt = false,
+    cursorClassName,
+}: TypewriterTextProps) {
     const [activeLineIndex, setActiveLineIndex] = useState(0);
     const [startSequence, setStartSequence] = useState(false);
 
@@ -76,6 +102,8 @@ export function TypewriterText({ lines, containerClassName, delay = 0 }: Typewri
                         text={line.text}
                         className={line.className}
                         content={line.content}
+                        showPrompt={showPrompt}
+                        cursorClassName={cursorClassName}
                         onComplete={() => {
                             if (index === activeLineIndex) {
                                 setActiveLineIndex(prev => prev + 1);

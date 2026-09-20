@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 import BackgroundShader from "@/components/BackgroundShader";
 import CustomCursor from "@/components/CustomCursor";
@@ -39,9 +38,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="absolute top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
           <BackgroundShader />
           <CustomCursor />
           {children}

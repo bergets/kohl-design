@@ -44,108 +44,138 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-primary-hover: var(--primary-hover);
+  --color-accent-hover: var(--accent-hover);
+
+  --color-pine-50: hsla(160, 30%, 96%, 1);
+  --color-pine-100: hsla(164, 48%, 77%, 1);
+  --color-pine-200: hsla(166, 33%, 65%, 1);
+  --color-pine-300: hsla(166, 26%, 55%, 1);
+  --color-pine-400: hsla(167, 35%, 36%, 1);
+  --color-pine-500: hsla(169, 54%, 27%, 1);
+  --color-pine-600: hsla(170, 100%, 16%, 1);
+  --color-pine-700: hsla(170, 90%, 11%, 1);
+  --color-pine-800: hsla(168, 94%, 6%, 1);
+
+  --color-neutral-50: hsla(0, 0%, 95%, 1);
+  --color-neutral-100: hsla(0, 0%, 83%, 1);
+  --color-neutral-200: hsla(0, 0%, 73%, 1);
+  --color-neutral-300: hsla(169, 8%, 60%, 1);
+  --color-neutral-400: hsla(169, 8%, 44%, 1);
+  --color-neutral-500: hsla(170, 10%, 35%, 1);
+  --color-neutral-600: hsla(168, 11%, 26%, 1);
+  --color-neutral-700: hsla(170, 13%, 18%, 1);
+  --color-neutral-800: hsla(173, 18%, 10%, 1);
+  --color-neutral-900: hsla(0, 0%, 0%, 1);
+
+  --color-crimson-50: hsla(356, 89%, 96%, 1);
+  --color-crimson-100: hsla(356, 86%, 88%, 1);
+  --color-crimson-200: hsla(355, 73%, 79%, 1);
+  --color-crimson-300: hsla(355, 47%, 68%, 1);
+  --color-crimson-400: hsla(355, 29%, 51%, 1);
+  --color-crimson-500: hsla(354, 34%, 43%, 1);
+  --color-crimson-600: hsla(354, 50%, 30%, 1);
+  --color-crimson-700: hsla(352, 70%, 22%, 1);
+  --color-crimson-800: hsla(352, 100%, 13%, 1);
 }
 
 :root {
   --radius: 0.25rem;
 
-  /* Light Mode (New Default) */
-  --background: #fdfdfd;
-  --foreground: #01201a;
+  /* Light Mode (New Brand Colors) */
+  --background: #ffffff;
+  --foreground: hsla(168, 94%, 6%, 1);
 
   --card: #ffffff;
-  --card-foreground: #01201a;
+  --card-foreground: hsla(168, 94%, 6%, 1);
 
   --popover: #ffffff;
-  --popover-foreground: #01201a;
+  --popover-foreground: hsla(168, 94%, 6%, 1);
 
-  --primary: #064e3b;
+  --primary: hsla(170, 100%, 16%, 1);
   --primary-foreground: #ffffff;
+  --primary-hover: hsla(170, 90%, 11%, 1);
 
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
+  --secondary: hsla(0, 0%, 95%, 1);
+  --secondary-foreground: hsla(168, 94%, 6%, 1);
 
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --muted: hsla(0, 0%, 95%, 1);
+  --muted-foreground: hsla(170, 10%, 35%, 1);
 
-  --accent: #f4f4f5;
-  --accent-foreground: #01201a;
+  --accent: hsla(354, 34%, 43%, 1);
+  --accent-foreground: #ffffff;
+  --accent-hover: hsla(354, 50%, 30%, 1);
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #064e3b;
+  --border: hsla(0, 0%, 83%, 1);
+  --input: hsla(0, 0%, 83%, 1);
+  --ring: hsla(170, 100%, 16%, 1);
 
-  --chart-1: #e76e50;
-  --chart-2: #2a9d8f;
-  --chart-3: #264653;
-  --chart-4: #f4a261;
-  --chart-5: #e9c46a;
+  --chart-1: hsla(170, 100%, 16%, 1);
+  --chart-2: hsla(354, 34%, 43%, 1);
+  --chart-3: hsla(169, 54%, 27%, 1);
+  --chart-4: hsla(166, 33%, 65%, 1);
+  --chart-5: hsla(355, 73%, 79%, 1);
 
-  --sidebar: #f8fafc;
-  --sidebar-foreground: #0f172a;
-  --sidebar-primary: #18181b;
-  --sidebar-primary-foreground: #f8fafc;
-  --sidebar-accent: #f1f5f9;
-  --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: #e2e8f0;
-  --sidebar-ring: #cbd5e1;
+  --sidebar: hsla(160, 30%, 96%, 1);
+  --sidebar-foreground: hsla(168, 94%, 6%, 1);
+  --sidebar-primary: hsla(170, 100%, 16%, 1);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: hsla(0, 0%, 95%, 1);
+  --sidebar-accent-foreground: hsla(168, 94%, 6%, 1);
+  --sidebar-border: hsla(0, 0%, 83%, 1);
+  --sidebar-ring: hsla(170, 100%, 16%, 1);
 }
 
 .dark {
-  /* Dark Mode (Original Design) */
-  --background: #01201a;
-  --foreground: #f2f2f2;
+  /* Dark Mode (Midnight Forest) */
+  --background: hsla(168, 94%, 6%, 1);
+  --foreground: hsla(0, 0%, 95%, 1);
 
-  --card: #022c24;
-  /* Adjusted slightly for contrast or keep white if that was intended? The original had white card in dark mode root... wait. */
-  /* Re-checking original:
-     --card: #ffffff; 
-     --card-foreground: #000000;
-     The user had a dark background but white cards? 
-     Let's stick to the original VALUES for dark mode, but maybe map them correctly.
-  */
-  --card: #ffffff;
-  --card-foreground: #000000;
+  --card: hsla(170, 90%, 11%, 1);
+  --card-foreground: hsla(0, 0%, 95%, 1);
 
-  --popover: #ffffff;
-  --popover-foreground: #000000;
+  --popover: hsla(170, 90%, 11%, 1);
+  --popover-foreground: hsla(0, 0%, 95%, 1);
 
-  --primary: #064e3b;
+  --primary: hsla(170, 100%, 16%, 1);
   --primary-foreground: #ffffff;
+  --primary-hover: hsla(170, 90%, 11%, 1);
 
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
+  --secondary: hsla(170, 13%, 18%, 1);
+  --secondary-foreground: hsla(0, 0%, 95%, 1);
 
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --muted: hsla(170, 13%, 18%, 1);
+  --muted-foreground: hsla(169, 8%, 60%, 1);
 
-  --accent: #ae5716;
+  --accent: hsla(354, 34%, 43%, 1);
   --accent-foreground: #ffffff;
+  --accent-hover: hsla(354, 50%, 30%, 1);
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #005140;
+  --border: hsla(168, 11%, 26%, 1);
+  --input: hsla(168, 11%, 26%, 1);
+  --ring: hsla(170, 100%, 16%, 1);
 
-  --chart-1: #005140;
-  --chart-2: #ae5716;
-  --chart-3: #1e293b;
-  --chart-4: #64748b;
-  --chart-5: #cbd5e1;
+  --chart-1: hsla(170, 100%, 16%, 1);
+  --chart-2: hsla(354, 34%, 43%, 1);
+  --chart-3: hsla(166, 33%, 65%, 1);
+  --chart-4: hsla(355, 73%, 79%, 1);
+  --chart-5: hsla(164, 48%, 77%, 1);
 
-  --sidebar: #ffffff;
-  --sidebar-foreground: #000000;
-  --sidebar-primary: #005140;
+  --sidebar: hsla(173, 18%, 10%, 1);
+  --sidebar-foreground: hsla(0, 0%, 95%, 1);
+  --sidebar-primary: hsla(170, 100%, 16%, 1);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f4f4f5;
-  --sidebar-accent-foreground: #18181b;
-  --sidebar-border: #e4e4e7;
-  --sidebar-ring: #005140;
+  --sidebar-accent: hsla(170, 13%, 18%, 1);
+  --sidebar-accent-foreground: hsla(0, 0%, 95%, 1);
+  --sidebar-border: hsla(168, 11%, 26%, 1);
+  --sidebar-ring: hsla(170, 100%, 16%, 1);
 }
 
 @layer base {
