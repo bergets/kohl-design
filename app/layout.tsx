@@ -3,7 +3,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 import BackgroundShader from "@/components/BackgroundShader";
-import CustomCursor from "@/components/CustomCursor";
 
 import { dmSans, cooper } from "./fonts";
 
@@ -39,7 +38,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <BackgroundShader />
-          <CustomCursor />
           {children}
         </ThemeProvider>
       </body>
