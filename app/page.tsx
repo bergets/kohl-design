@@ -14,7 +14,7 @@ export default function Home() {
           className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
           aria-label="kohl.design home"
         >
-          <BrandFlower className="size-8 sm:size-9 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
+          <BrandFlower className="size-11 sm:size-12 md:size-14 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
         </Link>
         <div className="flex items-center gap-3">
           <ThemeToggle />

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 export function ThemeToggle({
     className = "",
-    size = "lg",
+    size = "default",
 }: {
     className?: string;
     size?: "default" | "lg";
@@ -21,7 +21,7 @@ export function ThemeToggle({
 
     const isDark = mounted ? resolvedTheme === "dark" : true
     const buttonSizeClass = size === "lg" ? "size-11 sm:size-12" : "size-10"
-    const dotSizeClass = size === "lg" ? "size-5 sm:size-6" : "size-3.5 sm:size-4"
+    const dotSizeClass = size === "lg" ? "size-5 sm:size-6" : "size-4"
 
     return (
         <Button
