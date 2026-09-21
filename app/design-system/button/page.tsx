@@ -102,7 +102,7 @@ export default function ButtonShowcasePage() {
             Button Component
           </h1>
           <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, 4px corner radii, tactile click micro-animations, and integrated loading states.
+            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, 8px corner radii (radius-lg), tactile click micro-animations, and integrated loading states.
           </p>
 
           {/* Interactive Global Toolbar */}
@@ -321,7 +321,7 @@ export default function ButtonShowcasePage() {
           <div className="space-y-1">
             <h2 className="text-2xl font-bold tracking-tight">2. Size Scale & Touch Targets</h2>
             <p className="text-sm text-muted-foreground">
-              Proportional height, padding, gap, and icon sizing based on the 4px design grid.
+              Proportional height, padding, gap, and icon sizing based on the 4px design grid with 8px corner radii.
             </p>
           </div>
 

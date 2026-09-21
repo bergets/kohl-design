@@ -28,7 +28,7 @@ export function ThemeToggle({
             variant="outline"
             size="icon"
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className={`group rounded-[4px] border border-border/80 dark:border-[#3B7D6F]/60 bg-white/70 dark:bg-black/30 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm transition-all cursor-pointer ${buttonSizeClass} ${className}`}
+            className={`group rounded-[8px] border border-border/80 dark:border-[#3B7D6F]/60 bg-white/70 dark:bg-black/30 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm transition-all cursor-pointer ${buttonSizeClass} ${className}`}
             aria-label="Toggle color theme"
         >
             <span
