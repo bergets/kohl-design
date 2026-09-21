@@ -108,8 +108,8 @@ export default function MyFeature() {
   return (
     <div className="flex gap-3">
       <Button variant="default">Primary Pine</Button>
-      <Button variant="accent">Accent Crimson</Button>
       <Button variant="editorial">Editorial Moment</Button>
+      <Button variant="secondary">Secondary Surface</Button>
       <Button variant="outline" loading>Saving...</Button>
     </div>
   )

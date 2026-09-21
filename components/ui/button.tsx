@@ -11,15 +11,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-pine-700 active:bg-pine-800 dark:hover:bg-pine-500",
+          "bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.08),0_2px_5px_rgba(0,32,26,0.22)] hover:bg-pine-700 active:bg-pine-800 dark:hover:bg-pine-500",
         accent:
           "bg-accent text-accent-foreground shadow-xs hover:bg-crimson-600 active:bg-crimson-700 dark:hover:bg-crimson-500",
         editorial:
-          "bg-crimson-50 text-crimson-600 border border-crimson-200/70 hover:bg-crimson-100 hover:border-crimson-300 active:bg-crimson-200/60 dark:bg-crimson-900/30 dark:text-crimson-100 dark:border-crimson-700/40 dark:hover:bg-crimson-900/50",
+          "bg-crimson-50 text-crimson-600 border border-crimson-200/70 shadow-2xs hover:bg-crimson-100 hover:border-crimson-300 active:bg-crimson-200/60 dark:bg-crimson-900/30 dark:text-crimson-100 dark:border-crimson-700/40 dark:hover:bg-crimson-900/50",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-700 dark:active:bg-neutral-600",
+          "bg-secondary text-secondary-foreground border border-border/70 shadow-2xs hover:bg-neutral-200 active:bg-neutral-300 dark:hover:bg-neutral-700 dark:active:bg-neutral-600",
         outline:
-          "border border-border bg-transparent text-foreground hover:bg-neutral-50 dark:hover:bg-neutral-800/60 active:bg-neutral-100 dark:active:bg-neutral-800",
+          "border border-border bg-transparent text-foreground shadow-2xs hover:bg-neutral-50 dark:hover:bg-neutral-800/60 active:bg-neutral-100 dark:active:bg-neutral-800",
         ghost:
           "text-foreground hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800/60 active:bg-neutral-200 dark:active:bg-neutral-700",
         destructive:

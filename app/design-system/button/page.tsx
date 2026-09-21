@@ -31,7 +31,7 @@ export default function ButtonShowcasePage() {
 
   // Playground state
   const [selectedVariant, setSelectedVariant] = React.useState<
-    "default" | "accent" | "editorial" | "secondary" | "outline" | "ghost" | "destructive" | "link"
+    "default" | "editorial" | "secondary" | "outline" | "ghost" | "destructive" | "link"
   >("default");
   const [selectedSize, setSelectedSize] = React.useState<"sm" | "default" | "lg">("default");
   const [playgroundText, setPlaygroundText] = React.useState("Continue Project");
@@ -134,11 +134,11 @@ export default function ButtonShowcasePage() {
           <div className="space-y-1">
             <h2 className="text-2xl font-bold tracking-tight">1. Brand Style Variants</h2>
             <p className="text-sm text-muted-foreground">
-              Eight semantic variants engineered for primary brand journeys, dual-register moments, and utility surfaces.
+              Core brand variants engineered for primary conversions, dual-register moments, and utility surfaces.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {/* Primary / Default */}
             <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
@@ -149,7 +149,7 @@ export default function ButtonShowcasePage() {
                   <code className="text-[11px] font-mono text-muted-foreground">variant="default"</code>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Signature Pine Green hue for dominant primary conversions and key CTAs.
+                  Signature Pine Green hue with subtle elevation depth for dominant primary conversions and key CTAs.
                 </p>
               </div>
               <div className="pt-2">
@@ -160,31 +160,6 @@ export default function ButtonShowcasePage() {
                   className="w-full"
                 >
                   Primary Action
-                </Button>
-              </div>
-            </div>
-
-            {/* Accent / Crimson */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                    Accent Crimson
-                  </span>
-                  <code className="text-[11px] font-mono text-muted-foreground">variant="accent"</code>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Warm terracotta crimson for editorial highlights, featured moments, and special offers.
-                </p>
-              </div>
-              <div className="pt-2">
-                <Button
-                  variant="accent"
-                  loading={isLoading}
-                  disabled={isDisabled}
-                  className="w-full"
-                >
-                  Accent Action
                 </Button>
               </div>
             </div>
@@ -500,7 +475,7 @@ export default function ButtonShowcasePage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 pt-2">
-                <Button variant="accent" size="default">
+                <Button variant="default" size="default">
                   Start Partnership <ArrowRight />
                 </Button>
                 <Button variant="editorial" size="default">
@@ -552,7 +527,7 @@ export default function ButtonShowcasePage() {
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {(
-                    ["default", "accent", "editorial", "secondary", "outline", "ghost", "destructive", "link"] as const
+                    ["default", "editorial", "secondary", "outline", "ghost", "destructive", "link"] as const
                   ).map((v) => (
                     <button
                       key={v}
