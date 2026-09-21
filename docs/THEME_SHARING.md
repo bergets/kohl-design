@@ -1,0 +1,127 @@
+# Sharing the Kohl Design Language Across Personal Projects
+
+This guide details how to reuse and customize the **kohl.design** design language across your personal apps and side projects, with support for quick personality tweaks (such as making pink the dominant brand color, or adjusting corner sharpness/roundness).
+
+---
+
+## 1. Architectural Foundation
+
+The design system is engineered around **Semantic CSS Token Abstraction** using Tailwind CSS v4 and `@theme inline`. Instead of hardcoding colors or static pixel radii into components, every component binds to CSS variables:
+
+### Key Semantic Tokens
+| Token | Kohl Default | Blush Project Variant | Sharp Tech Variant | Pebble Variant | Purpose |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `--radius` | `0.5rem` (8px) | `0.875rem` (14px) | `2px` | `1.125rem` (18px) | Base curvature of interactive elements |
+| `--primary` | Pine `#005243` | Crimson Pink `#eb2a4b` | Pine `#005243` | Pine `#005243` | Main CTA and primary brand moment |
+| `--primary-hover` | Pine Dark `#03332a` | Crimson Dark `#d41b3a` | Pine Dark `#03332a` | Pine Dark `#03332a` | Primary button hover state |
+| `--accent` | Crimson `#94464f` | Mint `#a8e3d2` | Crimson `#94464f` | Crimson `#94464f` | Secondary highlight hue |
+
+### Dynamic Derived Radii Scale
+In `app/globals.css`, child sizes scale proportionally from the single `--radius` token:
+```css
+@theme inline {
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+```
+- A small button (`size="sm"`) uses `var(--radius-sm)` (6px default, 12px in Blush, 0px in Sharp).
+- A large or hero button (`size="xl"`) uses `var(--radius-lg)` (12px default, 18px in Blush, 6px in Sharp).
+- Standard buttons, cards, and toggles use `var(--radius)` (8px default, 14px in Blush, 2px in Sharp, 18px in Pebble).
+
+---
+
+## 2. Three Ways to Share Across Projects
+
+### Method A: GitHub Template Repository (Fastest for new projects)
+1. In your GitHub repository settings for `kohl-design` (or a dedicated `kohl-starter` repo), check **"Template repository"**.
+2. Whenever you start a new personal project, click **"Use this template"** → **"Create a new repository"**.
+3. In the new repository's `app/layout.tsx`, you can instantly activate a project variant by setting the data attribute:
+   ```tsx
+   <html lang="en" data-theme-variant="blush" suppressHydrationWarning>
+   ```
+   Or adjust the 3 root variables in `app/globals.css`.
+
+### Method B: Copy-Paste Design Bundle (Zero overhead for existing apps)
+Copy just 4 files into any Next.js 15+ / Tailwind v4 project:
+1. `components/ui/button.tsx` — Button component with CVA and tactile micro-press.
+2. `components/theme-toggle.tsx` — Minimalist dual-register theme toggle.
+3. `lib/utils.ts` — `cn()` helper combining `clsx` and `tailwind-merge`.
+4. The CSS tokens block from `app/globals.css` into your new project's `globals.css`.
+
+### Method C: Remote Shadcn Registry (Modern standard)
+If you build several micro-tools, you can serve your components as a Shadcn registry:
+```bash
+npx shadcn add https://kohl.design/r/button.json
+```
+*(Components install directly into `components/ui/` with exact token bindings preserved).*
+
+---
+
+## 3. Project Personality Recipes
+
+### Recipe 1: "Blush Brand" (Pink Dominant + 14px Soft Curvature)
+*Best for: Playful consumer apps, writing tools, personal blogs, or friendly utilities.*
+
+Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
+```css
+:root {
+  --radius: 0.875rem; /* 14px soft organic curve */
+  --primary: hsla(354, 80%, 54%, 1); /* Vibrant Crimson Pink */
+  --primary-hover: hsla(354, 85%, 46%, 1);
+  --primary-foreground: #ffffff;
+  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
+  --accent-foreground: hsla(168, 94%, 6%, 1);
+}
+
+.dark {
+  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */
+  --primary-hover: hsla(356, 86%, 78%, 1);
+  --primary-foreground: hsla(168, 94%, 6%, 1);
+  --accent: hsla(164, 48%, 77%, 1);
+  --accent-foreground: hsla(168, 94%, 6%, 1);
+}
+```
+
+### Recipe 2: "Sharp Tech" (Razor-Sharp 2px Corners)
+*Best for: Developer dashboards, CLI companion apps, code editors, data tools.*
+
+```css
+:root {
+  --radius: 2px; /* Razor sharp corners */
+}
+```
+
+### Recipe 3: "Pebble Round" (18px Organic Curvature)
+*Best for: Mobile-first web apps, casual games, journaling tools.*
+
+```css
+:root {
+  --radius: 1.125rem; /* 18px pebble */
+}
+```
+
+### Recipe 4: Custom HSL/Hex Brand Color
+To adopt a completely new brand color (e.g. Cobalt Blue or Amber) while keeping the same tactile feel:
+```css
+:root {
+  --primary: #2563eb; /* Your brand hue */
+  --primary-hover: #1d4ed8;
+  --primary-foreground: #ffffff;
+  --radius: 10px; /* Desired curvature */
+}
+```
+
+---
+
+## 4. Live Preview & Interactive Testing
+
+You can test how all variants look and feel live before applying them to a new project:
+1. Navigate to [`/design-system/button`](file:///Users/henrikkohl/Documents/dev/kohl-design/app/design-system/button/page.tsx).
+2. Use the **Project Preset Switcher** in the top toolbar to switch between:
+   - **Pine Base (8px)**
+   - **Blush Brand (14px • Pink)**
+   - **Sharp Tech (2px Razor)**
+   - **Pebble Round (18px Organic)**
+3. Scroll to **Section 6: Multi-Project Token Customization** to copy the generated CSS tokens for the active preset with a single click.

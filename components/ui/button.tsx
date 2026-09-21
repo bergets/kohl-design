@@ -6,14 +6,14 @@ import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-[8px] font-sans font-medium text-sm transition-all duration-150 ease-out outline-none select-none cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] disabled:active:scale-100 shrink-0 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius)] font-sans font-medium text-sm transition-all duration-150 ease-out outline-none select-none cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] disabled:active:scale-100 shrink-0 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.08),0_2px_5px_rgba(0,32,26,0.22)] hover:bg-pine-700 active:bg-pine-800 dark:hover:bg-pine-500",
+          "bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.08),0_2px_5px_rgba(0,32,26,0.22)] hover:bg-primary-hover active:opacity-95",
         accent:
-          "bg-accent text-accent-foreground shadow-xs hover:bg-crimson-600 active:bg-crimson-700 dark:hover:bg-crimson-500",
+          "bg-accent text-accent-foreground shadow-xs hover:bg-accent-hover active:opacity-95",
         editorial:
           "bg-crimson-50 text-crimson-600 border border-crimson-200/70 shadow-2xs hover:bg-crimson-100 hover:border-crimson-300 active:bg-crimson-200/60 dark:bg-crimson-900/30 dark:text-crimson-100 dark:border-crimson-700/40 dark:hover:bg-crimson-900/50",
         secondary:
@@ -28,14 +28,14 @@ const buttonVariants = cva(
           "text-primary underline-offset-4 hover:underline p-0 h-auto font-medium active:scale-100 shadow-none",
       },
       size: {
-        default: "h-8 px-4 text-sm gap-2 [&_svg:not([class*='size-'])]:size-3.5",
-        sm: "h-7 px-2.5 text-xs gap-1.5 [&_svg:not([class*='size-'])]:size-3",
-        lg: "h-10 px-5 text-sm gap-2 [&_svg:not([class*='size-'])]:size-4",
-        xl: "h-12 px-6 text-base gap-2.5 [&_svg:not([class*='size-'])]:size-5",
-        icon: "size-8 p-0 [&_svg:not([class*='size-'])]:size-3.5",
-        "icon-sm": "size-7 p-0 [&_svg:not([class*='size-'])]:size-3",
-        "icon-lg": "size-10 p-0 [&_svg:not([class*='size-'])]:size-4",
-        "icon-xl": "size-12 p-0 [&_svg:not([class*='size-'])]:size-5",
+        default: "h-8 px-4 text-sm gap-2 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-3.5",
+        sm: "h-7 px-2.5 text-xs gap-1.5 rounded-[var(--radius-sm)] [&_svg:not([class*='size-'])]:size-3",
+        lg: "h-10 px-5 text-sm gap-2 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-4",
+        xl: "h-12 px-6 text-base gap-2.5 rounded-[var(--radius-lg)] [&_svg:not([class*='size-'])]:size-5",
+        icon: "size-8 p-0 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-3.5",
+        "icon-sm": "size-7 p-0 rounded-[var(--radius-sm)] [&_svg:not([class*='size-'])]:size-3",
+        "icon-lg": "size-10 p-0 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-4",
+        "icon-xl": "size-12 p-0 rounded-[var(--radius-lg)] [&_svg:not([class*='size-'])]:size-5",
       },
     },
     defaultVariants: {

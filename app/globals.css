@@ -37,13 +37,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 16px);
+  --radius-4xl: calc(var(--radius) + 20px);
 
   --color-primary-hover: var(--primary-hover);
   --color-accent-hover: var(--accent-hover);
@@ -81,7 +81,7 @@
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 0.5rem;
 
   /* Light Mode (New Brand Colors) */
   --background: #ffffff;
@@ -186,4 +186,46 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* -------------------------------------------------------------
+ * Theme Presets / Project Personalities
+ * Activate with data-theme-variant="blush" | "sharp" | "round"
+ * ----------------------------------------------------------- */
+
+/* Preset 1: Blush / Pink Dominant (Playful & Soft) */
+[data-theme-variant="blush"],
+.theme-blush {
+  --radius: 0.875rem; /* 14px soft curve */
+  --primary: hsla(354, 80%, 54%, 1); /* Crimson pink */
+  --primary-foreground: #ffffff;
+  --primary-hover: hsla(354, 85%, 46%, 1);
+  --ring: hsla(354, 80%, 54%, 1);
+  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
+  --accent-foreground: hsla(168, 94%, 6%, 1);
+}
+
+.dark[data-theme-variant="blush"],
+.dark [data-theme-variant="blush"],
+.dark .theme-blush,
+[data-theme-variant="blush"] .dark,
+.theme-blush .dark {
+  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */
+  --primary-foreground: hsla(168, 94%, 6%, 1);
+  --primary-hover: hsla(356, 86%, 78%, 1);
+  --ring: hsla(356, 86%, 70%, 1);
+  --accent: hsla(164, 48%, 77%, 1);
+  --accent-foreground: hsla(168, 94%, 6%, 1);
+}
+
+/* Preset 2: Sharp Technical (Razor-sharp 2px corners) */
+[data-theme-variant="sharp"],
+.theme-sharp {
+  --radius: 2px;
+}
+
+/* Preset 3: Extra Round / Pebble (Pill-like Organic 18px) */
+[data-theme-variant="round"],
+.theme-round {
+  --radius: 1.125rem; /* 18px */
 }

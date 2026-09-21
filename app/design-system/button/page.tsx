@@ -22,12 +22,52 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+type ThemePreset = "default" | "blush" | "sharp" | "round";
+
+const PRESET_OPTIONS: {
+  id: ThemePreset;
+  label: string;
+  badge: string;
+  dotClass: string;
+  description: string;
+}[] = [
+  {
+    id: "default",
+    label: "Pine Base",
+    badge: "8px Radius",
+    dotClass: "bg-[#005243]",
+    description: "Original kohl.design brand identity with deep forest pine and 8px pebble corners.",
+  },
+  {
+    id: "blush",
+    label: "Blush Brand",
+    badge: "14px • Pink",
+    dotClass: "bg-[#eb2a4b]",
+    description: "Crimson pink dominant primary button with mint accent and soft 14px curvature.",
+  },
+  {
+    id: "sharp",
+    label: "Sharp Tech",
+    badge: "2px Razor",
+    dotClass: "bg-[#005243] rounded-[1px]",
+    description: "Architectural, technical developer aesthetic with razor-sharp 2px corners.",
+  },
+  {
+    id: "round",
+    label: "Pebble Round",
+    badge: "18px Organic",
+    dotClass: "bg-[#005243]",
+    description: "Friendly, organic pill aesthetic with deep 18px rounded curves.",
+  },
+];
+
 export default function ButtonShowcasePage() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(false);
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
+  const [activePreset, setActivePreset] = React.useState<ThemePreset>("default");
 
   // Playground state
   const [selectedVariant, setSelectedVariant] = React.useState<
@@ -56,7 +96,10 @@ export default function ButtonShowcasePage() {
 </Button>`;
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
+    <div
+      data-theme-variant={activePreset !== "default" ? activePreset : undefined}
+      className="min-h-screen bg-background text-foreground transition-colors duration-200"
+    >
       {/* Header */}
       <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -71,7 +114,7 @@ export default function ButtonShowcasePage() {
             <span className="text-border">/</span>
             <span className="font-semibold text-sm">Design System</span>
             <span className="text-border">/</span>
-            <span className="rounded-[4px] bg-pine-50 px-2 py-0.5 text-xs font-semibold text-pine-700 dark:bg-pine-800 dark:text-pine-200">
+            <span className="rounded-[var(--radius-sm)] bg-pine-50 px-2 py-0.5 text-xs font-semibold text-pine-700 dark:bg-pine-800 dark:text-pine-200">
               Button POC
             </span>
           </div>
@@ -102,30 +145,89 @@ export default function ButtonShowcasePage() {
             Button Component
           </h1>
           <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, 8px corner radii (radius-lg), tactile click micro-animations, and integrated loading states.
+            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, dynamic <code className="font-mono text-xs font-semibold text-primary">var(--radius)</code> corner radii, tactile click micro-animations, and integrated loading states.
           </p>
 
-          {/* Interactive Global Toolbar */}
-          <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-border">
-            <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-              Global Demo Controls:
+          {/* Interactive Global & Theme Toolbar */}
+          <div className="space-y-3 pt-6 border-t border-border">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-[var(--radius)] border border-border bg-card/70 backdrop-blur-xs shadow-xs">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="size-4 text-primary" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                    Project Preset Switcher
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    (Preview how tokens adapt for your other personal projects)
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {PRESET_OPTIONS.map((preset) => {
+                    const isSelected = activePreset === preset.id;
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => setActivePreset(preset.id)}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-[var(--radius-sm)] border transition-all cursor-pointer ${
+                          isSelected
+                            ? "bg-primary text-primary-foreground border-primary shadow-xs ring-2 ring-primary/20"
+                            : "bg-background text-foreground border-border hover:bg-muted"
+                        }`}
+                      >
+                        <span className={`size-2.5 rounded-full ${preset.dotClass}`} />
+                        <span>{preset.label}</span>
+                        <span
+                          className={`text-[10px] px-1.5 py-0.5 rounded-[calc(var(--radius-sm)-2px)] font-mono ${
+                            isSelected
+                              ? "bg-primary-foreground/20 text-primary-foreground"
+                              : "bg-muted text-muted-foreground"
+                          }`}
+                        >
+                          {preset.badge}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 md:self-end">
+                <Button
+                  variant={isLoading ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setIsLoading(!isLoading)}
+                  className="gap-1.5"
+                >
+                  <RefreshCw className={`size-3.5 ${isLoading ? "animate-spin" : ""}`} />
+                  <span>{isLoading ? "Loading ON" : "Toggle Loading"}</span>
+                </Button>
+                <Button
+                  variant={isDisabled ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setIsDisabled(!isDisabled)}
+                >
+                  <span>{isDisabled ? "Disabled ON" : "Toggle Disabled"}</span>
+                </Button>
+              </div>
             </div>
-            <Button
-              variant={isLoading ? "default" : "outline"}
-              size="sm"
-              onClick={() => setIsLoading(!isLoading)}
-              className="gap-1.5"
-            >
-              <RefreshCw className={`size-3.5 ${isLoading ? "animate-spin" : ""}`} />
-              <span>{isLoading ? "Loading ON" : "Toggle Loading"}</span>
-            </Button>
-            <Button
-              variant={isDisabled ? "default" : "outline"}
-              size="sm"
-              onClick={() => setIsDisabled(!isDisabled)}
-            >
-              <span>{isDisabled ? "Disabled ON" : "Toggle Disabled"}</span>
-            </Button>
+
+            {/* Active Preset Explainer Banner */}
+            <div className="flex items-center justify-between text-xs px-4 py-2.5 rounded-[var(--radius)] bg-muted/40 border border-border text-muted-foreground">
+              <span>
+                <strong className="text-foreground">Active Preset:</strong>{" "}
+                {PRESET_OPTIONS.find((p) => p.id === activePreset)?.description}
+              </span>
+              {activePreset !== "default" && (
+                <button
+                  type="button"
+                  onClick={() => setActivePreset("default")}
+                  className="text-xs text-primary font-medium hover:underline cursor-pointer shrink-0 ml-4"
+                >
+                  Reset to Pine Base
+                </button>
+              )}
+            </div>
           </div>
         </section>
 
@@ -140,7 +242,7 @@ export default function ButtonShowcasePage() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {/* Primary / Default */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-primary">
@@ -165,7 +267,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Editorial / Blush */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-crimson-600 dark:text-crimson-400">
@@ -190,7 +292,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Secondary */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
@@ -215,7 +317,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Outline */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
@@ -240,7 +342,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Ghost */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
@@ -265,7 +367,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Destructive */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-destructive">
@@ -291,7 +393,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Link */}
-            <div className="rounded-[4px] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold uppercase tracking-wider text-primary">
@@ -325,7 +427,7 @@ export default function ButtonShowcasePage() {
             </p>
           </div>
 
-          <div className="rounded-[4px] border border-border bg-card p-6 shadow-xs space-y-6">
+          <div className="rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs space-y-6">
             <div className="flex flex-wrap items-end gap-6">
               {/* Small */}
               <div className="space-y-2">
@@ -407,7 +509,7 @@ export default function ButtonShowcasePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-[4px] border border-border bg-card p-6 space-y-4 shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
               <h3 className="text-sm font-semibold text-foreground">Leading & Trailing Icons</h3>
               <p className="text-xs text-muted-foreground">
                 Automatic optical alignment and scaling for SVG icons.
@@ -428,7 +530,7 @@ export default function ButtonShowcasePage() {
               </div>
             </div>
 
-            <div className="rounded-[4px] border border-border bg-card p-6 space-y-4 shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
               <h3 className="text-sm font-semibold text-foreground">Next.js Link Integration</h3>
               <p className="text-xs text-muted-foreground">
                 Using Radix <code className="font-mono">asChild</code> to render an accessible Next.js Link.
@@ -449,7 +551,7 @@ export default function ButtonShowcasePage() {
               </div>
             </div>
 
-            <div className="rounded-[4px] border border-border bg-card p-6 space-y-4 shadow-xs">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
               <h3 className="text-sm font-semibold text-foreground">Tactile Feedback & Accessibility</h3>
               <p className="text-xs text-muted-foreground">
                 Built-in <code className="font-mono">active:scale-[0.98]</code> press response with Pine focus rings.
@@ -477,7 +579,7 @@ export default function ButtonShowcasePage() {
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* Editorial Midnight Pine Register */}
-            <div className="rounded-[8px] bg-[#011d18] border border-white/10 p-8 space-y-6 text-[#eff7f4]">
+            <div className="rounded-[var(--radius)] bg-[#011d18] border border-white/10 p-8 space-y-6 text-[#eff7f4]">
               <div className="space-y-2">
                 <span className="text-xs font-semibold uppercase tracking-widest text-[#8ad0be]">
                   Register A · Brand Editorial
@@ -500,7 +602,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             {/* Utility Slate Register */}
-            <div className="rounded-[8px] bg-[#ffffff] dark:bg-card border border-[#d4d4d4] dark:border-border p-8 space-y-6">
+            <div className="rounded-[var(--radius)] bg-[#ffffff] dark:bg-card border border-[#d4d4d4] dark:border-border p-8 space-y-6">
               <div className="space-y-2">
                 <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                   Register B · Neutral Utility
@@ -533,7 +635,7 @@ export default function ButtonShowcasePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 rounded-[4px] border border-border bg-card p-6 shadow-xs">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs">
             {/* Config Controls */}
             <div className="lg:col-span-6 space-y-5">
               <div>
@@ -548,7 +650,7 @@ export default function ButtonShowcasePage() {
                       key={v}
                       type="button"
                       onClick={() => setSelectedVariant(v)}
-                      className={`px-3 py-1.5 text-xs font-medium rounded-[4px] border transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 text-xs font-medium rounded-[var(--radius-sm)] border transition-all cursor-pointer ${
                         selectedVariant === v
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-background text-foreground border-border hover:bg-muted"
@@ -570,7 +672,7 @@ export default function ButtonShowcasePage() {
                       key={s}
                       type="button"
                       onClick={() => setSelectedSize(s)}
-                      className={`px-3 py-1.5 text-xs font-medium rounded-[4px] border transition-all cursor-pointer ${
+                      className={`px-3 py-1.5 text-xs font-medium rounded-[var(--radius-sm)] border transition-all cursor-pointer ${
                         selectedSize === s
                           ? "bg-primary text-primary-foreground border-primary"
                           : "bg-background text-foreground border-border hover:bg-muted"
@@ -590,7 +692,7 @@ export default function ButtonShowcasePage() {
                   type="text"
                   value={playgroundText}
                   onChange={(e) => setPlaygroundText(e.target.value)}
-                  className="w-full rounded-[4px] border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                  className="w-full rounded-[var(--radius-sm)] border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                 />
               </div>
 
@@ -618,7 +720,7 @@ export default function ButtonShowcasePage() {
 
             {/* Live Preview & Code */}
             <div className="lg:col-span-6 flex flex-col justify-between space-y-4 lg:border-l lg:border-border lg:pl-6">
-              <div className="flex-1 flex flex-col items-center justify-center min-h-[160px] rounded-[4px] border border-dashed border-border bg-muted/40 p-6">
+              <div className="flex-1 flex flex-col items-center justify-center min-h-[160px] rounded-[var(--radius)] border border-dashed border-border bg-muted/40 p-6">
                 <Button
                   variant={selectedVariant}
                   size={selectedSize}
@@ -631,7 +733,7 @@ export default function ButtonShowcasePage() {
                 </Button>
               </div>
 
-              <div className="relative rounded-[4px] bg-neutral-900 dark:bg-black p-4 text-neutral-100 font-mono text-xs">
+              <div className="relative rounded-[var(--radius)] bg-neutral-900 dark:bg-black p-4 text-neutral-100 font-mono text-xs">
                 <button
                   type="button"
                   onClick={() => copyToClipboard(playgroundJsx, "playground")}
@@ -645,6 +747,132 @@ export default function ButtonShowcasePage() {
                 </pre>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Section 6: Multi-Project Sharing & Token Overrides */}
+        <section className="space-y-6 pb-16">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
+              <span>Architecture & Reuse</span>
+            </div>
+            <h2 className="text-2xl font-bold tracking-tight">6. Multi-Project Token Customization</h2>
+            <p className="text-sm text-muted-foreground">
+              How to reuse this design language in other personal projects with custom brand colors and corner radii.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-3 shadow-xs">
+              <h3 className="text-sm font-semibold flex items-center gap-2">
+                <span className="size-2 rounded-full bg-primary" />
+                1. Token Abstraction
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                All components use semantic CSS tokens (<code className="font-mono">var(--primary)</code>, <code className="font-mono">var(--radius)</code>) rather than hardcoded colors or pixel values. Changing 2 variables updates all components automatically.
+              </p>
+            </div>
+
+            <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-3 shadow-xs">
+              <h3 className="text-sm font-semibold flex items-center gap-2">
+                <span className="size-2 rounded-full bg-accent" />
+                2. Derived Scale Math
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Smaller buttons dynamically compute <code className="font-mono">calc(var(--radius) - 2px)</code> while Hero buttons use <code className="font-mono">calc(var(--radius) + 4px)</code>, preserving optical proportions whether sharp (2px) or round (18px).
+              </p>
+            </div>
+
+            <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-3 shadow-xs">
+              <h3 className="text-sm font-semibold flex items-center gap-2">
+                <span className="size-2 rounded-full bg-foreground" />
+                3. Distribution
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Use this repository as a GitHub starter template, copy the component bundle, or apply <code className="font-mono">data-theme-variant="blush"</code> to your root HTML element.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">
+                  CSS Tokens for Active Preset:{" "}
+                  <span className="text-primary font-mono">{activePreset}</span>
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  Drop this block into <code className="font-mono">app/globals.css</code> of your other personal project:
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const cssSnippet =
+                    activePreset === "blush"
+                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(354, 80%, 54%, 1); /* Crimson pink brand */\n  --primary-hover: hsla(354, 85%, 46%, 1);\n  --primary-foreground: #ffffff;\n  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */\n  --accent-foreground: hsla(168, 94%, 6%, 1);\n}\n\n.dark {\n  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */\n  --primary-hover: hsla(356, 86%, 78%, 1);\n  --primary-foreground: hsla(168, 94%, 6%, 1);\n  --accent: hsla(164, 48%, 77%, 1);\n  --accent-foreground: hsla(168, 94%, 6%, 1);\n}`
+                      : activePreset === "sharp"
+                      ? `:root {\n  --radius: 2px; /* Razor-sharp technical corners */\n}`
+                      : activePreset === "round"
+                      ? `:root {\n  --radius: 1.125rem; /* 18px pebble curves */\n}`
+                      : `:root {\n  --radius: 0.5rem; /* 8px signature pebble */\n  --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */\n  --primary-hover: hsla(170, 90%, 11%, 1);\n  --accent: hsla(354, 34%, 43%, 1); /* Crimson */\n}`;
+                  copyToClipboard(cssSnippet, "preset-css");
+                }}
+                className="gap-1.5 self-start sm:self-auto"
+              >
+                {copiedCode === "preset-css" ? (
+                  <>
+                    <Check className="size-3.5 text-emerald-500" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="size-3.5" />
+                    <span>Copy CSS Tokens</span>
+                  </>
+                )}
+              </Button>
+            </div>
+
+            <pre className="rounded-[var(--radius-sm)] bg-neutral-900 dark:bg-black p-4 text-xs font-mono text-neutral-100 overflow-x-auto leading-relaxed">
+              {activePreset === "blush" &&
+`/* Blush Project Variant: Crimson Pink dominant + 14px soft curvature */
+:root {
+  --radius: 0.875rem; /* 14px soft curve */
+  --primary: hsla(354, 80%, 54%, 1); /* Crimson pink brand */
+  --primary-hover: hsla(354, 85%, 46%, 1);
+  --primary-foreground: #ffffff;
+  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
+  --accent-foreground: hsla(168, 94%, 6%, 1);
+}
+
+.dark {
+  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */
+  --primary-hover: hsla(356, 86%, 78%, 1);
+  --primary-foreground: hsla(168, 94%, 6%, 1);
+  --accent: hsla(164, 48%, 77%, 1);
+  --accent-foreground: hsla(168, 94%, 6%, 1);
+}`}
+              {activePreset === "sharp" &&
+`/* Sharp Technical Variant: 2px razor corners for developer/dashboard tools */
+:root {
+  --radius: 2px; /* Razor sharp */
+}`}
+              {activePreset === "round" &&
+`/* Pebble Round Variant: 18px organic curves for playful/casual tools */
+:root {
+  --radius: 1.125rem; /* 18px pebble */
+}`}
+              {activePreset === "default" &&
+`/* Kohl Default: Signature Pine Green + 8px pebble corners */
+:root {
+  --radius: 0.5rem; /* 8px signature pebble */
+  --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */
+  --primary-hover: hsla(170, 90%, 11%, 1);
+  --accent: hsla(354, 34%, 43%, 1); /* Crimson */
+}`}
+            </pre>
           </div>
         </section>
       </main>
