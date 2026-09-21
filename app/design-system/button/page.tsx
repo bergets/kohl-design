@@ -33,7 +33,7 @@ export default function ButtonShowcasePage() {
   const [selectedVariant, setSelectedVariant] = React.useState<
     "default" | "editorial" | "secondary" | "outline" | "ghost" | "destructive" | "link"
   >("default");
-  const [selectedSize, setSelectedSize] = React.useState<"sm" | "default" | "lg">("default");
+  const [selectedSize, setSelectedSize] = React.useState<"sm" | "default" | "lg" | "xl">("default");
   const [playgroundText, setPlaygroundText] = React.useState("Continue Project");
   const [showLeftIcon, setShowLeftIcon] = React.useState(false);
   const [showRightIcon, setShowRightIcon] = React.useState(true);
@@ -111,7 +111,7 @@ export default function ButtonShowcasePage() {
               Global Demo Controls:
             </div>
             <Button
-              variant={isLoading ? "accent" : "outline"}
+              variant={isLoading ? "default" : "outline"}
               size="sm"
               onClick={() => setIsLoading(!isLoading)}
               className="gap-1.5"
@@ -120,7 +120,7 @@ export default function ButtonShowcasePage() {
               <span>{isLoading ? "Loading ON" : "Toggle Loading"}</span>
             </Button>
             <Button
-              variant={isDisabled ? "accent" : "outline"}
+              variant={isDisabled ? "default" : "outline"}
               size="sm"
               onClick={() => setIsDisabled(!isDisabled)}
             >
@@ -329,25 +329,33 @@ export default function ButtonShowcasePage() {
             <div className="flex flex-wrap items-end gap-6">
               {/* Small */}
               <div className="space-y-2">
-                <div className="text-xs font-mono text-muted-foreground">size="sm" · 32px (h-8)</div>
+                <div className="text-xs font-mono text-muted-foreground">size="sm" · 28px (h-7, Compact)</div>
                 <Button size="sm" variant="default" loading={isLoading} disabled={isDisabled}>
-                  <Plus /> Small Action
+                  <Plus /> Small (28px)
                 </Button>
               </div>
 
               {/* Default */}
               <div className="space-y-2">
-                <div className="text-xs font-mono text-muted-foreground">size="default" · 40px (h-10, Paper standard)</div>
+                <div className="text-xs font-mono text-muted-foreground">size="default" · 32px (h-8, 14px font, Primary Base)</div>
                 <Button size="default" variant="default" loading={isLoading} disabled={isDisabled}>
-                  <Plus /> Default Action
+                  <Plus /> Default (32px)
                 </Button>
               </div>
 
               {/* Large */}
               <div className="space-y-2">
-                <div className="text-xs font-mono text-muted-foreground">size="lg" · 48px (h-12)</div>
+                <div className="text-xs font-mono text-muted-foreground">size="lg" · 40px (h-10)</div>
                 <Button size="lg" variant="default" loading={isLoading} disabled={isDisabled}>
-                  <Plus /> Large Hero Action
+                  <Plus /> Large (40px)
+                </Button>
+              </div>
+
+              {/* Hero / XL */}
+              <div className="space-y-2">
+                <div className="text-xs font-mono text-muted-foreground">size="xl" · 48px (h-12, Hero)</div>
+                <Button size="xl" variant="default" loading={isLoading} disabled={isDisabled}>
+                  <Plus /> Hero (48px)
                 </Button>
               </div>
             </div>
@@ -361,21 +369,28 @@ export default function ButtonShowcasePage() {
                   <Button size="icon-sm" variant="outline" loading={isLoading} disabled={isDisabled}>
                     <Heart />
                   </Button>
-                  <span className="text-xs font-mono text-muted-foreground">size="icon-sm" (32px)</span>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon-sm" (28px)</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <Button size="icon" variant="default" loading={isLoading} disabled={isDisabled}>
                     <Download />
                   </Button>
-                  <span className="text-xs font-mono text-muted-foreground">size="icon" (40px)</span>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon" (32px)</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Button size="icon-lg" variant="accent" loading={isLoading} disabled={isDisabled}>
+                  <Button size="icon-lg" variant="secondary" loading={isLoading} disabled={isDisabled}>
                     <Sparkles />
                   </Button>
-                  <span className="text-xs font-mono text-muted-foreground">size="icon-lg" (48px)</span>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon-lg" (40px)</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Button size="icon-xl" variant="outline" loading={isLoading} disabled={isDisabled}>
+                    <Sparkles />
+                  </Button>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon-xl" (48px)</span>
                 </div>
               </div>
             </div>
@@ -419,7 +434,7 @@ export default function ButtonShowcasePage() {
                 Using Radix <code className="font-mono">asChild</code> to render an accessible Next.js Link.
               </p>
               <div className="space-y-3">
-                <Button asChild variant="accent" className="w-full">
+                <Button asChild variant="default" className="w-full">
                   <Link href="https://linkedin.com/in/henrikkohl" target="_blank" rel="noopener noreferrer">
                     <span>Contact via LinkedIn</span>
                     <ExternalLink className="size-4" />
@@ -550,7 +565,7 @@ export default function ButtonShowcasePage() {
                   Size
                 </label>
                 <div className="flex gap-2">
-                  {(["sm", "default", "lg"] as const).map((s) => (
+                  {(["sm", "default", "lg", "xl"] as const).map((s) => (
                     <button
                       key={s}
                       type="button"
