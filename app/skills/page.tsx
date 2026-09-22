@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cooper } from "@/app/fonts";
 import { BrandFlower } from "@/components/BrandFlower";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ExploreSheet } from "@/components/ExploreSheet";
 
 interface SkillItem {
   name: string;
@@ -41,6 +42,7 @@ export default function SkillsPage() {
           <BrandFlower className="size-11 sm:size-12 md:size-14 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
         </Link>
         <div className="flex items-center gap-3">
+          <ExploreSheet />
           <ThemeToggle />
         </div>
       </header>
