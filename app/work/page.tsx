@@ -209,15 +209,15 @@ export default function WorkPage() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground shrink-0">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground shrink-0 font-medium">
                   <span className="inline-flex items-center gap-1">
-                    <MapPin className="size-3" />
+                    <MapPin className="size-3 text-muted-foreground/70" />
                     {exp.location}
                   </span>
                   {exp.totalDuration && (
                     <>
                       <span>·</span>
-                      <span className="text-pine-700 dark:text-[#A8E3D2] font-semibold">
+                      <span className="text-pine-800 dark:text-[#A8E3D2] font-semibold">
                         {exp.totalDuration}
                       </span>
                     </>
@@ -248,12 +248,12 @@ export default function WorkPage() {
                         )}
                       </div>
 
-                      <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
                         <span>{role.period}</span>
                         {role.type && (
                           <>
                             <span>·</span>
-                            <span className="text-muted-foreground/80">{role.type}</span>
+                            <span className="text-muted-foreground/75 font-normal">{role.type}</span>
                           </>
                         )}
                       </div>
