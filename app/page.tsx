@@ -57,29 +57,35 @@ export default function Home() {
     <div className="relative z-10 w-full min-h-dvh flex flex-col">
       {/* 
         ========================================================================
-        HERO SECTION
-        Takes min-h-dvh. The dialogue sits comfortably above the bottom edge,
-        leaving room for the first destination card to peek into view.
+        STICKY NAVIGATION HEADER
+        Stays fixed at the top of the viewport when scrolling down with a refined
+        frosted glass / blur backdrop.
         ========================================================================
       */}
-      <section className="min-h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-12 sm:pb-16 relative">
-        {/* Top Bar / Navigation */}
-        <header className="w-full flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
-            aria-label="kohl.design home"
-          >
-            <BrandFlower className="size-11 sm:size-12 md:size-14 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
-          </Link>
-          <div className="flex items-center gap-3">
-            <ExploreSheet />
-            <ThemeToggle />
-          </div>
-        </header>
+      <header className="sticky top-0 z-50 w-full px-6 sm:px-8 md:px-12 lg:px-14 py-4 sm:py-5 flex items-center justify-between bg-background/65 backdrop-blur-md transition-colors duration-300">
+        <Link
+          href="/"
+          className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
+          aria-label="kohl.design home"
+        >
+          <BrandFlower className="size-10 sm:size-11 md:size-12 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
+        </Link>
+        <div className="flex items-center gap-3">
+          <ExploreSheet />
+          <ThemeToggle />
+        </div>
+      </header>
 
+      {/* 
+        ========================================================================
+        HERO SECTION
+        Fills the remaining initial viewport (min-h-[calc(100dvh-5rem)]).
+        Dialogue sits above the bottom fold with room for the Work card to peek.
+        ========================================================================
+      */}
+      <section className="min-h-[calc(100dvh-5rem)] w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-12 sm:pb-16 relative">
         {/* Main Display Title */}
-        <div className="my-auto py-10 sm:py-16 w-full">
+        <div className="my-auto py-8 sm:py-14 w-full">
           <h1
             className={`${cooper.className} text-[15vw] sm:text-[14vw] md:text-[13vw] lg:text-[140px] xl:text-[165px] leading-[0.82] font-normal tracking-tighter text-left text-pine-800 dark:text-crimson-100 transition-colors duration-300`}
           >
