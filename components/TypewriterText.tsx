@@ -9,6 +9,7 @@ interface TypewriterTextProps {
     delay?: number;
     showPrompt?: boolean;
     cursorClassName?: string;
+    onSequenceComplete?: () => void;
 }
 
 function TypewriterLineItem({
@@ -79,6 +80,7 @@ export function TypewriterText({
     delay = 0,
     showPrompt = false,
     cursorClassName,
+    onSequenceComplete,
 }: TypewriterTextProps) {
     const [activeLineIndex, setActiveLineIndex] = useState(0);
     const [startSequence, setStartSequence] = useState(false);
@@ -107,6 +109,9 @@ export function TypewriterText({
                         onComplete={() => {
                             if (index === activeLineIndex) {
                                 setActiveLineIndex(prev => prev + 1);
+                            }
+                            if (index === lines.length - 1) {
+                                onSequenceComplete?.();
                             }
                         }}
                         keepCursor={index === lines.length - 1}

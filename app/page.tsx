@@ -1,10 +1,14 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { cooper } from "./fonts";
 import { TypewriterText } from "@/components/TypewriterText";
 import { BrandFlower } from "@/components/BrandFlower";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ExploreSheet } from "@/components/ExploreSheet";
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 interface FeaturedItem {
   num: string;
@@ -14,7 +18,6 @@ interface FeaturedItem {
   desc: string;
   href: string;
   meta: string;
-  external?: boolean;
 }
 
 const FEATURED_ITEMS: FeaturedItem[] = [
@@ -23,7 +26,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     tag: "CAREER & LEADERSHIP",
     title: "Quinyx",
     role: "Product Area Design Lead (UX/UI)",
-    desc: "AI-powered frontline workforce management SaaS serving global enterprise organizations. Design strategy, complex operational workflows & design systems.",
+    desc: "AI-powered frontline workforce management SaaS serving global enterprise organizations. Leading design direction, UX strategy, complex operational workflows & design systems.",
     href: "/work",
     meta: "4 yrs 2 mos · Enterprise SaaS",
   },
@@ -66,17 +69,20 @@ const FEATURED_ITEMS: FeaturedItem[] = [
 ];
 
 export default function Home() {
+  const [typewriterDone, setTypewriterDone] = React.useState(false);
+
   return (
     <div className="relative z-10 w-full min-h-dvh flex flex-col">
       {/* 
         ========================================================================
-        HERO SECTION (Initial Viewport Fold)
-        Takes full 100dvh with room at bottom for the peek strip
+        HERO SECTION (First Fold Arrival)
+        Takes full 100dvh. As the user finishes reading or reaches the bottom,
+        the first card peeks naturally from below the fold.
         ========================================================================
       */}
-      <section className="min-h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 relative pb-2 sm:pb-3">
+      <section className="h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-0 sm:pb-0 md:pb-0 lg:pb-0 relative overflow-hidden">
         {/* Top Bar / Navigation */}
-        <header className="w-full flex items-center justify-between">
+        <header className="w-full flex items-center justify-between shrink-0">
           <Link
             href="/"
             className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
@@ -91,7 +97,7 @@ export default function Home() {
         </header>
 
         {/* Main Display Title */}
-        <div className="my-auto py-6 sm:py-10 w-full">
+        <div className="my-auto py-4 sm:py-8 w-full shrink-0">
           <h1
             className={`${cooper.className} text-[15vw] sm:text-[14vw] md:text-[13vw] lg:text-[140px] xl:text-[165px] leading-[0.82] font-normal tracking-tighter text-left text-pine-800 dark:text-crimson-100 transition-colors duration-300`}
           >
@@ -99,73 +105,107 @@ export default function Home() {
           </h1>
         </div>
 
-        {/* Bottom Dialogue + Peek Hint */}
-        <div className="w-full space-y-6">
-          <div className="w-full">
-            <TypewriterText
-              lines={[
-                {
-                  text: "Exceeding expectations is great business.",
-                  className:
-                    "text-lg sm:text-2xl md:text-3xl font-normal leading-snug text-pine-600 dark:text-[#A8E3D2]",
-                },
-                {
-                  text: "Want help doing just that? Slide into my LinkedIn DMs.",
-                  className:
-                    "text-lg sm:text-2xl md:text-3xl font-normal leading-snug text-pine-800 dark:text-white",
-                  content: (
-                    <span>
-                      <span className="text-pine-800 dark:text-white">
-                        Want help doing just that? Slide into my{" "}
-                      </span>
-                      <a
-                        href="https://linkedin.com/in/henrikkohl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium underline underline-offset-4 sm:underline-offset-6 decoration-primary/40 hover:decoration-primary dark:decoration-crimson-100/40 dark:hover:decoration-crimson-100 text-primary dark:text-crimson-100 transition-colors"
-                      >
-                        LinkedIn DMs.
-                      </a>
+        {/* Bottom Dialogue Area */}
+        <div className="w-full shrink-0 mb-6 sm:mb-8">
+          <TypewriterText
+            lines={[
+              {
+                text: "Exceeding expectations is great business.",
+                className:
+                  "text-lg sm:text-2xl md:text-3xl font-normal leading-snug text-pine-600 dark:text-[#A8E3D2]",
+              },
+              {
+                text: "Want help doing just that? Slide into my LinkedIn DMs.",
+                className:
+                  "text-lg sm:text-2xl md:text-3xl font-normal leading-snug text-pine-800 dark:text-white",
+                content: (
+                  <span>
+                    <span className="text-pine-800 dark:text-white">
+                      Want help doing just that? Slide into my{" "}
                     </span>
-                  ),
-                },
-              ]}
-              delay={0.4}
-              showPrompt={false}
-              cursorClassName="inline-block w-[3px] h-[1em] bg-primary dark:bg-accent ml-1.5 align-middle"
-            />
-          </div>
+                    <a
+                      href="https://linkedin.com/in/henrikkohl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium underline underline-offset-4 sm:underline-offset-6 decoration-primary/40 hover:decoration-primary dark:decoration-crimson-100/40 dark:hover:decoration-crimson-100 text-primary dark:text-crimson-100 transition-colors"
+                    >
+                      LinkedIn DMs.
+                    </a>
+                  </span>
+                ),
+              },
+            ]}
+            delay={0.4}
+            showPrompt={false}
+            cursorClassName="inline-block w-[3px] h-[1em] bg-primary dark:bg-accent ml-1.5 align-middle"
+            onSequenceComplete={() => setTypewriterDone(true)}
+          />
+        </div>
 
-          {/* 
-            THE PEEK STRIP (Viktor Hofte Vibe)
-            Anchored at the bottom of the first fold, giving an intuitive cue to scroll down
-          */}
-          <a
-            href="#featured-work"
-            className="group block w-full rounded-t-2xl sm:rounded-t-3xl border-t border-x border-border/80 dark:border-[#3B7D6F]/60 bg-white/70 dark:bg-[#032821]/80 hover:bg-white/90 dark:hover:bg-[#04332a]/95 backdrop-blur-md px-5 sm:px-8 py-3.5 sm:py-4 transition-all duration-300 shadow-sm"
+        {/* 
+          NATURAL PEEK OF THE FIRST CARD (Viktor Hofte Vibe)
+          Positioned right at the bottom edge of the 100dvh viewport.
+          Only the top 60-70px of the actual first card is visible above the bottom edge.
+          Animates in with a gentle spring up once the typewriter finishes typing.
+        */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{
+            type: "spring",
+            damping: 24,
+            stiffness: 140,
+            mass: 0.8,
+          }}
+          className="w-full max-w-7xl mx-auto shrink-0 -mb-[260px] sm:-mb-[220px] pointer-events-auto"
+        >
+          <Link
+            href="/work"
+            className="group block w-full p-6 sm:p-8 md:p-10 rounded-t-3xl border-t border-x border-border/80 dark:border-[#3B7D6F]/60 bg-white/90 dark:bg-[#021E19]/95 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-md transition-all duration-300 shadow-lg hover:shadow-2xl"
           >
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                <span className="text-xs font-mono font-medium px-2 py-0.5 rounded bg-pine-100/70 text-pine-800 dark:bg-primary/20 dark:text-[#A8E3D2] border border-pine-700/20 dark:border-primary/30 shrink-0">
-                  01 / WORK
-                </span>
-                <span className={`${cooper.className} text-base sm:text-lg md:text-xl font-normal text-pine-900 dark:text-white truncate group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
-                  Quinyx — AI Workforce Management & Product Area Lead
-                </span>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="space-y-2.5 max-w-3xl">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-primary dark:text-[#A8E3D2] font-semibold">
+                    01
+                  </span>
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                    CAREER & LEADERSHIP
+                  </span>
+                  <span className="ml-auto md:hidden text-[11px] font-mono text-muted-foreground/80 flex items-center gap-1">
+                    Scroll to explore ↓
+                  </span>
+                </div>
+
+                <h2 className={`${cooper.className} text-2xl sm:text-3xl md:text-4xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
+                  Quinyx
+                </h2>
+
+                <p className="text-sm sm:text-base font-medium text-foreground/90 dark:text-[#FCD3D6]">
+                  Product Area Design Lead (UX/UI)
+                </p>
+
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-none">
+                  AI-powered frontline workforce management SaaS serving global enterprise organizations. Leading design direction, UX strategy, complex operational workflows & design systems.
+                </p>
               </div>
 
-              <div className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground group-hover:text-foreground shrink-0 text-xs font-mono font-medium transition-colors">
-                <span className="hidden sm:inline">SCROLL TO EXPLORE</span>
-                <ArrowDown className="size-3.5 sm:size-4 transition-transform group-hover:translate-y-0.5" />
+              <div className="self-start md:self-center shrink-0">
+                <span className="inline-flex items-center gap-2 h-10 px-4 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-background/80 group-hover:bg-primary/10 group-hover:border-primary/40 text-xs sm:text-sm font-medium text-foreground group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-all">
+                  <span>Explore Quinyx</span>
+                  <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
               </div>
             </div>
-          </a>
-        </div>
+          </Link>
+        </motion.div>
       </section>
 
       {/* 
         ========================================================================
-        BELOW-THE-FOLD CONTENT (Curated Section / Work Directory)
+        SCROLLABLE WORK & DESTINATIONS LIST
+        Begins smoothly below the fold. The first card (Quinyx) is fully visible
+        here as the user scrolls down, followed by all remaining cards.
         ========================================================================
       */}
       <section
@@ -175,7 +215,7 @@ export default function Home() {
         {/* Section Divider Bar */}
         <div className="flex items-center justify-between pb-4 border-b border-border/70 dark:border-[#3B7D6F]/40 text-xs font-mono text-muted-foreground">
           <div className="flex items-center gap-2">
-            <span className="text-primary dark:text-[#A8E3D2] font-semibold">FEATURED WORK & SELECTED DESTINATIONS</span>
+            <span className="text-primary dark:text-[#A8E3D2] font-semibold">SELECTED WORK & DESTINATIONS</span>
             <span>↓</span>
           </div>
           <span className="hidden sm:inline">5 DESTINATIONS</span>
@@ -183,11 +223,13 @@ export default function Home() {
 
         {/* Full-width Editorial Cards List */}
         <div className="space-y-4 sm:space-y-6">
-          {FEATURED_ITEMS.map((item) => (
+          {FEATURED_ITEMS.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
-              className="group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/70 dark:bg-[#021E19]/80 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-sm transition-all duration-300 shadow-2xs hover:shadow-md"
+              className={`group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/70 dark:bg-[#021E19]/80 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-sm transition-all duration-300 shadow-2xs hover:shadow-md ${
+                index === 0 ? "border-primary/30 dark:border-[#3B7D6F]/70" : ""
+              }`}
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 {/* Left Meta & Content */}
