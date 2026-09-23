@@ -17,7 +17,7 @@ const DESTINATIONS: NavDestination[] = [
   {
     name: "Work",
     href: "/work",
-    sub: "Selected craft, commercial engineering & CV",
+    sub: "Career timeline, UX leadership & product design",
   },
   {
     name: "Side Projects",
