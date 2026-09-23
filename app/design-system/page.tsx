@@ -93,19 +93,32 @@ export default function DesignSystemIndexPage() {
             </div>
           </Link>
 
-          {/* Planned: Card */}
-          <div className="rounded-[var(--radius)] border border-dashed border-border bg-muted/20 p-6 flex flex-col justify-between space-y-4 opacity-75">
+          {/* Card & Surfaces */}
+          <Link
+            href="/design-system/surfaces"
+            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-primary/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
+          >
             <div className="space-y-2">
-              <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-muted text-muted-foreground">
-                <Layers className="size-4" />
-              </span>
-              <h2 className="text-xl font-semibold text-muted-foreground">Card & Surfaces</h2>
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
+                  <Layers className="size-4" strokeWidth={1.5} />
+                </span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
+                  <CheckCircle2 className="size-3" /> Production Ready
+                </span>
+              </div>
+              <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
+                Surfaces & Cards
+              </h2>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Flat elevation surfaces with subtle 1px border lines, dynamic token radii, and header/content/footer slots.
+                5 elevation layers (Canvas to Glass), CVA card variants (default, elevated, interactive, sunken, glass), and concentric radius math.
               </p>
             </div>
-            <span className="text-xs font-mono text-muted-foreground">Coming Next</span>
-          </div>
+            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-primary">
+              <span>Explore Surfaces</span>
+              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
 
           {/* Planned: Badge & Tag */}
           <div className="rounded-[var(--radius)] border border-dashed border-border bg-muted/20 p-6 flex flex-col justify-between space-y-4 opacity-75">

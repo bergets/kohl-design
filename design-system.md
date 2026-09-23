@@ -82,6 +82,31 @@
 
 ---
 
+### Surface & Elevation Architecture
+
+#### The 5 Elevation Layers
+1. **Level 0 · Canvas (`--background`):** Viewport background (`#ffffff` light, `#011d18` Pine dark, `#1a0709` Blush dark).
+2. **Level 1 · Surface / Card (`--card`):** Primary content containers, metric cards, deliverables.
+3. **Level 2 · Elevated Overlay (`--popover`):** Context menus, tooltips, flyout panels, sheets.
+4. **Level 3 · Recessed Well (`--muted` / `--secondary`):** Code blocks, terminal viewports, settings callout panels.
+5. **Level 4 · Frosted Glass (`bg-background/80 backdrop-blur-md`):** Sticky navigation bars, floating docks.
+
+#### Standard Card Component (`components/ui/card.tsx`)
+- **`variant="default"`:** Clean 1px border line for dense dashboards and settings.
+- **`variant="elevated"`:** Multi-layered transparent depth shadow for hero marketing moments.
+- **`variant="interactive"`:** Hover lift (`-translate-y-0.5`), border glow (`hover:border-primary/50`), and `active:scale-[0.995]` for clickable cards.
+- **`variant="sunken"`:** Muted background well for code viewports or nested containers.
+- **`variant="glass"`:** Translucent frosted surface with `backdrop-blur-md`.
+
+#### Concentric Corner Radius
+Outer and inner radii must remain optically concentric:
+```
+outerRadius = innerRadius + padding
+```
+In code, nested buttons consume `calc(var(--radius) - 2px)` while outer cards use `var(--radius)` (or `calc(var(--radius) + 4px)`), preserving geometric harmony across all presets (Pine 8px, Blush 14px, Sharp 2px).
+
+---
+
 ### Spatial System & Geometry
 - **Grid Base:** 4px
 - **Spacing Scale:**
