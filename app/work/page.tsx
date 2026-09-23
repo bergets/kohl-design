@@ -4,6 +4,7 @@ import { cooper } from "@/app/fonts";
 import { BrandFlower } from "@/components/BrandFlower";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ExploreSheet } from "@/components/ExploreSheet";
+import { Button } from "@/components/ui/button";
 import { ArrowUpRight, MapPin, Calendar, Briefcase, ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -175,15 +176,16 @@ export default function WorkPage() {
           </p>
 
           <div className="pt-2">
-            <a
-              href="https://linkedin.com/in/henrikkohl"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 h-9 px-4 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-white/70 dark:bg-black/30 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm text-xs font-medium text-pine-900 dark:text-[#FCD3D6] hover:text-primary dark:hover:text-white transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs"
-            >
-              <span>View Full Profile on LinkedIn</span>
-              <ArrowUpRight className="size-3.5" />
-            </a>
+            <Button asChild variant="outline" size="default">
+              <a
+                href="https://linkedin.com/in/henrikkohl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>View Full Profile on LinkedIn</span>
+                <ArrowUpRight className="size-3.5" />
+              </a>
+            </Button>
           </div>
         </div>
 
@@ -291,15 +293,16 @@ export default function WorkPage() {
             </p>
           </div>
 
-          <a
-            href="https://linkedin.com/in/henrikkohl"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-[var(--radius)] bg-pine-900 text-white hover:bg-pine-800 dark:bg-primary dark:text-white dark:hover:bg-primary/90 text-xs font-semibold tracking-wide transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
-          >
-            <span>Slide into my LinkedIn DMs</span>
-            <ArrowUpRight className="size-4" />
-          </a>
+          <Button asChild variant="default" size="lg" className="shrink-0">
+            <a
+              href="https://linkedin.com/in/henrikkohl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Slide into my LinkedIn DMs</span>
+              <ArrowUpRight className="size-4" />
+            </a>
+          </Button>
         </div>
       </div>
 
