@@ -75,14 +75,15 @@ export default function Home() {
     <div className="relative z-10 w-full min-h-dvh flex flex-col">
       {/* 
         ========================================================================
-        HERO SECTION (First Fold Arrival)
-        Takes full 100dvh. As the user finishes reading or reaches the bottom,
-        the first card peeks naturally from below the fold.
+        HERO SECTION
+        Takes min-h-dvh. As the typewriter finishes, the first work card
+        slides into view from below. When you scroll, it scrolls naturally as
+        part of the flow with all following cards!
         ========================================================================
       */}
-      <section className="h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-0 sm:pb-0 md:pb-0 lg:pb-0 relative overflow-hidden">
+      <section className="min-h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-12 sm:pb-16 relative">
         {/* Top Bar / Navigation */}
-        <header className="w-full flex items-center justify-between shrink-0">
+        <header className="w-full flex items-center justify-between">
           <Link
             href="/"
             className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
@@ -97,7 +98,7 @@ export default function Home() {
         </header>
 
         {/* Main Display Title */}
-        <div className="my-auto py-4 sm:py-8 w-full shrink-0">
+        <div className="my-auto py-10 sm:py-16 w-full">
           <h1
             className={`${cooper.className} text-[15vw] sm:text-[14vw] md:text-[13vw] lg:text-[140px] xl:text-[165px] leading-[0.82] font-normal tracking-tighter text-left text-pine-800 dark:text-crimson-100 transition-colors duration-300`}
           >
@@ -105,8 +106,8 @@ export default function Home() {
           </h1>
         </div>
 
-        {/* Bottom Dialogue Area */}
-        <div className="w-full shrink-0 mb-6 sm:mb-8">
+        {/* Bottom Dialogue */}
+        <div className="w-full">
           <TypewriterText
             lines={[
               {
@@ -141,98 +142,77 @@ export default function Home() {
             onSequenceComplete={() => setTypewriterDone(true)}
           />
         </div>
-
-        {/* 
-          NATURAL PEEK OF THE FIRST CARD (Viktor Hofte Vibe)
-          Positioned right at the bottom edge of the 100dvh viewport.
-          Only the top 60-70px of the actual first card is visible above the bottom edge.
-          Animates in with a gentle spring up once the typewriter finishes typing.
-        */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{
-            type: "spring",
-            damping: 24,
-            stiffness: 140,
-            mass: 0.8,
-          }}
-          className="w-full max-w-7xl mx-auto shrink-0 -mb-[260px] sm:-mb-[220px] pointer-events-auto"
-        >
-          <Link
-            href="/work"
-            className="group block w-full p-6 sm:p-8 md:p-10 rounded-t-3xl border-t border-x border-border/80 dark:border-[#3B7D6F]/60 bg-white/90 dark:bg-[#021E19]/95 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-md transition-all duration-300 shadow-lg hover:shadow-2xl"
-          >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="space-y-2.5 max-w-3xl">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-primary dark:text-[#A8E3D2] font-semibold">
-                    01
-                  </span>
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                    CAREER & LEADERSHIP
-                  </span>
-                  <span className="ml-auto md:hidden text-[11px] font-mono text-muted-foreground/80 flex items-center gap-1">
-                    Scroll to explore ↓
-                  </span>
-                </div>
-
-                <h2 className={`${cooper.className} text-2xl sm:text-3xl md:text-4xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
-                  Quinyx
-                </h2>
-
-                <p className="text-sm sm:text-base font-medium text-foreground/90 dark:text-[#FCD3D6]">
-                  Product Area Design Lead (UX/UI)
-                </p>
-
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2 md:line-clamp-none">
-                  AI-powered frontline workforce management SaaS serving global enterprise organizations. Leading design direction, UX strategy, complex operational workflows & design systems.
-                </p>
-              </div>
-
-              <div className="self-start md:self-center shrink-0">
-                <span className="inline-flex items-center gap-2 h-10 px-4 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-background/80 group-hover:bg-primary/10 group-hover:border-primary/40 text-xs sm:text-sm font-medium text-foreground group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-all">
-                  <span>Explore Quinyx</span>
-                  <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
-              </div>
-            </div>
-          </Link>
-        </motion.div>
       </section>
 
       {/* 
         ========================================================================
-        SCROLLABLE WORK & DESTINATIONS LIST
-        Begins smoothly below the fold. The first card (Quinyx) is fully visible
-        here as the user scrolls down, followed by all remaining cards.
+        WORK & DESTINATIONS LIST
+        Single continuous flow. The first card (Quinyx) slides in smoothly after
+        the typewriter text is typed. Scrolling down moves through the cards naturally.
         ========================================================================
       */}
-      <section
-        id="featured-work"
-        className="w-full px-6 sm:px-8 md:px-12 lg:px-14 py-12 sm:py-16 space-y-8 sm:space-y-12 max-w-7xl mx-auto"
-      >
-        {/* Section Divider Bar */}
-        <div className="flex items-center justify-between pb-4 border-b border-border/70 dark:border-[#3B7D6F]/40 text-xs font-mono text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <span className="text-primary dark:text-[#A8E3D2] font-semibold">SELECTED WORK & DESTINATIONS</span>
-            <span>↓</span>
-          </div>
-          <span className="hidden sm:inline">5 DESTINATIONS</span>
-        </div>
+      <section className="w-full px-6 sm:px-8 md:px-12 lg:px-14 pb-16 sm:pb-24 space-y-4 sm:space-y-6 max-w-7xl mx-auto">
+        {FEATURED_ITEMS.map((item, index) => {
+          if (index === 0) {
+            return (
+              <motion.div
+                key={item.href}
+                initial={{ opacity: 0, y: 36 }}
+                animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+                transition={{
+                  type: "spring",
+                  damping: 24,
+                  stiffness: 120,
+                  mass: 0.9,
+                }}
+              >
+                <Link
+                  href={item.href}
+                  className="group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/70 dark:bg-[#021E19]/80 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-sm transition-all duration-300 shadow-2xs hover:shadow-md"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-2.5 max-w-3xl">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-mono text-primary dark:text-[#A8E3D2] font-semibold">
+                          {item.num}
+                        </span>
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                          {item.tag}
+                        </span>
+                      </div>
 
-        {/* Full-width Editorial Cards List */}
-        <div className="space-y-4 sm:space-y-6">
-          {FEATURED_ITEMS.map((item, index) => (
+                      <h2 className={`${cooper.className} text-2xl sm:text-3xl md:text-4xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
+                        {item.title}
+                      </h2>
+
+                      <p className="text-sm sm:text-base font-medium text-foreground/90 dark:text-[#FCD3D6]">
+                        {item.role}
+                      </p>
+
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+
+                    <div className="self-start md:self-center shrink-0">
+                      <span className="inline-flex items-center gap-2 h-10 px-4 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-background/80 group-hover:bg-primary/10 group-hover:border-primary/40 text-xs sm:text-sm font-medium text-foreground group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-all">
+                        <span>Explore {item.title}</span>
+                        <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          }
+
+          return (
             <Link
               key={item.href}
               href={item.href}
-              className={`group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/70 dark:bg-[#021E19]/80 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-sm transition-all duration-300 shadow-2xs hover:shadow-md ${
-                index === 0 ? "border-primary/30 dark:border-[#3B7D6F]/70" : ""
-              }`}
+              className="group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/70 dark:bg-[#021E19]/80 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-sm transition-all duration-300 shadow-2xs hover:shadow-md"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                {/* Left Meta & Content */}
                 <div className="space-y-2.5 max-w-3xl">
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono text-primary dark:text-[#A8E3D2] font-semibold">
@@ -256,7 +236,6 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* Right Action Button Pill */}
                 <div className="self-start md:self-center shrink-0">
                   <span className="inline-flex items-center gap-2 h-10 px-4 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-background/80 group-hover:bg-primary/10 group-hover:border-primary/40 text-xs sm:text-sm font-medium text-foreground group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-all">
                     <span>Explore {item.title}</span>
@@ -265,8 +244,8 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-          ))}
-        </div>
+          );
+        })}
 
         {/* Bottom Colophon & Direct Links */}
         <footer className="pt-8 sm:pt-12 border-t border-border/70 dark:border-[#3B7D6F]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs">
