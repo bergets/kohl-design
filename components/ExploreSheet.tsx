@@ -8,7 +8,6 @@ import { X, ArrowUpRight, Compass } from "lucide-react";
 import { cooper } from "@/app/fonts";
 
 interface NavDestination {
-  num: string;
   name: string;
   href: string;
   sub: string;
@@ -17,32 +16,27 @@ interface NavDestination {
 
 const DESTINATIONS: NavDestination[] = [
   {
-    num: "01",
     name: "Work",
     href: "/work",
     sub: "Selected craft, commercial engineering & CV",
   },
   {
-    num: "02",
     name: "Side Projects",
     href: "/projects",
     sub: "Experiments, tools & design system",
   },
   {
-    num: "03",
     name: "Skills",
     href: "/skills",
     sub: "Favourite LLM prompts & design engineering skills",
     live: true,
   },
   {
-    num: "04",
     name: "Notes",
     href: "/notes",
     sub: "Writing, design observations & micro-essays",
   },
   {
-    num: "05",
     name: "About",
     href: "/about",
     sub: "Bio, design ethos & colophon",
@@ -105,9 +99,6 @@ export function ExploreSheet() {
         <span className="text-sm font-medium text-pine-900 dark:text-[#FCD3D6] group-hover:text-primary dark:group-hover:text-white transition-colors">
           Explore
         </span>
-        <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded-full text-[10px] font-bold tracking-tight bg-pine-100/70 text-pine-800 dark:bg-[#A8E3D2]/15 dark:text-[#A8E3D2] transition-colors">
-          5
-        </span>
       </button>
 
       {/* Drawer Overlay & Content */}
@@ -139,14 +130,9 @@ export function ExploreSheet() {
             >
               {/* Header Row */}
               <div className="flex items-center justify-between pb-6 border-b border-pine-800/10 dark:border-[#3B7D6F]/30">
-                <div className="flex items-center gap-3">
-                  <span className={`${cooper.className} text-3xl font-normal text-pine-900 dark:text-[#FCD3D6]`}>
-                    Explore
-                  </span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-pine-50 text-pine-700 dark:bg-[#A8E3D2]/15 dark:text-[#A8E3D2]">
-                    5 Destinations
-                  </span>
-                </div>
+                <span className={`${cooper.className} text-3xl font-normal text-pine-900 dark:text-[#FCD3D6]`}>
+                  Explore
+                </span>
 
                 <button
                   type="button"
@@ -166,7 +152,7 @@ export function ExploreSheet() {
 
                   return (
                     <Link
-                      key={dest.num}
+                      key={dest.href}
                       href={dest.href}
                       className={`group block w-full p-4 rounded-[var(--radius)] border transition-all duration-200 ${
                         isActive
@@ -178,15 +164,6 @@ export function ExploreSheet() {
                     >
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-3">
-                          <span
-                            className={`text-xs font-mono font-medium ${
-                              dest.live
-                                ? "text-primary dark:text-[#A8E3D2]"
-                                : "text-muted-foreground group-hover:text-foreground"
-                            }`}
-                          >
-                            {dest.num}
-                          </span>
                           <span
                             className={`${cooper.className} text-2xl font-normal tracking-tight transition-colors ${
                               isActive
@@ -214,7 +191,7 @@ export function ExploreSheet() {
                         />
                       </div>
 
-                      <p className="text-xs text-muted-foreground dark:text-neutral-400 pl-7 line-clamp-1">
+                      <p className="text-xs text-muted-foreground dark:text-neutral-400 line-clamp-1">
                         {dest.sub}
                       </p>
                     </Link>
