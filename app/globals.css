@@ -286,6 +286,14 @@
   background-color: hsla(356, 86%, 88%, 0.65);
 }
 
+/* Detached Explore Sheet Panel in Blush Light Mode */
+[data-theme-variant="blush"] .explore-sheet-panel,
+.theme-blush .explore-sheet-panel {
+  background-color: hsla(356, 89%, 98%, 0.96);
+  border-color: hsla(355, 40%, 88%, 0.9);
+  box-shadow: 0 20px 50px -10px rgba(29, 7, 10, 0.12), 0 0 0 1px hsla(355, 40%, 88%, 0.6);
+}
+
 .dark[data-theme-variant="blush"],
 .dark [data-theme-variant="blush"],
 .dark .theme-blush,
@@ -382,6 +390,17 @@
 .dark [data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:active,
 .dark .theme-blush [data-slot="button"][data-variant="editorial"]:active {
   background-color: hsla(352, 22%, 18%, 0.6);
+}
+
+/* Detached Explore Sheet Panel in Blush Dark Mode */
+.dark[data-theme-variant="blush"] .explore-sheet-panel,
+.dark [data-theme-variant="blush"] .explore-sheet-panel,
+.dark .theme-blush .explore-sheet-panel,
+[data-theme-variant="blush"] .dark .explore-sheet-panel,
+.theme-blush .dark .explore-sheet-panel {
+  background-color: hsla(352, 45%, 9%, 0.96); /* Deep Night Berry #210c10 */
+  border-color: hsla(352, 20%, 26%, 0.85); /* Deep Berry #503539 */
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px hsla(356, 86%, 85%, 0.15);
 }
 
 /* Standard Inline Text Link */
