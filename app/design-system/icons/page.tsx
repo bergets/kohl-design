@@ -460,7 +460,7 @@ export default function IconsShowcasePage() {
                 setSearchQuery("");
                 setSelectedCategory("All");
               }}
-              className="text-xs text-primary hover:underline"
+              className="text-xs text-link hover:underline"
             >
               Clear search and filters
             </button>
@@ -482,7 +482,7 @@ export default function IconsShowcasePage() {
             {/* Pattern 1: <Icon icon={...} /> */}
             <div className="space-y-3">
               <div className="space-y-1">
-                <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                <span className="text-xs font-semibold text-accent uppercase tracking-wider">
                   Pattern 1 (Recommended)
                 </span>
                 <h3 className="text-sm font-semibold text-foreground">
@@ -508,7 +508,7 @@ import { ArrowRight, Sparkles } from "lucide-react"
             {/* Pattern 2: Direct Lucide */}
             <div className="space-y-3">
               <div className="space-y-1">
-                <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                <span className="text-xs font-semibold text-accent uppercase tracking-wider">
                   Pattern 2
                 </span>
                 <h3 className="text-sm font-semibold text-foreground">

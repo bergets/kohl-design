@@ -145,7 +145,7 @@ export default function ButtonShowcasePage() {
             Button Component
           </h1>
           <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, dynamic <code className="font-mono text-xs font-semibold text-primary">var(--radius)</code> corner radii, tactile click micro-animations, and integrated loading states.
+            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, dynamic <code className="font-mono text-xs font-semibold text-accent">var(--radius)</code> corner radii, tactile click micro-animations, and integrated loading states.
           </p>
 
           {/* Interactive Global & Theme Toolbar */}
@@ -153,7 +153,7 @@ export default function ButtonShowcasePage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-[var(--radius)] border border-border bg-card/70 backdrop-blur-xs shadow-xs">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="size-4 text-primary" />
+                  <Sparkles className="size-4 text-accent" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
                     Project Preset Switcher
                   </span>
@@ -222,7 +222,8 @@ export default function ButtonShowcasePage() {
                 <button
                   type="button"
                   onClick={() => setActivePreset("default")}
-                  className="text-xs text-primary font-medium hover:underline cursor-pointer shrink-0 ml-4"
+                  className="text-xs font-medium hover:underline cursor-pointer shrink-0 ml-4"
+                  style={{ color: "var(--link)" }}
                 >
                   Reset to Pine Base
                 </button>
@@ -245,8 +246,11 @@ export default function ButtonShowcasePage() {
             <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                    Primary Pine
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: activePreset === "blush" ? "var(--accent)" : "var(--primary)" }}
+                  >
+                    {activePreset === "blush" ? "Primary Blush" : "Primary Pine"}
                   </span>
                   <code className="text-[11px] font-mono text-muted-foreground">variant="default"</code>
                 </div>
@@ -398,7 +402,10 @@ export default function ButtonShowcasePage() {
             <div className="rounded-[var(--radius)] border border-border bg-card p-5 space-y-4 flex flex-col justify-between shadow-xs">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                  <span
+                    className="text-xs font-semibold uppercase tracking-wider"
+                    style={{ color: "var(--link)" }}
+                  >
                     Inline Link
                   </span>
                   <code className="text-[11px] font-mono text-muted-foreground">variant="link"</code>
@@ -606,7 +613,7 @@ export default function ButtonShowcasePage() {
             {/* Utility Slate Register */}
             <div className="rounded-[var(--radius)] bg-[#ffffff] dark:bg-card border border-[#d4d4d4] dark:border-border p-8 space-y-6">
               <div className="space-y-2">
-                <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                <span className="text-xs font-semibold uppercase tracking-widest text-accent">
                   Register B · Neutral Utility
                 </span>
                 <h3 className="text-2xl font-bold text-foreground">
@@ -801,7 +808,7 @@ export default function ButtonShowcasePage() {
               <div>
                 <h3 className="text-sm font-semibold text-foreground">
                   CSS Tokens for Active Preset:{" "}
-                  <span className="text-primary font-mono">{activePreset}</span>
+                  <span className="text-accent font-mono">{activePreset}</span>
                 </h3>
                 <p className="text-xs text-muted-foreground">
                   Drop this block into <code className="font-mono">app/globals.css</code> of your other personal project:
@@ -813,12 +820,12 @@ export default function ButtonShowcasePage() {
                 onClick={() => {
                   const cssSnippet =
                     activePreset === "blush"
-                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir #1d070a */\n  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson #8a2e36 */\n  --accent-foreground: #ffffff;\n  --foreground: hsla(352, 60%, 7%, 1); /* Deep wine noir typography */\n  /* Light mode petal wash surfaces */\n  --secondary: hsla(356, 60%, 96%, 1);\n  --secondary-foreground: hsla(352, 60%, 7%, 1);\n  --muted: hsla(356, 60%, 96%, 1);\n  --muted-foreground: hsla(354, 25%, 45%, 1);\n  --border: hsla(355, 40%, 88%, 1);\n  --sidebar: hsla(356, 89%, 96%, 1);\n}\n\n.dark {\n  /* Dark mode: Velvety Midnight Berry & Plum surfaces */\n  --background: hsla(352, 55%, 6.5%, 1); /* Canvas #1a0709 */\n  --foreground: hsla(356, 86%, 96%, 1); /* Petal white #feeced */\n  --card: hsla(352, 42%, 11%, 1); /* Deep plum card #281013 */\n  --card-foreground: hsla(356, 86%, 96%, 1);\n  --popover: hsla(352, 42%, 11%, 1);\n  --popover-foreground: hsla(356, 86%, 96%, 1);\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(352, 60%, 7%, 1);\n  --secondary: hsla(352, 22%, 18%, 1); /* Dusty mauve/berry #382426 */\n  --secondary-foreground: hsla(356, 86%, 96%, 1);\n  --muted: hsla(352, 22%, 18%, 1);\n  --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */\n  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */\n  --accent-foreground: hsla(352, 60%, 7%, 1);\n  --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */\n  --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */\n}`
+                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir #1d070a */\n  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson #8a2e36 */\n  --accent-foreground: #ffffff;\n  --foreground: hsla(352, 60%, 7%, 1); /* Deep wine noir typography */\n  --link: hsla(354, 60%, 32%, 1); /* Deep crimson link #822129 (10:1 AAA) */\n  --link-hover: hsla(352, 100%, 13%, 1); /* Deep wine #420006 */\n  /* Light mode petal wash surfaces */\n  --secondary: hsla(356, 60%, 96%, 1);\n  --secondary-foreground: hsla(352, 60%, 7%, 1);\n  --muted: hsla(356, 60%, 96%, 1);\n  --muted-foreground: hsla(354, 25%, 45%, 1);\n  --border: hsla(355, 40%, 88%, 1);\n  --sidebar: hsla(356, 89%, 96%, 1);\n}\n\n.dark {\n  /* Dark mode: Velvety Midnight Berry & Plum surfaces */\n  --background: hsla(352, 55%, 6.5%, 1); /* Canvas #1a0709 */\n  --foreground: hsla(356, 86%, 96%, 1); /* Petal white #feeced */\n  --card: hsla(352, 42%, 11%, 1); /* Deep plum card #281013 */\n  --card-foreground: hsla(356, 86%, 96%, 1);\n  --popover: hsla(352, 42%, 11%, 1);\n  --popover-foreground: hsla(356, 86%, 96%, 1);\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(352, 60%, 7%, 1);\n  --secondary: hsla(352, 22%, 18%, 1); /* Dusty mauve/berry #382426 */\n  --secondary-foreground: hsla(356, 86%, 96%, 1);\n  --muted: hsla(352, 22%, 18%, 1);\n  --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */\n  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */\n  --accent-foreground: hsla(352, 60%, 7%, 1);\n  --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */\n  --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */\n  --link: hsla(356, 86%, 85%, 1); /* Luminous rose link #fcd3d6 (11.5:1 AAA) */\n  --link-hover: hsla(356, 90%, 94%, 1);\n}`
                       : activePreset === "sharp"
                       ? `:root {\n  --radius: 2px; /* Razor-sharp technical corners */\n}`
                       : activePreset === "round"
                       ? `:root {\n  --radius: 1.125rem; /* 18px pebble curves */\n}`
-                      : `:root {\n  --radius: 0.5rem; /* 8px signature pebble */\n  --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */\n  --primary-hover: hsla(170, 90%, 11%, 1);\n  --accent: hsla(354, 34%, 43%, 1); /* Crimson */\n}`;
+                      : `:root {\n  --radius: 0.5rem; /* 8px signature pebble */\n  --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */\n  --primary-hover: hsla(170, 90%, 11%, 1);\n  --accent: hsla(354, 34%, 43%, 1); /* Crimson */\n  --link: hsla(170, 100%, 16%, 1);\n  --link-hover: hsla(170, 90%, 11%, 1);\n}`;
                   copyToClipboard(cssSnippet, "preset-css");
                 }}
                 className="gap-1.5 self-start sm:self-auto"

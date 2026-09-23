@@ -25,7 +25,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 active:bg-destructive/80",
         link:
-          "text-primary underline-offset-4 hover:underline p-0 h-auto font-medium active:scale-100 shadow-none",
+          "text-[var(--link,var(--primary))] hover:text-[var(--link-hover,var(--primary-hover))] underline-offset-4 hover:underline decoration-[var(--link-decoration,currentColor)] p-0 h-auto font-medium active:scale-100 shadow-none",
       },
       size: {
         default: "h-8 px-4 text-sm gap-2 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-3.5",

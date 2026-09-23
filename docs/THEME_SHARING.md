@@ -15,6 +15,7 @@ The design system is engineered around **Semantic CSS Token Abstraction** using 
 | `--primary` | Pine `#005243` | Cashmere Blush `#FBC8CB` | Pine `#005243` | Pine `#005243` | Main CTA and primary brand moment |
 | `--primary-hover` | Pine Dark `#03332a` | Silky Rose `#F8A8B0` | Pine Dark `#03332a` | Pine Dark `#03332a` | Primary button hover state |
 | `--accent` | Crimson `#94464f` | Crimson `#8a2e36` / Rose | Crimson `#94464f` | Crimson `#94464f` | Secondary highlight hue |
+| `--link` | Pine 600 `#005243` | Deep Crimson `#822129` | Pine 600 `#005243` | Pine 600 `#005243` | High-contrast inline link & text ink (WCAG AAA > 7:1) |
 | Surfaces | Midnight Forest Green | Midnight Berry Scale (Zero Pine) | Midnight Forest Green | Midnight Forest Green | Background, card, popover, and border scale |
 
 ### Dynamic Derived Radii Scale
@@ -77,6 +78,8 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
   --accent: hsla(354, 50%, 36%, 1); /* Signature Crimson */
   --accent-foreground: #ffffff;
   --foreground: hsla(352, 60%, 7%, 1); /* Deep Wine Typography */
+  --link: hsla(354, 60%, 32%, 1); /* Deep Crimson Link (10:1 AAA contrast) */
+  --link-hover: hsla(352, 100%, 13%, 1); /* Deep Wine */
 
   /* Surfaces in Blush Light Mode: Delicate Petal Wash */
   --secondary: hsla(356, 60%, 96%, 1);
@@ -107,6 +110,8 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
 
   --accent: hsla(355, 73%, 79%, 1); /* Luminous Rose Secondary */
   --accent-foreground: hsla(352, 60%, 7%, 1);
+  --link: hsla(356, 86%, 85%, 1); /* Luminous Rose Link (11.5:1 AAA) */
+  --link-hover: hsla(356, 90%, 94%, 1);
 
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry sidebar #210c10 */
@@ -117,6 +122,15 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
   background-color: hsla(356, 89%, 96%, 0.35);
   color: hsla(352, 70%, 22%, 1); /* Deep wine #601119 */
   border: 1px solid hsla(355, 47%, 68%, 0.75); /* Crisp rose border #dc858b */
+}
+
+/* Link Button Override: High-contrast Deep Crimson (10:1 AAA) */
+[data-theme-variant="blush"] [data-slot="button"][data-variant="link"] {
+  color: hsla(354, 60%, 32%, 1);
+  text-decoration-color: hsla(355, 47%, 68%, 0.8);
+}
+[data-theme-variant="blush"] [data-slot="button"][data-variant="link"]:hover {
+  color: hsla(352, 100%, 13%, 1);
 }
 ```
 

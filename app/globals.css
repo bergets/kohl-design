@@ -37,6 +37,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 4px);
@@ -117,6 +119,11 @@
   --input: hsla(0, 0%, 83%, 1);
   --ring: hsla(170, 100%, 16%, 1);
 
+  /* Link & Interactive Inks (Pine 600 - 7.5:1 AAA on white) */
+  --link: hsla(170, 100%, 16%, 1);
+  --link-hover: hsla(170, 90%, 11%, 1);
+  --link-decoration: hsla(170, 100%, 16%, 0.4);
+
   --chart-1: hsla(170, 100%, 16%, 1);
   --chart-2: hsla(354, 34%, 43%, 1);
   --chart-3: hsla(169, 54%, 27%, 1);
@@ -164,6 +171,11 @@
   --border: hsla(168, 11%, 26%, 1);
   --input: hsla(168, 11%, 26%, 1);
   --ring: hsla(170, 100%, 16%, 1);
+
+  /* Link & Interactive Inks (Mint 300 - 10:1 AAA on dark pine) */
+  --link: hsla(166, 50%, 75%, 1);
+  --link-hover: hsla(166, 60%, 88%, 1);
+  --link-decoration: hsla(166, 50%, 75%, 0.4);
 
   --chart-1: hsla(170, 100%, 16%, 1);
   --chart-2: hsla(354, 34%, 43%, 1);
@@ -228,12 +240,29 @@
   --sidebar-accent: hsla(356, 60%, 92%, 1);
   --sidebar-accent-foreground: hsla(352, 60%, 7%, 1);
   --sidebar-ring: hsla(356, 75%, 65%, 1);
+
+  /* Link & Interactive Inks in Blush Light Mode: Deep Crimson & Velvet Wine (10:1 AAA on white/card) */
+  --link: hsla(354, 60%, 32%, 1); /* Deep Crimson #822129 */
+  --link-hover: hsla(352, 100%, 13%, 1); /* Deep Wine #420006 */
+  --link-decoration: hsla(355, 47%, 68%, 0.8); /* Crisp Rose #dc858b */
 }
 
 [data-theme-variant="blush"] [data-slot="button"][data-variant="default"],
 .theme-blush [data-slot="button"][data-variant="default"] {
   border: 1px solid hsla(356, 70%, 80%, 0.8);
   box-shadow: 0 1px 2px rgba(29, 7, 10, 0.05), 0 3px 12px -2px rgba(251, 200, 203, 0.5);
+}
+
+/* Link Button in Blush Light Mode: High-contrast Crimson/Wine Ink (10:1 AAA) */
+[data-theme-variant="blush"] [data-slot="button"][data-variant="link"],
+.theme-blush [data-slot="button"][data-variant="link"] {
+  color: hsla(354, 60%, 32%, 1); /* Deep Crimson #822129 */
+  text-decoration-color: hsla(355, 47%, 68%, 0.8);
+}
+[data-theme-variant="blush"] [data-slot="button"][data-variant="link"]:hover,
+.theme-blush [data-slot="button"][data-variant="link"]:hover {
+  color: hsla(352, 100%, 13%, 1); /* Deep Wine #420006 */
+  text-decoration-color: currentColor;
 }
 
 /* Editorial button in Blush Light Mode: Deep Wine & Rose Outline (Bookplate Badge) */
@@ -298,6 +327,11 @@
   --sidebar-accent: hsla(352, 22%, 18%, 1);
   --sidebar-accent-foreground: hsla(356, 86%, 96%, 1);
   --sidebar-ring: hsla(356, 86%, 70%, 1);
+
+  /* Link & Interactive Inks in Blush Dark Mode: Luminous Rose & Cashmere White (11.5:1 AAA on midnight berry) */
+  --link: hsla(356, 86%, 85%, 1); /* Luminous Rose #fcd3d6 */
+  --link-hover: hsla(356, 90%, 94%, 1); /* Cashmere White #feeced */
+  --link-decoration: hsla(356, 86%, 85%, 0.4);
 }
 
 .dark[data-theme-variant="blush"] [data-slot="button"][data-variant="default"],
@@ -305,6 +339,25 @@
 .dark .theme-blush [data-slot="button"][data-variant="default"] {
   border: 1px solid hsla(356, 86%, 88%, 0.35);
   box-shadow: 0 0 16px -2px rgba(252, 211, 214, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Link Button in Blush Dark Mode: Luminous Rose Ink (11.5:1 AAA) */
+.dark[data-theme-variant="blush"] [data-slot="button"][data-variant="link"],
+.dark [data-theme-variant="blush"] [data-slot="button"][data-variant="link"],
+.dark .theme-blush [data-slot="button"][data-variant="link"],
+[data-theme-variant="blush"] .dark [data-slot="button"][data-variant="link"],
+.theme-blush .dark [data-slot="button"][data-variant="link"] {
+  color: hsla(356, 86%, 85%, 1); /* Luminous Rose #fcd3d6 */
+  text-decoration-color: hsla(356, 86%, 85%, 0.4);
+}
+
+.dark[data-theme-variant="blush"] [data-slot="button"][data-variant="link"]:hover,
+.dark [data-theme-variant="blush"] [data-slot="button"][data-variant="link"]:hover,
+.dark .theme-blush [data-slot="button"][data-variant="link"]:hover,
+[data-theme-variant="blush"] .dark [data-slot="button"][data-variant="link"]:hover,
+.theme-blush .dark [data-slot="button"][data-variant="link"]:hover {
+  color: hsla(356, 90%, 94%, 1);
+  text-decoration-color: currentColor;
 }
 
 /* Editorial button in Blush Dark Mode: Refined Luminous Outline */
@@ -329,6 +382,21 @@
 .dark [data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:active,
 .dark .theme-blush [data-slot="button"][data-variant="editorial"]:active {
   background-color: hsla(352, 22%, 18%, 0.6);
+}
+
+/* Standard Inline Text Link */
+.inline-link,
+a.inline-link {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--link-decoration);
+  transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
+}
+.inline-link:hover,
+a.inline-link:hover {
+  color: var(--link-hover);
+  text-decoration-color: currentColor;
 }
 
 /* Preset 2: Sharp Technical (Razor-sharp 2px corners) */

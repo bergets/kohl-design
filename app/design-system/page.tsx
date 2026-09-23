@@ -53,14 +53,14 @@ export default function DesignSystemIndexPage() {
                   <CheckCircle2 className="size-3" /> Production Ready
                 </span>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
+              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
                 Button
               </h2>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Brand variants (Pine, Crimson, Editorial, Outline, Ghost), tactile click feedback, loading states, and live project preset switcher.
               </p>
             </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-primary">
+            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
               <span>View Component & Presets</span>
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
             </div>
@@ -69,7 +69,7 @@ export default function DesignSystemIndexPage() {
           {/* Icons Card */}
           <Link
             href="/design-system/icons"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-primary/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
+            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -80,14 +80,14 @@ export default function DesignSystemIndexPage() {
                   <CheckCircle2 className="size-3" /> Production Ready
                 </span>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
+              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
                 Icons (Lucide)
               </h2>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 Standardized Lucide icon system configured with a 1.5px stroke width and 20×20px optical size default, interactive gallery, and copyable snippets.
               </p>
             </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-primary">
+            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
               <span>Explore Icon Set</span>
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
             </div>
@@ -96,7 +96,7 @@ export default function DesignSystemIndexPage() {
           {/* Card & Surfaces */}
           <Link
             href="/design-system/surfaces"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-primary/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
+            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -107,14 +107,14 @@ export default function DesignSystemIndexPage() {
                   <CheckCircle2 className="size-3" /> Production Ready
                 </span>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
+              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
                 Surfaces & Cards
               </h2>
               <p className="text-xs text-muted-foreground leading-relaxed">
                 5 elevation layers (Canvas to Glass), CVA card variants (default, elevated, interactive, sunken, glass), and concentric radius math.
               </p>
             </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-primary">
+            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
               <span>Explore Surfaces</span>
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
             </div>
@@ -139,19 +139,19 @@ export default function DesignSystemIndexPage() {
         <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold flex items-center gap-2">
-              <Sparkles className="size-4 text-primary" />
+              <Sparkles className="size-4 text-accent" />
               Multi-Project Reuse & Personalities
             </h3>
             <Link
               href="/design-system/button"
-              className="text-xs text-primary font-medium hover:underline flex items-center gap-1"
+              className="text-xs text-link font-medium hover:underline flex items-center gap-1"
             >
               <span>Test Presets Live</span>
               <ArrowRight className="size-3" />
             </Link>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Need this design system for another side project? Simply override <code className="font-mono text-primary">--radius</code> and <code className="font-mono text-primary">--primary</code> in <code className="font-mono">app/globals.css</code>, or apply <code className="font-mono">data-theme-variant="blush" | "sharp" | "round"</code>. See <code className="font-mono text-foreground">docs/THEME_SHARING.md</code> for copy-paste setups and template instructions.
+            Need this design system for another side project? Simply override <code className="font-mono text-accent">--radius</code> and <code className="font-mono text-accent">--primary</code> in <code className="font-mono">app/globals.css</code>, or apply <code className="font-mono">data-theme-variant="blush" | "sharp" | "round"</code>. See <code className="font-mono text-foreground">docs/THEME_SHARING.md</code> for copy-paste setups and template instructions.
           </p>
         </div>
 

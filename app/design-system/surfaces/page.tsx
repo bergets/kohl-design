@@ -319,7 +319,7 @@ export default function SurfacesShowcasePage() {
             </div>
             <h2 className="text-2xl font-bold tracking-tight">2. Card Variants</h2>
             <p className="text-sm text-muted-foreground">
-              Production ready variants of <code className="font-mono text-primary">components/ui/card.tsx</code> conforming to the Emil Kowalski philosophy: <em>shadows for elevation, borders for structure</em>.
+              Production ready variants of <code className="font-mono text-accent">components/ui/card.tsx</code> conforming to the Emil Kowalski philosophy: <em>shadows for elevation, borders for structure</em>.
             </p>
           </div>
 
@@ -353,7 +353,7 @@ export default function SurfacesShowcasePage() {
             <Card variant="elevated">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                     Tactile Depth
                   </span>
                   <code className="text-[11px] font-mono text-muted-foreground">variant="elevated"</code>
@@ -369,7 +369,7 @@ export default function SurfacesShowcasePage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <span className="text-xs font-medium text-primary">Featured Moment</span>
+                <span className="text-xs font-medium text-accent">Featured Moment</span>
                 <Button size="sm">Primary CTA</Button>
               </CardFooter>
             </Card>
@@ -383,7 +383,7 @@ export default function SurfacesShowcasePage() {
                   </span>
                   <code className="text-[11px] font-mono text-muted-foreground">variant="interactive"</code>
                 </div>
-                <CardTitle className="group-hover:text-primary transition-colors">
+                <CardTitle className="group-hover:text-accent transition-colors">
                   Interactive Click Card
                 </CardTitle>
                 <CardDescription>
@@ -396,7 +396,7 @@ export default function SurfacesShowcasePage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <span className="text-xs font-semibold text-primary flex items-center gap-1">
+                <span className="text-xs font-semibold text-link flex items-center gap-1">
                   <span>Explore link</span>
                   <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -532,7 +532,7 @@ export default function SurfacesShowcasePage() {
             {/* Controls */}
             <div className="lg:col-span-5 rounded-[var(--radius)] border border-border bg-card p-6 space-y-5 shadow-xs">
               <h3 className="text-sm font-semibold flex items-center gap-2">
-                <Sparkles className="size-4 text-primary" />
+                <Sparkles className="size-4 text-accent" />
                 Configure Card
               </h3>
 
@@ -686,7 +686,7 @@ export default function SurfacesShowcasePage() {
             </div>
             <h2 className="text-2xl font-bold tracking-tight">5. Quick Start & Bundle Export</h2>
             <p className="text-sm text-muted-foreground">
-              How to import <code className="font-mono text-primary">Card</code> in your Next.js features or share it with other personal projects.
+              How to import <code className="font-mono text-accent">Card</code> in your Next.js features or share it with other personal projects.
             </p>
           </div>
 
