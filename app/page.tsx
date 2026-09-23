@@ -76,12 +76,11 @@ export default function Home() {
       {/* 
         ========================================================================
         HERO SECTION
-        Takes min-h-dvh. The dialogue sits comfortably above the bottom edge,
-        leaving natural space for the top of the first card to slide into view
-        at the bottom of the viewport.
+        Takes min-h-dvh so the dialogue has breathing room and will NEVER
+        be overlapped by the card below.
         ========================================================================
       */}
-      <section className="min-h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-20 sm:pb-28 md:pb-32 relative">
+      <section className="min-h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-12 sm:pb-16 relative">
         {/* Top Bar / Navigation */}
         <header className="w-full flex items-center justify-between">
           <Link
@@ -98,7 +97,7 @@ export default function Home() {
         </header>
 
         {/* Main Display Title */}
-        <div className="my-auto py-8 sm:py-12 w-full">
+        <div className="my-auto py-10 sm:py-16 w-full">
           <h1
             className={`${cooper.className} text-[15vw] sm:text-[14vw] md:text-[13vw] lg:text-[140px] xl:text-[165px] leading-[0.82] font-normal tracking-tighter text-left text-pine-800 dark:text-crimson-100 transition-colors duration-300`}
           >
@@ -147,29 +146,29 @@ export default function Home() {
       {/* 
         ========================================================================
         WORK & DESTINATIONS LIST
-        Continuous scrollable flow pulled up so the top of Card 01 naturally
-        sits in the bottom 90-110px of the viewport, sliding up visibly as soon
-        as the typewriter finishes.
+        Clean continuous flow starting directly beneath the hero fold.
+        Card 01 slides smoothly upwards (y: 28 → 0, subtle entrance) without
+        ever overlapping the typewriter text.
         ========================================================================
       */}
-      <section className="w-full px-6 sm:px-8 md:px-12 lg:px-14 pb-16 sm:pb-24 space-y-4 sm:space-y-6 max-w-7xl mx-auto -mt-16 sm:-mt-20 md:-mt-24">
+      <section className="w-full px-6 sm:px-8 md:px-12 lg:px-14 pb-16 sm:pb-24 space-y-4 sm:space-y-6 max-w-7xl mx-auto pt-4 sm:pt-6">
         {FEATURED_ITEMS.map((item, index) => {
           if (index === 0) {
             return (
               <motion.div
                 key={item.href}
-                initial={{ opacity: 0, y: 72 }}
-                animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 72 }}
+                initial={{ opacity: 0, y: 28 }}
+                animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
                 transition={{
                   type: "spring",
-                  damping: 22,
-                  stiffness: 110,
-                  mass: 0.9,
+                  damping: 24,
+                  stiffness: 130,
+                  mass: 0.8,
                 }}
               >
                 <Link
                   href={item.href}
-                  className="group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/80 dark:bg-[#021E19]/90 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-md transition-all duration-300 shadow-sm hover:shadow-md"
+                  className="group block w-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-border/80 dark:border-[#3B7D6F]/50 bg-white/70 dark:bg-[#021E19]/80 hover:bg-white dark:hover:bg-[#032821] hover:border-primary/50 dark:hover:border-[#3B7D6F] backdrop-blur-sm transition-all duration-300 shadow-2xs hover:shadow-md"
                 >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-2.5 max-w-3xl">
