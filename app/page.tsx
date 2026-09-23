@@ -104,11 +104,7 @@ export default function Home() {
               }`}
             />
           </Link>
-          <div
-            className={`flex items-center gap-3 transition-transform duration-300 origin-right ${
-              isScrolled ? "scale-95" : "scale-100"
-            }`}
-          >
+          <div className="flex items-center gap-3">
             <ExploreSheet />
             <ThemeToggle />
           </div>

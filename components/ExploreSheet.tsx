@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -44,7 +45,12 @@ const DESTINATIONS: NavDestination[] = [
 export function ExploreSheet() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Detect mobile viewport for directional detached animation
   React.useEffect(() => {
@@ -109,8 +115,10 @@ export function ExploreSheet() {
         </span>
       </button>
 
-      {/* Drawer Overlay & Detached Island Panel */}
-      <AnimatePresence>
+      {/* Drawer Overlay & Detached Island Panel (portaled to document.body) */}
+      {mounted && typeof document !== "undefined"
+        ? createPortal(
+            <AnimatePresence>
         {isOpen && (
           <div
             className="fixed inset-0 z-50 flex items-end sm:items-stretch sm:justify-end p-3 sm:p-5 lg:p-6 pointer-events-none"
@@ -230,7 +238,10 @@ export function ExploreSheet() {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+            document.body
+          )
+        : null}
     </>
   );
 }
