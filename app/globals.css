@@ -194,16 +194,22 @@
  * Activate with data-theme-variant="blush" | "sharp" | "round"
  * ----------------------------------------------------------- */
 
-/* Preset 1: Blush / Pink Dominant (Playful & Soft) */
+/* Preset 1: Blush / Cashmere Petal (Soft, Luminous & Editorial) */
 [data-theme-variant="blush"],
 .theme-blush {
   --radius: 0.875rem; /* 14px soft curve */
-  --primary: hsla(354, 80%, 54%, 1); /* Crimson pink */
-  --primary-foreground: #ffffff;
-  --primary-hover: hsla(354, 85%, 46%, 1);
-  --ring: hsla(354, 80%, 54%, 1);
-  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
-  --accent-foreground: hsla(168, 94%, 6%, 1);
+  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */
+  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */
+  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal #F8A8B0 */
+  --ring: hsla(356, 75%, 75%, 1);
+  --accent: hsla(170, 100%, 16%, 1); /* Forest pine secondary */
+  --accent-foreground: #ffffff;
+}
+
+[data-theme-variant="blush"] [data-slot="button"][data-variant="default"],
+.theme-blush [data-slot="button"][data-variant="default"] {
+  border: 1px solid hsla(356, 70%, 80%, 0.8);
+  box-shadow: 0 1px 2px rgba(0, 32, 26, 0.04), 0 3px 12px -2px rgba(251, 200, 203, 0.5);
 }
 
 .dark[data-theme-variant="blush"],
@@ -211,12 +217,19 @@
 .dark .theme-blush,
 [data-theme-variant="blush"] .dark,
 .theme-blush .dark {
-  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */
-  --primary-foreground: hsla(168, 94%, 6%, 1);
-  --primary-hover: hsla(356, 86%, 78%, 1);
+  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */
+  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */
+  --primary-hover: hsla(356, 90%, 94%, 1);
   --ring: hsla(356, 86%, 70%, 1);
-  --accent: hsla(164, 48%, 77%, 1);
+  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
   --accent-foreground: hsla(168, 94%, 6%, 1);
+}
+
+.dark[data-theme-variant="blush"] [data-slot="button"][data-variant="default"],
+.dark [data-theme-variant="blush"] [data-slot="button"][data-variant="default"],
+.dark .theme-blush [data-slot="button"][data-variant="default"] {
+  border: 1px solid hsla(356, 86%, 88%, 0.35);
+  box-shadow: 0 0 16px -2px rgba(252, 211, 214, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Preset 2: Sharp Technical (Razor-sharp 2px corners) */

@@ -41,9 +41,9 @@ const PRESET_OPTIONS: {
   {
     id: "blush",
     label: "Blush Brand",
-    badge: "14px • Pink",
-    dotClass: "bg-[#eb2a4b]",
-    description: "Crimson pink dominant primary button with mint accent and soft 14px curvature.",
+    badge: "14px • Soft Pink",
+    dotClass: "bg-[#FCD3D6] border border-[#f2aab2]",
+    description: "Luminous cashmere blush button with deep pine typography, petal border glow, and 14px curvature.",
   },
   {
     id: "sharp",
@@ -811,7 +811,7 @@ export default function ButtonShowcasePage() {
                 onClick={() => {
                   const cssSnippet =
                     activePreset === "blush"
-                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(354, 80%, 54%, 1); /* Crimson pink brand */\n  --primary-hover: hsla(354, 85%, 46%, 1);\n  --primary-foreground: #ffffff;\n  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */\n  --accent-foreground: hsla(168, 94%, 6%, 1);\n}\n\n.dark {\n  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */\n  --primary-hover: hsla(356, 86%, 78%, 1);\n  --primary-foreground: hsla(168, 94%, 6%, 1);\n  --accent: hsla(164, 48%, 77%, 1);\n  --accent-foreground: hsla(168, 94%, 6%, 1);\n}`
+                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */\n  --accent: hsla(170, 100%, 16%, 1); /* Pine secondary */\n  --accent-foreground: #ffffff;\n}\n\n.dark {\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(168, 94%, 6%, 1);\n  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */\n  --accent-foreground: hsla(168, 94%, 6%, 1);\n}`
                       : activePreset === "sharp"
                       ? `:root {\n  --radius: 2px; /* Razor-sharp technical corners */\n}`
                       : activePreset === "round"
@@ -837,21 +837,21 @@ export default function ButtonShowcasePage() {
 
             <pre className="rounded-[var(--radius-sm)] bg-neutral-900 dark:bg-black p-4 text-xs font-mono text-neutral-100 overflow-x-auto leading-relaxed">
               {activePreset === "blush" &&
-`/* Blush Project Variant: Crimson Pink dominant + 14px soft curvature */
+`/* Blush Project Variant: Cashmere Blush dominant + 14px soft curvature */
 :root {
   --radius: 0.875rem; /* 14px soft curve */
-  --primary: hsla(354, 80%, 54%, 1); /* Crimson pink brand */
-  --primary-hover: hsla(354, 85%, 46%, 1);
-  --primary-foreground: #ffffff;
-  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
-  --accent-foreground: hsla(168, 94%, 6%, 1);
+  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */
+  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */
+  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */
+  --accent: hsla(170, 100%, 16%, 1); /* Forest pine secondary */
+  --accent-foreground: #ffffff;
 }
 
 .dark {
-  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */
-  --primary-hover: hsla(356, 86%, 78%, 1);
+  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */
+  --primary-hover: hsla(356, 90%, 94%, 1);
   --primary-foreground: hsla(168, 94%, 6%, 1);
-  --accent: hsla(164, 48%, 77%, 1);
+  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
   --accent-foreground: hsla(168, 94%, 6%, 1);
 }`}
               {activePreset === "sharp" &&

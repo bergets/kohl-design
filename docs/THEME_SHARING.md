@@ -69,18 +69,18 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
 ```css
 :root {
   --radius: 0.875rem; /* 14px soft organic curve */
-  --primary: hsla(354, 80%, 54%, 1); /* Vibrant Crimson Pink */
-  --primary-hover: hsla(354, 85%, 46%, 1);
-  --primary-foreground: #ffffff;
-  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
-  --accent-foreground: hsla(168, 94%, 6%, 1);
+  --primary: hsla(356, 86%, 89%, 1); /* Cashmere Blush #FBC8CB */
+  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky Rose Petal */
+  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep Pine Ink #011D18 */
+  --accent: hsla(170, 100%, 16%, 1); /* Forest pine secondary */
+  --accent-foreground: #ffffff;
 }
 
 .dark {
-  --primary: hsla(356, 86%, 70%, 1); /* Luminous blush coral */
-  --primary-hover: hsla(356, 86%, 78%, 1);
+  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */
+  --primary-hover: hsla(356, 90%, 94%, 1);
   --primary-foreground: hsla(168, 94%, 6%, 1);
-  --accent: hsla(164, 48%, 77%, 1);
+  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
   --accent-foreground: hsla(168, 94%, 6%, 1);
 }
 ```
