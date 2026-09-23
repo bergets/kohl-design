@@ -11,7 +11,6 @@ interface NavDestination {
   name: string;
   href: string;
   sub: string;
-  live?: boolean;
 }
 
 const DESTINATIONS: NavDestination[] = [
@@ -29,7 +28,6 @@ const DESTINATIONS: NavDestination[] = [
     name: "Skills",
     href: "/skills",
     sub: "Favourite LLM prompts & design engineering skills",
-    live: true,
   },
   {
     name: "Notes",
@@ -157,37 +155,22 @@ export function ExploreSheet() {
                       className={`group block w-full p-4 rounded-[var(--radius)] border transition-all duration-200 ${
                         isActive
                           ? "bg-pine-50/80 dark:bg-[#A8E3D2]/10 border-primary/40 dark:border-[#A8E3D2]/40 shadow-2xs"
-                          : dest.live
-                          ? "bg-pine-50/40 dark:bg-white/[0.03] border-pine-200/60 dark:border-[#3B7D6F]/30 hover:border-primary/50 dark:hover:border-[#A8E3D2]/50 hover:bg-pine-50 dark:hover:bg-white/[0.06]"
                           : "border-transparent hover:bg-pine-50/50 dark:hover:bg-white/[0.04] hover:border-border/60 dark:hover:border-[#3B7D6F]/20"
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-3">
-                          <span
-                            className={`${cooper.className} text-2xl font-normal tracking-tight transition-colors ${
-                              isActive
-                                ? "text-primary dark:text-[#FCD3D6]"
-                                : dest.live
-                                ? "text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#A8E3D2]"
-                                : "text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6]"
-                            }`}
-                          >
-                            {dest.name}
-                          </span>
-                          {dest.live && (
-                            <span className="px-1.5 py-0.5 rounded-[4px] text-[9px] font-bold tracking-wider uppercase bg-accent text-white dark:bg-crimson-500 shadow-2xs">
-                              Live
-                            </span>
-                          )}
-                        </div>
+                        <span
+                          className={`${cooper.className} text-2xl font-normal tracking-tight transition-colors ${
+                            isActive
+                              ? "text-primary dark:text-[#FCD3D6]"
+                              : "text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6]"
+                          }`}
+                        >
+                          {dest.name}
+                        </span>
 
                         <ArrowUpRight
-                          className={`size-4 transition-all duration-200 ${
-                            dest.live
-                              ? "text-primary dark:text-[#A8E3D2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                              : "text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                          }`}
+                          className="size-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200"
                         />
                       </div>
 
