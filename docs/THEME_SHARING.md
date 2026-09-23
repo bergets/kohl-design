@@ -44,11 +44,12 @@ In `app/globals.css`, child sizes scale proportionally from the single `--radius
    Or adjust the 3 root variables in `app/globals.css`.
 
 ### Method B: Copy-Paste Design Bundle (Zero overhead for existing apps)
-Copy just 4 files into any Next.js 15+ / Tailwind v4 project:
+Copy these core files into any Next.js 15+ / Tailwind v4 project:
 1. `components/ui/button.tsx` — Button component with CVA and tactile micro-press.
-2. `components/theme-toggle.tsx` — Minimalist dual-register theme toggle.
-3. `lib/utils.ts` — `cn()` helper combining `clsx` and `tailwind-merge`.
-4. The CSS tokens block from `app/globals.css` into your new project's `globals.css`.
+2. `components/ui/icon.tsx` — Standardized Lucide icon component with default 20px size and 1.5px stroke width.
+3. `components/theme-toggle.tsx` — Minimalist dual-register theme toggle.
+4. `lib/utils.ts` — `cn()` helper combining `clsx` and `tailwind-merge`.
+5. The CSS tokens block from `app/globals.css` into your new project's `globals.css`.
 
 ### Method C: Remote Shadcn Registry (Modern standard)
 If you build several micro-tools, you can serve your components as a Shadcn registry:
