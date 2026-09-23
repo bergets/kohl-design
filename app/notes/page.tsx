@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cooper } from "@/app/fonts";
-import { BrandFlower } from "@/components/BrandFlower";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { ExploreSheet } from "@/components/ExploreSheet";
+import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -34,21 +32,9 @@ const NOTES = [
 
 export default function NotesPage() {
   return (
-    <main className="min-h-dvh flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 relative z-10">
-      {/* Top Bar / Navigation */}
-      <header className="w-full flex items-center justify-between">
-        <Link
-          href="/"
-          className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
-          aria-label="kohl.design home"
-        >
-          <BrandFlower className="size-11 sm:size-12 md:size-14 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
-        </Link>
-        <div className="flex items-center gap-3">
-          <ExploreSheet />
-          <ThemeToggle />
-        </div>
-      </header>
+    <div className="min-h-dvh flex flex-col justify-between relative z-10">
+      <SiteHeader />
+      <main className="flex-1 w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-6 sm:pb-8 md:pb-12 lg:pb-14">
 
       {/* Main Content Area */}
       <div className="my-auto py-10 sm:py-16 w-full max-w-4xl space-y-8 sm:space-y-12">
@@ -93,6 +79,7 @@ export default function NotesPage() {
       <footer className="w-full pt-6 text-xs text-pine-600/70 dark:text-pine-400/50">
         <span>kohl.design · 2026</span>
       </footer>
-    </main>
+      </main>
+    </div>
   );
 }
