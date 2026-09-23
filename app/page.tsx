@@ -56,7 +56,7 @@ export default function Home() {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 12);
     };
 
     handleScroll();
@@ -70,8 +70,8 @@ export default function Home() {
         ========================================================================
         STICKY NAVIGATION HEADER
         Stays fixed at the top of the viewport when scrolling down.
-        Smoothly compacts when scrolled and applies a soft gradient mask backdrop
-        so cards scrolling underneath dissolve seamlessly without a harsh cut-off.
+        Completely transparent at the top; only fades in the blurred background
+        and gradient mask once scrolling begins.
         ========================================================================
       */}
       <header
@@ -80,11 +80,14 @@ export default function Home() {
         }`}
       >
         {/* Soft gradient mask backdrop:
+            Only applied/visible when scrolling starts (isScrolled).
             Extends below the header with a vertical mask gradient so both blur and background
             dissolve gracefully into transparency. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -bottom-8 sm:-bottom-10 bg-background/80 dark:bg-background/85 backdrop-blur-md transition-all duration-300 [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)]"
+          className={`pointer-events-none absolute inset-0 -bottom-8 sm:-bottom-10 bg-background/80 dark:bg-background/85 backdrop-blur-md transition-opacity duration-300 [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)] ${
+            isScrolled ? "opacity-100" : "opacity-0"
+          }`}
         />
 
         <div className="relative z-10 w-full px-6 sm:px-8 md:px-12 lg:px-14 flex items-center justify-between">
