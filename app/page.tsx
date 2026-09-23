@@ -146,23 +146,22 @@ export default function Home() {
       {/* 
         ========================================================================
         WORK & DESTINATIONS LIST
-        Clean continuous flow starting directly beneath the hero fold.
-        Card 01 slides smoothly upwards (y: 28 → 0, subtle entrance) without
-        ever overlapping the typewriter text.
+        Clean continuous flow starting with a 24px negative margin (-mt-6)
+        so Card 01 peeks exactly 24px into the bottom of the hero viewport.
         ========================================================================
       */}
-      <section className="w-full px-6 sm:px-8 md:px-12 lg:px-14 pb-16 sm:pb-24 space-y-4 sm:space-y-6 max-w-7xl mx-auto pt-4 sm:pt-6">
+      <section className="w-full px-6 sm:px-8 md:px-12 lg:px-14 pb-16 sm:pb-24 space-y-4 sm:space-y-6 max-w-7xl mx-auto -mt-6">
         {FEATURED_ITEMS.map((item, index) => {
           if (index === 0) {
             return (
               <motion.div
                 key={item.href}
-                initial={{ opacity: 0, y: 28 }}
-                animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+                initial={{ opacity: 0, y: 24 }}
+                animate={typewriterDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
                 transition={{
                   type: "spring",
                   damping: 24,
-                  stiffness: 130,
+                  stiffness: 140,
                   mass: 0.8,
                 }}
               >
