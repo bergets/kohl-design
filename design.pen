@@ -10722,6 +10722,14 @@
       "type": "color",
       "value": "#420006"
     },
+    "color-crimson-900": {
+      "type": "color",
+      "value": "#1A0709"
+    },
+    "color-crimson-950": {
+      "type": "color",
+      "value": "#120406"
+    },
     "color-accent": {
       "type": "color",
       "value": "#93484F"

@@ -56,9 +56,11 @@
 - `--color-crimson-600` / `--color-accent-hover`: `hsla(354, 50%, 30%, 1)` / `#73262d` (Deep Crimson Hover)
 - `--color-crimson-700`: `hsla(352, 70%, 22%, 1)` / `#601119`
 - `--color-crimson-800`: `hsla(352, 100%, 13%, 1)` / `#420006` (Deep Wine)
+- `--color-crimson-900`: `hsla(352, 55%, 6.5%, 1)` / `#1a0709` (Midnight Berry Canvas)
+- `--color-crimson-950`: `hsla(352, 60%, 4.5%, 1)` / `#120406` (Velvet Noir)
 
-#### Semantic Mappings (Light & Dark)
-- **Light Mode:**
+#### Semantic Mappings (Default Pine vs. Blush Mode)
+- **Default Pine Light Mode:**
   - `--background`: `#ffffff` (or `var(--color-pine-50)`)
   - `--foreground`: `var(--color-pine-800)` (`hsla(168, 94%, 6%, 1)`)
   - `--primary`: `var(--color-pine-600)` (`hsla(170, 100%, 16%, 1)`)
@@ -68,12 +70,15 @@
   - `--muted`: `var(--color-neutral-50)` (`hsla(0, 0%, 95%, 1)`)
   - `--muted-foreground`: `var(--color-neutral-500)` (`hsla(170, 10%, 35%, 1)`)
   - `--border`: `var(--color-neutral-100)` (`hsla(0, 0%, 83%, 1)`)
-- **Dark Mode:**
+- **Default Pine Dark Mode (Midnight Forest):**
   - `--background`: `var(--color-pine-800)` (`hsla(168, 94%, 6%, 1)`)
   - `--foreground`: `var(--color-neutral-50)` (`hsla(0, 0%, 95%, 1)`)
   - `--card`: `var(--color-pine-700)` (`hsla(170, 90%, 11%, 1)`)
   - `--primary`: `var(--color-pine-600)` (`hsla(170, 100%, 16%, 1)`)
   - `--accent`: `var(--color-crimson-500)` (`hsla(354, 34%, 43%, 1)`)
+- **Blush Mode (Pink Surface Scale):**
+  - **Light Surfaces:** Soft petal wash (`hsla(356, 60%, 96%, 1)`), delicate rose border (`hsla(355, 40%, 88%, 1)`), and dusty rose muted text (`hsla(354, 25%, 45%, 1)`).
+  - **Dark Surfaces (Midnight Berry):** Deep velvet berry canvas (`hsla(352, 55%, 6.5%, 1)` / `#1a0709`), plum card (`hsla(352, 42%, 11%, 1)` / `#281013`), dusty mauve secondary (`hsla(352, 22%, 18%, 1)` / `#382426`), berry border (`hsla(352, 20%, 26%, 1)` / `#503539`), and luminous petal white text (`hsla(356, 86%, 96%, 1)` / `#feeced`). Contrast exceeds 17:1 (WCAG AAA).
 
 ---
 
