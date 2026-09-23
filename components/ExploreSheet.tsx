@@ -8,41 +8,33 @@ import { X, ArrowUpRight } from "lucide-react";
 import { cooper } from "@/app/fonts";
 
 interface NavDestination {
-  num: string;
   name: string;
   href: string;
   sub: string;
-  badge?: string;
 }
 
 const DESTINATIONS: NavDestination[] = [
   {
-    num: "01",
     name: "Work",
     href: "/work",
     sub: "Career timeline, UX leadership & product design",
   },
   {
-    num: "02",
     name: "Side Projects",
     href: "/projects",
     sub: "Experiments, tools & design system",
   },
   {
-    num: "03",
     name: "Skills",
     href: "/skills",
     sub: "Favourite LLM prompts & design engineering skills",
-    badge: "LIVE",
   },
   {
-    num: "04",
     name: "Notes",
     href: "/notes",
     sub: "Writing, design observations & micro-essays",
   },
   {
-    num: "05",
     name: "About",
     href: "/about",
     sub: "Bio, design ethos & colophon",
@@ -104,19 +96,16 @@ export function ExploreSheet() {
 
   return (
     <>
-      {/* Tactile Trigger Button with Destination Count */}
+      {/* Tactile Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(true)}
         aria-expanded={isOpen}
         aria-label="Open Explore Navigation"
-        className="group inline-flex items-center gap-2 h-10 px-3.5 rounded-[var(--radius)] border border-border/80 bg-background/80 hover:bg-muted/60 backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs"
+        className="group inline-flex items-center gap-2 h-10 px-3.5 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-white/70 dark:bg-black/30 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs"
       >
-        <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+        <span className="text-sm font-medium text-pine-900 dark:text-[#FCD3D6] group-hover:text-primary dark:group-hover:text-white transition-colors">
           Explore
-        </span>
-        <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 transition-colors">
-          5
         </span>
       </button>
 
@@ -133,51 +122,43 @@ export function ExploreSheet() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/45 dark:bg-black/65 backdrop-blur-xs cursor-pointer pointer-events-auto"
+              className="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-xs cursor-pointer pointer-events-auto"
             />
 
             {/* Detached Floating Island Panel */}
             <motion.div
-              initial={isMobile ? { y: 40, opacity: 0, scale: 0.98 } : { x: 50, opacity: 0, scale: 0.98 }}
-              animate={isMobile ? { y: 0, opacity: 1, scale: 1 } : { x: 0, opacity: 1, scale: 1 }}
-              exit={isMobile ? { y: 40, opacity: 0, scale: 0.98 } : { x: 50, opacity: 0, scale: 0.98 }}
+              initial={isMobile ? { y: 30, opacity: 0 } : { x: 30, opacity: 0 }}
+              animate={isMobile ? { y: 0, opacity: 1 } : { x: 0, opacity: 1 }}
+              exit={isMobile ? { y: 30, opacity: 0 } : { x: 30, opacity: 0 }}
               transition={{
                 type: "spring",
-                damping: 28,
-                stiffness: 320,
+                damping: 30,
+                stiffness: 300,
                 mass: 0.8,
               }}
-              className="explore-sheet-panel pointer-events-auto relative z-10 w-full sm:w-[440px] max-w-full max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2.5rem)] lg:max-h-[calc(100dvh-3rem)] sm:h-[calc(100dvh-2.5rem)] lg:h-[calc(100dvh-3rem)] flex flex-col justify-between p-5 sm:p-7 bg-white/95 dark:bg-[#011D18]/95 backdrop-blur-xl border border-border/80 dark:border-border shadow-2xl rounded-3xl sm:rounded-2xl lg:rounded-3xl overflow-y-auto"
+              className="explore-sheet-panel pointer-events-auto relative z-10 w-full sm:max-w-md lg:max-w-lg max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2.5rem)] lg:max-h-[calc(100dvh-3rem)] sm:h-[calc(100dvh-2.5rem)] lg:h-[calc(100dvh-3rem)] flex flex-col justify-between p-6 sm:p-8 bg-white/95 dark:bg-[#011D18]/95 backdrop-blur-xl border border-border dark:border-[#3B7D6F]/50 shadow-2xl rounded-3xl sm:rounded-2xl lg:rounded-3xl overflow-y-auto"
             >
-              {/* Mobile Drag Indicator Handle */}
-              <div className="sm:hidden w-10 h-1 rounded-full bg-foreground/20 dark:bg-white/20 mx-auto -mt-1 mb-3 shrink-0" />
-
               {/* Header Row */}
-              <div className="flex items-center justify-between pb-5 border-b border-border/60 shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <span className={`${cooper.className} text-2xl sm:text-3xl font-normal text-foreground`}>
-                    Explore
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-semibold">
-                    5 Destinations
-                  </span>
-                </div>
+              <div className="flex items-center justify-between pb-6 border-b border-pine-800/10 dark:border-[#3B7D6F]/30 shrink-0">
+                <span className={`${cooper.className} text-3xl font-normal text-pine-900 dark:text-[#FCD3D6]`}>
+                  Explore
+                </span>
 
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close menu"
-                  className="group inline-flex items-center gap-1.5 h-8 px-2.5 rounded-[var(--radius-sm)] border border-border/80 bg-transparent hover:bg-muted/70 transition-all cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground active:scale-95"
+                  className="group inline-flex items-center gap-1.5 h-8 px-2.5 rounded-[var(--radius-sm)] border border-border/80 dark:border-[#3B7D6F]/60 bg-transparent hover:bg-neutral-100 dark:hover:bg-black/30 transition-all cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground active:scale-95"
                 >
                   <X className="size-3.5 transition-transform group-hover:rotate-90" />
-                  <span className="hidden sm:inline">Close</span>
+                  <span>Close</span>
                 </button>
               </div>
 
               {/* Navigation List */}
-              <nav className="my-auto py-4 sm:py-6 space-y-1 sm:space-y-1.5" aria-label="Explore Destinations">
+              <nav className="my-auto py-6 space-y-2" aria-label="Explore Destinations">
                 {DESTINATIONS.map((dest) => {
                   const isActive = pathname === dest.href;
 
@@ -185,39 +166,29 @@ export function ExploreSheet() {
                     <Link
                       key={dest.href}
                       href={dest.href}
-                      className={`group block w-full p-3 sm:p-3.5 rounded-[var(--radius)] border transition-all duration-200 ${
+                      className={`group block w-full p-4 rounded-[var(--radius)] border transition-all duration-200 ${
                         isActive
-                          ? "bg-primary/10 border-primary/30 shadow-2xs"
-                          : "border-transparent hover:bg-muted/50 hover:border-border/60"
+                          ? "bg-pine-50/80 dark:bg-[#A8E3D2]/10 border-primary/40 dark:border-[#A8E3D2]/40 shadow-2xs"
+                          : "border-transparent hover:bg-pine-50/50 dark:hover:bg-white/[0.04] hover:border-border/60 dark:hover:border-[#3B7D6F]/20"
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-0.5">
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-xs font-mono text-muted-foreground/70 w-5 shrink-0">
-                            {dest.num}
-                          </span>
-                          <span
-                            className={`${cooper.className} text-xl sm:text-2xl font-normal tracking-tight transition-colors ${
-                              isActive
-                                ? "text-primary"
-                                : "text-foreground group-hover:text-primary"
-                            }`}
-                          >
-                            {dest.name}
-                          </span>
-                          {dest.badge && (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-crimson-100 text-crimson-700 dark:bg-crimson-900/60 dark:text-crimson-200 uppercase tracking-wider">
-                              {dest.badge}
-                            </span>
-                          )}
-                        </div>
+                      <div className="flex items-center justify-between mb-1">
+                        <span
+                          className={`${cooper.className} text-2xl font-normal tracking-tight transition-colors ${
+                            isActive
+                              ? "text-primary dark:text-[#FCD3D6]"
+                              : "text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6]"
+                          }`}
+                        >
+                          {dest.name}
+                        </span>
 
                         <ArrowUpRight
-                          className="size-4 text-muted-foreground/80 group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 shrink-0"
+                          className="size-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200"
                         />
                       </div>
 
-                      <p className="text-xs text-muted-foreground pl-7.5 line-clamp-1">
+                      <p className="text-xs text-muted-foreground dark:text-neutral-400 line-clamp-1">
                         {dest.sub}
                       </p>
                     </Link>
@@ -226,7 +197,7 @@ export function ExploreSheet() {
               </nav>
 
               {/* Footer Row */}
-              <div className="pt-4 sm:pt-5 border-t border-border/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs shrink-0">
+              <div className="pt-6 border-t border-pine-800/10 dark:border-[#3B7D6F]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs shrink-0">
                 <span className="text-muted-foreground font-mono text-[11px]">
                   kohl.design · 2026
                 </span>
@@ -236,7 +207,7 @@ export function ExploreSheet() {
                     href="https://linkedin.com/in/henrikkohl"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-primary dark:hover:text-[#A8E3D2] transition-colors"
                   >
                     LinkedIn ↗
                   </a>
@@ -244,13 +215,13 @@ export function ExploreSheet() {
                     href="https://github.com/bergets"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-primary dark:hover:text-[#A8E3D2] transition-colors"
                   >
                     GitHub ↗
                   </a>
                   <Link
                     href="/design-system"
-                    className="hover:text-primary transition-colors"
+                    className="hover:text-primary dark:hover:text-[#A8E3D2] transition-colors"
                   >
                     Design System ↗
                   </Link>
