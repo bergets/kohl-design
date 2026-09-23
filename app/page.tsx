@@ -10,61 +10,43 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ExploreSheet } from "@/components/ExploreSheet";
 import { ArrowUpRight } from "lucide-react";
 
-interface FeaturedItem {
-  num: string;
-  tag: string;
+interface PageDestination {
   title: string;
-  role: string;
+  subtitle: string;
   desc: string;
   href: string;
-  meta: string;
 }
 
-const FEATURED_ITEMS: FeaturedItem[] = [
+const PAGE_DESTINATIONS: PageDestination[] = [
   {
-    num: "01",
-    tag: "CAREER & LEADERSHIP",
-    title: "Quinyx",
-    role: "Product Area Design Lead (UX/UI)",
-    desc: "AI-powered frontline workforce management SaaS serving global enterprise organizations. Leading design direction, UX strategy, complex operational workflows & design systems.",
+    title: "Work",
+    subtitle: "Career timeline, UX leadership & product design",
+    desc: "10+ years leading product area design, SaaS platform strategy, and complex enterprise UX systems across Scandinavia.",
     href: "/work",
-    meta: "4 yrs 2 mos · Enterprise SaaS",
   },
   {
-    num: "02",
-    tag: "DESIGN SYSTEM",
-    title: "kohl.design System",
-    role: "Token Architecture & Component Engine",
-    desc: "Production-ready token architecture built with Tailwind v4, shadcn/ui primitives, dual Pine & Blush personalities, and automated WCAG AAA contrast.",
-    href: "/design-system",
-    meta: "Live Design System · 24+ Components",
+    title: "Side Projects",
+    subtitle: "Experiments, tools & design system",
+    desc: "Interactive shaders, token architectures, open-source prototypes, and digital craft experiments.",
+    href: "/projects",
   },
   {
-    num: "03",
-    tag: "CURATED DIRECTORY",
-    title: "AI & Design Skills",
-    role: "Curated LLM Prompting & Motion Skills",
-    desc: "Battle-tested prompt directory for senior design engineers — Apple fluid physics, Emil Kowalski polish, mobile native feel, and Tailwind v4 tokens.",
+    title: "Skills",
+    subtitle: "Curated LLM prompts & design engineering guides",
+    desc: "Battle-tested prompt directory for senior designers — Apple fluid physics, Emil Kowalski polish, mobile native feel, and Tailwind v4 token setups.",
     href: "/skills",
-    meta: "Interactive Directory · Copyable Prompts",
   },
   {
-    num: "04",
-    tag: "ESSAYS & OBSERVATIONS",
-    title: "Notes & Micro-Essays",
-    role: "Design Ethos & Product Observations",
+    title: "Notes",
+    subtitle: "Writing, design observations & micro-essays",
     desc: "Thoughts on craft, AI interface ergonomics, exceeding expectations, and why invisible details make software memorable.",
     href: "/notes",
-    meta: "Writing · 2026",
   },
   {
-    num: "05",
-    tag: "BIOGRAPHY & ETHOS",
-    title: "About Henrik Kohl",
-    role: "Background, Design Ethos & Colophon",
-    desc: "10+ years shaping digital products across Scandinavia. Background, design principles, tools, and colophon.",
+    title: "About",
+    subtitle: "Bio, design ethos & colophon",
+    desc: "Background, personal design philosophy, tools, typography choices, and technical colophon.",
     href: "/about",
-    meta: "Bio & Colophon",
   },
 ];
 
@@ -76,8 +58,8 @@ export default function Home() {
       {/* 
         ========================================================================
         HERO SECTION
-        Takes min-h-dvh so the dialogue has breathing room and will NEVER
-        be overlapped by the card below.
+        Takes min-h-dvh. The dialogue sits comfortably above the bottom edge,
+        leaving room for the first destination card to peek into view.
         ========================================================================
       */}
       <section className="min-h-dvh w-full flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14 pb-12 sm:pb-16 relative">
@@ -145,13 +127,13 @@ export default function Home() {
 
       {/* 
         ========================================================================
-        WORK & DESTINATIONS LIST
+        PAGES & DESTINATIONS LIST
         Clean continuous flow starting with a 24px negative margin (-mt-6)
-        so Card 01 peeks exactly 24px into the bottom of the hero viewport.
+        so the Work card peeks 24px into the bottom of the hero viewport.
         ========================================================================
       */}
       <section className="w-full px-6 sm:px-8 md:px-12 lg:px-14 pb-16 sm:pb-24 space-y-4 sm:space-y-6 max-w-7xl mx-auto -mt-6">
-        {FEATURED_ITEMS.map((item, index) => {
+        {PAGE_DESTINATIONS.map((item, index) => {
           if (index === 0) {
             return (
               <motion.div
@@ -176,7 +158,7 @@ export default function Home() {
                       </h2>
 
                       <p className="text-sm sm:text-base font-medium text-foreground/90 dark:text-[#FCD3D6]">
-                        {item.role}
+                        {item.subtitle}
                       </p>
 
                       <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
@@ -209,7 +191,7 @@ export default function Home() {
                   </h2>
 
                   <p className="text-sm sm:text-base font-medium text-foreground/90 dark:text-[#FCD3D6]">
-                    {item.role}
+                    {item.subtitle}
                   </p>
 
                   <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
