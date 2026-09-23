@@ -14,8 +14,8 @@ The design system is engineered around **Semantic CSS Token Abstraction** using 
 | `--radius` | `0.5rem` (8px) | `0.875rem` (14px) | `2px` | `1.125rem` (18px) | Base curvature of interactive elements |
 | `--primary` | Pine `#005243` | Cashmere Blush `#FBC8CB` | Pine `#005243` | Pine `#005243` | Main CTA and primary brand moment |
 | `--primary-hover` | Pine Dark `#03332a` | Silky Rose `#F8A8B0` | Pine Dark `#03332a` | Pine Dark `#03332a` | Primary button hover state |
-| `--accent` | Crimson `#94464f` | Mint `#a8e3d2` | Crimson `#94464f` | Crimson `#94464f` | Secondary highlight hue |
-| Dark Surfaces | Midnight Forest Green | Midnight Berry & Plum Scale | Midnight Forest Green | Midnight Forest Green | Background, card, popover, and border scale |
+| `--accent` | Crimson `#94464f` | Crimson `#8a2e36` / Rose | Crimson `#94464f` | Crimson `#94464f` | Secondary highlight hue |
+| Surfaces | Midnight Forest Green | Midnight Berry Scale (Zero Pine) | Midnight Forest Green | Midnight Forest Green | Background, card, popover, and border scale |
 
 ### Dynamic Derived Radii Scale
 In `app/globals.css`, child sizes scale proportionally from the single `--radius` token:
@@ -64,7 +64,7 @@ npx shadcn add https://kohl.design/r/button.json
 
 ## 3. Project Personality Recipes
 
-### Recipe 1: "Blush Brand" (Pink Dominant + 14px Soft Curvature + Berry Surfaces)
+### Recipe 1: "Blush Brand" (Pure Cashmere Blush + Midnight Berry — Zero Pine)
 *Best for: Playful consumer apps, writing tools, personal blogs, or friendly utilities.*
 
 Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
@@ -73,13 +73,14 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
   --radius: 0.875rem; /* 14px soft organic curve */
   --primary: hsla(356, 86%, 89%, 1); /* Cashmere Blush #FBC8CB */
   --primary-hover: hsla(356, 85%, 82%, 1); /* Silky Rose Petal */
-  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep Pine Ink #011D18 */
-  --accent: hsla(170, 100%, 16%, 1); /* Forest pine secondary */
+  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep Velvet Wine Noir #1d070a */
+  --accent: hsla(354, 50%, 36%, 1); /* Signature Crimson */
   --accent-foreground: #ffffff;
+  --foreground: hsla(352, 60%, 7%, 1); /* Deep Wine Typography */
 
   /* Surfaces in Blush Light Mode: Delicate Petal Wash */
   --secondary: hsla(356, 60%, 96%, 1);
-  --secondary-foreground: hsla(168, 94%, 6%, 1);
+  --secondary-foreground: hsla(352, 60%, 7%, 1);
   --muted: hsla(356, 60%, 96%, 1);
   --muted-foreground: hsla(354, 25%, 45%, 1);
   --border: hsla(355, 40%, 88%, 1);
@@ -97,15 +98,15 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
 
   --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */
   --primary-hover: hsla(356, 90%, 94%, 1);
-  --primary-foreground: hsla(168, 94%, 6%, 1);
+  --primary-foreground: hsla(352, 60%, 7%, 1);
 
   --secondary: hsla(352, 22%, 18%, 1); /* Dark dusty mauve/berry #382426 */
   --secondary-foreground: hsla(356, 86%, 96%, 1);
   --muted: hsla(352, 22%, 18%, 1);
   --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */
 
-  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
-  --accent-foreground: hsla(168, 94%, 6%, 1);
+  --accent: hsla(355, 73%, 79%, 1); /* Luminous Rose Secondary */
+  --accent-foreground: hsla(352, 60%, 7%, 1);
 
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry sidebar #210c10 */

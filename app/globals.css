@@ -196,33 +196,44 @@
  * Activate with data-theme-variant="blush" | "sharp" | "round"
  * ----------------------------------------------------------- */
 
-/* Preset 1: Blush / Cashmere Petal (Soft, Luminous & Editorial) */
+/* Preset 1: Blush / Cashmere Petal (Soft, Luminous & Editorial — Pure Blush Scale, Zero Pine) */
 [data-theme-variant="blush"],
 .theme-blush {
   --radius: 0.875rem; /* 14px soft curve */
   --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */
-  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */
+  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir ink #1d070a */
   --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal #F8A8B0 */
-  --ring: hsla(356, 75%, 75%, 1);
-  --accent: hsla(170, 100%, 16%, 1); /* Forest pine secondary */
+  --ring: hsla(356, 75%, 65%, 1);
+  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson secondary #8a2e36 */
   --accent-foreground: #ffffff;
+  --accent-hover: hsla(354, 55%, 30%, 1);
+
+  /* Typography in Blush Light Mode: Deep Velvet Wine Noir */
+  --foreground: hsla(352, 60%, 7%, 1); /* Deep Wine Noir #1d070a */
+  --card-foreground: hsla(352, 60%, 7%, 1);
+  --popover-foreground: hsla(352, 60%, 7%, 1);
 
   /* Surfaces in Blush Light Mode: Delicate Petal Wash */
   --secondary: hsla(356, 60%, 96%, 1); /* Soft petal wash */
-  --secondary-foreground: hsla(168, 94%, 6%, 1);
+  --secondary-foreground: hsla(352, 60%, 7%, 1);
   --muted: hsla(356, 60%, 96%, 1);
   --muted-foreground: hsla(354, 25%, 45%, 1); /* Dusty rose neutral */
   --border: hsla(355, 40%, 88%, 1); /* Soft rose border */
   --input: hsla(355, 40%, 88%, 1);
   --sidebar: hsla(356, 89%, 96%, 1); /* Soft blush sidebar */
-  --sidebar-foreground: hsla(168, 94%, 6%, 1);
+  --sidebar-foreground: hsla(352, 60%, 7%, 1);
   --sidebar-border: hsla(355, 40%, 88%, 1);
+  --sidebar-primary: hsla(354, 50%, 36%, 1);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: hsla(356, 60%, 92%, 1);
+  --sidebar-accent-foreground: hsla(352, 60%, 7%, 1);
+  --sidebar-ring: hsla(356, 75%, 65%, 1);
 }
 
 [data-theme-variant="blush"] [data-slot="button"][data-variant="default"],
 .theme-blush [data-slot="button"][data-variant="default"] {
   border: 1px solid hsla(356, 70%, 80%, 0.8);
-  box-shadow: 0 1px 2px rgba(0, 32, 26, 0.04), 0 3px 12px -2px rgba(251, 200, 203, 0.5);
+  box-shadow: 0 1px 2px rgba(29, 7, 10, 0.05), 0 3px 12px -2px rgba(251, 200, 203, 0.5);
 }
 
 /* Editorial button in Blush Light Mode: Deep Wine & Rose Outline (Bookplate Badge) */
@@ -262,7 +273,7 @@
   --popover-foreground: hsla(356, 86%, 96%, 1);
 
   --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */
-  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */
+  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir ink #1d070a */
   --primary-hover: hsla(356, 90%, 94%, 1);
 
   --secondary: hsla(352, 22%, 18%, 1); /* Dark dusty mauve/berry #382426 */
@@ -271,8 +282,9 @@
   --muted: hsla(352, 22%, 18%, 1);
   --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */
 
-  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
-  --accent-foreground: hsla(168, 94%, 6%, 1);
+  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */
+  --accent-foreground: hsla(352, 60%, 7%, 1);
+  --accent-hover: hsla(356, 86%, 88%, 1);
 
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --input: hsla(352, 20%, 26%, 1);
@@ -281,6 +293,11 @@
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry sidebar #210c10 */
   --sidebar-foreground: hsla(356, 86%, 96%, 1);
   --sidebar-border: hsla(352, 20%, 26%, 1);
+  --sidebar-primary: hsla(356, 86%, 89%, 1);
+  --sidebar-primary-foreground: hsla(352, 60%, 7%, 1);
+  --sidebar-accent: hsla(352, 22%, 18%, 1);
+  --sidebar-accent-foreground: hsla(356, 86%, 96%, 1);
+  --sidebar-ring: hsla(356, 86%, 70%, 1);
 }
 
 .dark[data-theme-variant="blush"] [data-slot="button"][data-variant="default"],

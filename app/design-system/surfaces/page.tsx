@@ -48,7 +48,7 @@ const PRESET_OPTIONS: {
     label: "Blush Brand",
     badge: "14px • Berry Scale",
     dotClass: "bg-[#FCD3D6] border border-[#f2aab2]",
-    description: "Midnight berry canvas with elevated plum cards, rose borders, and 14px soft curvature.",
+    description: "Midnight berry canvas with elevated plum cards, rose borders, and 14px soft curvature (pure blush, zero pine).",
   },
   {
     id: "sharp",

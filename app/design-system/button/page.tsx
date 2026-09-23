@@ -43,7 +43,7 @@ const PRESET_OPTIONS: {
     label: "Blush Brand",
     badge: "14px • Soft Pink",
     dotClass: "bg-[#FCD3D6] border border-[#f2aab2]",
-    description: "Luminous cashmere blush CTA with velvety midnight berry surfaces in dark mode, petal borders, and 14px curvature.",
+    description: "Luminous cashmere blush CTA, deep velvet wine noir typography, and midnight berry surfaces in dark mode (pure blush, zero pine).",
   },
   {
     id: "sharp",
@@ -114,7 +114,7 @@ export default function ButtonShowcasePage() {
             <span className="text-border">/</span>
             <span className="font-semibold text-sm">Design System</span>
             <span className="text-border">/</span>
-            <span className="rounded-[var(--radius-sm)] bg-pine-50 px-2 py-0.5 text-xs font-semibold text-pine-700 dark:bg-pine-800 dark:text-pine-200">
+            <span className="rounded-[var(--radius-sm)] bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground">
               Button POC
             </span>
           </div>
@@ -813,7 +813,7 @@ export default function ButtonShowcasePage() {
                 onClick={() => {
                   const cssSnippet =
                     activePreset === "blush"
-                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */\n  --accent: hsla(170, 100%, 16%, 1); /* Pine secondary */\n  --accent-foreground: #ffffff;\n  /* Light mode petal wash surfaces */\n  --secondary: hsla(356, 60%, 96%, 1);\n  --secondary-foreground: hsla(168, 94%, 6%, 1);\n  --muted: hsla(356, 60%, 96%, 1);\n  --muted-foreground: hsla(354, 25%, 45%, 1);\n  --border: hsla(355, 40%, 88%, 1);\n  --sidebar: hsla(356, 89%, 96%, 1);\n}\n\n.dark {\n  /* Dark mode: Velvety Midnight Berry & Plum surfaces */\n  --background: hsla(352, 55%, 6.5%, 1); /* Canvas #1a0709 */\n  --foreground: hsla(356, 86%, 96%, 1); /* Petal white #feeced */\n  --card: hsla(352, 42%, 11%, 1); /* Deep plum card #281013 */\n  --card-foreground: hsla(356, 86%, 96%, 1);\n  --popover: hsla(352, 42%, 11%, 1);\n  --popover-foreground: hsla(356, 86%, 96%, 1);\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(168, 94%, 6%, 1);\n  --secondary: hsla(352, 22%, 18%, 1); /* Dusty mauve/berry #382426 */\n  --secondary-foreground: hsla(356, 86%, 96%, 1);\n  --muted: hsla(352, 22%, 18%, 1);\n  --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */\n  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */\n  --accent-foreground: hsla(168, 94%, 6%, 1);\n  --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */\n  --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */\n}`
+                      ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir #1d070a */\n  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson #8a2e36 */\n  --accent-foreground: #ffffff;\n  --foreground: hsla(352, 60%, 7%, 1); /* Deep wine noir typography */\n  /* Light mode petal wash surfaces */\n  --secondary: hsla(356, 60%, 96%, 1);\n  --secondary-foreground: hsla(352, 60%, 7%, 1);\n  --muted: hsla(356, 60%, 96%, 1);\n  --muted-foreground: hsla(354, 25%, 45%, 1);\n  --border: hsla(355, 40%, 88%, 1);\n  --sidebar: hsla(356, 89%, 96%, 1);\n}\n\n.dark {\n  /* Dark mode: Velvety Midnight Berry & Plum surfaces */\n  --background: hsla(352, 55%, 6.5%, 1); /* Canvas #1a0709 */\n  --foreground: hsla(356, 86%, 96%, 1); /* Petal white #feeced */\n  --card: hsla(352, 42%, 11%, 1); /* Deep plum card #281013 */\n  --card-foreground: hsla(356, 86%, 96%, 1);\n  --popover: hsla(352, 42%, 11%, 1);\n  --popover-foreground: hsla(356, 86%, 96%, 1);\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(352, 60%, 7%, 1);\n  --secondary: hsla(352, 22%, 18%, 1); /* Dusty mauve/berry #382426 */\n  --secondary-foreground: hsla(356, 86%, 96%, 1);\n  --muted: hsla(352, 22%, 18%, 1);\n  --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */\n  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */\n  --accent-foreground: hsla(352, 60%, 7%, 1);\n  --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */\n  --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */\n}`
                       : activePreset === "sharp"
                       ? `:root {\n  --radius: 2px; /* Razor-sharp technical corners */\n}`
                       : activePreset === "round"
@@ -839,18 +839,19 @@ export default function ButtonShowcasePage() {
 
             <pre className="rounded-[var(--radius-sm)] bg-neutral-900 dark:bg-black p-4 text-xs font-mono text-neutral-100 overflow-x-auto leading-relaxed">
               {activePreset === "blush" &&
-`/* Blush Project Variant: Cashmere Blush + Midnight Berry Surfaces */
+`/* Blush Project Variant: Pure Cashmere Blush + Midnight Berry (Zero Pine) */
 :root {
   --radius: 0.875rem; /* 14px soft curve */
   --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */
   --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */
-  --primary-foreground: hsla(168, 94%, 6%, 1); /* Deep pine ink #011D18 */
-  --accent: hsla(170, 100%, 16%, 1); /* Forest pine secondary */
+  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir #1d070a */
+  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson #8a2e36 */
   --accent-foreground: #ffffff;
+  --foreground: hsla(352, 60%, 7%, 1); /* Deep wine noir typography */
 
   /* Surfaces in Blush Light Mode: Delicate Petal Wash */
   --secondary: hsla(356, 60%, 96%, 1);
-  --secondary-foreground: hsla(168, 94%, 6%, 1);
+  --secondary-foreground: hsla(352, 60%, 7%, 1);
   --muted: hsla(356, 60%, 96%, 1);
   --muted-foreground: hsla(354, 25%, 45%, 1);
   --border: hsla(355, 40%, 88%, 1);
@@ -867,13 +868,13 @@ export default function ButtonShowcasePage() {
   --popover-foreground: hsla(356, 86%, 96%, 1);
   --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */
   --primary-hover: hsla(356, 90%, 94%, 1);
-  --primary-foreground: hsla(168, 94%, 6%, 1);
+  --primary-foreground: hsla(352, 60%, 7%, 1);
   --secondary: hsla(352, 22%, 18%, 1); /* Dark dusty mauve #382426 */
   --secondary-foreground: hsla(356, 86%, 96%, 1);
   --muted: hsla(352, 22%, 18%, 1);
   --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */
-  --accent: hsla(164, 48%, 77%, 1); /* Mint secondary */
-  --accent-foreground: hsla(168, 94%, 6%, 1);
+  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */
+  --accent-foreground: hsla(352, 60%, 7%, 1);
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */
 }`}
