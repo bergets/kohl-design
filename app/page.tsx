@@ -52,27 +52,63 @@ const PAGE_DESTINATIONS: PageDestination[] = [
 
 export default function Home() {
   const [typewriterDone, setTypewriterDone] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="relative z-10 w-full min-h-dvh flex flex-col">
       {/* 
         ========================================================================
         STICKY NAVIGATION HEADER
-        Stays fixed at the top of the viewport when scrolling down with a refined
-        frosted glass / blur backdrop.
+        Stays fixed at the top of the viewport when scrolling down.
+        Smoothly compacts when scrolled and applies a soft gradient mask backdrop
+        so cards scrolling underneath dissolve seamlessly without a harsh cut-off.
         ========================================================================
       */}
-      <header className="sticky top-0 z-50 w-full px-6 sm:px-8 md:px-12 lg:px-14 py-4 sm:py-5 flex items-center justify-between bg-background/65 backdrop-blur-md transition-colors duration-300">
-        <Link
-          href="/"
-          className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
-          aria-label="kohl.design home"
-        >
-          <BrandFlower className="size-10 sm:size-11 md:size-12 text-pine-800 dark:text-crimson-100 transition-colors duration-300" />
-        </Link>
-        <div className="flex items-center gap-3">
-          <ExploreSheet />
-          <ThemeToggle />
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ease-out ${
+          isScrolled ? "py-2 sm:py-2.5" : "py-4 sm:py-5"
+        }`}
+      >
+        {/* Soft gradient mask backdrop:
+            Extends below the header with a vertical mask gradient so both blur and background
+            dissolve gracefully into transparency. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -bottom-8 sm:-bottom-10 bg-background/80 dark:bg-background/85 backdrop-blur-md transition-all duration-300 [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_100%)]"
+        />
+
+        <div className="relative z-10 w-full px-6 sm:px-8 md:px-12 lg:px-14 flex items-center justify-between">
+          <Link
+            href="/"
+            className="inline-flex items-center group transition-transform duration-300 hover:scale-105"
+            aria-label="kohl.design home"
+          >
+            <BrandFlower
+              className={`text-pine-800 dark:text-crimson-100 transition-all duration-300 ${
+                isScrolled
+                  ? "size-8 sm:size-9 md:size-9"
+                  : "size-10 sm:size-11 md:size-12"
+              }`}
+            />
+          </Link>
+          <div
+            className={`flex items-center gap-3 transition-transform duration-300 origin-right ${
+              isScrolled ? "scale-95" : "scale-100"
+            }`}
+          >
+            <ExploreSheet />
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
