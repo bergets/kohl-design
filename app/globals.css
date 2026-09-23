@@ -225,6 +225,27 @@
   box-shadow: 0 1px 2px rgba(0, 32, 26, 0.04), 0 3px 12px -2px rgba(251, 200, 203, 0.5);
 }
 
+/* Editorial button in Blush Light Mode: Deep Wine & Rose Outline (Bookplate Badge) */
+[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"],
+.theme-blush [data-slot="button"][data-variant="editorial"] {
+  background-color: hsla(356, 89%, 96%, 0.35);
+  color: hsla(352, 70%, 22%, 1); /* Deep wine #601119 */
+  border: 1px solid hsla(355, 47%, 68%, 0.75); /* Crisp rose border #dc858b */
+  box-shadow: 0 1px 2px rgba(96, 17, 25, 0.04);
+}
+
+[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:hover,
+.theme-blush [data-slot="button"][data-variant="editorial"]:hover {
+  background-color: hsla(356, 86%, 88%, 0.45);
+  border-color: hsla(354, 34%, 43%, 0.9);
+  color: hsla(352, 100%, 13%, 1); /* Deepest wine #420006 */
+}
+
+[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:active,
+.theme-blush [data-slot="button"][data-variant="editorial"]:active {
+  background-color: hsla(356, 86%, 88%, 0.65);
+}
+
 .dark[data-theme-variant="blush"],
 .dark [data-theme-variant="blush"],
 .dark .theme-blush,
@@ -267,6 +288,30 @@
 .dark .theme-blush [data-slot="button"][data-variant="default"] {
   border: 1px solid hsla(356, 86%, 88%, 0.35);
   box-shadow: 0 0 16px -2px rgba(252, 211, 214, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Editorial button in Blush Dark Mode: Refined Luminous Outline */
+.dark[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"],
+.dark [data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"],
+.dark .theme-blush [data-slot="button"][data-variant="editorial"] {
+  background-color: hsla(352, 42%, 11%, 0.35);
+  color: hsla(356, 86%, 88%, 1); /* Luminous blush text #fcd3d6 */
+  border: 1px solid hsla(355, 47%, 68%, 0.35);
+  box-shadow: none;
+}
+
+.dark[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:hover,
+.dark [data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:hover,
+.dark .theme-blush [data-slot="button"][data-variant="editorial"]:hover {
+  background-color: hsla(352, 42%, 11%, 0.7);
+  border-color: hsla(355, 73%, 79%, 0.6);
+  color: hsla(356, 90%, 94%, 1);
+}
+
+.dark[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:active,
+.dark [data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"]:active,
+.dark .theme-blush [data-slot="button"][data-variant="editorial"]:active {
+  background-color: hsla(352, 22%, 18%, 0.6);
 }
 
 /* Preset 2: Sharp Technical (Razor-sharp 2px corners) */

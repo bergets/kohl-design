@@ -109,6 +109,13 @@ Add this to `app/globals.css` or apply `data-theme-variant="blush"`:
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry sidebar #210c10 */
 }
+
+/* Editorial Button Override: Deep Wine & Rose Outline (Distinct from Primary) */
+[data-theme-variant="blush"] [data-slot="button"][data-variant="editorial"] {
+  background-color: hsla(356, 89%, 96%, 0.35);
+  color: hsla(352, 70%, 22%, 1); /* Deep wine #601119 */
+  border: 1px solid hsla(355, 47%, 68%, 0.75); /* Crisp rose border #dc858b */
+}
 ```
 
 ### Recipe 2: "Sharp Tech" (Razor-Sharp 2px Corners)

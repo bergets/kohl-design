@@ -276,7 +276,9 @@ export default function ButtonShowcasePage() {
                   <code className="text-[11px] font-mono text-muted-foreground">variant="editorial"</code>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Soft blush wash with crimson typography. Pairs with Cooper headlines.
+                  {activePreset === "blush"
+                    ? "Deep wine & rose outline badge. Contrasts cleanly with the filled cashmere primary."
+                    : "Soft blush wash with crimson typography. Pairs with Cooper headlines."}
                 </p>
               </div>
               <div className="pt-2">
