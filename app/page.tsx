@@ -171,15 +171,6 @@ export default function Home() {
                 >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-2.5 max-w-3xl">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-primary dark:text-[#A8E3D2] font-semibold">
-                          {item.num}
-                        </span>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                          {item.tag}
-                        </span>
-                      </div>
-
                       <h2 className={`${cooper.className} text-2xl sm:text-3xl md:text-4xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
                         {item.title}
                       </h2>
@@ -213,15 +204,6 @@ export default function Home() {
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="space-y-2.5 max-w-3xl">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono text-primary dark:text-[#A8E3D2] font-semibold">
-                      {item.num}
-                    </span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                      {item.tag}
-                    </span>
-                  </div>
-
                   <h2 className={`${cooper.className} text-2xl sm:text-3xl md:text-4xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
                     {item.title}
                   </h2>
