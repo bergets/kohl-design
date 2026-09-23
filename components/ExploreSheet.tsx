@@ -4,7 +4,7 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X, ArrowUpRight } from "lucide-react";
 import { cooper } from "@/app/fonts";
 
@@ -47,6 +47,7 @@ export function ExploreSheet() {
   const [isMobile, setIsMobile] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
 
   React.useEffect(() => {
     setMounted(true);
@@ -137,15 +138,42 @@ export function ExploreSheet() {
 
             {/* Detached Floating Island Panel */}
             <motion.div
-              initial={isMobile ? { y: 30, opacity: 0 } : { x: 30, opacity: 0 }}
-              animate={isMobile ? { y: 0, opacity: 1 } : { x: 0, opacity: 1 }}
-              exit={isMobile ? { y: 30, opacity: 0 } : { x: 30, opacity: 0 }}
-              transition={{
-                type: "spring",
-                damping: 30,
-                stiffness: 300,
-                mass: 0.8,
+              style={{
+                transformOrigin: isMobile
+                  ? "bottom center"
+                  : "calc(100% - 64px) 24px",
               }}
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : isMobile
+                  ? { opacity: 0, scale: 0.92, y: 20 }
+                  : { opacity: 0, scale: 0.82, y: -10, x: 10 }
+              }
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : isMobile
+                  ? { opacity: 1, scale: 1, y: 0 }
+                  : { opacity: 1, scale: 1, y: 0, x: 0 }
+              }
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : isMobile
+                  ? { opacity: 0, scale: 0.94, y: 16 }
+                  : { opacity: 0, scale: 0.86, y: -8, x: 8 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0.2, ease: "easeOut" }
+                  : {
+                      type: "spring",
+                      damping: 28,
+                      stiffness: 320,
+                      mass: 0.75,
+                    }
+              }
               className="explore-sheet-panel pointer-events-auto relative z-10 w-full sm:max-w-md lg:max-w-lg max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2.5rem)] lg:max-h-[calc(100dvh-3rem)] sm:h-[calc(100dvh-2.5rem)] lg:h-[calc(100dvh-3rem)] flex flex-col justify-between p-6 sm:p-8 bg-white/95 dark:bg-[#011D18]/95 backdrop-blur-xl border border-border dark:border-[#3B7D6F]/50 shadow-2xl rounded-3xl sm:rounded-2xl lg:rounded-3xl overflow-y-auto"
             >
               {/* Header Row */}
