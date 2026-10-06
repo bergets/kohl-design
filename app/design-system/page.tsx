@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Layers, Square, Sparkles, CheckCircle2, Compass, TextCursorInput, Tag } from "lucide-react";
+import { ArrowLeft, ArrowRight, Layers, Square, Sparkles, CheckCircle2, Compass, TextCursorInput, Tag, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -170,6 +170,33 @@ export default function DesignSystemIndexPage() {
             </div>
             <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
               <span>Explore Badges & Pills</span>
+              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+
+          {/* Toast Notification (Sonner) */}
+          <Link
+            href="/design-system/toast"
+            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
+                  <Bell className="size-4" strokeWidth={1.5} />
+                </span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
+                  <CheckCircle2 className="size-3" /> Production Ready
+                </span>
+              </div>
+              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
+                Toast (Sonner)
+              </h2>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Stacked notifications powered by Sonner with Kohl Design tokens, interactive action callbacks, async promise states, and personality presets.
+              </p>
+            </div>
+            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
+              <span>Explore Toast System</span>
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
             </div>
           </Link>

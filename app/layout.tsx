@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 import BackgroundShader from "@/components/BackgroundShader";
 
@@ -8,8 +9,8 @@ import { dmSans, cooper } from "./fonts";
 
 
 export const metadata: Metadata = {
-  title: "kohl.design | Product Designer",
-  description: "Portfolio of Henrik Kohl, a Product Designer based in Stockholm.",
+  title: "kohl.design | Product/UX Designer",
+  description: "Portfolio of Henrik Kohl, a Product/UX Designer based in Stockholm.",
   icons: {
     icon: '/icon.png',
     shortcut: '/favicon.ico',
@@ -39,6 +40,7 @@ export default function RootLayout({
         >
           <BackgroundShader />
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
