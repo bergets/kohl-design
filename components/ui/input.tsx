@@ -99,10 +99,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {hasStart && (
           <div
             className={cn(
-              "absolute left-3 flex items-center justify-center text-muted-foreground pointer-events-none select-none",
-              inputSize === "sm" && "left-2.5",
-              inputSize === "lg" && "left-3.5",
-              startIcon && `[&_svg]:${iconSizeClass} [&_svg]:shrink-0`
+              "absolute inset-y-0 left-0 flex items-center justify-center pointer-events-none select-none text-muted-foreground/75 transition-colors",
+              inputSize === "sm" && "w-8",
+              inputSize === "default" && "w-9",
+              inputSize === "lg" && "w-11",
+              startIcon && `[&_svg:not([class*='size-'])]:${iconSizeClass} [&_svg]:shrink-0 [&_svg]:stroke-[1.5]`
             )}
           >
             {startIcon || startAdornment}
@@ -114,10 +115,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {hasEnd && (
           <div
             className={cn(
-              "absolute right-3 flex items-center justify-center text-muted-foreground select-none",
-              inputSize === "sm" && "right-2.5",
-              inputSize === "lg" && "right-3.5",
-              endIcon && `[&_svg]:${iconSizeClass} [&_svg]:shrink-0`
+              "absolute inset-y-0 right-0 flex items-center justify-center select-none text-muted-foreground/75 transition-colors",
+              inputSize === "sm" && "w-8",
+              inputSize === "default" && "w-9",
+              inputSize === "lg" && "w-11",
+              endIcon && `[&_svg:not([class*='size-'])]:${iconSizeClass} [&_svg]:shrink-0 [&_svg]:stroke-[1.5]`
             )}
           >
             {endIcon || endAdornment}
