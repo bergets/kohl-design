@@ -11,6 +11,24 @@ import { cn } from "@/lib/utils";
 export const DEFAULT_ICON_SIZE = 20;
 export const DEFAULT_ICON_STROKE_WIDTH = 1.5;
 
+export const ICON_SIZE_MAP: Record<string, number> = {
+  xs: 14,
+  sm: 16,
+  default: 20,
+  md: 20,
+  lg: 24,
+  xl: 28,
+};
+
+export type IconSize = keyof typeof ICON_SIZE_MAP | number | string;
+
+export function resolveIconSize(size: IconSize | undefined): number | string {
+  if (typeof size === "string" && size in ICON_SIZE_MAP) {
+    return ICON_SIZE_MAP[size];
+  }
+  return size ?? DEFAULT_ICON_SIZE;
+}
+
 const iconVariants = cva("shrink-0 transition-colors duration-150 inline-block align-middle", {
   variants: {
     intent: {
@@ -29,23 +47,24 @@ const iconVariants = cva("shrink-0 transition-colors duration-150 inline-block a
 });
 
 export interface IconProps
-  extends Omit<LucideProps, "ref">,
+  extends Omit<LucideProps, "ref" | "size">,
     VariantProps<typeof iconVariants> {
   icon: LucideIcon;
-  size?: number | string;
+  size?: IconSize;
   strokeWidth?: number | string;
 }
 
 /**
  * Standard Icon component for kohl.design.
  * Automatically defaults any Lucide icon to 20x20px with 1.5px stroke width.
+ * Supports unified size tiers ('xs', 'sm', 'default', 'lg', 'xl') or numeric pixel values.
  *
  * @example
  * ```tsx
  * import { Icon } from "@/components/ui/icon";
  * import { ArrowRight, Sparkles } from "lucide-react";
  *
- * <Icon icon={ArrowRight} />
+ * <Icon icon={ArrowRight} size="sm" />
  * <Icon icon={Sparkles} intent="primary" size={24} />
  * ```
  */
@@ -57,16 +76,23 @@ export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
       strokeWidth = DEFAULT_ICON_STROKE_WIDTH,
       intent,
       className,
+      style,
       ...props
     },
     ref
   ) => {
+    const resolvedSize = resolveIconSize(size);
     return (
       <Component
         ref={ref}
-        size={size}
+        size={resolvedSize}
         strokeWidth={strokeWidth}
         className={cn(iconVariants({ intent, className }))}
+        style={{
+          width: resolvedSize,
+          height: resolvedSize,
+          ...style,
+        }}
         {...props}
       />
     );
@@ -91,7 +117,11 @@ Icon.displayName = "Icon";
 export function createIcon(Component: LucideIcon) {
   const WrappedIcon = React.forwardRef<
     SVGSVGElement,
-    Omit<LucideProps, "ref"> & VariantProps<typeof iconVariants>
+    Omit<LucideProps, "ref" | "size"> &
+      VariantProps<typeof iconVariants> & {
+        size?: IconSize;
+        strokeWidth?: number | string;
+      }
   >(
     (
       {
@@ -99,18 +129,27 @@ export function createIcon(Component: LucideIcon) {
         strokeWidth = DEFAULT_ICON_STROKE_WIDTH,
         intent,
         className,
+        style,
         ...props
       },
       ref
-    ) => (
-      <Component
-        ref={ref}
-        size={size}
-        strokeWidth={strokeWidth}
-        className={cn(iconVariants({ intent, className }))}
-        {...props}
-      />
-    )
+    ) => {
+      const resolvedSize = resolveIconSize(size);
+      return (
+        <Component
+          ref={ref}
+          size={resolvedSize}
+          strokeWidth={strokeWidth}
+          className={cn(iconVariants({ intent, className }))}
+          style={{
+            width: resolvedSize,
+            height: resolvedSize,
+            ...style,
+          }}
+          {...props}
+        />
+      );
+    }
   );
 
   WrappedIcon.displayName = `Icon(${Component.displayName || Component.name || "LucideIcon"})`;
