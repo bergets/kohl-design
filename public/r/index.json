@@ -1,0 +1,189 @@
+[
+  {
+    "name": "utils",
+    "type": "registry:lib",
+    "title": "Utils",
+    "description": "Utility functions including cn() for Tailwind CSS class merging.",
+    "dependencies": [
+      "clsx",
+      "tailwind-merge"
+    ],
+    "registryDependencies": []
+  },
+  {
+    "name": "button",
+    "type": "registry:ui",
+    "title": "Button",
+    "description": "Kohl Design Button with default (pine), accent (crimson), editorial, and secondary variants, plus loading state.",
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "card",
+    "type": "registry:ui",
+    "title": "Card",
+    "description": "Kohl Design Card supporting 5 elevation layers: default, elevated, interactive, sunken, and glass.",
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "badge",
+    "type": "registry:ui",
+    "title": "Badge",
+    "description": "Kohl Design Badge with Pine/Crimson washes, status tones, animated pulse dots, and dismissible tags.",
+    "dependencies": [
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "input",
+    "type": "registry:ui",
+    "title": "Input",
+    "description": "Kohl Design Input with leading/trailing icons, error states, and composable InputGroup / InputAddon.",
+    "dependencies": [
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "label",
+    "type": "registry:ui",
+    "title": "Label",
+    "description": "Accessible form label primitive built on Radix UI Label.",
+    "dependencies": [
+      "@radix-ui/react-label",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "icon",
+    "type": "registry:ui",
+    "title": "Icon",
+    "description": "Kohl Design Icon wrapper ensuring standardized 20px size and 1.5px stroke width across Lucide icons.",
+    "dependencies": [
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "sonner",
+    "type": "registry:ui",
+    "title": "Sonner",
+    "description": "Toaster wrapper for Sonner styled to match Kohl Design tokens.",
+    "dependencies": [
+      "sonner",
+      "next-themes"
+    ],
+    "registryDependencies": []
+  },
+  {
+    "name": "tabs",
+    "type": "registry:ui",
+    "title": "Tabs",
+    "description": "Accessible Kohl Design Tabs supporting default (segmented pill), underline, and pills variants.",
+    "dependencies": [
+      "@radix-ui/react-tabs",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "toggle",
+    "type": "registry:ui",
+    "title": "Toggle",
+    "description": "Kohl Design two-state button component with default, outline, primary, and editorial variants.",
+    "dependencies": [
+      "@radix-ui/react-toggle",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "toggle-group",
+    "type": "registry:ui",
+    "title": "ToggleGroup",
+    "description": "Kohl Design set of two-state buttons supporting single and multiple selection with unified variant and size inheritance.",
+    "dependencies": [
+      "@radix-ui/react-toggle-group",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils",
+      "toggle"
+    ]
+  },
+  {
+    "name": "avatar",
+    "type": "registry:ui",
+    "title": "Avatar",
+    "description": "Kohl Design image element with fallback initials, online status badges, and overlapping AvatarGroup stack.",
+    "dependencies": [
+      "@radix-ui/react-avatar",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "chip",
+    "type": "registry:ui",
+    "title": "Chip",
+    "description": "Interactive, selectable, and dismissible tag chip component with checkmark feedback and ChipGroup wrapper.",
+    "dependencies": [
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "brand-flower",
+    "type": "registry:ui",
+    "title": "BrandFlower",
+    "description": "Official blooming radial floral emblem vector component for Kohl Design.",
+    "dependencies": [],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "theme",
+    "type": "registry:theme",
+    "title": "Kohl Theme Tokens",
+    "description": "Complete Tailwind CSS v4 design tokens and CSS variables for Kohl Design (Pine, Crimson, and Neutral scales, dark & blush modes).",
+    "dependencies": [
+      "tailwindcss",
+      "tw-animate-css"
+    ],
+    "registryDependencies": []
+  }
+]

@@ -2,74 +2,27 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import {
   AlertCircle,
   AlertTriangle,
-  ArrowLeft,
   ArrowRight,
   Bell,
   Check,
   CheckCircle2,
   Copy,
   ExternalLink,
-  Flame,
   Info,
   Loader2,
-  Moon,
   RotateCcw,
-  Sparkles,
-  Sun,
   XCircle,
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/sonner";
 
-type ThemePreset = "default" | "blush" | "sharp" | "round";
-
-const PRESET_OPTIONS: {
-  id: ThemePreset;
-  label: string;
-  badge: string;
-  dotClass: string;
-  description: string;
-}[] = [
-  {
-    id: "default",
-    label: "Pine Base",
-    badge: "8px Radius",
-    dotClass: "bg-[#005243]",
-    description: "Original kohl.design brand identity with deep forest pine and 8px pebble corners.",
-  },
-  {
-    id: "blush",
-    label: "Blush Brand",
-    badge: "14px • Soft Pink",
-    dotClass: "bg-[#FCD3D6] border border-[#f2aab2]",
-    description: "Luminous cashmere blush CTA, deep velvet wine noir typography, and midnight berry surfaces.",
-  },
-  {
-    id: "sharp",
-    label: "Sharp Tech",
-    badge: "2px Razor",
-    dotClass: "bg-[#005243] rounded-[1px]",
-    description: "Architectural, technical developer aesthetic with razor-sharp 2px corners.",
-  },
-  {
-    id: "round",
-    label: "Pebble Round",
-    badge: "18px Organic",
-    dotClass: "bg-[#005243]",
-    description: "Friendly, organic pill aesthetic with deep 18px rounded curves.",
-  },
-];
-
 export default function ToastShowcasePage() {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
-  const [activePreset, setActivePreset] = React.useState<ThemePreset>("default");
   const [isSimulating, setIsSimulating] = React.useState(false);
 
   React.useEffect(() => {
@@ -100,107 +53,22 @@ export default function ToastShowcasePage() {
   };
 
   return (
-    <div
-      data-theme-variant={activePreset !== "default" ? activePreset : undefined}
-      className="min-h-screen bg-background text-foreground transition-colors duration-200"
-    >
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/design-system"
-              className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-              <span>Design System</span>
-            </Link>
-            <span className="text-border">/</span>
-            <span className="font-semibold text-sm">Components</span>
-            <span className="text-border">/</span>
-            <span className="rounded-[var(--radius-sm)] bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground">
-              Toast (Sonner)
-            </span>
-          </div>
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <section className="space-y-4">
+        <h1 className="font-cooper text-3xl sm:text-5xl font-normal tracking-tight text-foreground">
+          Toast Notifications
+        </h1>
+        <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+          The gold-standard notification system created by Emil Kowalski. Powered by tactile spring stacking, natural momentum swipe-to-dismiss, automatic dark mode synchronization, and promise lifecycles.
+        </p>
+      </section>
 
-          <div className="flex items-center gap-3">
-            {mounted && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="gap-2"
-              >
-                {theme === "dark" ? <Sun className="size-3.5" /> : <Moon className="size-3.5" />}
-                <span>{theme === "dark" ? "Light Mode" : "Dark (Midnight)"}</span>
-              </Button>
-            )}
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-6 py-12 space-y-16">
-        {/* Hero Section */}
-        <section className="space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
-            <span>Feedback & Notification Physics</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-            Toast Notifications (Sonner)
-          </h1>
-          <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            The gold-standard notification system created by Emil Kowalski. Powered by tactile spring stacking, natural momentum swipe-to-dismiss, automatic dark mode synchronization, and promise lifecycles.
-          </p>
-        </section>
-
-        {/* Personality Preset Switcher */}
-        <section className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border pb-3">
-            <div>
-              <h2 className="text-lg font-bold">Personality Presets</h2>
-              <p className="text-xs text-muted-foreground">
-                Notice how the toast card corners and action buttons inherit the active design tokens.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {PRESET_OPTIONS.map((preset) => {
-              const isSelected = activePreset === preset.id;
-              return (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => setActivePreset(preset.id)}
-                  className={`text-left p-4 rounded-[var(--radius)] border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
-                    isSelected
-                      ? "border-primary bg-primary/5 shadow-xs ring-1 ring-primary"
-                      : "border-border bg-card hover:border-border/80 hover:bg-neutral-50/50 dark:hover:bg-neutral-900/40"
-                  }`}
-                >
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-2">
-                      <span className={`size-3 rounded-full ${preset.dotClass}`} />
-                      <span className="font-semibold text-sm">{preset.label}</span>
-                    </div>
-                    {isSelected && <Check className="size-4 text-primary" />}
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {preset.description}
-                  </p>
-                  <span className="text-[11px] font-mono text-muted-foreground/80 bg-muted px-2 py-0.5 rounded-[var(--radius-sm)] self-start">
-                    {preset.badge}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
 
         {/* Live Interactive Trigger Station */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">Interactive Toast Triggers</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">Interactive Toast Triggers</h2>
             <p className="text-xs text-muted-foreground">
               Click any button below to dispatch live toasts and test tactile swipe gestures, stacking, and keyboard dismissal.
             </p>
@@ -353,7 +221,7 @@ export default function ToastShowcasePage() {
         {/* Code Usage Reference */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">Developer Implementation & Code Recipes</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">Developer Implementation & Code Recipes</h2>
             <p className="text-xs text-muted-foreground">
               Copy-paste ready snippets adhering to Emil Kowalski’s Sonner guidelines.
             </p>
@@ -430,7 +298,7 @@ toast.promise(saveProject(), {
         {/* Sonner Design Engineering Principles */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">Design Engineering Principles (Emil Kowalski)</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">Design Engineering Principles (Emil Kowalski)</h2>
             <p className="text-xs text-muted-foreground">
               Core physical rules that make Sonner feel distinctly superior to traditional toast libraries.
             </p>
@@ -474,18 +342,20 @@ toast.promise(saveProject(), {
             <Link href="/design-system" className="hover:text-foreground transition-colors">
               Component Index
             </Link>
+            <Link href="/design-system/button" className="hover:text-foreground transition-colors">
+              Button
+            </Link>
+            <Link href="/design-system/card" className="hover:text-foreground transition-colors">
+              Card
+            </Link>
             <Link href="/design-system/badge" className="hover:text-foreground transition-colors">
               Badge & Status
             </Link>
             <Link href="/design-system/input" className="hover:text-foreground transition-colors">
               Input Field
             </Link>
-            <Link href="/design-system/button" className="hover:text-foreground transition-colors">
-              Button
-            </Link>
           </div>
         </footer>
-      </main>
     </div>
   );
 }

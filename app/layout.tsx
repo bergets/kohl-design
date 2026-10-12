@@ -30,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${dmSans.className} ${dmSans.variable} ${cooper.variable} antialiased transition-colors duration-300`}
       >
         <ThemeProvider

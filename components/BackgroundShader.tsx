@@ -30,6 +30,7 @@ export default function BackgroundShader() {
             transition={{ duration: 1, delay: 0.2 }}
         >
             <MeshGradient
+                key={isDark ? "dark" : "light"}
                 colors={currentColors}
                 speed={1.0}
                 height="100%"

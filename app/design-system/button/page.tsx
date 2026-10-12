@@ -2,78 +2,45 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import {
   ArrowRight,
-  ArrowLeft,
   Check,
   ChevronRight,
   Copy,
   Download,
   ExternalLink,
   Heart,
-  Moon,
   Plus,
   RefreshCw,
+  Search,
   Send,
+  SlidersHorizontal,
   Sparkles,
-  Sun,
   Trash2,
+  Bookmark,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-type ThemePreset = "default" | "blush" | "sharp" | "round";
-
-const PRESET_OPTIONS: {
-  id: ThemePreset;
-  label: string;
-  badge: string;
-  dotClass: string;
-  description: string;
-}[] = [
-  {
-    id: "default",
-    label: "Pine Base",
-    badge: "8px Radius",
-    dotClass: "bg-[#005243]",
-    description: "Original kohl.design brand identity with deep forest pine and 8px pebble corners.",
-  },
-  {
-    id: "blush",
-    label: "Blush Brand",
-    badge: "14px • Soft Pink",
-    dotClass: "bg-[#FCD3D6] border border-[#f2aab2]",
-    description: "Luminous cashmere blush CTA, deep velvet wine noir typography, and midnight berry surfaces in dark mode (pure blush, zero pine).",
-  },
-  {
-    id: "sharp",
-    label: "Sharp Tech",
-    badge: "2px Razor",
-    dotClass: "bg-[#005243] rounded-[1px]",
-    description: "Architectural, technical developer aesthetic with razor-sharp 2px corners.",
-  },
-  {
-    id: "round",
-    label: "Pebble Round",
-    badge: "18px Organic",
-    dotClass: "bg-[#005243]",
-    description: "Friendly, organic pill aesthetic with deep 18px rounded curves.",
-  },
-];
+import { Input } from "@/components/ui/input";
+import { Toggle } from "@/components/ui/toggle";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useDesignSystem } from "@/components/design-system/DesignSystemContext";
 
 export default function ButtonShowcasePage() {
-  const { theme, setTheme } = useTheme();
+  const { brandTheme } = useDesignSystem();
   const [mounted, setMounted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(false);
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
-  const [activePreset, setActivePreset] = React.useState<ThemePreset>("default");
+
+  // Unified row alignment demo state
+  const [alignmentSize, setAlignmentSize] = React.useState<"xs" | "sm" | "default" | "lg">("default");
+  const [showAlignmentGuides, setShowAlignmentGuides] = React.useState(true);
 
   // Playground state
   const [selectedVariant, setSelectedVariant] = React.useState<
     "default" | "editorial" | "secondary" | "outline" | "ghost" | "destructive" | "link"
   >("default");
-  const [selectedSize, setSelectedSize] = React.useState<"sm" | "default" | "lg" | "xl">("default");
+  const [selectedSize, setSelectedSize] = React.useState<"xs" | "sm" | "default" | "lg" | "xl">("default");
   const [playgroundText, setPlaygroundText] = React.useState("Continue Project");
   const [showLeftIcon, setShowLeftIcon] = React.useState(false);
   const [showRightIcon, setShowRightIcon] = React.useState(true);
@@ -96,146 +63,41 @@ export default function ButtonShowcasePage() {
 </Button>`;
 
   return (
-    <div
-      data-theme-variant={activePreset !== "default" ? activePreset : undefined}
-      className="min-h-screen bg-background text-foreground transition-colors duration-200"
-    >
-      {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-              <span>kohl.design</span>
-            </Link>
-            <span className="text-border">/</span>
-            <span className="font-semibold text-sm">Design System</span>
-            <span className="text-border">/</span>
-            <span className="rounded-[var(--radius-sm)] bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground">
-              Button POC
-            </span>
-          </div>
+    <div className="space-y-12">
+      {/* Hero Introduction */}
+      <section className="space-y-4">
+        <h1 className="font-cooper text-3xl sm:text-5xl font-normal tracking-tight text-foreground">
+          Button
+        </h1>
+        <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+          Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, tactile click micro-animations, and integrated loading states.
+        </p>
 
-          <div className="flex items-center gap-3">
-            {mounted && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="gap-2"
-              >
-                {theme === "dark" ? <Sun className="size-3.5" /> : <Moon className="size-3.5" />}
-                <span>{theme === "dark" ? "Light Mode" : "Dark (Midnight)"}</span>
-              </Button>
-            )}
-          </div>
+        {/* Interactive Global Controls */}
+        <div className="flex items-center gap-2 pt-2">
+          <Button
+            variant={isLoading ? "default" : "outline"}
+            size="sm"
+            onClick={() => setIsLoading(!isLoading)}
+            className="gap-1.5"
+          >
+            <RefreshCw className={`size-3.5 ${isLoading ? "animate-spin" : ""}`} />
+            <span>{isLoading ? "Loading ON" : "Toggle Loading"}</span>
+          </Button>
+          <Button
+            variant={isDisabled ? "default" : "outline"}
+            size="sm"
+            onClick={() => setIsDisabled(!isDisabled)}
+          >
+            <span>{isDisabled ? "Disabled ON" : "Toggle Disabled"}</span>
+          </Button>
         </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-6 py-12 space-y-16">
-        {/* Hero Introduction */}
-        <section className="space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
-            <span>Component Specification · 01</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-            Button Component
-          </h1>
-          <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Built on top of <span className="font-semibold text-foreground">shadcn/ui</span> and tailored for the <span className="font-semibold text-foreground">kohl.design</span> brand identity. Features signature Pine and Crimson palettes, dynamic <code className="font-mono text-xs font-semibold text-accent">var(--radius)</code> corner radii, tactile click micro-animations, and integrated loading states.
-          </p>
-
-          {/* Interactive Global & Theme Toolbar */}
-          <div className="space-y-3 pt-6 border-t border-border">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-[var(--radius)] border border-border bg-card/70 backdrop-blur-xs shadow-xs">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="size-4 text-accent" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
-                    Project Preset Switcher
-                  </span>
-                  <span className="text-[11px] text-muted-foreground">
-                    (Preview how tokens adapt for your other personal projects)
-                  </span>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {PRESET_OPTIONS.map((preset) => {
-                    const isSelected = activePreset === preset.id;
-                    return (
-                      <button
-                        key={preset.id}
-                        type="button"
-                        onClick={() => setActivePreset(preset.id)}
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-[var(--radius-sm)] border transition-all cursor-pointer ${
-                          isSelected
-                            ? "bg-primary text-primary-foreground border-primary shadow-xs ring-2 ring-primary/20"
-                            : "bg-background text-foreground border-border hover:bg-muted"
-                        }`}
-                      >
-                        <span className={`size-2.5 rounded-full ${preset.dotClass}`} />
-                        <span>{preset.label}</span>
-                        <span
-                          className={`text-[10px] px-1.5 py-0.5 rounded-[calc(var(--radius-sm)-2px)] font-mono ${
-                            isSelected
-                              ? "bg-primary-foreground/20 text-primary-foreground"
-                              : "bg-muted text-muted-foreground"
-                          }`}
-                        >
-                          {preset.badge}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0 md:self-end">
-                <Button
-                  variant={isLoading ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setIsLoading(!isLoading)}
-                  className="gap-1.5"
-                >
-                  <RefreshCw className={`size-3.5 ${isLoading ? "animate-spin" : ""}`} />
-                  <span>{isLoading ? "Loading ON" : "Toggle Loading"}</span>
-                </Button>
-                <Button
-                  variant={isDisabled ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setIsDisabled(!isDisabled)}
-                >
-                  <span>{isDisabled ? "Disabled ON" : "Toggle Disabled"}</span>
-                </Button>
-              </div>
-            </div>
-
-            {/* Active Preset Explainer Banner */}
-            <div className="flex items-center justify-between text-xs px-4 py-2.5 rounded-[var(--radius)] bg-muted/40 border border-border text-muted-foreground">
-              <span>
-                <strong className="text-foreground">Active Preset:</strong>{" "}
-                {PRESET_OPTIONS.find((p) => p.id === activePreset)?.description}
-              </span>
-              {activePreset !== "default" && (
-                <button
-                  type="button"
-                  onClick={() => setActivePreset("default")}
-                  className="text-xs font-medium hover:underline cursor-pointer shrink-0 ml-4"
-                  style={{ color: "var(--link)" }}
-                >
-                  Reset to Pine Base
-                </button>
-              )}
-            </div>
-          </div>
-        </section>
+      </section>
 
         {/* Section 1: All Style Variants */}
         <section className="space-y-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight">1. Brand Style Variants</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">1. Brand Style Variants</h2>
             <p className="text-sm text-muted-foreground">
               Core brand variants engineered for primary conversions, dual-register moments, and utility surfaces.
             </p>
@@ -248,9 +110,9 @@ export default function ButtonShowcasePage() {
                 <div className="flex items-center justify-between">
                   <span
                     className="text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: activePreset === "blush" ? "var(--accent)" : "var(--primary)" }}
+                    style={{ color: brandTheme === "blush" ? "var(--accent)" : "var(--primary)" }}
                   >
-                    {activePreset === "blush" ? "Primary Blush" : "Primary Pine"}
+                    {brandTheme === "blush" ? "Primary Blush" : "Primary Pine"}
                   </span>
                   <code className="text-[11px] font-mono text-muted-foreground">variant="default"</code>
                 </div>
@@ -280,7 +142,7 @@ export default function ButtonShowcasePage() {
                   <code className="text-[11px] font-mono text-muted-foreground">variant="editorial"</code>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {activePreset === "blush"
+                  {brandTheme === "blush"
                     ? "Deep wine & rose outline badge. Contrasts cleanly with the filled cashmere primary."
                     : "Soft blush wash with crimson typography. Pairs with Cooper headlines."}
                 </p>
@@ -430,7 +292,7 @@ export default function ButtonShowcasePage() {
         {/* Section 2: Size Scale */}
         <section className="space-y-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight">2. Size Scale & Touch Targets</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">2. Size Scale & Touch Targets</h2>
             <p className="text-sm text-muted-foreground">
               Proportional height, padding, gap, and icon sizing based on the 4px design grid with 8px corner radii.
             </p>
@@ -438,25 +300,33 @@ export default function ButtonShowcasePage() {
 
           <div className="rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs space-y-6">
             <div className="flex flex-wrap items-end gap-6">
+              {/* Extra Small */}
+              <div className="space-y-2">
+                <div className="text-xs font-mono text-muted-foreground">size="xs" · 28px (h-7, Micro)</div>
+                <Button size="xs" variant="default" loading={isLoading} disabled={isDisabled}>
+                  <Plus /> Micro (28px)
+                </Button>
+              </div>
+
               {/* Small */}
               <div className="space-y-2">
-                <div className="text-xs font-mono text-muted-foreground">size="sm" · 28px (h-7, Compact)</div>
+                <div className="text-xs font-mono text-muted-foreground">size="sm" · 32px (h-8, Toolbar)</div>
                 <Button size="sm" variant="default" loading={isLoading} disabled={isDisabled}>
-                  <Plus /> Small (28px)
+                  <Plus /> Small (32px)
                 </Button>
               </div>
 
               {/* Default */}
               <div className="space-y-2">
-                <div className="text-xs font-mono text-muted-foreground">size="default" · 32px (h-8, 14px font, Primary Base)</div>
+                <div className="text-xs font-mono text-muted-foreground">size="default" · 36px (h-9, Standard Base)</div>
                 <Button size="default" variant="default" loading={isLoading} disabled={isDisabled}>
-                  <Plus /> Default (32px)
+                  <Plus /> Default (36px)
                 </Button>
               </div>
 
               {/* Large */}
               <div className="space-y-2">
-                <div className="text-xs font-mono text-muted-foreground">size="lg" · 40px (h-10)</div>
+                <div className="text-xs font-mono text-muted-foreground">size="lg" · 40px (h-10, Prominent)</div>
                 <Button size="lg" variant="default" loading={isLoading} disabled={isDisabled}>
                   <Plus /> Large (40px)
                 </Button>
@@ -475,19 +345,26 @@ export default function ButtonShowcasePage() {
               <div className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
                 Square Icon Buttons
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Button size="icon-xs" variant="outline" loading={isLoading} disabled={isDisabled}>
+                    <Heart />
+                  </Button>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon-xs" (28px)</span>
+                </div>
+
                 <div className="flex items-center gap-2">
                   <Button size="icon-sm" variant="outline" loading={isLoading} disabled={isDisabled}>
                     <Heart />
                   </Button>
-                  <span className="text-xs font-mono text-muted-foreground">size="icon-sm" (28px)</span>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon-sm" (32px)</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <Button size="icon" variant="default" loading={isLoading} disabled={isDisabled}>
                     <Download />
                   </Button>
-                  <span className="text-xs font-mono text-muted-foreground">size="icon" (32px)</span>
+                  <span className="text-xs font-mono text-muted-foreground">size="icon" (36px)</span>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -508,10 +385,186 @@ export default function ButtonShowcasePage() {
           </div>
         </section>
 
-        {/* Section 3: Icon & Composition */}
+        {/* Section 3: Unified Row Alignment */}
         <section className="space-y-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight">3. Iconography & Next.js Link Composition</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">
+              3. Unified Control Row Alignment
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Buttons, segmented controls (Tabs), toggles, and inputs share a synchronized vertical height scale (<code className="font-mono text-xs text-foreground">28px</code>, <code className="font-mono text-xs text-foreground">32px</code>, <code className="font-mono text-xs text-foreground">36px</code>, <code className="font-mono text-xs text-foreground">40px</code>, <code className="font-mono text-xs text-foreground">48px</code>). Compose them side-by-side with zero pixel misalignment.
+            </p>
+          </div>
+
+          <div className="rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4">
+              <div className="space-y-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Interactive Multi-Control Alignment Row
+                </span>
+                <p className="text-xs text-muted-foreground">
+                  Toggle sizes to verify that Input, Segmented Tabs, Toggle, and Button share exact top and bottom baselines.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {/* Size Switcher */}
+                <div className="flex rounded-[var(--radius-sm)] border border-border bg-muted/40 p-0.5">
+                  {(["xs", "sm", "default", "lg"] as const).map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => setAlignmentSize(s)}
+                      className={`px-2.5 py-1 text-xs font-medium rounded-[calc(var(--radius-sm)-2px)] transition-all cursor-pointer ${
+                        alignmentSize === s
+                          ? "bg-background text-foreground font-semibold shadow-2xs"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {s} ({s === "xs" ? "28px" : s === "sm" ? "32px" : s === "default" ? "36px" : "40px"})
+                    </button>
+                  ))}
+                </div>
+
+                {/* Alignment Guides Toggle */}
+                <button
+                  type="button"
+                  onClick={() => setShowAlignmentGuides(!showAlignmentGuides)}
+                  className={`px-2.5 py-1 text-xs font-medium rounded-[var(--radius-sm)] border transition-all cursor-pointer ${
+                    showAlignmentGuides
+                      ? "border-primary bg-primary text-primary-foreground font-semibold shadow-2xs"
+                      : "border-border bg-background text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {showAlignmentGuides ? "Guides On" : "Guides Off"}
+                </button>
+              </div>
+            </div>
+
+            {/* Live Aligned Row with Guides */}
+            <div className="relative py-8 px-4 rounded-[var(--radius)] bg-muted/20 border border-border/80 overflow-x-auto">
+              {showAlignmentGuides && (
+                <>
+                  {/* Top Bounding Line */}
+                  <div className="absolute left-0 right-0 top-8 border-t border-dashed border-crimson-400/80 pointer-events-none z-10" />
+                  {/* Bottom Bounding Line */}
+                  <div
+                    className="absolute left-0 right-0 border-b border-dashed border-crimson-400/80 pointer-events-none z-10 transition-all duration-150"
+                    style={{
+                      top:
+                        alignmentSize === "xs"
+                          ? "calc(2rem + 28px)"
+                          : alignmentSize === "sm"
+                          ? "calc(2rem + 32px)"
+                          : alignmentSize === "default"
+                          ? "calc(2rem + 36px)"
+                          : "calc(2rem + 40px)",
+                    }}
+                  />
+                </>
+              )}
+
+              <div className="flex flex-wrap items-center gap-2.5 relative z-0">
+                {/* 1. Search Input */}
+                <Input
+                  size={alignmentSize}
+                  placeholder="Search assets..."
+                  startIcon={<Search />}
+                  className="w-48 sm:w-56"
+                />
+
+                {/* 2. Segmented Control (Tabs) */}
+                <Tabs defaultValue="all">
+                  <TabsList variant="default" size={alignmentSize}>
+                    <TabsTrigger value="all">All</TabsTrigger>
+                    <TabsTrigger value="active">Active</TabsTrigger>
+                    <TabsTrigger value="archived">Archived</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+
+                {/* 3. Standalone Toggle */}
+                <Toggle size={alignmentSize} variant="outline" aria-label="Bookmark">
+                  <Bookmark />
+                </Toggle>
+
+                {/* 4. Secondary Action Button */}
+                <Button size={alignmentSize} variant="outline" className="gap-1.5">
+                  <SlidersHorizontal />
+                  <span>Filters</span>
+                </Button>
+
+                {/* 5. Primary CTA Button */}
+                <Button size={alignmentSize} variant="default" className="gap-1.5">
+                  <Plus />
+                  <span>Create Item</span>
+                </Button>
+              </div>
+            </div>
+
+            {/* Spec Matrix Table */}
+            <div className="overflow-x-auto pt-2">
+              <table className="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-border text-muted-foreground font-semibold">
+                    <th className="py-2 px-3">Size Variant</th>
+                    <th className="py-2 px-3">Exact Height</th>
+                    <th className="py-2 px-3">Button</th>
+                    <th className="py-2 px-3">Tabs (Segmented)</th>
+                    <th className="py-2 px-3">Toggle</th>
+                    <th className="py-2 px-3">Input</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/60 font-mono text-[11px]">
+                  <tr className="hover:bg-muted/30">
+                    <td className="py-2 px-3 font-semibold text-foreground">size="xs"</td>
+                    <td className="py-2 px-3 text-link font-semibold">28px (h-7)</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-7 px-2.5 text-xs</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-7 p-0.5 track</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-7 min-w-7 px-2</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-7 px-2.5 text-xs</td>
+                  </tr>
+                  <tr className="hover:bg-muted/30">
+                    <td className="py-2 px-3 font-semibold text-foreground">size="sm"</td>
+                    <td className="py-2 px-3 text-link font-semibold">32px (h-8)</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-8 px-3 text-xs</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-8 p-0.5 track</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-8 min-w-8 px-2.5</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-8 px-3 text-xs</td>
+                  </tr>
+                  <tr className="hover:bg-muted/30">
+                    <td className="py-2 px-3 font-semibold text-foreground">size="default"</td>
+                    <td className="py-2 px-3 text-link font-semibold">36px (h-9)</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-9 px-4 text-sm</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-9 p-1 track</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-9 min-w-9 px-3</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-9 px-3.5 text-sm</td>
+                  </tr>
+                  <tr className="hover:bg-muted/30">
+                    <td className="py-2 px-3 font-semibold text-foreground">size="lg"</td>
+                    <td className="py-2 px-3 text-link font-semibold">40px (h-10)</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-10 px-5 text-sm</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-10 p-1 track</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-10 min-w-10 px-3.5</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-10 px-4 text-sm</td>
+                  </tr>
+                  <tr className="hover:bg-muted/30">
+                    <td className="py-2 px-3 font-semibold text-foreground">size="xl"</td>
+                    <td className="py-2 px-3 text-link font-semibold">48px (h-12)</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-12 px-6 text-base</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-12 p-1.5 track</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-12 min-w-12 px-4</td>
+                    <td className="py-2 px-3 text-muted-foreground">h-12 px-4.5 text-base</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Icon & Composition */}
+        <section className="space-y-6">
+          <div className="space-y-1">
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">4. Iconography & Next.js Link Composition</h2>
             <p className="text-sm text-muted-foreground">
               Composing buttons with leading icons, trailing arrows, counters, or as accessible navigation links.
             </p>
@@ -577,10 +630,10 @@ export default function ButtonShowcasePage() {
           </div>
         </section>
 
-        {/* Section 4: Dual-Register Environment Preview */}
+        {/* Section 5: Dual-Register Environment Preview */}
         <section className="space-y-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight">4. Dual-Register Immersion</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">5. Dual-Register Immersion</h2>
             <p className="text-sm text-muted-foreground">
               Verification of button contrast and aesthetics across both brand registers.
             </p>
@@ -635,10 +688,10 @@ export default function ButtonShowcasePage() {
           </div>
         </section>
 
-        {/* Section 5: Interactive Playground & Code Generator */}
+        {/* Section 6: Interactive Playground & Code Generator */}
         <section className="space-y-6 pb-12">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold tracking-tight">5. Interactive Playground</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">6. Interactive Playground</h2>
             <p className="text-sm text-muted-foreground">
               Customize props and instantly copy the production React code.
             </p>
@@ -675,8 +728,8 @@ export default function ButtonShowcasePage() {
                 <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block mb-2">
                   Size
                 </label>
-                <div className="flex gap-2">
-                  {(["sm", "default", "lg", "xl"] as const).map((s) => (
+                <div className="flex flex-wrap gap-2">
+                  {(["xs", "sm", "default", "lg", "xl"] as const).map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -759,13 +812,10 @@ export default function ButtonShowcasePage() {
           </div>
         </section>
 
-        {/* Section 6: Multi-Project Sharing & Token Overrides */}
+        {/* Section 7: Multi-Project Sharing & Token Overrides */}
         <section className="space-y-6 pb-16">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
-              <span>Architecture & Reuse</span>
-            </div>
-            <h2 className="text-2xl font-bold tracking-tight">6. Multi-Project Token Customization</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">7. Multi-Project Token Customization</h2>
             <p className="text-sm text-muted-foreground">
               How to reuse this design language in other personal projects with custom brand colors and corner radii.
             </p>
@@ -807,11 +857,11 @@ export default function ButtonShowcasePage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h3 className="text-sm font-semibold text-foreground">
-                  CSS Tokens for Active Preset:{" "}
-                  <span className="text-accent font-mono">{activePreset}</span>
+                  CSS Tokens for Active Theme:{" "}
+                  <span className="text-accent font-mono capitalize">{brandTheme}</span>
                 </h3>
                 <p className="text-xs text-muted-foreground">
-                  Drop this block into <code className="font-mono">app/globals.css</code> of your other personal project:
+                  Drop this block into <code className="font-mono">app/globals.css</code> of your project:
                 </p>
               </div>
               <Button
@@ -819,12 +869,8 @@ export default function ButtonShowcasePage() {
                 size="sm"
                 onClick={() => {
                   const cssSnippet =
-                    activePreset === "blush"
+                    brandTheme === "blush"
                       ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir #1d070a */\n  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson #8a2e36 */\n  --accent-foreground: #ffffff;\n  --foreground: hsla(352, 60%, 7%, 1); /* Deep wine noir typography */\n  --link: hsla(354, 60%, 32%, 1); /* Deep crimson link #822129 (10:1 AAA) */\n  --link-hover: hsla(352, 100%, 13%, 1); /* Deep wine #420006 */\n  /* Light mode petal wash surfaces */\n  --secondary: hsla(356, 60%, 96%, 1);\n  --secondary-foreground: hsla(352, 60%, 7%, 1);\n  --muted: hsla(356, 60%, 96%, 1);\n  --muted-foreground: hsla(354, 25%, 45%, 1);\n  --border: hsla(355, 40%, 88%, 1);\n  --sidebar: hsla(356, 89%, 96%, 1);\n}\n\n.dark {\n  /* Dark mode: Velvety Midnight Berry & Plum surfaces */\n  --background: hsla(352, 55%, 6.5%, 1); /* Canvas #1a0709 */\n  --foreground: hsla(356, 86%, 96%, 1); /* Petal white #feeced */\n  --card: hsla(352, 42%, 11%, 1); /* Deep plum card #281013 */\n  --card-foreground: hsla(356, 86%, 96%, 1);\n  --popover: hsla(352, 42%, 11%, 1);\n  --popover-foreground: hsla(356, 86%, 96%, 1);\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(352, 60%, 7%, 1);\n  --secondary: hsla(352, 22%, 18%, 1); /* Dusty mauve/berry #382426 */\n  --secondary-foreground: hsla(356, 86%, 96%, 1);\n  --muted: hsla(352, 22%, 18%, 1);\n  --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */\n  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */\n  --accent-foreground: hsla(352, 60%, 7%, 1);\n  --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */\n  --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */\n  --link: hsla(356, 86%, 85%, 1); /* Luminous rose link #fcd3d6 (11.5:1 AAA) */\n  --link-hover: hsla(356, 90%, 94%, 1);\n}`
-                      : activePreset === "sharp"
-                      ? `:root {\n  --radius: 2px; /* Razor-sharp technical corners */\n}`
-                      : activePreset === "round"
-                      ? `:root {\n  --radius: 1.125rem; /* 18px pebble curves */\n}`
                       : `:root {\n  --radius: 0.5rem; /* 8px signature pebble */\n  --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */\n  --primary-hover: hsla(170, 90%, 11%, 1);\n  --accent: hsla(354, 34%, 43%, 1); /* Crimson */\n  --link: hsla(170, 100%, 16%, 1);\n  --link-hover: hsla(170, 90%, 11%, 1);\n}`;
                   copyToClipboard(cssSnippet, "preset-css");
                 }}
@@ -845,7 +891,7 @@ export default function ButtonShowcasePage() {
             </div>
 
             <pre className="rounded-[var(--radius-sm)] bg-neutral-900 dark:bg-black p-4 text-xs font-mono text-neutral-100 overflow-x-auto leading-relaxed">
-              {activePreset === "blush" &&
+              {brandTheme === "blush" ? (
 `/* Blush Project Variant: Pure Cashmere Blush + Midnight Berry (Zero Pine) */
 :root {
   --radius: 0.875rem; /* 14px soft curve */
@@ -884,29 +930,43 @@ export default function ButtonShowcasePage() {
   --accent-foreground: hsla(352, 60%, 7%, 1);
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */
-}`}
-              {activePreset === "sharp" &&
-`/* Sharp Technical Variant: 2px razor corners for developer/dashboard tools */
-:root {
-  --radius: 2px; /* Razor sharp */
-}`}
-              {activePreset === "round" &&
-`/* Pebble Round Variant: 18px organic curves for playful/casual tools */
-:root {
-  --radius: 1.125rem; /* 18px pebble */
-}`}
-              {activePreset === "default" &&
-`/* Kohl Default: Signature Pine Green + 8px pebble corners */
+}`
+              ) : (
+`/* Pine Project Variant: Signature Forest Pine + Crimson Accent */
 :root {
   --radius: 0.5rem; /* 8px signature pebble */
   --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */
   --primary-hover: hsla(170, 90%, 11%, 1);
   --accent: hsla(354, 34%, 43%, 1); /* Crimson */
-}`}
+  --link: hsla(170, 100%, 16%, 1);
+  --link-hover: hsla(170, 90%, 11%, 1);
+}`
+              )}
             </pre>
           </div>
         </section>
-      </main>
+
+        {/* Footer */}
+        <footer className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+          <span>kohl.design · Design System v1.0</span>
+          <div className="flex items-center gap-4">
+            <Link href="/design-system" className="hover:text-foreground transition-colors">
+              Component Index
+            </Link>
+            <Link href="/design-system/card" className="hover:text-foreground transition-colors">
+              Card
+            </Link>
+            <Link href="/design-system/badge" className="hover:text-foreground transition-colors">
+              Badge & Status
+            </Link>
+            <Link href="/design-system/input" className="hover:text-foreground transition-colors">
+              Input Field
+            </Link>
+            <Link href="/design-system/toast" className="hover:text-foreground transition-colors">
+              Toast
+            </Link>
+          </div>
+        </footer>
     </div>
   );
 }

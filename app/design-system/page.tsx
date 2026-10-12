@@ -1,249 +1,361 @@
+import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Layers, Square, Sparkles, CheckCircle2, Compass, TextCursorInput, Tag, Bell } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  ArrowRight,
+  Layers,
+  Square,
+  Sparkles,
+  CheckCircle2,
+  Compass,
+  TextCursorInput,
+  Tag,
+  Bell,
+  Code2,
+  ShieldAlert,
+  Palette,
+  Type,
+  PanelsTopLeft,
+  PanelTop,
+  ToggleLeft,
+  CircleUser,
+  SlidersHorizontal,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function DesignSystemIndexPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link
-            href="/"
-            className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-            <span>kohl.design</span>
+    <div className="space-y-12">
+      {/* Hero Header */}
+      <div className="space-y-4">
+        <h1 className="font-cooper text-3xl sm:text-5xl font-normal tracking-tight text-foreground">
+          Kohl Design System
+        </h1>
+        <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+          A high-craft design system built for utilitarian consumer and productivity applications. Rooted in Midnight Forest Pine, warm Crimson Coral accents, Cooper editorial headlines, and 5-layer elevation.
+        </p>
+      </div>
+
+      {/* Foundations Quick Access */}
+      <section className="space-y-4">
+        <h2 className="font-cooper text-xl sm:text-2xl font-normal text-foreground">
+          Foundations
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <Link href="/design-system/anti-slop" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <ShieldAlert className="size-5 text-crimson-600 dark:text-crimson-400" />
+                  <Badge variant="editorial" size="sm">Essential</Badge>
+                </div>
+                <h3 className="font-semibold text-base text-foreground group-hover:text-link transition-colors">
+                  Anti-slop Guide
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Explicit rules and anti-patterns preventing generic AI clichés in interface generation.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>View Rules</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
-          <div className="flex items-center gap-3">
-            <span className="rounded-[4px] bg-pine-50 px-2 py-0.5 text-xs font-semibold text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-              Design System v1.0
-            </span>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-12 space-y-12">
-        <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
-            <span>Component Architecture</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-            kohl.design Components
-          </h1>
-          <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Component-based design system built on top of shadcn/ui. Tailored with dynamic semantic tokens, Pine Forest Green, Crimson Coral, DM Sans and Cooper typography, and multi-project personality presets (Blush, Sharp Tech, Pebble Round).
-          </p>
+          <Link href="/design-system/colors" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <Palette className="size-5 text-link" />
+                <h3 className="font-semibold text-base text-foreground group-hover:text-link transition-colors">
+                  Color Tokens
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  28 brand tokens across Pine, Crimson, and Neutrals with live Pine ↔ Blush theme switching.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>View Palettes</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/design-system/typography" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <Type className="size-5 text-link" />
+                <h3 className="font-semibold text-base text-foreground group-hover:text-link transition-colors">
+                  Typography Hierarchy
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Expressive Cooper serif for display titles and high-legibility DM Sans for UI copy.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>View Typography</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/design-system/surfaces" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <Layers className="size-5 text-link" />
+                <h3 className="font-semibold text-base text-foreground group-hover:text-link transition-colors">
+                  Surfaces & Elevation
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  5 elevation layers, concentric corner radius geometry, and material depth physics.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>View Surfaces</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+        </div>
+      </section>
+
+      {/* Components Catalog */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-cooper text-xl sm:text-2xl font-normal text-foreground">
+            Components
+          </h2>
+          <Link
+            href="/design-system/registry"
+            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Code2 className="size-3.5" />
+            <span>Install via shadcn Registry</span>
+          </Link>
         </div>
 
-        {/* Component Catalog */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Button Card */}
-          <Link
-            href="/design-system/button"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-primary/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-                  <Square className="size-4" />
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
-                  <CheckCircle2 className="size-3" /> Production Ready
-                </span>
+          <Link href="/design-system/button" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Square className="size-4 text-link" />
+                  <Badge variant="default" size="sm">Interactive</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Button
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Brand Pine, Crimson, Editorial, Secondary, tactile click feedback, and loading spinners.
+                </p>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
-                Button
-              </h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Brand variants (Pine, Crimson, Editorial, Outline, Ghost), tactile click feedback, loading states, and live project preset switcher.
-              </p>
-            </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
-              <span>View Component & Presets</span>
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-            </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Button</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
 
-          {/* Icons Card */}
-          <Link
-            href="/design-system/icons"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-                  <Compass className="size-4" strokeWidth={1.5} />
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
-                  <CheckCircle2 className="size-3" /> Production Ready
-                </span>
+          {/* Card Component */}
+          <Link href="/design-system/card" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <PanelsTopLeft className="size-4 text-link" />
+                  <Badge variant="default" size="sm">5 Variants</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Card
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Primary content container with 5 elevation variants, interactive hover lifts, and subcomponent slots.
+                </p>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
-                Icons (Lucide)
-              </h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Standardized Lucide icon system configured with a 1.5px stroke width and 20×20px optical size default, interactive gallery, and copyable snippets.
-              </p>
-            </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
-              <span>Explore Icon Set</span>
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-            </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Card</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
 
-          {/* Card & Surfaces */}
-          <Link
-            href="/design-system/surfaces"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-                  <Layers className="size-4" strokeWidth={1.5} />
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
-                  <CheckCircle2 className="size-3" /> Production Ready
-                </span>
+          {/* Badge */}
+          <Link href="/design-system/badge" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Tag className="size-4 text-link" />
+                  <Badge variant="editorial" size="sm">Tags</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Badge
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Color washes, animated pulse dots, status indicators, and dismissible pills.
+                </p>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
-                Surfaces & Cards
-              </h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                5 elevation layers (Canvas to Glass), CVA card variants (default, elevated, interactive, sunken, glass), and concentric radius math.
-              </p>
-            </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
-              <span>Explore Surfaces</span>
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-            </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Badge</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
 
-          {/* Input Field Card */}
-          <Link
-            href="/design-system/input"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-                  <TextCursorInput className="size-4" strokeWidth={1.5} />
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
-                  <CheckCircle2 className="size-3" /> Production Ready
-                </span>
+          {/* Input */}
+          <Link href="/design-system/input" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <TextCursorInput className="size-4 text-link" />
+                  <Badge variant="secondary" size="sm">Forms</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Input & Field
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Text inputs with leading/trailing icons, error rings, and composable InputGroup wrappers.
+                </p>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
-                Input Field
-              </h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Accessible form control with 3 variants (outline, filled, ghost), zero iOS-zoom font scaling, tokenized corner radii, and composable adornments.
-              </p>
-            </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
-              <span>View Component & Presets</span>
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-            </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Input</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
 
-          {/* Badge & Status Pills */}
-          <Link
-            href="/design-system/badge"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-                  <Tag className="size-4" strokeWidth={1.5} />
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
-                  <CheckCircle2 className="size-3" /> Production Ready
-                </span>
+          {/* Icons */}
+          <Link href="/design-system/icons" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Compass className="size-4 text-link" />
+                  <Badge variant="default" size="sm">20px / 1.5px</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Iconography
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Standardized Lucide wrapper enforcing optical 20px size and 1.5px stroke width.
+                </p>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
-                Badge & Status Pills
-              </h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Full-radius status capsules and tokenized tags with review states (Shipped, Review, Telemetry), pulsing dots, and dismissal triggers.
-              </p>
-            </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
-              <span>Explore Badges & Pills</span>
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-            </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Icons</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
 
-          {/* Toast Notification (Sonner) */}
-          <Link
-            href="/design-system/toast"
-            className="group rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs hover:border-link/50 transition-all hover:shadow-md flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center justify-center size-9 rounded-[var(--radius-sm)] bg-pine-50 text-pine-700 dark:bg-pine-800 dark:text-pine-200">
-                  <Bell className="size-4" strokeWidth={1.5} />
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-[var(--radius-sm)]">
-                  <CheckCircle2 className="size-3" /> Production Ready
-                </span>
+          {/* Toast */}
+          <Link href="/design-system/toast" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Bell className="size-4 text-link" />
+                  <Badge variant="secondary" size="sm">Sonner</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Toast Notification
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Accessible, stacked notifications powered by Sonner with brand tokens and spring motion.
+                </p>
               </div>
-              <h2 className="text-xl font-bold group-hover:text-link transition-colors">
-                Toast (Sonner)
-              </h2>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Stacked notifications powered by Sonner with Kohl Design tokens, interactive action callbacks, async promise states, and personality presets.
-              </p>
-            </div>
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-link">
-              <span>Explore Toast System</span>
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-            </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Toast</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          {/* Tabs */}
+          <Link href="/design-system/tabs" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <PanelTop className="size-4 text-link" />
+                  <Badge variant="default" size="sm">3 Variants</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Tabs
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Accessible tabs with segmented pill, editorial underline, and filter chip variants.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Tabs</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          {/* Toggle & Toggle Group */}
+          <Link href="/design-system/toggle" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <ToggleLeft className="size-4 text-link" />
+                  <Badge variant="default" size="sm">Single & Group</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Toggle & Group
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Two-state buttons and group clusters with roving focus for formatting and view controls.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Toggle</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          {/* Avatar */}
+          <Link href="/design-system/avatar" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <CircleUser className="size-4 text-link" />
+                  <Badge variant="default" size="sm">User Elements</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Avatar
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Profile image containers with fallback initials, online telemetry dots, and stacked AvatarGroup.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Avatar</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
+          </Link>
+
+          {/* Chip */}
+          <Link href="/design-system/chip" className="group">
+            <Card variant="interactive" className="p-5 h-full flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <SlidersHorizontal className="size-4 text-link" />
+                  <Badge variant="editorial" size="sm">Interactive</Badge>
+                </div>
+                <h3 className="text-base font-semibold group-hover:text-link transition-colors">
+                  Chip
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Interactive filter chips, selectable badges with checkmark states, and dismissible tag tokens.
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-link">
+                <span>Explore Chip</span>
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Card>
           </Link>
         </div>
-
-        {/* Multi-Project Architecture Note */}
-        <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold flex items-center gap-2">
-              <Sparkles className="size-4 text-accent" />
-              Multi-Project Reuse & Personalities
-            </h3>
-            <Link
-              href="/design-system/button"
-              className="text-xs text-link font-medium hover:underline flex items-center gap-1"
-            >
-              <span>Test Presets Live</span>
-              <ArrowRight className="size-3" />
-            </Link>
-          </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            Need this design system for another side project? Simply override <code className="font-mono text-accent">--radius</code> and <code className="font-mono text-accent">--primary</code> in <code className="font-mono">app/globals.css</code>, or apply <code className="font-mono">data-theme-variant="blush" | "sharp" | "round"</code>. See <code className="font-mono text-foreground">docs/THEME_SHARING.md</code> for copy-paste setups and template instructions.
-          </p>
-        </div>
-
-        {/* Quick Start Code */}
-        <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-4 shadow-xs">
-          <h3 className="text-sm font-semibold">Quick Start</h3>
-          <p className="text-xs text-muted-foreground">
-            Import the customized button anywhere in your React application:
-          </p>
-          <pre className="rounded-[var(--radius-sm)] bg-neutral-900 dark:bg-black p-4 text-xs font-mono text-neutral-100 overflow-x-auto">
-{`import { Button } from "@/components/ui/button"
-
-export default function MyFeature() {
-  return (
-    <div className="flex gap-3">
-      <Button variant="default">Primary CTA</Button>
-      <Button variant="editorial">Editorial</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="outline" loading>Saving...</Button>
-    </div>
-  )
-}`}
-          </pre>
-        </div>
-      </main>
+      </section>
     </div>
   );
 }

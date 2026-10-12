@@ -228,7 +228,7 @@ export default function WorkPage() {
                           {role.title}
                         </h3>
                         {role.isCurrent && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-primary/10 text-primary dark:bg-[#A8E3D2]/15 dark:text-[#A8E3D2]">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-primary/20 text-foreground border border-primary/30 dark:bg-[#A8E3D2]/15 dark:text-[#A8E3D2] dark:border-transparent">
                             Current Role
                           </span>
                         )}

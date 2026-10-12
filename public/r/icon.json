@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "type": "registry:ui",
+  "title": "Icon",
+  "description": "Kohl Design Icon wrapper ensuring standardized 20px size and 1.5px stroke width across Lucide icons.",
+  "dependencies": [
+    "class-variance-authority",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/icon.tsx",
+      "content": "import * as React from \"react\";\nimport type { LucideIcon, LucideProps } from \"lucide-react\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils\";\n\n/**\n * Kohl Design System default icon specifications:\n * - Size: 20x20px\n * - Stroke width: 1.5px\n */\nexport const DEFAULT_ICON_SIZE = 20;\nexport const DEFAULT_ICON_STROKE_WIDTH = 1.5;\n\nconst iconVariants = cva(\"shrink-0 transition-colors duration-150 inline-block align-middle\", {\n  variants: {\n    intent: {\n      default: \"text-current\",\n      primary: \"text-primary dark:text-[#A8E3D2]\",\n      accent: \"text-accent dark:text-[#FCD3D6]\",\n      muted: \"text-muted-foreground\",\n      pine: \"text-pine-800 dark:text-pine-200\",\n      crimson: \"text-crimson-600 dark:text-crimson-300\",\n      white: \"text-white\",\n    },\n  },\n  defaultVariants: {\n    intent: \"default\",\n  },\n});\n\nexport interface IconProps\n  extends Omit<LucideProps, \"ref\">,\n    VariantProps<typeof iconVariants> {\n  icon: LucideIcon;\n  size?: number | string;\n  strokeWidth?: number | string;\n}\n\n/**\n * Standard Icon component for kohl.design.\n * Automatically defaults any Lucide icon to 20x20px with 1.5px stroke width.\n *\n * @example\n * ```tsx\n * import { Icon } from \"@/components/ui/icon\";\n * import { ArrowRight, Sparkles } from \"lucide-react\";\n *\n * <Icon icon={ArrowRight} />\n * <Icon icon={Sparkles} intent=\"primary\" size={24} />\n * ```\n */\nexport const Icon = React.forwardRef<SVGSVGElement, IconProps>(\n  (\n    {\n      icon: Component,\n      size = DEFAULT_ICON_SIZE,\n      strokeWidth = DEFAULT_ICON_STROKE_WIDTH,\n      intent,\n      className,\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <Component\n        ref={ref}\n        size={size}\n        strokeWidth={strokeWidth}\n        className={cn(iconVariants({ intent, className }))}\n        {...props}\n      />\n    );\n  }\n);\n\nIcon.displayName = \"Icon\";\n\n/**\n * Higher-Order Component factory to create pre-configured Lucide icons\n * with kohl.design standard defaults (20px, 1.5px stroke width).\n *\n * @example\n * ```tsx\n * import { createIcon } from \"@/components/ui/icon\";\n * import { Sparkles } from \"lucide-react\";\n *\n * export const SparklesIcon = createIcon(Sparkles);\n * // Usage: <SparklesIcon className=\"text-primary\" />\n * ```\n */\nexport function createIcon(Component: LucideIcon) {\n  const WrappedIcon = React.forwardRef<\n    SVGSVGElement,\n    Omit<LucideProps, \"ref\"> & VariantProps<typeof iconVariants>\n  >(\n    (\n      {\n        size = DEFAULT_ICON_SIZE,\n        strokeWidth = DEFAULT_ICON_STROKE_WIDTH,\n        intent,\n        className,\n        ...props\n      },\n      ref\n    ) => (\n      <Component\n        ref={ref}\n        size={size}\n        strokeWidth={strokeWidth}\n        className={cn(iconVariants({ intent, className }))}\n        {...props}\n      />\n    )\n  );\n\n  WrappedIcon.displayName = `Icon(${Component.displayName || Component.name || \"LucideIcon\"})`;\n  return WrappedIcon;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/icon.tsx"
+    }
+  ]
+}

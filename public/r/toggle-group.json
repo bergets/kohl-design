@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "type": "registry:ui",
+  "title": "ToggleGroup",
+  "description": "Kohl Design set of two-state buttons supporting single and multiple selection with unified variant and size inheritance.",
+  "dependencies": [
+    "@radix-ui/react-toggle-group",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils",
+    "toggle"
+  ],
+  "files": [
+    {
+      "path": "components/ui/toggle-group.tsx",
+      "content": "import * as React from \"react\"\nimport * as ToggleGroupPrimitive from \"@radix-ui/react-toggle-group\"\nimport { type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\nimport { toggleVariants } from \"@/components/ui/toggle\"\n\nconst ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({\n  size: \"default\",\n  variant: \"default\",\n})\n\nconst ToggleGroup = React.forwardRef<\n  React.ElementRef<typeof ToggleGroupPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &\n    VariantProps<typeof toggleVariants>\n>(({ className, variant = \"default\", size = \"default\", children, ...props }, ref) => (\n  <ToggleGroupPrimitive.Root\n    ref={ref}\n    className={cn(\n      \"inline-flex items-center justify-center gap-1 font-sans\",\n      className\n    )}\n    {...props}\n  >\n    <ToggleGroupContext.Provider value={{ variant, size }}>\n      {children}\n    </ToggleGroupContext.Provider>\n  </ToggleGroupPrimitive.Root>\n))\n\nToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName\n\nconst ToggleGroupItem = React.forwardRef<\n  React.ElementRef<typeof ToggleGroupPrimitive.Item>,\n  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &\n    VariantProps<typeof toggleVariants>\n>(({ className, children, variant, size, ...props }, ref) => {\n  const context = React.useContext(ToggleGroupContext)\n\n  return (\n    <ToggleGroupPrimitive.Item\n      ref={ref}\n      className={cn(\n        toggleVariants({\n          variant: context.variant || variant,\n          size: context.size || size,\n        }),\n        className\n      )}\n      {...props}\n    >\n      {children}\n    </ToggleGroupPrimitive.Item>\n  )\n})\n\nToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName\n\nexport { ToggleGroup, ToggleGroupItem }\n",
+      "type": "registry:ui",
+      "target": "components/ui/toggle-group.tsx"
+    }
+  ]
+}

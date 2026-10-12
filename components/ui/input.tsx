@@ -15,9 +15,11 @@ const inputVariants = cva(
           "border-0 border-b border-border rounded-none bg-transparent px-0 shadow-none hover:border-foreground/40 focus-visible:border-ring focus-visible:ring-0",
       },
       inputSize: {
-        sm: "h-8 px-2.5 text-xs rounded-[var(--radius-sm)]",
-        default: "h-9 px-3.5 text-base sm:text-sm rounded-[var(--radius)]",
-        lg: "h-11 px-4 text-base rounded-[var(--radius-lg)]",
+        xs: "h-7 px-2.5 text-xs rounded-[var(--radius-sm)]",
+        sm: "h-8 px-3 text-xs rounded-[var(--radius-sm)]",
+        default: "h-9 px-3.5 text-sm rounded-[var(--radius)]",
+        lg: "h-10 px-4 text-sm rounded-[var(--radius)]",
+        xl: "h-12 px-4.5 text-base rounded-[var(--radius-lg)]",
       },
     },
     defaultVariants: {
@@ -30,6 +32,7 @@ const inputVariants = cva(
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     VariantProps<typeof inputVariants> {
+  size?: "xs" | "sm" | "default" | "lg" | "xl"
   error?: boolean
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
@@ -44,6 +47,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       type = "text",
       variant = "default",
       inputSize = "default",
+      size: propSize,
       error,
       startIcon,
       endIcon,
@@ -54,6 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
+    const resolvedSize = propSize || inputSize || "default"
     const hasStart = Boolean(startIcon || startAdornment)
     const hasEnd = Boolean(endIcon || endAdornment)
 
@@ -64,18 +69,26 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         disabled={disabled}
         aria-invalid={error ? true : props["aria-invalid"]}
         className={cn(
-          inputVariants({ variant, inputSize }),
+          inputVariants({ variant, inputSize: resolvedSize }),
           hasStart &&
-            (inputSize === "sm"
+            (resolvedSize === "xs"
+              ? "pl-7"
+              : resolvedSize === "sm"
               ? "pl-8"
-              : inputSize === "lg"
-              ? "pl-11"
+              : resolvedSize === "lg"
+              ? "pl-10"
+              : resolvedSize === "xl"
+              ? "pl-12"
               : "pl-9"),
           hasEnd &&
-            (inputSize === "sm"
+            (resolvedSize === "xs"
+              ? "pr-7"
+              : resolvedSize === "sm"
               ? "pr-8"
-              : inputSize === "lg"
-              ? "pr-11"
+              : resolvedSize === "lg"
+              ? "pr-10"
+              : resolvedSize === "xl"
+              ? "pr-12"
               : "pr-9"),
           className
         )}
@@ -88,9 +101,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     const iconSizeClass =
-      inputSize === "sm"
+      resolvedSize === "xs"
+        ? "size-3"
+        : resolvedSize === "sm"
         ? "size-3.5"
-        : inputSize === "lg"
+        : resolvedSize === "xl"
         ? "size-5"
         : "size-4"
 
@@ -100,9 +115,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <div
             className={cn(
               "absolute inset-y-0 left-0 flex items-center justify-center pointer-events-none select-none text-muted-foreground/75 transition-colors",
-              inputSize === "sm" && "w-8",
-              inputSize === "default" && "w-9",
-              inputSize === "lg" && "w-11",
+              resolvedSize === "xs" && "w-7",
+              resolvedSize === "sm" && "w-8",
+              resolvedSize === "default" && "w-9",
+              resolvedSize === "lg" && "w-10",
+              resolvedSize === "xl" && "w-12",
               startIcon && `[&_svg:not([class*='size-'])]:${iconSizeClass} [&_svg]:shrink-0 [&_svg]:stroke-[1.5]`
             )}
           >
@@ -116,9 +133,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <div
             className={cn(
               "absolute inset-y-0 right-0 flex items-center justify-center select-none text-muted-foreground/75 transition-colors",
-              inputSize === "sm" && "w-8",
-              inputSize === "default" && "w-9",
-              inputSize === "lg" && "w-11",
+              resolvedSize === "xs" && "w-7",
+              resolvedSize === "sm" && "w-8",
+              resolvedSize === "default" && "w-9",
+              resolvedSize === "lg" && "w-10",
+              resolvedSize === "xl" && "w-12",
               endIcon && `[&_svg:not([class*='size-'])]:${iconSizeClass} [&_svg]:shrink-0 [&_svg]:stroke-[1.5]`
             )}
           >
@@ -133,7 +152,7 @@ Input.displayName = "Input"
 
 /* Composable InputGroup for composite inputs (e.g. URL prefixes, inline buttons) */
 interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
-  size?: "sm" | "default" | "lg"
+  size?: "xs" | "sm" | "default" | "lg" | "xl"
 }
 
 const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(

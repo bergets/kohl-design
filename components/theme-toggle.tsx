@@ -11,7 +11,7 @@ export function ThemeToggle({
     size = "default",
 }: {
     className?: string;
-    size?: "default" | "lg";
+    size?: "sm" | "default" | "lg";
 }) {
     const { resolvedTheme, setTheme } = useTheme()
     const [mounted, setMounted] = React.useState(false)
@@ -21,8 +21,18 @@ export function ThemeToggle({
     }, [])
 
     const isDark = mounted ? resolvedTheme === "dark" : true
-    const buttonSizeClass = size === "lg" ? "size-11 sm:size-12" : "size-10"
-    const iconSizeClass = size === "lg" ? "size-6" : "size-5"
+    const buttonSizeClass =
+        size === "sm"
+            ? "size-8"
+            : size === "lg"
+            ? "size-11 sm:size-12"
+            : "size-10";
+    const iconSizeClass =
+        size === "sm"
+            ? "size-4"
+            : size === "lg"
+            ? "size-6"
+            : "size-5";
 
     return (
         <Button

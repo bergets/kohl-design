@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "label",
+  "type": "registry:ui",
+  "title": "Label",
+  "description": "Accessible form label primitive built on Radix UI Label.",
+  "dependencies": [
+    "@radix-ui/react-label",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/label.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nexport interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {\n  required?: boolean\n  error?: boolean\n}\n\nconst Label = React.forwardRef<HTMLLabelElement, LabelProps>(\n  ({ className, required, error, children, ...props }, ref) => {\n    return (\n      <label\n        ref={ref}\n        className={cn(\n          \"text-xs sm:text-sm font-medium text-foreground select-none inline-flex items-center gap-1 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\",\n          error && \"text-destructive\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        {required && (\n          <span className=\"text-destructive font-bold text-xs\" aria-hidden=\"true\">\n            *\n          </span>\n        )}\n      </label>\n    )\n  }\n)\nLabel.displayName = \"Label\"\n\nexport { Label }\n",
+      "type": "registry:ui",
+      "target": "components/ui/label.tsx"
+    }
+  ]
+}

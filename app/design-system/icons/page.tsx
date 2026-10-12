@@ -83,7 +83,6 @@ import {
 } from "lucide-react";
 import { Icon, DEFAULT_ICON_SIZE, DEFAULT_ICON_STROKE_WIDTH } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 interface IconItem {
   name: string;
@@ -222,52 +221,25 @@ export default function IconsShowcasePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Header */}
-      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-30">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/design-system"
-              className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-              <span>Design System</span>
-            </Link>
-            <span className="text-muted-foreground/40">/</span>
-            <span className="text-sm font-semibold text-foreground">Icons</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="rounded-[4px] bg-pine-100/70 text-pine-800 dark:bg-pine-800/60 dark:text-[#A8E3D2] px-2.5 py-0.5 text-xs font-semibold">
-              Lucide · 20x20px @ 1.5px
-            </span>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-6 py-10 space-y-10">
-        {/* Intro */}
-        <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
-            <span>Iconography Standard</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-            Lucide Icon Set
-          </h1>
-          <p className="max-w-3xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Standardized icon system for kohl.design built with Lucide. Pre-configured with a default optical size of{" "}
-            <span className="font-semibold text-foreground">20×20px</span> and a graceful, refined stroke width of{" "}
-            <span className="font-semibold text-foreground">1.5px</span>.
-          </p>
-        </div>
+    <div className="space-y-12">
+      {/* Intro */}
+      <section className="space-y-4">
+        <h1 className="font-cooper text-3xl sm:text-5xl font-normal tracking-tight text-foreground">
+          Iconography (1.5px)
+        </h1>
+        <p className="max-w-3xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+          Standardized icon system for kohl.design built with Lucide. Pre-configured with a default optical size of{" "}
+          <span className="font-semibold text-foreground">20×20px</span> and a graceful, refined stroke width of{" "}
+          <span className="font-semibold text-foreground">1.5px</span>.
+        </p>
+      </section>
 
         {/* Live Controls Card */}
         <div className="rounded-[var(--radius)] border border-border bg-card p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between flex-wrap gap-2 pb-4 border-b border-border">
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="size-4 text-primary" />
-              <h2 className="text-sm font-semibold text-foreground">Live Icon Customizer</h2>
+              <h3 className="text-sm font-semibold text-foreground">Live Icon Customizer</h3>
             </div>
             <div className="text-xs font-mono text-muted-foreground">
               size: {size}px · stroke: {strokeWidth}px · intent: {intent}
@@ -470,7 +442,7 @@ export default function IconsShowcasePage() {
         {/* Code Guide & Implementation */}
         <div className="rounded-[var(--radius)] border border-border bg-card p-6 space-y-6 shadow-xs">
           <div className="space-y-1">
-            <h2 className="text-xl font-bold tracking-tight text-foreground">
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">
               Usage & Code Patterns
             </h2>
             <p className="text-xs text-muted-foreground">
@@ -532,7 +504,28 @@ import { ArrowRight } from "lucide-react"
             </div>
           </div>
         </div>
-      </main>
+
+      {/* Footer */}
+      <footer className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        <span>kohl.design · Design System v1.0</span>
+        <div className="flex items-center gap-4">
+          <Link href="/design-system" className="hover:text-foreground transition-colors">
+            Component Index
+          </Link>
+          <Link href="/design-system/colors" className="hover:text-foreground transition-colors">
+            Colors & Tokens
+          </Link>
+          <Link href="/design-system/typography" className="hover:text-foreground transition-colors">
+            Typography
+          </Link>
+          <Link href="/design-system/surfaces" className="hover:text-foreground transition-colors">
+            Surfaces & Elevation
+          </Link>
+          <Link href="/design-system/button" className="hover:text-foreground transition-colors">
+            Button
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }

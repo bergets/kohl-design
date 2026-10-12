@@ -26,54 +26,13 @@ import { Button } from "@/components/ui/button";
 import { Input, InputGroup, InputAddon } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-type ThemePreset = "default" | "blush" | "sharp" | "round";
-
-const PRESET_OPTIONS: {
-  id: ThemePreset;
-  label: string;
-  badge: string;
-  dotClass: string;
-  description: string;
-}[] = [
-  {
-    id: "default",
-    label: "Pine Base",
-    badge: "8px Radius",
-    dotClass: "bg-[#005243]",
-    description: "Original kohl.design brand identity with deep forest pine and 8px pebble corners.",
-  },
-  {
-    id: "blush",
-    label: "Blush Brand",
-    badge: "14px • Soft Pink",
-    dotClass: "bg-[#FCD3D6] border border-[#f2aab2]",
-    description: "Luminous cashmere blush CTA, deep velvet wine noir typography, and midnight berry surfaces.",
-  },
-  {
-    id: "sharp",
-    label: "Sharp Tech",
-    badge: "2px Razor",
-    dotClass: "bg-[#005243] rounded-[1px]",
-    description: "Architectural, technical developer aesthetic with razor-sharp 2px corners.",
-  },
-  {
-    id: "round",
-    label: "Pebble Round",
-    badge: "18px Organic",
-    dotClass: "bg-[#005243]",
-    description: "Friendly, organic pill aesthetic with deep 18px rounded curves.",
-  },
-];
-
 export default function InputShowcasePage() {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
-  const [activePreset, setActivePreset] = React.useState<ThemePreset>("default");
 
   // Playground state
   const [selectedVariant, setSelectedVariant] = React.useState<"default" | "filled" | "ghost">("default");
-  const [selectedSize, setSelectedSize] = React.useState<"sm" | "default" | "lg">("default");
+  const [selectedSize, setSelectedSize] = React.useState<"xs" | "sm" | "default" | "lg" | "xl">("default");
   const [inputValue, setInputValue] = React.useState("henrik@kohl.design");
   const [placeholderText, setPlaceholderText] = React.useState("Enter your email address...");
   const [hasError, setHasError] = React.useState(false);
@@ -116,107 +75,21 @@ export default function InputShowcasePage() {
 </div>`;
 
   return (
-    <div
-      data-theme-variant={activePreset !== "default" ? activePreset : undefined}
-      className="min-h-screen bg-background text-foreground transition-colors duration-200"
-    >
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/design-system"
-              className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-              <span>Design System</span>
-            </Link>
-            <span className="text-border">/</span>
-            <span className="font-semibold text-sm">Components</span>
-            <span className="text-border">/</span>
-            <span className="rounded-[var(--radius-sm)] bg-muted px-2 py-0.5 text-xs font-semibold text-muted-foreground">
-              Input Field
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {mounted && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="gap-2"
-              >
-                {theme === "dark" ? <Sun className="size-3.5" /> : <Moon className="size-3.5" />}
-                <span>{theme === "dark" ? "Light Mode" : "Dark (Midnight)"}</span>
-              </Button>
-            )}
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-6 py-12 space-y-16">
-        {/* Hero Section */}
-        <section className="space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-accent uppercase">
-            <span>Form & Text Architecture</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground">
-            Input Field Component
-          </h1>
-          <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Accessible, tactile text input engineered for web and mobile. Built with dynamic tokenized corner radii, zero iOS-Safari auto-zoom font scales, Pine/Crimson focus rings, composable adornments, and error validation states.
-          </p>
-        </section>
-
-        {/* Personality Preset Switcher */}
-        <section className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border pb-3">
-            <div>
-              <h2 className="text-lg font-bold">Personality Presets</h2>
-              <p className="text-xs text-muted-foreground">
-                Observe how the input field adapts its derived radius, border colors, and ring geometry across brand profiles.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {PRESET_OPTIONS.map((preset) => {
-              const isSelected = activePreset === preset.id;
-              return (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => setActivePreset(preset.id)}
-                  className={`text-left p-4 rounded-[var(--radius)] border transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
-                    isSelected
-                      ? "border-primary bg-primary/5 shadow-xs ring-1 ring-primary"
-                      : "border-border bg-card hover:border-border/80 hover:bg-neutral-50/50 dark:hover:bg-neutral-900/40"
-                  }`}
-                >
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-2">
-                      <span className={`size-3 rounded-full ${preset.dotClass}`} />
-                      <span className="font-semibold text-sm">{preset.label}</span>
-                    </div>
-                    {isSelected && <Check className="size-4 text-primary" />}
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {preset.description}
-                  </p>
-                  <span className="text-[11px] font-mono text-muted-foreground/80 bg-muted px-2 py-0.5 rounded-[var(--radius-sm)] self-start">
-                    {preset.badge}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <section className="space-y-4">
+        <h1 className="font-cooper text-3xl sm:text-5xl font-normal tracking-tight text-foreground">
+          Input & Field
+        </h1>
+        <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+          Accessible, tactile text input engineered for web and mobile. Built with dynamic tokenized corner radii, zero iOS-Safari auto-zoom font scales, Pine/Crimson focus rings, composable adornments, and error validation states.
+        </p>
+      </section>
 
         {/* Interactive Playground */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">Interactive Component Playground</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">Interactive Component Playground</h2>
             <p className="text-xs text-muted-foreground">
               Configure variants, sizes, icon adornments, and validation states in real time.
             </p>
@@ -253,19 +126,19 @@ export default function InputShowcasePage() {
               {/* Size Selector */}
               <div className="space-y-2">
                 <Label className="text-xs">Size</Label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(["sm", "default", "lg"] as const).map((s) => (
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
+                  {(["xs", "sm", "default", "lg", "xl"] as const).map((s) => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setSelectedSize(s)}
-                      className={`h-8 px-3 rounded-[var(--radius-sm)] text-xs font-medium capitalize border transition-all cursor-pointer ${
+                      className={`h-8 px-2 rounded-[var(--radius-sm)] text-xs font-medium capitalize border transition-all cursor-pointer ${
                         selectedSize === s
                           ? "border-primary bg-primary text-primary-foreground shadow-2xs"
                           : "border-border bg-background hover:bg-muted"
                       }`}
                     >
-                      {s === "sm" ? "Small (32px)" : s === "default" ? "Default (36px)" : "Large (44px)"}
+                      {s === "xs" ? "xs (28)" : s === "sm" ? "sm (32)" : s === "default" ? "default (36)" : s === "lg" ? "lg (40)" : "xl (48)"}
                     </button>
                   ))}
                 </div>
@@ -415,7 +288,7 @@ export default function InputShowcasePage() {
         {/* Visual Gallery: Variants */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">1. Visual Variants</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">1. Visual Variants</h2>
             <p className="text-xs text-muted-foreground">
               Three distinct styles tailored for high-contrast cards, muted canvas surfaces, and minimal editorial layouts.
             </p>
@@ -472,22 +345,36 @@ export default function InputShowcasePage() {
         {/* Visual Gallery: Sizes */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">2. Optical Sizes</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">2. Optical Sizes</h2>
             <p className="text-xs text-muted-foreground">
-              Proportioned heights mapped to button scale: Small (32px), Default (36px), and Large (44px).
+              Proportioned heights mapped to unified button & toggle scale: Micro (28px), Small (32px), Default (36px), Large (40px), and Hero (48px).
             </p>
           </div>
 
           <div className="rounded-[var(--radius)] border border-border bg-card p-6 sm:p-8 space-y-6 shadow-xs max-w-2xl">
+            {/* Micro */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="size-xs" className="text-xs">Micro (28px / size="xs")</Label>
+                <span className="text-[10px] font-mono text-muted-foreground">Compact Sub-Toolbars</span>
+              </div>
+              <Input
+                id="size-xs"
+                size="xs"
+                placeholder="Quick filter..."
+                startIcon={<Search />}
+              />
+            </div>
+
             {/* Small */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label htmlFor="size-sm" className="text-xs">Small (32px / inputSize="sm")</Label>
+                <Label htmlFor="size-sm" className="text-xs">Small (32px / size="sm")</Label>
                 <span className="text-[10px] font-mono text-muted-foreground">Toolbar & Dense Tables</span>
               </div>
               <Input
                 id="size-sm"
-                inputSize="sm"
+                size="sm"
                 placeholder="Filter search..."
                 startIcon={<Search />}
               />
@@ -496,12 +383,12 @@ export default function InputShowcasePage() {
             {/* Default */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label htmlFor="size-default" className="text-xs">Default (36px / inputSize="default")</Label>
+                <Label htmlFor="size-default" className="text-xs">Default (36px / size="default")</Label>
                 <span className="text-[10px] font-mono text-muted-foreground">Standard Form Controls</span>
               </div>
               <Input
                 id="size-default"
-                inputSize="default"
+                size="default"
                 placeholder="Search components or tokens..."
                 startIcon={<Search />}
               />
@@ -510,13 +397,27 @@ export default function InputShowcasePage() {
             {/* Large */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label htmlFor="size-lg" className="text-xs">Large (44px / inputSize="lg")</Label>
-                <span className="text-[10px] font-mono text-muted-foreground">Hero Fields & Mobile Safe</span>
+                <Label htmlFor="size-lg" className="text-xs">Large (40px / size="lg")</Label>
+                <span className="text-[10px] font-mono text-muted-foreground">Prominent CTAs & Touch Friendly</span>
               </div>
               <Input
                 id="size-lg"
-                inputSize="lg"
+                size="lg"
                 placeholder="What are you designing today?"
+                startIcon={<Search />}
+              />
+            </div>
+
+            {/* Hero / XL */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="size-xl" className="text-xs">Hero (48px / size="xl")</Label>
+                <span className="text-[10px] font-mono text-muted-foreground">Landing Pages & Search Banners</span>
+              </div>
+              <Input
+                id="size-xl"
+                size="xl"
+                placeholder="Ask anything or explore the design system..."
                 startIcon={<Search />}
               />
             </div>
@@ -526,7 +427,7 @@ export default function InputShowcasePage() {
         {/* Visual Gallery: Adornments & Icon Patterns */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">3. Adornments, Suffixes & Micro-Interactions</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">3. Adornments, Suffixes & Micro-Interactions</h2>
             <p className="text-xs text-muted-foreground">
               Built-in icon offsets, password visibility toggles, clear triggers, and keyboard shortcuts.
             </p>
@@ -599,7 +500,7 @@ export default function InputShowcasePage() {
         {/* Visual Gallery: Composable InputGroup */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">4. Composable Input Groups</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">4. Composable Input Groups</h2>
             <p className="text-xs text-muted-foreground">
               Combine static addons, URL protocols, and inline submit buttons with unified focus rings using <code className="font-mono text-xs">InputGroup</code> and <code className="font-mono text-xs">InputAddon</code>.
             </p>
@@ -654,7 +555,7 @@ export default function InputShowcasePage() {
         {/* Real-World Form Pattern */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">5. Complete Form Flow Pattern</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">5. Complete Form Flow Pattern</h2>
             <p className="text-xs text-muted-foreground">
               Production-ready multi-field card showing field labels, required asterisks, helper notes, and live submission states.
             </p>
@@ -702,7 +603,7 @@ export default function InputShowcasePage() {
         {/* Design Engineering & Accessibility Specifications */}
         <section className="space-y-6">
           <div className="border-b border-border pb-3">
-            <h2 className="text-xl font-bold">6. Design Engineering & Accessibility Spec</h2>
+            <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">6. Design Engineering & Accessibility Spec</h2>
             <p className="text-xs text-muted-foreground">
               Hard-won invisible details that elevate Kohl Design System form controls above generic UI kits.
             </p>
@@ -749,15 +650,14 @@ export default function InputShowcasePage() {
             <Link href="/design-system/button" className="hover:text-foreground transition-colors">
               Button
             </Link>
-            <Link href="/design-system/surfaces" className="hover:text-foreground transition-colors">
-              Surfaces
+            <Link href="/design-system/card" className="hover:text-foreground transition-colors">
+              Card
             </Link>
             <Link href="/design-system/icons" className="hover:text-foreground transition-colors">
               Icons
             </Link>
           </div>
         </footer>
-      </main>
     </div>
   );
 }
