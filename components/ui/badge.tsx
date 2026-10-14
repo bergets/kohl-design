@@ -4,7 +4,7 @@ import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap font-sans font-medium transition-all duration-150 select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5]",
+  "inline-flex items-center justify-center whitespace-nowrap font-sans font-medium leading-none transition-all duration-150 select-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5]",
   {
     variants: {
       variant: {
@@ -105,7 +105,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           </span>
         )}
 
-        <span>{children}</span>
+        {children}
 
         {onRemove && (
           <button
