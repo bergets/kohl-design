@@ -18,7 +18,7 @@ const chipVariants = cva(
         primary:
           "bg-transparent text-foreground border border-primary/40 hover:bg-primary/10 hover:border-primary/60 data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground data-[selected=true]:border-primary data-[selected=true]:shadow-2xs data-[selected=true]:font-semibold",
         editorial:
-          "bg-crimson-50/70 text-crimson-900 border border-crimson-200/70 hover:bg-crimson-100/80 dark:bg-crimson-900/30 dark:text-crimson-100 dark:border-crimson-700/50 data-[selected=true]:bg-crimson-600 data-[selected=true]:text-white data-[selected=true]:border-crimson-600 dark:data-[selected=true]:bg-crimson-400 dark:data-[selected=true]:text-crimson-950 dark:data-[selected=true]:border-crimson-400 data-[selected=true]:font-semibold data-[selected=true]:shadow-2xs",
+          "bg-crimson-100/70 text-crimson-900 border border-crimson-200/80 hover:bg-crimson-200/80 dark:bg-crimson-200/15 dark:text-crimson-100 dark:border-crimson-300/40 hover:dark:bg-crimson-200/25 data-[selected=true]:bg-crimson-600 data-[selected=true]:text-white data-[selected=true]:border-crimson-600 dark:data-[selected=true]:bg-crimson-400 dark:data-[selected=true]:text-crimson-950 dark:data-[selected=true]:border-crimson-400 data-[selected=true]:font-semibold data-[selected=true]:shadow-2xs",
         secondary:
           "bg-secondary text-secondary-foreground border border-border/80 hover:bg-neutral-200/70 dark:hover:bg-neutral-800 data-[selected=true]:bg-neutral-900 data-[selected=true]:text-white dark:data-[selected=true]:bg-neutral-100 dark:data-[selected=true]:text-neutral-950 data-[selected=true]:border-transparent data-[selected=true]:font-semibold data-[selected=true]:shadow-2xs",
       },

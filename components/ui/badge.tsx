@@ -9,21 +9,21 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-pine-100/70 text-pine-900 border border-pine-200/60 dark:bg-[#A8E3D2]/15 dark:text-[#A8E3D2] dark:border-[#3B7D6F]/30",
+          "bg-pine-100/70 text-pine-900 border border-pine-200/80 dark:bg-[#A8E3D2]/15 dark:text-[#A8E3D2] dark:border-[#3B7D6F]/40",
         secondary:
-          "bg-secondary text-secondary-foreground border border-border/70",
+          "bg-secondary text-secondary-foreground border border-border",
         outline:
           "border border-border text-foreground bg-transparent",
         editorial:
-          "bg-crimson-50 text-crimson-700 border border-crimson-200/60 dark:bg-crimson-900/30 dark:text-crimson-100 dark:border-crimson-700/40",
+          "bg-crimson-100/70 text-crimson-900 border border-crimson-200/80 dark:bg-crimson-200/15 dark:text-crimson-100 dark:border-crimson-300/40",
         success:
-          "bg-emerald-50 text-emerald-800 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/40",
+          "bg-emerald-100/70 text-emerald-950 border border-emerald-200/80 dark:bg-emerald-500/15 dark:text-emerald-200 dark:border-emerald-400/40",
         warning:
-          "bg-amber-50 text-amber-800 border border-amber-200/60 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/40",
+          "bg-amber-100/70 text-amber-950 border border-amber-200/80 dark:bg-amber-500/15 dark:text-amber-200 dark:border-amber-400/40",
         destructive:
-          "bg-red-50 text-red-800 border border-red-200/60 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800/40",
+          "bg-red-100/70 text-red-950 border border-red-200/80 dark:bg-red-500/15 dark:text-red-200 dark:border-red-400/40",
         info:
-          "bg-sky-50 text-sky-800 border border-sky-200/60 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800/40",
+          "bg-sky-100/70 text-sky-950 border border-sky-200/80 dark:bg-sky-500/15 dark:text-sky-200 dark:border-sky-400/40",
       },
       shape: {
         pill: "rounded-full",
