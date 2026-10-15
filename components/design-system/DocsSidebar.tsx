@@ -162,7 +162,7 @@ export function DocsSidebar({ className = "" }: { className?: string }) {
           onClick={() => setMobileNavOpen(false)}
           className="group flex items-center gap-2.5 font-medium text-foreground hover:opacity-90 transition-opacity"
         >
-          <BrandFlower className="size-5 text-primary transition-transform group-hover:rotate-12 duration-300" />
+          <BrandFlower className="size-5 text-emblem transition-transform group-hover:rotate-12 duration-300" />
           <div className="flex items-baseline gap-1.5">
             <span className="font-cooper text-base tracking-tight text-foreground">Kohl</span>
             <span className="font-sans text-[11px] font-medium text-muted-foreground">design</span>

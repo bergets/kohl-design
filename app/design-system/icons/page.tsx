@@ -585,12 +585,12 @@ import { ArrowRight } from "lucide-react"
                   <span className="text-[11px] font-mono text-muted-foreground">Pine</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-muted/50 border border-border/50 gap-1.5">
-                  <BrandFlower className="size-8 text-crimson-600" />
-                  <span className="text-[11px] font-mono text-muted-foreground">Crimson</span>
+                  <BrandFlower className="size-8 text-crimson-500" />
+                  <span className="text-[11px] font-mono text-muted-foreground">Blush Light (#93484f)</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-pine-950 border border-pine-800/60 gap-1.5">
                   <BrandFlower className="size-8 text-crimson-100" />
-                  <span className="text-[11px] font-mono text-crimson-100/70">Blush</span>
+                  <span className="text-[11px] font-mono text-crimson-100/70">Blush Dark (#FCD3D6)</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-muted/50 border border-border/50 gap-1.5">
                   <BrandFlower className="size-8 text-foreground" thinned strokeWidth={2.4} />
@@ -599,7 +599,7 @@ import { ArrowRight } from "lucide-react"
               </div>
 
               <div className="text-xs text-muted-foreground leading-relaxed">
-                Import from <code className="font-mono text-foreground">@/components/ui/brand-flower</code> or install via the Kohl Design registry.
+                In the Blush theme, the floral emblem uses a darker shade of pink (<code className="font-mono text-foreground">#93484f</code> / Crimson 500) in light mode for 6:1 AAA contrast, and luminous Blush in dark mode. Import from <code className="font-mono text-foreground">@/components/ui/brand-flower</code>.
               </div>
             </Card>
           </div>

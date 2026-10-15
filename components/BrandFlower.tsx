@@ -6,7 +6,7 @@ export interface BrandFlowerProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export function BrandFlower({
-  className = "size-8",
+  className = "size-8 text-emblem",
   thinned = false,
   strokeWidth = 3.2,
   ...props
@@ -21,6 +21,7 @@ export function BrandFlower({
         viewBox="0 0 512 512"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        data-slot="brand-flower"
         className={className}
         aria-label="kohl.design flower mark"
         {...props}
@@ -77,6 +78,7 @@ export function BrandFlower({
       viewBox="0 0 512 512"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      data-slot="brand-flower"
       className={className}
       aria-label="kohl.design flower mark"
       {...props}

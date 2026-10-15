@@ -43,7 +43,7 @@ export function SiteHeader({ className = "" }: { className?: string }) {
           aria-label="kohl.design home"
         >
           <BrandFlower
-            className={`text-pine-800 dark:text-crimson-100 transition-all duration-300 ${
+            className={`text-emblem transition-all duration-300 ${
               isScrolled
                 ? "size-8 sm:size-9 md:size-9"
                 : "size-10 sm:size-11 md:size-12"
