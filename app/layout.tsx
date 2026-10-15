@@ -11,10 +11,22 @@ import { dmSans, cooper } from "./fonts";
 export const metadata: Metadata = {
   title: "kohl.design | Product/UX Designer",
   description: "Portfolio of Henrik Kohl, a Product/UX Designer based in Stockholm.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "kohl.design",
+  },
   icons: {
-    icon: '/icon.png',
-    shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 

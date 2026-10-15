@@ -83,6 +83,8 @@ import {
 } from "lucide-react";
 import { Icon, DEFAULT_ICON_SIZE, DEFAULT_ICON_STROKE_WIDTH } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { BrandFlower } from "@/components/ui/brand-flower";
 
 interface IconItem {
   name: string;
@@ -502,6 +504,137 @@ import { ArrowRight } from "lucide-react"
 />`}
               </pre>
             </div>
+          </div>
+        </div>
+
+        {/* Brand Emblem, Favicon & App Icon */}
+        <div className="space-y-6 pt-6 border-t border-border">
+          <div className="space-y-2">
+            <h2 className="font-cooper text-2xl sm:text-3xl font-normal tracking-tight text-foreground">
+              Brand Emblem, Favicon & App Icon
+            </h2>
+            <p className="max-w-3xl text-sm sm:text-base text-muted-foreground leading-relaxed">
+              The blooming radial flower is the signature emblem of Kohl Design. In addition to serving as a standalone vector component, it powers the adaptive browser favicon and mobile app icons when saved to an iOS or Android home screen.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Phone App Icon Preview */}
+            <Card variant="default" size="default" className="space-y-4">
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold text-foreground">Mobile App Icon</h3>
+                <p className="text-xs text-muted-foreground">
+                  Saved to iPhone or Android home screen (180×180 / 512×512).
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center justify-center py-6 bg-muted/40 rounded-[var(--radius-sm)] border border-border/50 gap-3">
+                <div className="size-20 rounded-[22%] bg-pine-950 border border-pine-800/60 shadow-md flex items-center justify-center p-3.5 transition-transform hover:scale-105 duration-200">
+                  <BrandFlower className="size-full text-crimson-100" />
+                </div>
+                <span className="text-xs font-mono text-muted-foreground">apple-touch-icon.png</span>
+              </div>
+
+              <div className="text-xs text-muted-foreground leading-relaxed">
+                Rendered with the 70% safe zone on deep Pine canvas (<code className="font-mono text-foreground">#01201a</code>) so native OS squircles never clip the outer petals.
+              </div>
+            </Card>
+
+            {/* Adaptive Browser Favicon */}
+            <Card variant="default" size="default" className="space-y-4">
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold text-foreground">Adaptive Favicon</h3>
+                <p className="text-xs text-muted-foreground">
+                  Vector SVG adapts dynamically to OS light and dark themes.
+                </p>
+              </div>
+
+              <div className="flex flex-col items-center justify-center py-6 bg-muted/40 rounded-[var(--radius-sm)] border border-border/50 gap-4">
+                <div className="flex items-center gap-4">
+                  {/* Light theme tab mock */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-neutral-200 shadow-xs">
+                    <BrandFlower className="size-4 text-pine-600" />
+                    <span className="text-xs text-neutral-800 font-medium">Light Tab</span>
+                  </div>
+                  {/* Dark theme tab mock */}
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-900 border border-neutral-800 shadow-xs">
+                    <BrandFlower className="size-4 text-crimson-100" />
+                    <span className="text-xs text-neutral-200 font-medium">Dark Tab</span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono text-muted-foreground">icon.svg + favicon.ico</span>
+              </div>
+
+              <div className="text-xs text-muted-foreground leading-relaxed">
+                Light theme tab bars render Pine (<code className="font-mono text-foreground">#005243</code>); dark theme tab bars flip seamlessly to luminous Blush (<code className="font-mono text-foreground">#FCD3D6</code>).
+              </div>
+            </Card>
+
+            {/* Brand Color Scales */}
+            <Card variant="default" size="default" className="space-y-4">
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold text-foreground">Color Variants</h3>
+                <p className="text-xs text-muted-foreground">
+                  Available in all four core palette tokens.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 py-3">
+                <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-muted/50 border border-border/50 gap-1.5">
+                  <BrandFlower className="size-8 text-primary" />
+                  <span className="text-[11px] font-mono text-muted-foreground">Pine</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-muted/50 border border-border/50 gap-1.5">
+                  <BrandFlower className="size-8 text-crimson-600" />
+                  <span className="text-[11px] font-mono text-muted-foreground">Crimson</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-pine-950 border border-pine-800/60 gap-1.5">
+                  <BrandFlower className="size-8 text-crimson-100" />
+                  <span className="text-[11px] font-mono text-crimson-100/70">Blush</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-3 rounded-[var(--radius-sm)] bg-muted/50 border border-border/50 gap-1.5">
+                  <BrandFlower className="size-8 text-foreground" thinned strokeWidth={2.4} />
+                  <span className="text-[11px] font-mono text-muted-foreground">Thinned</span>
+                </div>
+              </div>
+
+              <div className="text-xs text-muted-foreground leading-relaxed">
+                Import from <code className="font-mono text-foreground">@/components/ui/brand-flower</code> or install via the Kohl Design registry.
+              </div>
+            </Card>
+          </div>
+
+          {/* Next.js Configuration Guide */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">
+              Next.js App Router Metadata Setup
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Configure your root <code className="font-mono text-foreground">app/layout.tsx</code> to wire up adaptive favicon, Apple touch icons, and web manifest for mobile installs.
+            </p>
+
+            <pre className="rounded-[var(--radius-sm)] bg-neutral-900 dark:bg-black p-4 text-xs font-mono text-neutral-100 overflow-x-auto leading-relaxed">
+{`export const metadata: Metadata = {
+  title: "My App",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "My App",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+};`}
+            </pre>
           </div>
         </div>
 
