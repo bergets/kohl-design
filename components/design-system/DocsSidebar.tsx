@@ -22,6 +22,8 @@ import {
   ToggleLeft,
   CircleUser,
   SlidersHorizontal,
+  PanelLeft,
+  AppWindow,
 } from "lucide-react";
 import { BrandFlower } from "@/components/BrandFlower";
 import { useDesignSystem } from "./DesignSystemContext";
@@ -128,6 +130,16 @@ const NAV_SECTIONS: NavSection[] = [
         title: "Chip",
         href: "/design-system/chip",
         icon: SlidersHorizontal,
+      },
+      {
+        title: "Sidebar",
+        href: "/design-system/sidebar",
+        icon: PanelLeft,
+      },
+      {
+        title: "App Bar",
+        href: "/design-system/app-bar",
+        icon: AppWindow,
       },
     ],
   },

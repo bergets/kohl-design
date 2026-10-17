@@ -1351,6 +1351,147 @@ NEVER do the following:
   8. Realistic domain data only`,
   },
 
+  "/design-system/sidebar": {
+    id: "sidebar",
+    path: "/design-system/sidebar",
+    title: "Sidebar",
+    componentName: "Sidebar",
+    category: "Components",
+    summary:
+      "Composable desktop sidebar navigation architecture with brand slots, context switchers, grouped items, live telemetry status dots, recessed widget slots, and user accounts.",
+    installCommand: "npx shadcn@latest add https://kohl.design/r/sidebar.json",
+    importStatement: `import { Sidebar, SidebarHeader, SidebarBrand, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarNav, SidebarNavItem, SidebarContextSwitcher, SidebarWidget, SidebarFooter, SidebarStatus, SidebarUser } from "@/components/ui/sidebar"`,
+    registryUrl: "https://kohl.design/r/sidebar.json",
+    priorityOrder: [
+      "1. Use SidebarWrapper alongside fixed Sidebar on desktop to avoid content clipping.",
+      "2. Use asChild on SidebarNavItem to cleanly wrap Next.js <Link> elements.",
+      "3. Use SidebarContextSwitcher for workspace or profile selector triggers.",
+      "4. Adhere to sentence-case titles and 2px focus rings.",
+    ],
+    rules: [
+      {
+        id: "sb-semantic-tokens",
+        level: "MUST",
+        title: "Use semantic sidebar tokens",
+        rationale: "Colors adapt between light, dark, and blush themes seamlessly.",
+        good: `<Sidebar variant="fixed" className="bg-sidebar text-sidebar-foreground">`,
+        bad: `<aside className="bg-[#00201a] text-white">`,
+      },
+      {
+        id: "sb-nav-item-aschild",
+        level: "MUST",
+        title: "Use asChild for Next.js routing",
+        rationale: "Prevents invalid nested <a> tags and maintains high-contrast focus rings.",
+        good: `<SidebarNavItem active asChild><Link href="/dashboard">Home</Link></SidebarNavItem>`,
+        bad: `<SidebarNavItem><a href="/dashboard">Home</a></SidebarNavItem>`,
+      },
+    ],
+    antiPatterns: [
+      "Hardcoding arbitrary width styles without matching responsive wrapper.",
+      "Nesting card elements inside sidebar items.",
+      "Using Cooper serif font on navigation item labels.",
+    ],
+    codeSnippets: [
+      {
+        title: "Standard Dashboard Sidebar",
+        description: "Full layout with header, brand, navigation, and user footer",
+        code: `<Sidebar variant="fixed">
+  <SidebarHeader>
+    <SidebarBrand>
+      <BrandFlower className="size-7 text-emblem" />
+      <span className="font-sans font-bold text-sm">MyApp</span>
+    </SidebarBrand>
+    <SidebarContextSwitcher title="My Workspace" />
+  </SidebarHeader>
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarGroupLabel>Main</SidebarGroupLabel>
+      <SidebarNav>
+        <SidebarNavItem active asChild>
+          <Link href="/dashboard">Home</Link>
+        </SidebarNavItem>
+      </SidebarNav>
+    </SidebarGroup>
+  </SidebarContent>
+  <SidebarFooter>
+    <SidebarStatus status="online" />
+    <SidebarUser name="Alex" email="alex@company.com" />
+  </SidebarFooter>
+</Sidebar>`,
+      },
+    ],
+    prompt: `You are implementing the Kohl Sidebar.
+Use Sidebar, SidebarHeader, SidebarContent, SidebarNav, SidebarNavItem, and SidebarFooter.
+Use asChild with Next.js Link. Ensure focus-visible:ring-2 and sentence-case labels.`,
+    rawMarkdown: `# Kohl Sidebar Specification
+Composable desktop sidebar navigation with brand marks, context switchers, grouped nav, live status dots, and user profile management.`,
+  },
+
+  "/design-system/app-bar": {
+    id: "app-bar",
+    path: "/design-system/app-bar",
+    title: "AppBar",
+    componentName: "AppBar",
+    category: "Components",
+    summary:
+      "Compact, responsive mobile top header supporting safe-area insets, frosted glass backdrops, context switcher pills, and avatar triggers with connectivity telemetry.",
+    installCommand: "npx shadcn@latest add https://kohl.design/r/app-bar.json",
+    importStatement: `import { AppBar, AppBarContainer, AppBarLeading, AppBarTitle, AppBarContextPill, AppBarActions, AppBarAvatarTrigger } from "@/components/ui/app-bar"`,
+    registryUrl: "https://kohl.design/r/app-bar.json",
+    priorityOrder: [
+      "1. Enable safeArea=true to account for iOS dynamic island and notch clearances.",
+      "2. Use AppBarContextPill for quick profile or workspace switching.",
+      "3. Use AppBarAvatarTrigger with live sync/connectivity status telemetry.",
+    ],
+    rules: [
+      {
+        id: "ab-safe-area",
+        level: "MUST",
+        title: "Respect safe-area insets on mobile",
+        rationale: "Prevents header content from rendering behind status bars and phone notches.",
+        good: `<AppBar position="sticky" safeArea={true}>`,
+        bad: `<header className="fixed top-0 pt-0">`,
+      },
+      {
+        id: "ab-control-scale",
+        level: "MUST",
+        title: "Match control heights in actions",
+        rationale: "Prevents vertical jitter across sibling controls in the bar.",
+        good: `<AppBarActions><Button size="sm" variant="ghost" /><AppBarAvatarTrigger initials="HK" /></AppBarActions>`,
+        bad: `<AppBarActions><button className="h-6">...`,
+      },
+    ],
+    antiPatterns: [
+      "Hardcoding arbitrary px heights or backgrounds on mobile headers.",
+      "Placing multiple competing primary action buttons in the top bar.",
+    ],
+    codeSnippets: [
+      {
+        title: "Mobile Header with Context Pill",
+        description: "Mobile app bar with brand emblem, child/profile selector, and avatar with sync dot",
+        code: `<AppBar position="sticky" variant="default">
+  <AppBarContainer>
+    <AppBarLeading>
+      <BrandFlower className="size-7 text-emblem" />
+      <AppBarContextPill
+        avatar={<span className="size-5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold">A</span>}
+        label="Astrid"
+      />
+    </AppBarLeading>
+    <AppBarActions>
+      <AppBarAvatarTrigger status="online" initials="HK" />
+    </AppBarActions>
+  </AppBarContainer>
+</AppBar>`,
+      },
+    ],
+    prompt: `You are implementing the Kohl AppBar.
+Use AppBar, AppBarContainer, AppBarLeading, AppBarContextPill, and AppBarActions.
+Enable safeArea and use 36px/32px touch-friendly control heights.`,
+    rawMarkdown: `# Kohl AppBar Specification
+Responsive mobile top navigation header with safe-area insets, frosted glass backdrops, context switcher pills, and avatar triggers.`,
+  },
+
   "/design-system/registry": {
     id: "registry",
     path: "/design-system/registry",

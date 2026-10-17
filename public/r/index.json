@@ -176,6 +176,34 @@
     ]
   },
   {
+    "name": "sidebar",
+    "type": "registry:ui",
+    "title": "Sidebar",
+    "description": "Composable desktop sidebar navigation layout with brand, context switcher, navigation items, status dots, widgets, and user profile.",
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "app-bar",
+    "type": "registry:ui",
+    "title": "AppBar",
+    "description": "Responsive mobile top header bar supporting brand marks, context selector pills, title, and action/avatar triggers with sync status dots.",
+    "dependencies": [
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
     "name": "theme",
     "type": "registry:theme",
     "title": "Kohl Theme Tokens",

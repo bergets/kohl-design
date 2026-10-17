@@ -278,6 +278,46 @@ const registryItems = [
     ],
   },
   {
+    name: "sidebar",
+    type: "registry:ui",
+    title: "Sidebar",
+    description: "Composable desktop sidebar navigation layout with brand, context switcher, navigation items, status dots, widgets, and user profile.",
+    dependencies: [
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react",
+    ],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/sidebar.tsx",
+        content: readFile("components/ui/sidebar.tsx"),
+        type: "registry:ui",
+        target: "components/ui/sidebar.tsx",
+      },
+    ],
+  },
+  {
+    name: "app-bar",
+    type: "registry:ui",
+    title: "AppBar",
+    description: "Responsive mobile top header bar supporting brand marks, context selector pills, title, and action/avatar triggers with sync status dots.",
+    dependencies: [
+      "@radix-ui/react-slot",
+      "class-variance-authority",
+      "lucide-react",
+    ],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/app-bar.tsx",
+        content: readFile("components/ui/app-bar.tsx"),
+        type: "registry:ui",
+        target: "components/ui/app-bar.tsx",
+      },
+    ],
+  },
+  {
     name: "theme",
     type: "registry:theme",
     title: "Kohl Theme Tokens",
