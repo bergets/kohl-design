@@ -54,7 +54,7 @@ When rules conflict, the earlier item wins:
    - **Level 1 (Card / Surface):** `<Card variant="default">` or `bg-card`
    - **Level 2 (Elevated Overlay):** `<Card variant="elevated">` or `bg-popover` for dialogs and flyouts
    - **Level 3 (Recessed Well):** `<Card variant="sunken">` or `bg-muted` for code blocks and inner wells
-   - **Level 4 (Frosted Glass):** `<Card variant="glass">` or `bg-background/80 backdrop-blur-md` for sticky bars
+   - **Level 4 (Frosted Glass):** `<Card variant="glass">` or `bg-background/60 dark:bg-card/60 backdrop-blur-md border border-border/50` for sticky bars and floating navigation islands
 
 6. `kohl-icon-standard` **MUST** Use the `<Icon icon={...} />` component from `@/components/ui/icon` which standardizes Lucide icons to 20×20px with 1.5px stroke width. When paired with text, align leading icons to the first line (`items-start`), never vertically centered across wrapping paragraphs.
    - **Correct:** `<Icon icon={Sparkles} intent="primary" />`
