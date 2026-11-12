@@ -329,16 +329,16 @@ const CONTRAST_PAIRS = [
 ];
 
 const THEME_MAPPINGS = [
-  { role: "--background", pineLight: "#ffffff", pineDark: "#011d18", blushLight: "#ffffff", blushDark: "#1a0709", neutralLight: "#ffffff", neutralDark: "#141414" },
-  { role: "--foreground", pineLight: "#011713", pineDark: "#f2f2f2", blushLight: "#1d070a", blushDark: "#feeced", neutralLight: "#171717", neutralDark: "#f2f2f2" },
-  { role: "--card", pineLight: "#ffffff", pineDark: "#03352c", blushLight: "#ffffff", blushDark: "#281013", neutralLight: "#ffffff", neutralDark: "#1f1f1f" },
-  { role: "--primary", pineLight: "#005243", pineDark: "#005243", blushLight: "#FBC8CB", blushDark: "#FCD3D6", neutralLight: "#171717", neutralDark: "#f5f5f5" },
-  { role: "--primary-foreground", pineLight: "#ffffff", pineDark: "#ffffff", blushLight: "#1d070a", blushDark: "#1d070a", neutralLight: "#ffffff", neutralDark: "#141414" },
-  { role: "--accent", pineLight: "#93484f", pineDark: "#93484f", blushLight: "#8a2e36", blushDark: "#f79da5", neutralLight: "#404040", neutralDark: "#595959" },
-  { role: "--line", pineLight: "#e1e1e1", pineDark: "#053028", blushLight: "#f4dedf", blushDark: "#33161b", neutralLight: "#eaeaea", neutralDark: "#2e2e2e" },
-  { role: "--line-strong", pineLight: "#c0c0c0", pineDark: "#094238", blushLight: "#e8c5c8", blushDark: "#503539", neutralLight: "#cccccc", neutralDark: "#424242" },
-  { role: "--control", pineLight: "#a6a6a6", pineDark: "#0e5a4d", blushLight: "#dca7ab", blushDark: "#6b474d", neutralLight: "#a6a6a6", neutralDark: "#5c5c5c" },
-  { role: "--link", pineLight: "#005243", pineDark: "#a8e3d2", blushLight: "#822129", blushDark: "#fcd3d6", neutralLight: "#1f1f1f", neutralDark: "#ebebeb" },
+  { role: "--background", pineLight: "#ffffff", pineDark: "#011d18", blushLight: "#ffffff", blushDark: "#1a0709", neutralLight: "#ffffff", neutralDark: "#151e1c" },
+  { role: "--foreground", pineLight: "#011713", pineDark: "#f2f2f2", blushLight: "#1d070a", blushDark: "#feeced", neutralLight: "#011713", neutralDark: "#f2f2f2" },
+  { role: "--card", pineLight: "#ffffff", pineDark: "#03352c", blushLight: "#ffffff", blushDark: "#281013", neutralLight: "#ffffff", neutralDark: "#283431" },
+  { role: "--primary", pineLight: "#005243", pineDark: "#005243", blushLight: "#FBC8CB", blushDark: "#FCD3D6", neutralLight: "#011713", neutralDark: "#f2f2f2" },
+  { role: "--primary-foreground", pineLight: "#ffffff", pineDark: "#ffffff", blushLight: "#1d070a", blushDark: "#1d070a", neutralLight: "#ffffff", neutralDark: "#000000" },
+  { role: "--accent", pineLight: "#93484f", pineDark: "#93484f", blushLight: "#8a2e36", blushDark: "#f79da5", neutralLight: "#283431", neutralDark: "#6a7673" },
+  { role: "--line", pineLight: "#e1e1e1", pineDark: "#053028", blushLight: "#f4dedf", blushDark: "#33161b", neutralLight: "#f2f2f2", neutralDark: "#283431" },
+  { role: "--line-strong", pineLight: "#c0c0c0", pineDark: "#094238", blushLight: "#e8c5c8", blushDark: "#503539", neutralLight: "#bababa", neutralDark: "#50625e" },
+  { role: "--control", pineLight: "#a6a6a6", pineDark: "#0e5a4d", blushLight: "#dca7ab", blushDark: "#6b474d", neutralLight: "#92a09c", neutralDark: "#6a7673" },
+  { role: "--link", pineLight: "#005243", pineDark: "#a8e3d2", blushLight: "#822129", blushDark: "#fcd3d6", neutralLight: "#011713", neutralDark: "#d4d4d4" },
 ];
 
 const PINE_SCALE = [

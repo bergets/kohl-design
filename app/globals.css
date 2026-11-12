@@ -468,185 +468,186 @@
 
 /* -------------------------------------------------------------
  * Preset 2: Neutral / Shades of Grey (Monochrome & Technical)
- * Clean neutral greys with primary almost black buttons
+ * Uses the original design system's neutral & ink scale tokens
+ * with primary almost black buttons.
  * Activate with data-theme-variant="neutral" | .theme-neutral
  * ----------------------------------------------------------- */
 [data-theme-variant="neutral"],
 .theme-neutral {
-  --radius: 0.5rem; /* 8px crisp curve */
+  --radius: 0.5rem;
 
-  /* Primary Action: Almost Black (#171717) */
-  --primary: hsla(0, 0%, 9%, 1);
+  /* Primary Action: Original system's almost-black ink (Pine 900 / Neutral 900) */
+  --primary: var(--color-pine-900); /* hsla(168, 94%, 5%, 1) almost black ink */
   --primary-foreground: #ffffff;
-  --primary-hover: hsla(0, 0%, 0%, 1); /* #000000 true black */
-  --ring: hsla(0, 0%, 12%, 1);
+  --primary-hover: var(--color-neutral-900); /* hsla(0, 0%, 0%, 1) true black */
+  --ring: var(--color-pine-900);
 
-  /* Brand Accent: Sophisticated Dark Charcoal */
-  --accent: hsla(0, 0%, 25%, 1);
+  /* Brand Accent: Original system's slate / charcoal neutral */
+  --accent: var(--color-neutral-700);
   --accent-foreground: #ffffff;
-  --accent-hover: hsla(0, 0%, 18%, 1);
+  --accent-hover: var(--color-neutral-800);
 
-  /* Typography in Neutral Light Mode: Deep Ink */
-  --foreground: hsla(0, 0%, 9%, 1); /* #171717 */
-  --card-foreground: hsla(0, 0%, 9%, 1);
-  --popover-foreground: hsla(0, 0%, 9%, 1);
+  /* Typography in Neutral Light Mode: Original deep ink */
+  --foreground: var(--color-pine-900);
+  --card-foreground: var(--color-pine-900);
+  --popover-foreground: var(--color-pine-900);
 
-  /* Canvas & Card Surfaces in Neutral Light Mode */
+  /* Surfaces: Original base canvas & card */
   --background: #ffffff;
   --card: #ffffff;
   --popover: #ffffff;
 
-  /* Neutral Grey Secondary & Muted Surfaces */
-  --secondary: hsla(0, 0%, 95%, 1); /* Soft neutral grey #f2f2f2 */
-  --secondary-foreground: hsla(0, 0%, 11%, 1);
-  --muted: hsla(0, 0%, 96%, 1); /* Recessed well #f5f5f5 */
-  --muted-foreground: hsla(0, 0%, 42%, 1); /* Calibrated neutral grey #6b6b6b (4.9:1 AA) */
+  /* Neutral Grey Secondary & Muted Surfaces from original neutral scale */
+  --secondary: var(--color-neutral-50); /* hsla(0, 0%, 95%, 1) */
+  --secondary-foreground: var(--color-pine-900);
+  --muted: var(--color-neutral-50);
+  --muted-foreground: var(--color-neutral-500); /* hsla(170, 10%, 35%, 1) */
 
-  /* Neutral Borders & Dividers */
-  --border: hsla(0, 0%, 88%, 1); /* #e0e0e0 */
-  --line: hsla(0, 0%, 92%, 1); /* #eaeaea */
-  --line-strong: hsla(0, 0%, 80%, 1); /* #cccccc */
-  --control: hsla(0, 0%, 65%, 1); /* #a6a6a6 (3.1:1 non-text contrast) */
-  --input: hsla(0, 0%, 88%, 1);
+  /* Neutral Borders & Boundaries from original neutral scale */
+  --border: var(--color-neutral-100); /* hsla(0, 0%, 83%, 1) */
+  --line: var(--color-neutral-50);
+  --line-strong: var(--color-neutral-200); /* hsla(0, 0%, 73%, 1) */
+  --control: var(--color-neutral-300); /* hsla(169, 8%, 60%, 1) */
+  --input: var(--color-neutral-100);
 
   /* Sidebar in Neutral Light Mode */
-  --sidebar: hsla(0, 0%, 97%, 1); /* Clean grey sidebar #f7f7f7 */
-  --sidebar-foreground: hsla(0, 0%, 10%, 1);
-  --sidebar-border: hsla(0, 0%, 88%, 1);
-  --sidebar-primary: hsla(0, 0%, 9%, 1);
+  --sidebar: var(--color-neutral-50);
+  --sidebar-foreground: var(--color-pine-900);
+  --sidebar-border: var(--color-neutral-100);
+  --sidebar-primary: var(--color-pine-900);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: hsla(0, 0%, 92%, 1);
-  --sidebar-accent-foreground: hsla(0, 0%, 10%, 1);
-  --sidebar-ring: hsla(0, 0%, 12%, 1);
+  --sidebar-accent: var(--color-neutral-100);
+  --sidebar-accent-foreground: var(--color-pine-900);
+  --sidebar-ring: var(--color-pine-900);
 
   /* Link & Interactive Inks */
-  --link: hsla(0, 0%, 12%, 1);
-  --link-hover: #000000;
-  --link-decoration: hsla(0, 0%, 45%, 0.4);
+  --link: var(--color-pine-900);
+  --link-hover: var(--color-neutral-900);
+  --link-decoration: var(--color-neutral-300);
 
-  /* Floral Emblem in Neutral Light Mode: Almost Black Silhouette */
-  --emblem: hsla(0, 0%, 10%, 1);
+  /* Floral Emblem: Original system's ink */
+  --emblem: var(--color-pine-900);
 
-  /* Neutral Greyscale Charts */
-  --chart-1: hsla(0, 0%, 12%, 1);
-  --chart-2: hsla(0, 0%, 35%, 1);
-  --chart-3: hsla(0, 0%, 55%, 1);
-  --chart-4: hsla(0, 0%, 75%, 1);
-  --chart-5: hsla(0, 0%, 88%, 1);
+  /* Neutral Charts mapped to original neutral scale */
+  --chart-1: var(--color-pine-900);
+  --chart-2: var(--color-neutral-700);
+  --chart-3: var(--color-neutral-500);
+  --chart-4: var(--color-neutral-300);
+  --chart-5: var(--color-neutral-100);
 }
 
 /* Primary Almost Black Button in Neutral Light Mode */
 [data-theme-variant="neutral"] [data-slot="button"][data-variant="default"],
 .theme-neutral [data-slot="button"][data-variant="default"] {
-  background-color: hsla(0, 0%, 9%, 1); /* #171717 */
+  background-color: var(--color-pine-900);
   color: #ffffff;
-  border: 1px solid hsla(0, 0%, 14%, 1);
+  border: 1px solid var(--color-pine-800);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 [data-theme-variant="neutral"] [data-slot="button"][data-variant="default"]:hover,
 .theme-neutral [data-slot="button"][data-variant="default"]:hover {
-  background-color: hsla(0, 0%, 0%, 1); /* #000000 */
+  background-color: var(--color-neutral-900);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Link Button in Neutral Light Mode */
 [data-theme-variant="neutral"] [data-slot="button"][data-variant="link"],
 .theme-neutral [data-slot="button"][data-variant="link"] {
-  color: hsla(0, 0%, 12%, 1);
-  text-decoration-color: hsla(0, 0%, 45%, 0.4);
+  color: var(--color-pine-900);
+  text-decoration-color: var(--color-neutral-300);
 }
 [data-theme-variant="neutral"] [data-slot="button"][data-variant="link"]:hover,
 .theme-neutral [data-slot="button"][data-variant="link"]:hover {
-  color: #000000;
+  color: var(--color-neutral-900);
   text-decoration-color: currentColor;
 }
 
 /* Editorial button in Neutral Light Mode */
 [data-theme-variant="neutral"] [data-slot="button"][data-variant="editorial"],
 .theme-neutral [data-slot="button"][data-variant="editorial"] {
-  background-color: hsla(0, 0%, 95%, 0.8);
-  color: hsla(0, 0%, 12%, 1);
-  border: 1px solid hsla(0, 0%, 80%, 0.8);
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-800);
+  border: 1px solid var(--color-neutral-200);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 [data-theme-variant="neutral"] [data-slot="button"][data-variant="editorial"]:hover,
 .theme-neutral [data-slot="button"][data-variant="editorial"]:hover {
-  background-color: hsla(0, 0%, 90%, 0.95);
-  border-color: hsla(0, 0%, 65%, 0.9);
-  color: #000000;
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-neutral-300);
+  color: var(--color-neutral-900);
 }
 
 /* Detached Explore Sheet Panel in Neutral Light Mode */
 [data-theme-variant="neutral"] .explore-sheet-panel,
 .theme-neutral .explore-sheet-panel {
-  background-color: hsla(0, 0%, 98%, 0.96);
-  border-color: hsla(0, 0%, 88%, 0.9);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px hsla(0, 0%, 88%, 0.6);
+  background-color: #ffffff;
+  border-color: var(--color-neutral-100);
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--color-neutral-100);
 }
 
 /* -------------------------------------------------------------
- * Neutral Dark Mode (Deep Obsidian Canvas & Crisp Light Primary)
+ * Neutral Dark Mode (Original Neutral Scale)
  * ----------------------------------------------------------- */
 .dark[data-theme-variant="neutral"],
 .dark [data-theme-variant="neutral"],
 .dark .theme-neutral,
 [data-theme-variant="neutral"] .dark,
 .theme-neutral .dark {
-  /* Surfaces in Neutral Dark Mode */
-  --background: hsla(0, 0%, 8%, 1); /* Deep Obsidian #141414 */
-  --foreground: hsla(0, 0%, 95%, 1); /* Crisp Light Text #f2f2f2 */
+  /* Surfaces in Neutral Dark Mode from original neutral scale */
+  --background: var(--color-neutral-800); /* hsla(173, 18%, 10%, 1) deep charcoal */
+  --foreground: var(--color-neutral-50); /* hsla(0, 0%, 95%, 1) crisp light text */
 
-  --card: hsla(0, 0%, 12%, 1); /* Card Surface #1f1f1f */
-  --card-foreground: hsla(0, 0%, 95%, 1);
+  --card: var(--color-neutral-700); /* hsla(170, 13%, 18%, 1) */
+  --card-foreground: var(--color-neutral-50);
 
-  --popover: hsla(0, 0%, 13%, 1);
-  --popover-foreground: hsla(0, 0%, 95%, 1);
+  --popover: var(--color-neutral-700);
+  --popover-foreground: var(--color-neutral-50);
 
-  /* Primary CTA in Dark Mode: Crisp White Button */
-  --primary: hsla(0, 0%, 96%, 1); /* #f5f5f5 */
-  --primary-foreground: hsla(0, 0%, 8%, 1); /* #141414 */
+  /* Primary CTA in Dark Mode: Crisp Light Neutral Button */
+  --primary: var(--color-neutral-50);
+  --primary-foreground: var(--color-neutral-900);
   --primary-hover: #ffffff;
 
-  --secondary: hsla(0, 0%, 18%, 1); /* Mid-dark grey #2e2e2e */
-  --secondary-foreground: hsla(0, 0%, 95%, 1);
+  --secondary: var(--color-neutral-600); /* hsla(168, 11%, 26%, 1) */
+  --secondary-foreground: var(--color-neutral-50);
 
-  --muted: hsla(0, 0%, 16%, 1); /* Sunken well #292929 */
-  --muted-foreground: hsla(0, 0%, 62%, 1); /* Warm silver grey #9e9e9e */
+  --muted: var(--color-neutral-600);
+  --muted-foreground: var(--color-neutral-300); /* hsla(169, 8%, 60%, 1) */
 
-  --accent: hsla(0, 0%, 35%, 1); /* Subtle graphite accent #595959 */
-  --accent-foreground: hsla(0, 0%, 98%, 1);
-  --accent-hover: hsla(0, 0%, 45%, 1);
+  --accent: var(--color-neutral-400);
+  --accent-foreground: var(--color-neutral-50);
+  --accent-hover: var(--color-neutral-300);
 
-  --border: hsla(0, 0%, 22%, 1); /* Charcoal border #383838 */
-  --line: hsla(0, 0%, 18%, 1);
-  --line-strong: hsla(0, 0%, 26%, 1);
-  --control: hsla(0, 0%, 36%, 1);
-  --input: hsla(0, 0%, 22%, 1);
-  --ring: hsla(0, 0%, 85%, 1);
+  --border: var(--color-neutral-600);
+  --line: var(--color-neutral-700);
+  --line-strong: var(--color-neutral-500);
+  --control: var(--color-neutral-400);
+  --input: var(--color-neutral-600);
+  --ring: var(--color-neutral-200);
 
-  --sidebar: hsla(0, 0%, 10%, 1); /* Charcoal sidebar #1a1a1a */
-  --sidebar-foreground: hsla(0, 0%, 95%, 1);
-  --sidebar-border: hsla(0, 0%, 20%, 1);
-  --sidebar-primary: hsla(0, 0%, 96%, 1);
-  --sidebar-primary-foreground: hsla(0, 0%, 8%, 1);
-  --sidebar-accent: hsla(0, 0%, 16%, 1);
-  --sidebar-accent-foreground: hsla(0, 0%, 95%, 1);
-  --sidebar-ring: hsla(0, 0%, 85%, 1);
+  --sidebar: var(--color-neutral-800);
+  --sidebar-foreground: var(--color-neutral-50);
+  --sidebar-border: var(--color-neutral-600);
+  --sidebar-primary: var(--color-neutral-50);
+  --sidebar-primary-foreground: var(--color-neutral-900);
+  --sidebar-accent: var(--color-neutral-700);
+  --sidebar-accent-foreground: var(--color-neutral-50);
+  --sidebar-ring: var(--color-neutral-200);
 
   /* Link & Interactive Inks in Neutral Dark Mode */
-  --link: hsla(0, 0%, 92%, 1); /* #ebebeb */
+  --link: var(--color-neutral-100);
   --link-hover: #ffffff;
-  --link-decoration: hsla(0, 0%, 70%, 0.4);
+  --link-decoration: var(--color-neutral-300);
 
-  /* Floral Emblem in Neutral Dark Mode: Luminous Silver */
-  --emblem: hsla(0, 0%, 92%, 1);
+  /* Floral Emblem in Neutral Dark Mode */
+  --emblem: var(--color-neutral-50);
 
   /* Neutral Dark Charts */
-  --chart-1: hsla(0, 0%, 95%, 1);
-  --chart-2: hsla(0, 0%, 75%, 1);
-  --chart-3: hsla(0, 0%, 55%, 1);
-  --chart-4: hsla(0, 0%, 38%, 1);
-  --chart-5: hsla(0, 0%, 25%, 1);
+  --chart-1: var(--color-neutral-50);
+  --chart-2: var(--color-neutral-200);
+  --chart-3: var(--color-neutral-400);
+  --chart-4: var(--color-neutral-600);
+  --chart-5: var(--color-neutral-800);
 }
 
 /* Primary Button in Neutral Dark Mode */
@@ -655,9 +656,9 @@
 .dark .theme-neutral [data-slot="button"][data-variant="default"],
 [data-theme-variant="neutral"] .dark [data-slot="button"][data-variant="default"],
 .theme-neutral .dark [data-slot="button"][data-variant="default"] {
-  background-color: hsla(0, 0%, 96%, 1);
-  color: hsla(0, 0%, 8%, 1);
-  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-900);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(255, 255, 255, 0.08);
 }
 .dark[data-theme-variant="neutral"] [data-slot="button"][data-variant="default"]:hover,
@@ -674,8 +675,8 @@
 .dark .theme-neutral [data-slot="button"][data-variant="link"],
 [data-theme-variant="neutral"] .dark [data-slot="button"][data-variant="link"],
 .theme-neutral .dark [data-slot="button"][data-variant="link"] {
-  color: hsla(0, 0%, 92%, 1);
-  text-decoration-color: hsla(0, 0%, 70%, 0.4);
+  color: var(--color-neutral-100);
+  text-decoration-color: var(--color-neutral-300);
 }
 .dark[data-theme-variant="neutral"] [data-slot="button"][data-variant="link"]:hover,
 .dark [data-theme-variant="neutral"] [data-slot="button"][data-variant="link"]:hover,
@@ -692,9 +693,9 @@
 .dark .theme-neutral [data-slot="button"][data-variant="editorial"],
 [data-theme-variant="neutral"] .dark [data-slot="button"][data-variant="editorial"],
 .theme-neutral .dark [data-slot="button"][data-variant="editorial"] {
-  background-color: hsla(0, 0%, 18%, 0.5);
-  color: hsla(0, 0%, 92%, 1);
-  border: 1px solid hsla(0, 0%, 32%, 0.8);
+  background-color: var(--color-neutral-700);
+  color: var(--color-neutral-100);
+  border: 1px solid var(--color-neutral-500);
   box-shadow: none;
 }
 .dark[data-theme-variant="neutral"] [data-slot="button"][data-variant="editorial"]:hover,
@@ -702,8 +703,8 @@
 .dark .theme-neutral [data-slot="button"][data-variant="editorial"]:hover,
 [data-theme-variant="neutral"] .dark [data-slot="button"][data-variant="editorial"]:hover,
 .theme-neutral .dark [data-slot="button"][data-variant="editorial"]:hover {
-  background-color: hsla(0, 0%, 24%, 0.8);
-  border-color: hsla(0, 0%, 48%, 0.9);
+  background-color: var(--color-neutral-600);
+  border-color: var(--color-neutral-400);
   color: #ffffff;
 }
 
@@ -713,9 +714,9 @@
 .dark .theme-neutral .explore-sheet-panel,
 [data-theme-variant="neutral"] .dark .explore-sheet-panel,
 .theme-neutral .dark .explore-sheet-panel {
-  background-color: hsla(0, 0%, 10%, 0.96);
-  border-color: hsla(0, 0%, 22%, 0.85);
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px hsla(0, 0%, 85%, 0.15);
+  background-color: var(--color-neutral-800);
+  border-color: var(--color-neutral-600);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--color-neutral-600);
 }
 
 /* Floral Emblem in Neutral Theme */
