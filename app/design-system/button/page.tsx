@@ -110,14 +110,27 @@ export default function ButtonShowcasePage() {
                 <div className="flex items-center justify-between">
                   <span
                     className="text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: brandTheme === "blush" ? "var(--accent)" : "var(--primary)" }}
+                    style={{
+                      color:
+                        brandTheme === "blush"
+                          ? "var(--accent)"
+                          : brandTheme === "neutral"
+                          ? "var(--foreground)"
+                          : "var(--primary)",
+                    }}
                   >
-                    {brandTheme === "blush" ? "Primary Blush" : "Primary Pine"}
+                    {brandTheme === "blush"
+                      ? "Primary Blush"
+                      : brandTheme === "neutral"
+                      ? "Primary Almost Black"
+                      : "Primary Pine"}
                   </span>
                   <code className="text-[11px] font-mono text-muted-foreground">variant="default"</code>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Signature Pine Green hue with subtle elevation depth for dominant primary conversions and key CTAs.
+                  {brandTheme === "neutral"
+                    ? "Crisp almost black (#171717) primary conversion action with subtle elevation and pure white text."
+                    : "Signature Pine Green hue with subtle elevation depth for dominant primary conversions and key CTAs."}
                 </p>
               </div>
               <div className="pt-2">
@@ -871,6 +884,8 @@ export default function ButtonShowcasePage() {
                   const cssSnippet =
                     brandTheme === "blush"
                       ? `:root {\n  --radius: 0.875rem; /* 14px soft curvature */\n  --primary: hsla(356, 86%, 89%, 1); /* Cashmere blush #FBC8CB */\n  --primary-hover: hsla(356, 85%, 82%, 1); /* Silky rose petal */\n  --primary-foreground: hsla(352, 60%, 7%, 1); /* Deep velvet wine noir #1d070a */\n  --accent: hsla(354, 50%, 36%, 1); /* Signature crimson #8a2e36 */\n  --accent-foreground: #ffffff;\n  --foreground: hsla(352, 60%, 7%, 1); /* Deep wine noir typography */\n  --link: hsla(354, 60%, 32%, 1); /* Deep crimson link #822129 (10:1 AAA) */\n  --link-hover: hsla(352, 100%, 13%, 1); /* Deep wine #420006 */\n  /* Light mode petal wash surfaces */\n  --secondary: hsla(356, 60%, 96%, 1);\n  --secondary-foreground: hsla(352, 60%, 7%, 1);\n  --muted: hsla(356, 60%, 96%, 1);\n  --muted-foreground: hsla(354, 25%, 45%, 1);\n  --border: hsla(355, 40%, 88%, 1);\n  --sidebar: hsla(356, 89%, 96%, 1);\n}\n\n.dark {\n  /* Dark mode: Velvety Midnight Berry & Plum surfaces */\n  --background: hsla(352, 55%, 6.5%, 1); /* Canvas #1a0709 */\n  --foreground: hsla(356, 86%, 96%, 1); /* Petal white #feeced */\n  --card: hsla(352, 42%, 11%, 1); /* Deep plum card #281013 */\n  --card-foreground: hsla(356, 86%, 96%, 1);\n  --popover: hsla(352, 42%, 11%, 1);\n  --popover-foreground: hsla(356, 86%, 96%, 1);\n  --primary: hsla(356, 86%, 89%, 1); /* Luminous blush #FCD3D6 */\n  --primary-hover: hsla(356, 90%, 94%, 1);\n  --primary-foreground: hsla(352, 60%, 7%, 1);\n  --secondary: hsla(352, 22%, 18%, 1); /* Dusty mauve/berry #382426 */\n  --secondary-foreground: hsla(356, 86%, 96%, 1);\n  --muted: hsla(352, 22%, 18%, 1);\n  --muted-foreground: hsla(352, 20%, 65%, 1); /* Warm dusty rose #b89499 */\n  --accent: hsla(355, 73%, 79%, 1); /* Luminous rose secondary #f79da5 */\n  --accent-foreground: hsla(352, 60%, 7%, 1);\n  --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */\n  --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */\n  --link: hsla(356, 86%, 85%, 1); /* Luminous rose link #fcd3d6 (11.5:1 AAA) */\n  --link-hover: hsla(356, 90%, 94%, 1);\n}`
+                      : brandTheme === "neutral"
+                      ? `:root {\n  --radius: 0.5rem;\n  --primary: hsla(0, 0%, 9%, 1); /* Almost Black #171717 */\n  --primary-hover: hsla(0, 0%, 0%, 1); /* True Black #000000 */\n  --primary-foreground: #ffffff;\n  --accent: hsla(0, 0%, 25%, 1); /* Charcoal #404040 */\n  --accent-foreground: #ffffff;\n  --foreground: hsla(0, 0%, 9%, 1);\n  --secondary: hsla(0, 0%, 95%, 1); /* Neutral grey #f2f2f2 */\n  --secondary-foreground: hsla(0, 0%, 11%, 1);\n  --muted: hsla(0, 0%, 96%, 1); /* #f5f5f5 */\n  --muted-foreground: hsla(0, 0%, 42%, 1); /* #6b6b6b */\n  --border: hsla(0, 0%, 88%, 1); /* #e0e0e0 */\n  --sidebar: hsla(0, 0%, 97%, 1);\n}\n\n.dark {\n  --background: hsla(0, 0%, 8%, 1); /* #141414 */\n  --foreground: hsla(0, 0%, 95%, 1); /* #f2f2f2 */\n  --card: hsla(0, 0%, 12%, 1); /* #1f1f1f */\n  --card-foreground: hsla(0, 0%, 95%, 1);\n  --primary: hsla(0, 0%, 96%, 1); /* #f5f5f5 */\n  --primary-hover: #ffffff;\n  --primary-foreground: hsla(0, 0%, 8%, 1);\n  --secondary: hsla(0, 0%, 18%, 1); /* #2e2e2e */\n  --muted: hsla(0, 0%, 16%, 1);\n  --muted-foreground: hsla(0, 0%, 62%, 1);\n  --border: hsla(0, 0%, 22%, 1);\n  --sidebar: hsla(0, 0%, 10%, 1);\n}`
                       : `:root {\n  --radius: 0.5rem; /* 8px signature pebble */\n  --primary: hsla(170, 100%, 16%, 1); /* Signature Pine */\n  --primary-hover: hsla(170, 90%, 11%, 1);\n  --accent: hsla(354, 34%, 43%, 1); /* Crimson */\n  --link: hsla(170, 100%, 16%, 1);\n  --link-hover: hsla(170, 90%, 11%, 1);\n}`;
                   copyToClipboard(cssSnippet, "preset-css");
                 }}
@@ -930,6 +945,46 @@ export default function ButtonShowcasePage() {
   --accent-foreground: hsla(352, 60%, 7%, 1);
   --border: hsla(352, 20%, 26%, 1); /* Deep berry border #503539 */
   --sidebar: hsla(352, 45%, 9%, 1); /* Deep night berry #210c10 */
+}`
+              ) : brandTheme === "neutral" ? (
+`/* Neutral Project Variant: Pure Neutral Greys + Almost Black Primary */
+:root {
+  --radius: 0.5rem; /* 8px crisp curve */
+  --primary: hsla(0, 0%, 9%, 1); /* Almost Black #171717 */
+  --primary-hover: hsla(0, 0%, 0%, 1); /* True Black #000000 */
+  --primary-foreground: #ffffff;
+  --accent: hsla(0, 0%, 25%, 1); /* Charcoal #404040 */
+  --accent-foreground: #ffffff;
+  --foreground: hsla(0, 0%, 9%, 1); /* Deep ink #171717 */
+
+  /* Neutral Light Mode Surfaces */
+  --secondary: hsla(0, 0%, 95%, 1); /* Neutral grey wash #f2f2f2 */
+  --secondary-foreground: hsla(0, 0%, 11%, 1);
+  --muted: hsla(0, 0%, 96%, 1); /* Recessed well #f5f5f5 */
+  --muted-foreground: hsla(0, 0%, 42%, 1); /* Neutral secondary #6b6b6b */
+  --border: hsla(0, 0%, 88%, 1); /* Border line #e0e0e0 */
+  --sidebar: hsla(0, 0%, 97%, 1);
+}
+
+.dark {
+  /* Neutral Dark Mode Surfaces: Deep Obsidian & Charcoal */
+  --background: hsla(0, 0%, 8%, 1); /* Deep Obsidian #141414 */
+  --foreground: hsla(0, 0%, 95%, 1); /* Crisp text #f2f2f2 */
+  --card: hsla(0, 0%, 12%, 1); /* Card #1f1f1f */
+  --card-foreground: hsla(0, 0%, 95%, 1);
+  --popover: hsla(0, 0%, 13%, 1);
+  --popover-foreground: hsla(0, 0%, 95%, 1);
+  --primary: hsla(0, 0%, 96%, 1); /* Crisp White CTA #f5f5f5 */
+  --primary-hover: #ffffff;
+  --primary-foreground: hsla(0, 0%, 8%, 1);
+  --secondary: hsla(0, 0%, 18%, 1); /* Mid-dark grey #2e2e2e */
+  --secondary-foreground: hsla(0, 0%, 95%, 1);
+  --muted: hsla(0, 0%, 16%, 1); /* Sunken well #292929 */
+  --muted-foreground: hsla(0, 0%, 62%, 1); /* Muted silver #9e9e9e */
+  --accent: hsla(0, 0%, 35%, 1);
+  --accent-foreground: hsla(0, 0%, 98%, 1);
+  --border: hsla(0, 0%, 22%, 1); /* Border #383838 */
+  --sidebar: hsla(0, 0%, 10%, 1); /* Dark sidebar #1a1a1a */
 }`
               ) : (
 `/* Pine Project Variant: Signature Forest Pine + Crimson Accent */

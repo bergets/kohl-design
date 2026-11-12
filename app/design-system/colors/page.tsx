@@ -47,7 +47,7 @@ const TOKEN_CATEGORIES: {
         name: "Primary Action",
         variable: "--primary",
         tailwindClass: "bg-primary / text-primary-foreground",
-        role: "The single primary conversion action per view. Pine in Pine mode, Cashmere Blush in Blush mode.",
+        role: "The single primary conversion action per view. Pine in Pine mode, Cashmere Blush in Blush mode, Almost Black in Neutral mode.",
         bgVar: "var(--primary)",
         fgVar: "var(--primary-foreground)",
         exampleSnippet: '<Button variant="default">Primary CTA</Button>',
@@ -329,16 +329,16 @@ const CONTRAST_PAIRS = [
 ];
 
 const THEME_MAPPINGS = [
-  { role: "--background", pineLight: "#ffffff", pineDark: "#011d18", blushLight: "#ffffff", blushDark: "#1a0709" },
-  { role: "--foreground", pineLight: "#011713", pineDark: "#f2f2f2", blushLight: "#1d070a", blushDark: "#feeced" },
-  { role: "--card", pineLight: "#ffffff", pineDark: "#03352c", blushLight: "#ffffff", blushDark: "#281013" },
-  { role: "--primary", pineLight: "#005243", pineDark: "#005243", blushLight: "#FBC8CB", blushDark: "#FCD3D6" },
-  { role: "--primary-foreground", pineLight: "#ffffff", pineDark: "#ffffff", blushLight: "#1d070a", blushDark: "#1d070a" },
-  { role: "--accent", pineLight: "#93484f", pineDark: "#93484f", blushLight: "#8a2e36", blushDark: "#f79da5" },
-  { role: "--line", pineLight: "#e1e1e1", pineDark: "#053028", blushLight: "#f4dedf", blushDark: "#33161b" },
-  { role: "--line-strong", pineLight: "#c0c0c0", pineDark: "#094238", blushLight: "#e8c5c8", blushDark: "#503539" },
-  { role: "--control", pineLight: "#a6a6a6", pineDark: "#0e5a4d", blushLight: "#dca7ab", blushDark: "#6b474d" },
-  { role: "--link", pineLight: "#005243", pineDark: "#a8e3d2", blushLight: "#822129", blushDark: "#fcd3d6" },
+  { role: "--background", pineLight: "#ffffff", pineDark: "#011d18", blushLight: "#ffffff", blushDark: "#1a0709", neutralLight: "#ffffff", neutralDark: "#141414" },
+  { role: "--foreground", pineLight: "#011713", pineDark: "#f2f2f2", blushLight: "#1d070a", blushDark: "#feeced", neutralLight: "#171717", neutralDark: "#f2f2f2" },
+  { role: "--card", pineLight: "#ffffff", pineDark: "#03352c", blushLight: "#ffffff", blushDark: "#281013", neutralLight: "#ffffff", neutralDark: "#1f1f1f" },
+  { role: "--primary", pineLight: "#005243", pineDark: "#005243", blushLight: "#FBC8CB", blushDark: "#FCD3D6", neutralLight: "#171717", neutralDark: "#f5f5f5" },
+  { role: "--primary-foreground", pineLight: "#ffffff", pineDark: "#ffffff", blushLight: "#1d070a", blushDark: "#1d070a", neutralLight: "#ffffff", neutralDark: "#141414" },
+  { role: "--accent", pineLight: "#93484f", pineDark: "#93484f", blushLight: "#8a2e36", blushDark: "#f79da5", neutralLight: "#404040", neutralDark: "#595959" },
+  { role: "--line", pineLight: "#e1e1e1", pineDark: "#053028", blushLight: "#f4dedf", blushDark: "#33161b", neutralLight: "#eaeaea", neutralDark: "#2e2e2e" },
+  { role: "--line-strong", pineLight: "#c0c0c0", pineDark: "#094238", blushLight: "#e8c5c8", blushDark: "#503539", neutralLight: "#cccccc", neutralDark: "#424242" },
+  { role: "--control", pineLight: "#a6a6a6", pineDark: "#0e5a4d", blushLight: "#dca7ab", blushDark: "#6b474d", neutralLight: "#a6a6a6", neutralDark: "#5c5c5c" },
+  { role: "--link", pineLight: "#005243", pineDark: "#a8e3d2", blushLight: "#822129", blushDark: "#fcd3d6", neutralLight: "#1f1f1f", neutralDark: "#ebebeb" },
 ];
 
 const PINE_SCALE = [
@@ -440,7 +440,7 @@ export default function ColorsPage() {
           Color & Tokens
         </h1>
         <p className="max-w-3xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-          The color architecture of Kohl Design is strictly token-by-role. Interface components consume semantic tokens (<code className="font-mono text-xs">--primary</code>, <code className="font-mono text-xs">--card</code>, <code className="font-mono text-xs">--line</code>, <code className="font-mono text-xs">--control</code>) that automatically adapt across Light/Dark modes and Pine ↔ Blush brand registers.
+          The color architecture of Kohl Design is strictly token-by-role. Interface components consume semantic tokens (<code className="font-mono text-xs">--primary</code>, <code className="font-mono text-xs">--card</code>, <code className="font-mono text-xs">--line</code>, <code className="font-mono text-xs">--control</code>) that automatically adapt across Light/Dark modes and Pine ↔ Blush ↔ Neutral brand registers.
         </p>
 
         {/* Live Active Theme State Indicator */}
@@ -453,7 +453,7 @@ export default function ColorsPage() {
               </Badge>
             </div>
             <p className="text-xs text-muted-foreground">
-              Try flipping between Pine ↔ Blush or Light ↔ Dark in the top navigation header — all tokens on this page adapt live to your selection.
+              Try flipping between Pine ↔ Blush ↔ Neutral or Light ↔ Dark in the top navigation header — all tokens on this page adapt live to your selection.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -670,7 +670,7 @@ export default function ColorsPage() {
         <div className="space-y-1">
           <h2 className="font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground">4. Theme Role Mapping Table</h2>
           <p className="text-sm text-muted-foreground">
-            Direct comparison of values across all 4 system registers (Pine Light, Pine Dark, Blush Light, Blush Dark).
+            Direct comparison of values across all 6 system registers (Pine Light/Dark, Blush Light/Dark, Neutral Light/Dark).
           </p>
         </div>
 
@@ -683,7 +683,9 @@ export default function ColorsPage() {
                   <th className="p-3.5">Pine Light</th>
                   <th className="p-3.5">Pine Dark</th>
                   <th className="p-3.5">Blush Light</th>
-                  <th className="p-3.5 pr-5">Blush Dark</th>
+                  <th className="p-3.5">Blush Dark</th>
+                  <th className="p-3.5">Neutral Light</th>
+                  <th className="p-3.5 pr-5">Neutral Dark</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border font-mono text-[11px]">
@@ -708,10 +710,22 @@ export default function ColorsPage() {
                         <span className="text-muted-foreground">{m.blushLight}</span>
                       </span>
                     </td>
-                    <td className="p-3.5 pr-5">
+                    <td className="p-3.5">
                       <span className="inline-flex items-center gap-1.5">
                         <span className="size-3 rounded-xs border border-white/10 shrink-0" style={{ backgroundColor: m.blushDark }} />
                         <span className="text-muted-foreground">{m.blushDark}</span>
+                      </span>
+                    </td>
+                    <td className="p-3.5">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="size-3 rounded-xs border border-black/10 shrink-0" style={{ backgroundColor: m.neutralLight }} />
+                        <span className="text-muted-foreground">{m.neutralLight}</span>
+                      </span>
+                    </td>
+                    <td className="p-3.5 pr-5">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="size-3 rounded-xs border border-white/10 shrink-0" style={{ backgroundColor: m.neutralDark }} />
+                        <span className="text-muted-foreground">{m.neutralDark}</span>
                       </span>
                     </td>
                   </tr>

@@ -1373,7 +1373,7 @@ NEVER do the following:
         id: "sb-semantic-tokens",
         level: "MUST",
         title: "Use semantic sidebar tokens",
-        rationale: "Colors adapt between light, dark, and blush themes seamlessly.",
+        rationale: "Colors adapt between light, dark, blush, and neutral themes seamlessly.",
         good: `<Sidebar variant="fixed" className="bg-sidebar text-sidebar-foreground">`,
         bad: `<aside className="bg-[#00201a] text-white">`,
       },

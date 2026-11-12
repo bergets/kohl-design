@@ -4,7 +4,7 @@ import * as React from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export type ViewMode = "human" | "agent";
-export type BrandTheme = "pine" | "blush";
+export type BrandTheme = "pine" | "blush" | "neutral";
 
 interface DesignSystemContextValue {
   viewMode: ViewMode;
@@ -45,7 +45,7 @@ export function DesignSystemProvider({ children }: { children: React.ReactNode }
 
     // Check brand theme
     const savedTheme = localStorage.getItem("kohl:brand-theme") as BrandTheme | null;
-    if (savedTheme === "pine" || savedTheme === "blush") {
+    if (savedTheme === "pine" || savedTheme === "blush" || savedTheme === "neutral") {
       setBrandThemeState(savedTheme);
       applyThemeToDom(savedTheme);
     }
@@ -53,12 +53,17 @@ export function DesignSystemProvider({ children }: { children: React.ReactNode }
 
   const applyThemeToDom = (theme: BrandTheme) => {
     if (typeof document === "undefined") return;
+    document.documentElement.classList.remove("theme-blush", "theme-neutral");
+    document.body.classList.remove("theme-blush", "theme-neutral");
+
     if (theme === "blush") {
       document.documentElement.setAttribute("data-theme-variant", "blush");
       document.body.classList.add("theme-blush");
+    } else if (theme === "neutral") {
+      document.documentElement.setAttribute("data-theme-variant", "neutral");
+      document.body.classList.add("theme-neutral");
     } else {
       document.documentElement.removeAttribute("data-theme-variant");
-      document.body.classList.remove("theme-blush");
     }
   };
 
@@ -107,7 +112,13 @@ export function DesignSystemProvider({ children }: { children: React.ReactNode }
       <div
         data-brand-theme={brandTheme}
         data-docs-view={viewMode}
-        className={brandTheme === "blush" ? "theme-blush" : ""}
+        className={
+          brandTheme === "blush"
+            ? "theme-blush"
+            : brandTheme === "neutral"
+            ? "theme-neutral"
+            : ""
+        }
       >
         {children}
       </div>

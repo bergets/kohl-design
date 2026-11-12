@@ -321,7 +321,7 @@ const registryItems = [
     name: "theme",
     type: "registry:theme",
     title: "Kohl Theme Tokens",
-    description: "Complete Tailwind CSS v4 design tokens and CSS variables for Kohl Design (Pine, Crimson, and Neutral scales, dark & blush modes).",
+    description: "Complete Tailwind CSS v4 design tokens and CSS variables for Kohl Design (Pine, Crimson, and Neutral scales, dark, blush, and neutral monochrome modes).",
     dependencies: ["tailwindcss", "tw-animate-css"],
     registryDependencies: [],
     files: [

@@ -81,7 +81,7 @@ export function DocsHeader() {
 
       {/* Right Controls: Theme Switcher, Light/Dark, Human/Agent Toggle */}
       <div className="flex items-center gap-2 sm:gap-2.5">
-        {/* Brand Theme Switcher (Pine vs Blush) */}
+        {/* Brand Theme Switcher (Pine vs Blush vs Neutral) */}
         <div className="flex h-8 items-center rounded-full border border-border bg-muted/50 p-0.5 text-xs">
           <button
             type="button"
@@ -124,6 +124,27 @@ export function DocsHeader() {
               )}
             />
             <span className="hidden sm:inline">Blush</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setBrandTheme("neutral")}
+            className={cn(
+              "flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium transition-all cursor-pointer",
+              brandTheme === "neutral"
+                ? "bg-primary text-primary-foreground shadow-xs font-semibold"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+            title="Neutral monochrome grey theme with almost black buttons"
+          >
+            <span
+              className={cn(
+                "size-2 rounded-full transition-colors",
+                brandTheme === "neutral"
+                  ? "bg-neutral-100 border border-white/80"
+                  : "bg-neutral-800 border border-neutral-600"
+              )}
+            />
+            <span className="hidden sm:inline">Neutral</span>
           </button>
         </div>
 
