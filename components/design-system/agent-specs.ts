@@ -58,13 +58,30 @@ export const AGENT_SPECS: Record<string, AgentSpec> = {
     installCommand: "npx shadcn@latest add https://kohl.design/r/index.json",
     registryUrl: "https://kohl.design/r/index.json",
     priorityOrder: [
-      "1. Accessibility & keyboard rings (2px focus-visible rings, touch targets >= 44px, ARIA).",
-      "2. Tokens by role, never raw hex codes (bg-primary, bg-card, --color-pine-*, --line).",
-      "3. Existing components from @/components/ui, never hand-rolled copies.",
-      "4. Typography & elevation: font-cooper for display titles only, font-sans for UI, Levels 0–4.",
-      "5. Polish: Subtle hover lift (-translate-y-0.5), border glow, spring transitions.",
+      "1. Editorial restraint & rhythm: Less is more (cut clutter in half). Sentences over giant numbers. Exactly 1 primary surface.",
+      "2. Accessibility & keyboard rings (2px focus-visible rings, touch targets >= 44px, ARIA).",
+      "3. Tokens by role, never raw hex codes (bg-primary, bg-card, --color-pine-*, --line).",
+      "4. Existing components from @/components/ui, never hand-rolled copies.",
+      "5. Typography & elevation: font-cooper for display titles only, font-sans for UI, Levels 0–4.",
+      "6. Polish: Subtle hover lift (-translate-y-0.5), border glow, spring transitions.",
     ],
     rules: [
+      {
+        id: "kohl-editorial-restraint",
+        level: "MUST",
+        title: "Less is more: limit screens to 1 primary surface",
+        rationale: "LLM agents naturally over-clutter screens with cards, sidebars, tips, and badges. Calm, human software gives content room to breathe.",
+        good: `<main className="space-y-6 max-w-2xl mx-auto">\n  <header>...</header>\n  <Card className="divide-y divide-border/60">...</Card>\n</main>`,
+        bad: `<main className="grid grid-cols-3 gap-4">\n  <Card>Tips</Card>\n  <Card>Stats</Card>\n  <Card>Recent</Card>\n</main>`,
+      },
+      {
+        id: "kohl-sentences-over-numbers",
+        level: "MUST",
+        title: "Sentences over big stat numbers",
+        rationale: "Giant numbers scream for attention and turn calm apps into analytics dashboards. Group data into calm human editorial sentences.",
+        good: `<p className="text-sm text-foreground">Astrid slept <span className="font-semibold">1h 45m</span> this morning · <span className="text-muted-foreground">Next nap in ~2h</span></p>`,
+        bad: `<div className="grid grid-cols-3 gap-4">\n  <Card><p className="text-3xl font-bold">14h</p><span>Total</span></Card>\n</div>`,
+      },
       {
         id: "kohl-components-first",
         level: "MUST",
@@ -108,7 +125,9 @@ export const AGENT_SPECS: Record<string, AgentSpec> = {
     ],
     antiPatterns: [
       "Small uppercase category eyebrows (e.g. 'OVERVIEW', '01 - INTRO') above headlines.",
-      "Rows of 3 identical stat cards with colored icon boxes.",
+      "Rows of 3 identical stat cards with colored icon boxes or giant numbers.",
+      "Fragmenting views into 4+ separate small cards instead of 1 unified hairline-divided card.",
+      "Inventing decorative widgets (quotes, tips, weather boxes, streak badges) unprompted.",
       "Nesting <Card> inside another <Card>.",
       "Background gradients, floating blur blobs, or colored side rails (border-l-4).",
       "Using emoji in buttons, badges, or title labels.",
@@ -149,12 +168,13 @@ export default function Page() {
     ],
     prompt: `You are generating code for the Kohl Design System.
 Core Rules:
-1. Prioritize accessibility: 2px focus-visible rings (ring-2 ring-primary ring-offset-2), touch targets >= 44px.
-2. Tokens by role: bg-background (Canvas), bg-card (Surface), bg-popover (Overlay), bg-muted (Well). Brand scales: pine-*, crimson-*, neutral-*. Never use arbitrary hex colors or generic grays (zinc, slate).
-3. Import components from @/components/ui/button, @/components/ui/card, @/components/ui/badge, etc.
-4. Font hierarchy: font-cooper ONLY for display titles and section headers. font-sans for body text, buttons, tables, badges.
-5. One primary Pine (variant="default") or Crimson (variant="accent") button per view; all others are secondary/outline/ghost.
-6. Anti-Slop: NEVER small uppercase category eyebrows, NEVER 3 identical stat cards, NEVER card-in-card nesting, NEVER gradients/blobs, NEVER emoji in UI.`,
+1. Editorial Restraint: Less is more. Limit views to maximum 1 primary surface (<Card variant="default"> with hairline dividers). Cut clutter in half. NEVER build 3-stat card rows or giant numbers (text-3xl font-bold); write a calm human editorial sentence instead.
+2. Prioritize accessibility: 2px focus-visible rings (ring-2 ring-primary ring-offset-2), touch targets >= 44px.
+3. Tokens by role: bg-background (Canvas), bg-card (Surface), bg-popover (Overlay), bg-muted (Well). Brand scales: pine-*, crimson-*, neutral-*. Never use arbitrary hex colors or generic grays (zinc, slate).
+4. Import components from @/components/ui/button, @/components/ui/card, @/components/ui/badge, etc.
+5. Font hierarchy: font-cooper ONLY for display titles and section headers. font-sans for body text, buttons, tables, badges.
+6. One primary Pine (variant="default") or Crimson (variant="accent") button per view; all others are secondary/outline/ghost.
+7. Anti-Slop: NEVER small uppercase category eyebrows, NEVER 3 stat cards, NEVER card-in-card nesting, NEVER gradients/blobs, NEVER emoji in UI, NEVER mix control sizes in horizontal rows.`,
     rawMarkdown: `# Kohl Design System — Architecture Specification
 
 - **Primary Brand:** Midnight Pine (#005243 light, #011d18 dark canvas)
@@ -1274,18 +1294,52 @@ Rules:
     title: "Anti-Slop Guide & Lint Directives",
     category: "Foundations",
     summary:
-      "The 8 strict directives to eradicate AI-generated design clichés: No eyebrows, no 3-stat cards, earn your surface, no gradients/blobs, no Cooper body copy, no scroll reveals, no emoji, and realistic domain data.",
+      "The 10 strict directives to eradicate AI-generated design clichés: Less is more, sentences over giant numbers, no multi-card fragmentation, strict visual uniformity, no eyebrows, earn your surface, no gradients/blobs, no Cooper body copy, no scroll reveals, and no emoji.",
     priorityOrder: [
-      "1. anti-slop-no-eyebrows NEVER put uppercase category eyebrows above titles.",
-      "2. anti-slop-no-stat-cards NEVER build 3 identical boxed stat cards with colored icon squares.",
-      "3. anti-slop-earn-surface NEVER nest <Card> inside <Card>.",
-      "4. anti-slop-no-decoration NEVER add background gradients or glowing floating blobs.",
-      "5. anti-slop-no-cooper-body NEVER use font-cooper for body text or UI controls.",
-      "6. anti-slop-no-scroll-reveal NEVER use whileInView entrance shimmers that delay reading.",
-      "7. anti-slop-no-emoji NEVER use emoji in UI buttons or badges.",
-      "8. anti-slop-realistic-data ALWAYS use realistic, believable domain data.",
+      "1. anti-slop-less-is-more MUST limit views to 1 primary surface and cut clutter in half.",
+      "2. anti-slop-sentences-over-numbers NEVER build 3-stat card rows or giant bold numbers (text-3xl font-bold); write calm editorial sentences.",
+      "3. anti-slop-no-card-fragmentation NEVER fragment views into 4+ separate small cards; use 1 card with hairline dividers.",
+      "4. anti-slop-strict-uniformity MUST synchronize control sizes (sm, default, lg) across all sibling controls in horizontal rows.",
+      "5. anti-slop-no-eyebrows NEVER put uppercase category eyebrows above titles.",
+      "6. anti-slop-earn-surface NEVER nest <Card> inside <Card>.",
+      "7. anti-slop-no-decoration NEVER add background gradients or glowing floating blobs.",
+      "8. anti-slop-no-cooper-body NEVER use font-cooper for body text or UI controls.",
+      "9. anti-slop-no-scroll-reveal NEVER use whileInView entrance shimmers that delay reading.",
+      "10. anti-slop-no-emoji NEVER use emoji in UI buttons or badges.",
     ],
     rules: [
+      {
+        id: "anti-slop-less-is-more",
+        level: "MUST",
+        title: "Less is more: limit screens to 1 primary surface",
+        rationale: "LLM agents naturally over-clutter screens with cards, sidebars, tips, and badges. Calm, human software gives content room to breathe.",
+        good: `<main className="space-y-6 max-w-2xl mx-auto">\n  <header>...</header>\n  <Card className="divide-y divide-border/60">...</Card>\n</main>`,
+        bad: `<main className="grid grid-cols-3 gap-4">\n  <Card>Tips</Card>\n  <Card>Stats</Card>\n  <Card>Recent</Card>\n</main>`,
+      },
+      {
+        id: "anti-slop-sentences-over-numbers",
+        level: "NEVER",
+        title: "Sentences over giant numbers",
+        rationale: "Giant numbers scream for attention and turn calm apps into analytics dashboards. Group data into calm human editorial sentences.",
+        good: `<p className="text-sm text-foreground">Astrid slept <span className="font-semibold">1h 45m</span> this morning · <span className="text-muted-foreground">Next nap in ~2h</span></p>`,
+        bad: `<div className="grid grid-cols-3 gap-4">\n  <Card><p className="text-3xl font-bold">14h</p><span>Total</span></Card>\n</div>`,
+      },
+      {
+        id: "anti-slop-no-card-fragmentation",
+        level: "NEVER",
+        title: "No multi-card fragmentation",
+        rationale: "Scattering 4+ separate small cards creates visual noise and elevation fatigue. Anchor with one unified card.",
+        good: `<Card className="divide-y divide-border/60">\n  <div className="p-4">Active Session</div>\n  <div className="p-4">History</div>\n</Card>`,
+        bad: `<Card className="mb-4">Active Session</Card>\n<Card className="mb-4">History</Card>\n<Card className="mb-4">Upcoming</Card>`,
+      },
+      {
+        id: "anti-slop-strict-uniformity",
+        level: "MUST",
+        title: "Strict visual uniformity in control scales",
+        rationale: "Sibling controls in a horizontal row must share the exact same size prop to eliminate vertical baseline jitter.",
+        good: `<div className="flex items-center gap-2">\n  <Input size="default" placeholder="Search..." />\n  <Button size="default">Filter</Button>\n</div>`,
+        bad: `<div className="flex items-center gap-2">\n  <Input size="lg" placeholder="Search..." />\n  <Button size="sm">Filter</Button>\n</div>`,
+      },
       {
         id: "anti-slop-no-eyebrows",
         level: "NEVER",
@@ -1297,12 +1351,14 @@ Rules:
     ],
     antiPatterns: [
       "Small uppercase category eyebrows.",
-      "3-stat card rows.",
+      "3-stat card rows with giant bold numbers.",
+      "Fragmenting views into 4+ separate small cards.",
       "Card-in-card nesting.",
       "Background gradients and floating blur circles.",
       "Cooper serif on body text.",
       "whileInView scroll reveal animations.",
       "Emoji in UI controls.",
+      "Mixing mismatched control heights in horizontal rows.",
       "Lorem ipsum or generic placeholder text.",
     ],
     codeSnippets: [
@@ -1330,25 +1386,31 @@ Rules:
     ],
     prompt: `You are applying Kohl's Anti-Slop Guide.
 NEVER do the following:
-1. NEVER put uppercase eyebrows (OVERVIEW, 01) above titles.
-2. NEVER build 3-stat card rows with icon squares.
-3. NEVER nest Card inside Card.
-4. NEVER use gradients, glowing blobs, or dot matrices.
-5. NEVER use font-cooper for body text or buttons.
-6. NEVER use whileInView scroll entrance shimmers.
-7. NEVER use emoji in buttons or badges.
-8. NEVER use placeholder text like Lorem Ipsum or John Doe.`,
+1. NEVER add multiple widgets or clutter: less is more. Maximum 1 primary surface per view.
+2. NEVER build 3-stat card rows or giant bold numbers (text-3xl font-bold); write calm human sentences instead.
+3. NEVER fragment views into 4+ separate cards; group into 1 unified card with hairline dividers.
+4. NEVER mix mismatched control heights (e.g. Button size="sm" with Input size="default") in the same row.
+5. NEVER put uppercase eyebrows (OVERVIEW, 01) above titles.
+6. NEVER nest Card inside Card.
+7. NEVER use gradients, glowing blobs, or dot matrices.
+8. NEVER use font-cooper for body text or buttons.
+9. NEVER use whileInView scroll entrance shimmers.
+10. NEVER use emoji in buttons or badges.
+11. NEVER use placeholder text like Lorem Ipsum or John Doe.`,
     rawMarkdown: `# Kohl Anti-Slop Guide Specification
 
-- **The 8 Directives:**
-  1. No eyebrows
-  2. No 3-stat cards
-  3. Earn your surface (no card-in-card)
-  4. No gradients or blur blobs
-  5. No Cooper body copy
-  6. No scroll reveals
-  7. No emoji
-  8. Realistic domain data only`,
+- **The Core Directives:**
+  1. Less is more (cut in half; 1 primary surface)
+  2. Sentences over giant numbers (no stat grids)
+  3. No multi-card fragmentation (1 card with hairline dividers)
+  4. Strict visual uniformity (matching control size props)
+  5. No eyebrows
+  6. Earn your surface (no card-in-card)
+  7. No gradients or blur blobs
+  8. No Cooper body copy
+  9. No scroll reveals
+  10. No emoji
+  11. Realistic domain data only`,
   },
 
   "/design-system/sidebar": {

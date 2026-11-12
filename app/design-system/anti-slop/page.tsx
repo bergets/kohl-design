@@ -11,6 +11,60 @@ export const metadata = {
 
 const ANTI_SLOP_RULES = [
   {
+    id: "anti-slop-less-is-more",
+    name: "Less is More (Cut in Half)",
+    level: "MUST",
+    summary: "Limit screens to a single primary surface and cut unnecessary widgets. If a view has more than 3 distinct visual sections, cut half of them.",
+    rationale: "LLM agents naturally over-clutter screens with cards, sidebars, tips, and badges. Calm, human software gives content room to breathe.",
+    correct: `<main className="space-y-6 max-w-2xl mx-auto">
+  <header className="space-y-1">
+    <h1 className="font-cooper text-2xl">Daily Rhythm</h1>
+    <p className="text-sm text-muted-foreground">Astrid's schedule for today</p>
+  </header>
+  <Card className="divide-y divide-border/60">
+    <div className="p-4">Morning nap · 1h 45m</div>
+    <div className="p-4">Lunch · 12:30 PM</div>
+  </Card>
+</main>`,
+    wrong: `<main className="grid grid-cols-3 gap-4">
+  <Card>Daily Tips</Card>
+  <Card>Sleep Stats</Card>
+  <Card>Weather</Card>
+  <Card>Milestones</Card>
+  <Card>Recent Activity</Card>
+</main>`,
+  },
+  {
+    id: "anti-slop-sentences-over-numbers",
+    name: "Sentences Over Giant Numbers",
+    level: "NEVER",
+    summary: "Never build dashboard slop with 3–4 boxed cards holding giant bold numbers (text-3xl font-bold) and colored icon squares. Summarize state in a calm, human editorial sentence.",
+    rationale: "Giant numbers scream for attention and turn calm apps into analytics dashboards. Human language conveys context with warmth and restraint.",
+    correct: `<p className="text-sm text-foreground">
+  Astrid slept <span className="font-semibold">1h 45m</span> this morning · <span className="text-muted-foreground">Next nap in ~2h</span>
+</p>`,
+    wrong: `<div className="grid grid-cols-3 gap-4">
+  <Card><p className="text-3xl font-bold">14h</p><span>Total Sleep</span></Card>
+  <Card><p className="text-3xl font-bold">3</p><span>Naps</span></Card>
+  <Card><p className="text-3xl font-bold">98%</p><span>Quality Score</span></Card>
+</div>`,
+  },
+  {
+    id: "anti-slop-no-card-fragmentation",
+    name: "No Multi-Card Fragmentation",
+    level: "NEVER",
+    summary: "Never fragment a single view into 4+ separate small cards. Group related items into ONE unified surface with hairline dividers (divide-y divide-border/60).",
+    rationale: "Scattering separate cards creates visual noise, chaotic borders, and elevation fatigue. Anchor the screen with a single cohesive card.",
+    correct: `<Card className="divide-y divide-border/60">
+  <div className="p-4">Active Session</div>
+  <div className="p-4">History Log</div>
+</Card>`,
+    wrong: `<Card className="mb-4">Active Session</Card>
+<Card className="mb-4">History Log</Card>
+<Card className="mb-4">Upcoming</Card>
+<Card>Summary</Card>`,
+  },
+  {
     id: "anti-slop-no-eyebrows",
     name: "No Small Eyebrows",
     level: "NEVER",
@@ -19,20 +73,6 @@ const ANTI_SLOP_RULES = [
     correct: `<h2 className="font-cooper text-2xl font-normal">Recent Activity</h2>`,
     wrong: `<p className="text-xs uppercase tracking-widest text-muted-foreground">OVERVIEW</p>
 <h2>Recent Activity</h2>`,
-  },
-  {
-    id: "anti-slop-no-stat-cards",
-    name: "No 3-Column Stat Card Rows",
-    level: "NEVER",
-    summary: "Never build a row of identical boxed cards each holding one giant number and a colored icon square.",
-    rationale: "Equal boxes make every number equally loud. Group numbers naturally in an editorial summary sentence, dense list, or timeline.",
-    correct: `<div className="flex items-baseline gap-2">
-  <span className="text-3xl font-semibold">14h 20m</span>
-  <span className="text-sm text-muted-foreground">total nap time logged today</span>
-</div>`,
-    wrong: `<Card><Icon /><h3>Total</h3><p>14h</p></Card>
-<Card><Icon /><h3>Avg</h3><p>2h</p></Card>
-<Card><Icon /><h3>Streak</h3><p>5d</p></Card>`,
   },
   {
     id: "anti-slop-earn-surface",

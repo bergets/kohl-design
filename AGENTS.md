@@ -1,11 +1,27 @@
 # Kohl Design — Agent Rules & Engineering Standards
 
 ## Priority Order
-1. Accessibility & keyboard behavior (2px focus-visible rings, ARIA roles, touch sizes)
-2. Tokens by role, never raw hex or px values
-3. Existing components from `@/components/ui`, never hand-rolled copies
-4. Typography & elevation scales (`font-cooper` for display titles, `font-sans` for UI, Levels 0–4 elevation)
-5. Polish: subtle hover lifts (`-translate-y-0.5`), border glows, spring transitions
+1. **Editorial Restraint & Layout Rhythm:** Less is more. Maximum 1 primary surface per view. Sentences over giant numbers. Strict visual uniformity.
+2. **Accessibility & Keyboard Behavior:** 2px focus-visible rings, ARIA roles, minimum 44×44px touch sizes.
+3. **Tokens by Role:** Always use semantic tokens (`bg-primary`, `bg-card`, `bg-background`, `border-border`), never raw hex or px values.
+4. **Existing Components First:** Always use `@/components/ui/*`, never hand-roll duplicates.
+5. **Typography & Elevation Scales:** `font-cooper` strictly for display titles, `font-sans` for UI; Levels 0–4 elevation layers.
+6. **Polish:** Subtle hover lifts (`-translate-y-0.5`), border glows, spring transitions.
+
+## Editorial Restraint & Composition (How to One-Shot Good UI)
+- **Less is More (Cut in Half):** LLM agents naturally over-clutter screens by adding too many widgets, cards, badges, and tips. Before generating JSX, audit your elements: if a screen has more than 3 distinct visual sections, **cut half of them**. Strive for a calm, breathing interface.
+- **Sentences Over Big Stat Numbers:** NEVER build dashboard slop with 3–4 boxed cards each holding a giant number (`text-3xl font-bold`) and an icon square. Instead, summarize state in a calm, human **editorial sentence** or a single inline metric with quiet contextual copy:
+  - *Good:* `<p className="text-sm text-foreground">Astrid slept <span className="font-semibold">1h 45m</span> this morning · <span className="text-muted-foreground">Next nap in ~2h</span></p>`
+  - *Bad:* 3 side-by-side cards with `14h 20m`, `3 naps`, `98% quality`.
+- **Single Focal Surface:** Use whitespace to separate content. Anchor the view with **exactly one primary `<Card variant="default">`** housing the main list or task, partitioned internally by hairline borders (`divide-y divide-border/60`), rather than scattering 4 separate cards across the screen.
+- **Strict Uniformity:**
+  - **One Control Scale per View:** Never mix control sizes. If the search input is `size="default"`, all sibling buttons, segmented tabs, and toggles must also be `size="default"`.
+  - **Uniform Spacing:** Stick to predictable rhythm tokens (`space-y-6`, `p-5` or `p-6` for card containers, `gap-2.5` for control clusters). Never introduce arbitrary ad-hoc margins (`mt-7`, `mb-3`, `gap-5`).
+- **The One-Shot Golden Recipe:**
+  1. **Header:** Title in `font-cooper text-2xl sm:text-3xl font-normal text-foreground`, with optional quiet single-line subtitle in `text-xs sm:text-sm text-muted-foreground`.
+  2. **Context:** A single calm status row or editorial sentence (no big numbers).
+  3. **Primary Surface:** Exactly ONE `<Card variant="default">` with hairline-separated rows (`divide-y divide-border/60`).
+  4. **Primary Action:** Exactly ONE primary button (`variant="default"` for Pine/Neutral or `variant="accent"` for Crimson).
 
 ## Global Rules
 - **Components First:** Always use `@/components/ui/button`, `@/components/ui/card`, etc.
@@ -27,8 +43,10 @@
 
 ## Anti-Slop Guide
 - **NEVER** put small uppercase category eyebrows (`OVERVIEW`, `01`) above titles.
-- **NEVER** build rows of identical 3-column stat cards with colored icon boxes.
+- **NEVER** build rows of identical 3-column stat cards with colored icon boxes or giant numbers.
+- **NEVER** fragment a view into 4+ separate small cards. Group into 1 unified surface with hairline dividers.
 - **NEVER** nest `<Card><Card>...</Card></Card>`.
+- **NEVER** invent decorative widgets (quotes, tips, weather boxes, streak badges) unless explicitly requested.
 - **NEVER** use background gradients, floating blur blobs, or colored side rails (`border-l-4`).
 - **NEVER** build full-width edge-to-edge docked topbars or bottom navigation bars with stretched borders. Use floating translucent islands.
 - **NEVER** use `font-cooper` on body copy, table cells, or buttons.
