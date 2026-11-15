@@ -24,6 +24,14 @@ import {
   SlidersHorizontal,
   PanelLeft,
   AppWindow,
+  Hash,
+  KeyRound,
+  ChevronsUpDown,
+  Terminal,
+  Calendar,
+  CalendarDays,
+  AtSign,
+  PanelBottom,
 } from "lucide-react";
 import { BrandFlower } from "@/components/BrandFlower";
 import { useDesignSystem } from "./DesignSystemContext";
@@ -140,6 +148,46 @@ const NAV_SECTIONS: NavSection[] = [
         title: "App Bar",
         href: "/design-system/app-bar",
         icon: AppWindow,
+      },
+      {
+        title: "Number Input",
+        href: "/design-system/number-input",
+        icon: Hash,
+      },
+      {
+        title: "OTP Input",
+        href: "/design-system/otp-input",
+        icon: KeyRound,
+      },
+      {
+        title: "Combobox",
+        href: "/design-system/combobox",
+        icon: ChevronsUpDown,
+      },
+      {
+        title: "Command",
+        href: "/design-system/command",
+        icon: Terminal,
+      },
+      {
+        title: "Calendar",
+        href: "/design-system/calendar",
+        icon: Calendar,
+      },
+      {
+        title: "Date Picker",
+        href: "/design-system/date-picker",
+        icon: CalendarDays,
+      },
+      {
+        title: "Token Input",
+        href: "/design-system/token-input",
+        icon: AtSign,
+      },
+      {
+        title: "Drawer",
+        href: "/design-system/drawer",
+        icon: PanelBottom,
       },
     ],
   },

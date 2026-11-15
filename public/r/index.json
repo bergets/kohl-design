@@ -204,6 +204,121 @@
     ]
   },
   {
+    "name": "number-input",
+    "type": "registry:ui",
+    "title": "Number Input",
+    "description": "Locale-aware numeric input with step buttons, keyboard stepping, and optional label scrubbing.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "otp-input",
+    "type": "registry:ui",
+    "title": "OTP Input",
+    "description": "One-time verification code input with paste, autofill, and slot navigation.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "combobox",
+    "type": "registry:ui",
+    "title": "Combobox",
+    "description": "Searchable option list supporting single or multi-select chips.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "command",
+    "type": "registry:ui",
+    "title": "Command",
+    "description": "Filterable command list and palette with keyboard navigation, groups, and shortcuts.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "calendar",
+    "type": "registry:ui",
+    "title": "Calendar",
+    "description": "Accessible month grid supporting single date, multiple dates, and date ranges.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "date-picker",
+    "type": "registry:ui",
+    "title": "Date Picker",
+    "description": "Locale-aware date input paired with a Calendar popover.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "token-input",
+    "type": "registry:ui",
+    "title": "Token Input",
+    "description": "Rich text field mixing editable text with inline mention/tag tokens and trigger menus.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "drawer",
+    "type": "registry:ui",
+    "title": "Drawer",
+    "description": "Draggable, snap-point sheet from any screen edge with focus management and backdrop.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
     "name": "theme",
     "type": "registry:theme",
     "title": "Kohl Theme Tokens",

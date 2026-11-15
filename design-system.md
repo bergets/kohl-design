@@ -222,6 +222,14 @@ Every component in Kohl Design is available through the custom shadcn registry:
 | **Card** | `npx shadcn@latest add https://kohl.design/r/card.json` | `default`, `elevated`, `interactive`, `sunken`, `glass` |
 | **Badge** | `npx shadcn@latest add https://kohl.design/r/badge.json` | `default`, `editorial`, `success`, `warning`, `destructive`, `info` (supports `dot`, `pulse`) |
 | **Input** | `npx shadcn@latest add https://kohl.design/r/input.json` | `default`, `filled`, `ghost`, composable `InputGroup` / `InputAddon` |
+| **Number Input** | `npx shadcn@latest add https://kohl.design/r/number-input.json` | 5-tier `size`, step buttons, label scrubbing (`@ui-sdk/react`) |
+| **OTP Input** | `npx shadcn@latest add https://kohl.design/r/otp-input.json` | 5-tier `size`, paste/autofill, slot groups (`@ui-sdk/react`) |
+| **Combobox** | `npx shadcn@latest add https://kohl.design/r/combobox.json` | Searchable list, single & multi-select chips (`@ui-sdk/react`) |
+| **Command** | `npx shadcn@latest add https://kohl.design/r/command.json` | Filterable command palette, groups, shortcuts (`@ui-sdk/react`) |
+| **Calendar** | `npx shadcn@latest add https://kohl.design/r/calendar.json` | Single, multiple, and range date grid (`@ui-sdk/react`) |
+| **Date Picker** | `npx shadcn@latest add https://kohl.design/r/date-picker.json` | 5-tier `size`, locale input + Calendar popover (`@ui-sdk/react`) |
+| **Token Input** | `npx shadcn@latest add https://kohl.design/r/token-input.json` | Inline mention/tag tokens + trigger menu (`@ui-sdk/react`) |
+| **Drawer** | `npx shadcn@latest add https://kohl.design/r/drawer.json` | Draggable sheet from `bottom`, `right`, `left`, `top` (`@ui-sdk/react`) |
 | **Tabs** | `npx shadcn@latest add https://kohl.design/r/tabs.json` | `default` (segmented pill), `underline` (editorial line), `pills` (filter chips) |
 | **Label** | `npx shadcn@latest add https://kohl.design/r/label.json` | Accessible Radix UI Label |
 | **Icon** | `npx shadcn@latest add https://kohl.design/r/icon.json` | Standardized 20px / 1.5px stroke width Lucide wrapper |
