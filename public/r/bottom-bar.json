@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bottom-bar",
+  "type": "registry:ui",
+  "title": "Bottom Bar",
+  "description": "Floating translucent glass island mobile tab bar with primary circular action button and safe-area clearance.",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/bottom-bar.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Slot } from \"@radix-ui/react-slot\"\nimport { Plus } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nexport interface BottomBarProps extends React.HTMLAttributes<HTMLElement> {\n  responsive?: boolean\n}\n\nconst BottomBar = React.forwardRef<HTMLElement, BottomBarProps>(\n  ({ className, responsive = true, ...props }, ref) => (\n    <nav\n      ref={ref}\n      aria-label=\"Mobile navigation\"\n      className={cn(\n        \"fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] inset-x-0 z-40 flex justify-center pointer-events-none\",\n        responsive && \"md:hidden\",\n        className\n      )}\n      {...props}\n    />\n  )\n)\nBottomBar.displayName = \"BottomBar\"\n\nconst BottomBarDock = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    className={cn(\"pointer-events-auto flex items-center gap-2.5\", className)}\n    {...props}\n  />\n))\nBottomBarDock.displayName = \"BottomBarDock\"\n\nconst BottomBarList = React.forwardRef<\n  HTMLDivElement,\n  React.HTMLAttributes<HTMLDivElement>\n>(({ className, ...props }, ref) => (\n  <div\n    ref={ref}\n    role=\"tablist\"\n    className={cn(\n      \"flex items-center gap-0.5 rounded-full border border-border/50 bg-background/60 dark:bg-card/60 p-1 backdrop-blur-md shadow-lg\",\n      className\n    )}\n    {...props}\n  />\n))\nBottomBarList.displayName = \"BottomBarList\"\n\nexport interface BottomBarTabProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  asChild?: boolean\n  active?: boolean\n}\n\nconst BottomBarTab = React.forwardRef<HTMLButtonElement, BottomBarTabProps>(\n  ({ className, asChild = false, active = false, type = \"button\", ...props }, ref) => {\n    const Comp = asChild ? Slot : \"button\"\n    return (\n      <Comp\n        ref={ref}\n        type={asChild ? undefined : type}\n        role=\"tab\"\n        aria-selected={active}\n        aria-current={active ? \"page\" : undefined}\n        data-active={active ? \"\" : undefined}\n        className={cn(\n          \"flex h-11 w-14 min-[375px]:w-16 shrink-0 items-center justify-center rounded-full transition-all duration-150 select-none cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-6\",\n          active\n            ? \"bg-muted text-foreground shadow-2xs\"\n            : \"text-muted-foreground hover:bg-muted/50 hover:text-foreground\",\n          className\n        )}\n        {...props}\n      />\n    )\n  }\n)\nBottomBarTab.displayName = \"BottomBarTab\"\n\nexport interface BottomBarActionProps\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  asChild?: boolean\n}\n\nconst BottomBarAction = React.forwardRef<HTMLButtonElement, BottomBarActionProps>(\n  ({ className, asChild = false, children, type = \"button\", ...props }, ref) => {\n    const Comp = asChild ? Slot : \"button\"\n    return (\n      <Comp\n        ref={ref}\n        type={asChild ? undefined : type}\n        className={cn(\n          \"inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-150 select-none cursor-pointer hover:bg-primary-hover active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background\",\n          className\n        )}\n        {...props}\n      >\n        {children ?? <Plus className=\"size-6\" strokeWidth={1.75} aria-hidden=\"true\" />}\n      </Comp>\n    )\n  }\n)\nBottomBarAction.displayName = \"BottomBarAction\"\n\nexport {\n  BottomBar,\n  BottomBarDock,\n  BottomBarList,\n  BottomBarTab,\n  BottomBarAction,\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/bottom-bar.tsx"
+    }
+  ]
+}

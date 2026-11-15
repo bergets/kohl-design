@@ -542,6 +542,22 @@ const registryItems = [
     ],
   },
   {
+    name: "bottom-bar",
+    type: "registry:ui",
+    title: "Bottom Bar",
+    description: "Floating translucent glass island mobile tab bar with primary circular action button and safe-area clearance.",
+    dependencies: ["@radix-ui/react-slot", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/bottom-bar.tsx",
+        content: readFile("components/ui/bottom-bar.tsx"),
+        type: "registry:ui",
+        target: "components/ui/bottom-bar.tsx",
+      },
+    ],
+  },
+  {
     name: "theme",
     type: "registry:theme",
     title: "Kohl Theme Tokens",

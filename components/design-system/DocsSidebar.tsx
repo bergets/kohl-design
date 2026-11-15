@@ -225,6 +225,11 @@ const NAV_SECTIONS: NavSection[] = [
         href: "/design-system/time-input",
         icon: Clock,
       },
+      {
+        title: "Bottom Bar",
+        href: "/design-system/bottom-bar",
+        icon: PanelBottom,
+      },
     ],
   },
   {
