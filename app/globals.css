@@ -761,3 +761,34 @@ a.inline-link:hover {
 .theme-round {
   --radius: 1.125rem; /* 18px */
 }
+
+/* @ui-sdk/core drawer viewport layout (required for scroll-snap & pointer sheet drivers) */
+[data-slot="drawer-viewport"] {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+[data-slot="drawer-viewport"][data-side="top"] {
+  justify-content: flex-start;
+}
+
+[data-slot="drawer-viewport"]:is([data-side="left"], [data-side="right"]) {
+  flex-direction: row;
+}
+
+[data-slot="drawer-viewport"][data-side="left"] > * {
+  margin-right: auto;
+}
+
+[data-slot="drawer-viewport"][data-side="right"] > * {
+  margin-left: auto;
+}
+
+[data-slot="drawer-viewport"] > * {
+  pointer-events: auto;
+}

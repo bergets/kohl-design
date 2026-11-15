@@ -144,20 +144,20 @@ function DatePickerContent({
               <ChevronRight className="size-4" strokeWidth={1.5} aria-hidden="true" />
             </CalendarNextPrimitive>
           </div>
-          <CalendarGridPrimitive className="w-full border-collapse">
-            <CalendarWeekdaysPrimitive className="grid grid-cols-7 gap-1 mb-1">
+          <CalendarGridPrimitive className="block w-full">
+            <CalendarWeekdaysPrimitive className="block mb-1 [&>tr]:grid [&>tr]:grid-cols-7 [&>tr]:gap-1">
               {(index) => (
                 <CalendarWeekdayPrimitive
                   index={index}
-                  className="flex h-8 w-9 items-center justify-center text-xs font-medium text-muted-foreground"
+                  className="flex h-8 w-9 mx-auto items-center justify-center text-xs font-medium text-muted-foreground"
                 />
               )}
             </CalendarWeekdaysPrimitive>
-            <CalendarWeeksPrimitive className="grid grid-cols-7 gap-1">
+            <CalendarWeeksPrimitive className="flex flex-col gap-1 [&>tr]:grid [&>tr]:grid-cols-7 [&>tr]:gap-1">
               {(cell) => (
                 <CalendarDayPrimitive
                   value={cell.date}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] text-sm font-normal tabular-nums text-foreground transition-colors duration-100 outline-none cursor-pointer hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring data-[today]:border data-[today]:border-primary/40 data-[today]:font-medium data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:font-semibold data-[range-start]:bg-primary data-[range-start]:text-primary-foreground data-[range-end]:bg-primary data-[range-end]:text-primary-foreground data-[range-middle]:bg-primary/15 data-[outside]:text-muted-foreground/40 data-[disabled]:pointer-events-none data-[disabled]:opacity-35"
+                  className="inline-flex h-9 w-9 mx-auto items-center justify-center rounded-[var(--radius-sm)] text-sm font-normal tabular-nums text-foreground transition-colors duration-100 outline-none cursor-pointer hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring data-[today]:border data-[today]:border-primary/40 data-[today]:font-medium data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:font-semibold data-[range-start]:bg-primary data-[range-start]:text-primary-foreground data-[range-end]:bg-primary data-[range-end]:text-primary-foreground data-[range-middle]:bg-primary/15 data-[outside]:text-muted-foreground/40 data-[disabled]:pointer-events-none data-[disabled]:opacity-35"
                 />
               )}
             </CalendarWeeksPrimitive>

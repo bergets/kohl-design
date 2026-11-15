@@ -40,11 +40,11 @@ function DrawerContent({
   return (
     <DrawerContentPrimitive
       className={cn(
-        "fixed z-50 flex flex-col gap-4 border-border bg-card p-6 text-card-foreground shadow-xl outline-none font-sans transition-transform duration-300 ease-out",
-        "data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:mx-auto data-[side=bottom]:max-w-xl data-[side=bottom]:rounded-t-[var(--radius-lg)] data-[side=bottom]:border-t data-[side=bottom]:pb-[max(1.5rem,env(safe-area-inset-bottom))]",
-        "data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:mx-auto data-[side=top]:max-w-xl data-[side=top]:rounded-b-[var(--radius-lg)] data-[side=top]:border-b",
-        "data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:w-full data-[side=right]:max-w-sm data-[side=right]:border-l",
-        "data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:w-full data-[side=left]:max-w-sm data-[side=left]:border-r",
+        "relative flex w-full flex-col gap-4 border-border bg-card p-6 text-card-foreground shadow-xl outline-none font-sans",
+        "data-[side=bottom]:mx-auto data-[side=bottom]:h-fit data-[side=bottom]:max-w-xl data-[side=bottom]:rounded-t-[var(--radius-lg)] data-[side=bottom]:border-t data-[side=bottom]:pb-[max(1.5rem,env(safe-area-inset-bottom))]",
+        "data-[side=top]:mx-auto data-[side=top]:h-fit data-[side=top]:max-w-xl data-[side=top]:rounded-b-[var(--radius-lg)] data-[side=top]:border-b",
+        "data-[side=right]:h-full data-[side=right]:w-full data-[side=right]:max-w-sm data-[side=right]:border-l",
+        "data-[side=left]:h-full data-[side=left]:w-full data-[side=left]:max-w-sm data-[side=left]:border-r",
         className
       )}
       {...props}

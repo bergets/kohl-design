@@ -54,7 +54,7 @@ function DialogContent({
       {showCloseButton && (
         <DialogClosePrimitive
           aria-label="Close"
-          className="relative absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[var(--radius-sm)] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer after:absolute after:-inset-2 after:content-[''] sm:after:hidden"
+          className="absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[var(--radius-sm)] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer after:absolute after:-inset-2 after:content-[''] sm:after:hidden"
         >
           <X className="size-4" strokeWidth={1.5} aria-hidden="true" />
         </DialogClosePrimitive>
