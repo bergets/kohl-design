@@ -32,6 +32,12 @@ import {
   CalendarDays,
   AtSign,
   PanelBottom,
+  MessageSquare,
+  ListFilter,
+  AlignLeft,
+  CheckSquare,
+  MoreHorizontal,
+  Clock,
 } from "lucide-react";
 import { BrandFlower } from "@/components/BrandFlower";
 import { useDesignSystem } from "./DesignSystemContext";
@@ -188,6 +194,36 @@ const NAV_SECTIONS: NavSection[] = [
         title: "Drawer",
         href: "/design-system/drawer",
         icon: PanelBottom,
+      },
+      {
+        title: "Dialog",
+        href: "/design-system/dialog",
+        icon: MessageSquare,
+      },
+      {
+        title: "Select",
+        href: "/design-system/select",
+        icon: ListFilter,
+      },
+      {
+        title: "Textarea",
+        href: "/design-system/textarea",
+        icon: AlignLeft,
+      },
+      {
+        title: "Checkbox",
+        href: "/design-system/checkbox",
+        icon: CheckSquare,
+      },
+      {
+        title: "Menu",
+        href: "/design-system/menu",
+        icon: MoreHorizontal,
+      },
+      {
+        title: "Time Input",
+        href: "/design-system/time-input",
+        icon: Clock,
       },
     ],
   },

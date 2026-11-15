@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "Accessible checkbox and checkbox group with indeterminate state and 44px touch expansion.",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/checkbox.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport {\n  Checkbox as CheckboxPrimitive,\n  CheckboxGroup as CheckboxGroupPrimitive,\n  CheckboxIndicator as CheckboxIndicatorPrimitive,\n} from \"@ui-sdk/react/checkbox\"\nimport { Check, Minus } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Checkbox({\n  className,\n  children,\n  ...props\n}: React.ComponentPropsWithoutRef<typeof CheckboxPrimitive>) {\n  return (\n    <CheckboxPrimitive\n      className={cn(\n        \"peer relative inline-flex size-5 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-input bg-background/60 text-primary-foreground shadow-2xs transition-all duration-150 outline-none cursor-pointer hover:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-[checked]:border-primary data-[checked]:bg-primary data-[indeterminate]:border-primary data-[indeterminate]:bg-primary disabled:cursor-not-allowed disabled:opacity-50 after:absolute after:-inset-2.5 after:content-['']\",\n        className\n      )}\n      {...props}\n    >\n      {children ?? (\n        <CheckboxIndicatorPrimitive className=\"flex items-center justify-center text-current\">\n          <Check className=\"size-3.5\" strokeWidth={2.25} aria-hidden=\"true\" />\n        </CheckboxIndicatorPrimitive>\n      )}\n    </CheckboxPrimitive>\n  )\n}\n\nfunction CheckboxIndicator({\n  className,\n  children,\n  indeterminate,\n  ...props\n}: React.ComponentPropsWithoutRef<typeof CheckboxIndicatorPrimitive> & {\n  indeterminate?: boolean\n}) {\n  return (\n    <CheckboxIndicatorPrimitive\n      className={cn(\"flex items-center justify-center text-current\", className)}\n      {...props}\n    >\n      {children ??\n        (indeterminate ? (\n          <Minus className=\"size-3.5\" strokeWidth={2.25} aria-hidden=\"true\" />\n        ) : (\n          <Check className=\"size-3.5\" strokeWidth={2.25} aria-hidden=\"true\" />\n        ))}\n    </CheckboxIndicatorPrimitive>\n  )\n}\n\nconst CheckboxGroup = CheckboxGroupPrimitive\n\nexport { Checkbox, CheckboxIndicator, CheckboxGroup }\n",
+      "type": "registry:ui",
+      "target": "components/ui/checkbox.tsx"
+    }
+  ]
+}

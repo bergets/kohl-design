@@ -319,6 +319,91 @@
     ]
   },
   {
+    "name": "dialog",
+    "type": "registry:ui",
+    "title": "Dialog",
+    "description": "Accessible modal dialog with focus trapping, backdrop, and keyboard dismissal.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "select",
+    "type": "registry:ui",
+    "title": "Select",
+    "description": "Accessible popup select supporting single or multi-select, groups, and 5-tier sizing.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "textarea",
+    "type": "registry:ui",
+    "title": "Textarea",
+    "description": "Multi-line text input with auto-grow support and Kohl surface variants.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "checkbox",
+    "type": "registry:ui",
+    "title": "Checkbox",
+    "description": "Accessible checkbox and checkbox group with indeterminate state and 44px touch expansion.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "menu",
+    "type": "registry:ui",
+    "title": "Menu",
+    "description": "Dropdown and context menu with items, checkbox/radio items, submenus, and keyboard typeahead.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "lucide-react"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
+    "name": "time-input",
+    "type": "registry:ui",
+    "title": "Time Input",
+    "description": "Locale-aware segmented time input with keyboard stepping and 5-tier sizing.",
+    "dependencies": [
+      "@ui-sdk/react",
+      "@ui-sdk/core",
+      "class-variance-authority"
+    ],
+    "registryDependencies": [
+      "utils"
+    ]
+  },
+  {
     "name": "theme",
     "type": "registry:theme",
     "title": "Kohl Theme Tokens",

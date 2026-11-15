@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog",
+  "type": "registry:ui",
+  "title": "Dialog",
+  "description": "Accessible modal dialog with focus trapping, backdrop, and keyboard dismissal.",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/dialog.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport {\n  Dialog as DialogPrimitive,\n  DialogBackdrop as DialogBackdropPrimitive,\n  DialogClose as DialogClosePrimitive,\n  DialogContent as DialogContentPrimitive,\n  DialogDescription as DialogDescriptionPrimitive,\n  DialogTitle as DialogTitlePrimitive,\n  DialogTrigger as DialogTriggerPrimitive,\n} from \"@ui-sdk/react/dialog\"\nimport { X } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst Dialog = DialogPrimitive\nconst DialogTrigger = DialogTriggerPrimitive\nconst DialogClose = DialogClosePrimitive\n\nfunction DialogBackdrop({\n  className,\n  ...props\n}: React.ComponentPropsWithoutRef<typeof DialogBackdropPrimitive>) {\n  return (\n    <DialogBackdropPrimitive\n      className={cn(\n        \"fixed inset-0 z-50 bg-neutral-950/45 dark:bg-neutral-950/70 backdrop-blur-xs transition-opacity duration-200 data-[hidden]:hidden data-[starting-style]:opacity-0 data-[ending-style]:opacity-0\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DialogContent({\n  className,\n  children,\n  showCloseButton = true,\n  ...props\n}: Omit<React.ComponentPropsWithoutRef<typeof DialogContentPrimitive>, \"children\"> & {\n  children?: React.ReactNode\n  showCloseButton?: boolean\n}) {\n  return (\n    <DialogContentPrimitive\n      className={cn(\n        \"fixed inset-0 z-50 m-auto flex h-fit max-h-[calc(100dvh-2rem)] w-[min(32rem,calc(100%-2rem))] flex-col gap-4 overflow-y-auto rounded-[var(--radius-lg)] border border-border bg-card p-6 text-card-foreground shadow-[0_16px_48px_-12px_rgba(0,0,0,0.22),0_4px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_24px_64px_-12px_rgba(0,0,0,0.65)] outline-none font-sans transition-all duration-200 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      {showCloseButton && (\n        <DialogClosePrimitive\n          aria-label=\"Close\"\n          className=\"relative absolute right-4 top-4 inline-flex size-8 items-center justify-center rounded-[var(--radius-sm)] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer after:absolute after:-inset-2 after:content-[''] sm:after:hidden\"\n        >\n          <X className=\"size-4\" strokeWidth={1.5} aria-hidden=\"true\" />\n        </DialogClosePrimitive>\n      )}\n    </DialogContentPrimitive>\n  )\n}\n\nfunction DialogHeader({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      className={cn(\"flex flex-col gap-1.5 pr-8\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogFooter({\n  className,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div\n      className={cn(\n        \"flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DialogTitle({\n  className,\n  ...props\n}: React.ComponentPropsWithoutRef<typeof DialogTitlePrimitive>) {\n  return (\n    <DialogTitlePrimitive\n      className={cn(\n        \"font-cooper text-xl sm:text-2xl font-normal tracking-tight text-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DialogDescription({\n  className,\n  ...props\n}: React.ComponentPropsWithoutRef<typeof DialogDescriptionPrimitive>) {\n  return (\n    <DialogDescriptionPrimitive\n      className={cn(\"text-sm text-muted-foreground leading-relaxed\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Dialog,\n  DialogTrigger,\n  DialogBackdrop,\n  DialogContent,\n  DialogHeader,\n  DialogFooter,\n  DialogTitle,\n  DialogDescription,\n  DialogClose,\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/dialog.tsx"
+    }
+  ]
+}

@@ -230,6 +230,12 @@ Every component in Kohl Design is available through the custom shadcn registry:
 | **Date Picker** | `npx shadcn@latest add https://kohl.design/r/date-picker.json` | 5-tier `size`, locale input + Calendar popover (`@ui-sdk/react`) |
 | **Token Input** | `npx shadcn@latest add https://kohl.design/r/token-input.json` | Inline mention/tag tokens + trigger menu (`@ui-sdk/react`) |
 | **Drawer** | `npx shadcn@latest add https://kohl.design/r/drawer.json` | Draggable sheet from `bottom`, `right`, `left`, `top` (`@ui-sdk/react`) |
+| **Dialog** | `npx shadcn@latest add https://kohl.design/r/dialog.json` | Modal dialog with focus trap & backdrop (`@ui-sdk/react`) |
+| **Select** | `npx shadcn@latest add https://kohl.design/r/select.json` | 5-tier `size`, single/multi-select, groups (`@ui-sdk/react`) |
+| **Textarea** | `npx shadcn@latest add https://kohl.design/r/textarea.json` | `default`, `filled`, auto-grow (`@ui-sdk/react`) |
+| **Checkbox** | `npx shadcn@latest add https://kohl.design/r/checkbox.json` | Checkbox & `CheckboxGroup` with indeterminate state (`@ui-sdk/react`) |
+| **Menu** | `npx shadcn@latest add https://kohl.design/r/menu.json` | Dropdown/context menu, submenus, radio/checkbox items (`@ui-sdk/react`) |
+| **Time Input** | `npx shadcn@latest add https://kohl.design/r/time-input.json` | 5-tier `size`, segmented locale time field (`@ui-sdk/react`) |
 | **Tabs** | `npx shadcn@latest add https://kohl.design/r/tabs.json` | `default` (segmented pill), `underline` (editorial line), `pills` (filter chips) |
 | **Label** | `npx shadcn@latest add https://kohl.design/r/label.json` | Accessible Radix UI Label |
 | **Icon** | `npx shadcn@latest add https://kohl.design/r/icon.json` | Standardized 20px / 1.5px stroke width Lucide wrapper |

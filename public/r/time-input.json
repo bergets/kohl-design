@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-input",
+  "type": "registry:ui",
+  "title": "Time Input",
+  "description": "Locale-aware segmented time input with keyboard stepping and 5-tier sizing.",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/time-input.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport {\n  TimeInput as TimeInputPrimitive,\n  TimeInputSegment as TimeInputSegmentPrimitive,\n} from \"@ui-sdk/react/time-input\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst timeInputVariants = cva(\n  \"inline-flex items-center gap-0.5 border border-input bg-background/60 font-sans tabular-nums text-foreground shadow-2xs transition-all duration-150 ease-out hover:border-foreground/30 focus-within:bg-background focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/25 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:bg-muted/30 data-[invalid]:border-destructive\",\n  {\n    variants: {\n      size: {\n        xs: \"h-7 px-2 text-xs rounded-[var(--radius-sm)]\",\n        sm: \"h-8 px-2.5 text-xs rounded-[var(--radius-sm)]\",\n        default: \"h-9 px-3 text-base sm:text-sm rounded-[var(--radius)]\",\n        lg: \"h-10 px-3.5 text-base sm:text-sm rounded-[var(--radius)]\",\n        xl: \"h-12 px-4 text-base rounded-[var(--radius-lg)]\",\n      },\n    },\n    defaultVariants: {\n      size: \"default\",\n    },\n  }\n)\n\nexport interface TimeInputProps\n  extends React.ComponentPropsWithoutRef<typeof TimeInputPrimitive>,\n    VariantProps<typeof timeInputVariants> {}\n\nfunction TimeInput({\n  className,\n  size = \"default\",\n  ...props\n}: TimeInputProps) {\n  return (\n    <TimeInputPrimitive\n      className={cn(\n        timeInputVariants({ size }),\n        \"[&_[data-slot=time-input-segment]]:rounded-[calc(var(--radius-sm)/2)] [&_[data-slot=time-input-segment]]:px-0.5 [&_[data-slot=time-input-segment]]:outline-none [&_[data-slot=time-input-segment]:focus]:bg-primary [&_[data-slot=time-input-segment]:focus]:text-primary-foreground [&_[data-slot=time-input-segment][data-placeholder]]:text-muted-foreground/60\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TimeInputSegment({\n  className,\n  ...props\n}: React.ComponentPropsWithoutRef<typeof TimeInputSegmentPrimitive>) {\n  return (\n    <TimeInputSegmentPrimitive\n      className={cn(\n        \"rounded-[calc(var(--radius-sm)/2)] px-0.5 outline-none focus:bg-primary focus:text-primary-foreground data-[placeholder]:text-muted-foreground/60\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { TimeInput, TimeInputSegment }\n",
+      "type": "registry:ui",
+      "target": "components/ui/time-input.tsx"
+    }
+  ]
+}

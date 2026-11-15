@@ -446,6 +446,102 @@ const registryItems = [
     ],
   },
   {
+    name: "dialog",
+    type: "registry:ui",
+    title: "Dialog",
+    description: "Accessible modal dialog with focus trapping, backdrop, and keyboard dismissal.",
+    dependencies: ["@ui-sdk/react", "@ui-sdk/core", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/dialog.tsx",
+        content: readFile("components/ui/dialog.tsx"),
+        type: "registry:ui",
+        target: "components/ui/dialog.tsx",
+      },
+    ],
+  },
+  {
+    name: "select",
+    type: "registry:ui",
+    title: "Select",
+    description: "Accessible popup select supporting single or multi-select, groups, and 5-tier sizing.",
+    dependencies: ["@ui-sdk/react", "@ui-sdk/core", "class-variance-authority", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/select.tsx",
+        content: readFile("components/ui/select.tsx"),
+        type: "registry:ui",
+        target: "components/ui/select.tsx",
+      },
+    ],
+  },
+  {
+    name: "textarea",
+    type: "registry:ui",
+    title: "Textarea",
+    description: "Multi-line text input with auto-grow support and Kohl surface variants.",
+    dependencies: ["@ui-sdk/react", "@ui-sdk/core", "class-variance-authority"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/textarea.tsx",
+        content: readFile("components/ui/textarea.tsx"),
+        type: "registry:ui",
+        target: "components/ui/textarea.tsx",
+      },
+    ],
+  },
+  {
+    name: "checkbox",
+    type: "registry:ui",
+    title: "Checkbox",
+    description: "Accessible checkbox and checkbox group with indeterminate state and 44px touch expansion.",
+    dependencies: ["@ui-sdk/react", "@ui-sdk/core", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/checkbox.tsx",
+        content: readFile("components/ui/checkbox.tsx"),
+        type: "registry:ui",
+        target: "components/ui/checkbox.tsx",
+      },
+    ],
+  },
+  {
+    name: "menu",
+    type: "registry:ui",
+    title: "Menu",
+    description: "Dropdown and context menu with items, checkbox/radio items, submenus, and keyboard typeahead.",
+    dependencies: ["@ui-sdk/react", "@ui-sdk/core", "lucide-react"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/menu.tsx",
+        content: readFile("components/ui/menu.tsx"),
+        type: "registry:ui",
+        target: "components/ui/menu.tsx",
+      },
+    ],
+  },
+  {
+    name: "time-input",
+    type: "registry:ui",
+    title: "Time Input",
+    description: "Locale-aware segmented time input with keyboard stepping and 5-tier sizing.",
+    dependencies: ["@ui-sdk/react", "@ui-sdk/core", "class-variance-authority"],
+    registryDependencies: ["utils"],
+    files: [
+      {
+        path: "components/ui/time-input.tsx",
+        content: readFile("components/ui/time-input.tsx"),
+        type: "registry:ui",
+        target: "components/ui/time-input.tsx",
+      },
+    ],
+  },
+  {
     name: "theme",
     type: "registry:theme",
     title: "Kohl Theme Tokens",
