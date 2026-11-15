@@ -237,6 +237,7 @@ Every component in Kohl Design is available through the custom shadcn registry:
 | **Menu** | `npx shadcn@latest add https://kohl.design/r/menu.json` | Dropdown/context menu, submenus, radio/checkbox items (`@ui-sdk/react`) |
 | **Time Input** | `npx shadcn@latest add https://kohl.design/r/time-input.json` | 5-tier `size`, segmented locale time field (`@ui-sdk/react`) |
 | **Bottom Bar** | `npx shadcn@latest add https://kohl.design/r/bottom-bar.json` | Floating glass mobile tab bar + primary action button |
+| **Modal Drawer** | `npx shadcn@latest add https://kohl.design/r/modal-drawer.json` | Responsive `Drawer` (mobile) / `Dialog` (desktop) composite |
 | **Tabs** | `npx shadcn@latest add https://kohl.design/r/tabs.json` | `default` (segmented pill), `underline` (editorial line), `pills` (filter chips) |
 | **Label** | `npx shadcn@latest add https://kohl.design/r/label.json` | Accessible Radix UI Label |
 | **Icon** | `npx shadcn@latest add https://kohl.design/r/icon.json` | Standardized 20px / 1.5px stroke width Lucide wrapper |

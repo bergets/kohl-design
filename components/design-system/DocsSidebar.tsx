@@ -230,6 +230,11 @@ const NAV_SECTIONS: NavSection[] = [
         href: "/design-system/bottom-bar",
         icon: PanelBottom,
       },
+      {
+        title: "Modal Drawer",
+        href: "/design-system/modal-drawer",
+        icon: Layers,
+      },
     ],
   },
   {

@@ -558,6 +558,22 @@ const registryItems = [
     ],
   },
   {
+    name: "modal-drawer",
+    type: "registry:ui",
+    title: "Modal Drawer",
+    description: "Responsive modal pattern rendering a swipeable bottom Drawer on mobile (<640px) and a centered Dialog on desktop.",
+    dependencies: [],
+    registryDependencies: ["utils", "dialog", "drawer"],
+    files: [
+      {
+        path: "components/ui/modal-drawer.tsx",
+        content: readFile("components/ui/modal-drawer.tsx"),
+        type: "registry:ui",
+        target: "components/ui/modal-drawer.tsx",
+      },
+    ],
+  },
+  {
     name: "theme",
     type: "registry:theme",
     title: "Kohl Theme Tokens",
