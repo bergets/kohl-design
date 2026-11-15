@@ -13,7 +13,13 @@ import {
 
 import { cn } from "@/lib/utils"
 
-const Drawer = DrawerPrimitive
+function Drawer({
+  driver = "pointer",
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive>) {
+  return <DrawerPrimitive driver={driver} {...props} />
+}
+
 const DrawerTrigger = DrawerTriggerPrimitive
 const DrawerClose = DrawerClosePrimitive
 
