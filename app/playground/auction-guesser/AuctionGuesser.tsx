@@ -11,9 +11,8 @@ import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AUCTION_LOTS, type AuctionLot } from "./lots";
 import {
+  getLotRulerConfig,
   PriceRulerInput,
-  RULER_MAX_SEK,
-  RULER_MIN_SEK,
   snapAuctionPrice,
 } from "./PriceRulerInput";
 import {
@@ -40,7 +39,6 @@ interface EndlessResult {
 }
 
 const DAILY_STORAGE_PREFIX = "kohl-auction-daily-";
-const DEFAULT_BID_SEK = 25000;
 
 function badgeVariantForBand(
   band: ProximityBand
@@ -61,13 +59,19 @@ export function AuctionGuesser() {
   const [mode, setMode] = React.useState<GameMode>("daily");
   const [todayKey, setTodayKey] = React.useState<string>("2026-11-20");
 
+  const dailyLot = AUCTION_LOTS[getDailyLotIndex(todayKey, AUCTION_LOTS.length)];
+  const dailyRuler = getLotRulerConfig(dailyLot.hammerPriceSek);
+
   // Daily state
   const [dailyGuesses, setDailyGuesses] = React.useState<DailyGuessEvaluation[]>([]);
-  const [dailyBid, setDailyBid] = React.useState<number>(DEFAULT_BID_SEK);
+  const [dailyBid, setDailyBid] = React.useState<number>(dailyRuler.defaultBid);
 
   // Endless state
   const [endlessIndex, setEndlessIndex] = React.useState<number>(0);
-  const [endlessBid, setEndlessBid] = React.useState<number>(DEFAULT_BID_SEK);
+  const endlessLot = AUCTION_LOTS[endlessIndex % AUCTION_LOTS.length];
+  const endlessRuler = getLotRulerConfig(endlessLot.hammerPriceSek);
+
+  const [endlessBid, setEndlessBid] = React.useState<number>(endlessRuler.defaultBid);
   const [endlessHistory, setEndlessHistory] = React.useState<EndlessResult[]>([]);
   const [currentEndlessResult, setCurrentEndlessResult] =
     React.useState<EndlessResult | null>(null);
@@ -75,12 +79,14 @@ export function AuctionGuesser() {
   React.useEffect(() => {
     const key = getTodayKey();
     setTodayKey(key);
+    const lot = AUCTION_LOTS[getDailyLotIndex(key, AUCTION_LOTS.length)];
+    const ruler = getLotRulerConfig(lot.hammerPriceSek);
+    setDailyBid(ruler.defaultBid);
     try {
       const saved = window.localStorage.getItem(`${DAILY_STORAGE_PREFIX}${key}`);
       if (saved) {
         const parsed = JSON.parse(saved) as { guesses?: number[] };
         if (Array.isArray(parsed.guesses)) {
-          const lot = AUCTION_LOTS[getDailyLotIndex(key, AUCTION_LOTS.length)];
           setDailyGuesses(
             parsed.guesses.map((g) => evaluateDailyGuess(g, lot.hammerPriceSek))
           );
@@ -91,7 +97,6 @@ export function AuctionGuesser() {
     }
   }, []);
 
-  const dailyLot = AUCTION_LOTS[getDailyLotIndex(todayKey, AUCTION_LOTS.length)];
   const dailyWon = dailyGuesses.some((g) => g.isWin);
   const dailyLost = !dailyWon && dailyGuesses.length >= DAILY_MAX_GUESSES;
   const dailyFinished = dailyWon || dailyLost;
@@ -120,15 +125,16 @@ export function AuctionGuesser() {
 
   // Keep dailyBid centered inside the narrowed bracket after each guess
   React.useEffect(() => {
-    const low = dailyMinBound ?? RULER_MIN_SEK;
-    const high = dailyMaxBound ?? RULER_MAX_SEK;
+    const low =
+      dailyMinBound !== null ? Math.max(dailyRuler.min, dailyMinBound) : dailyRuler.min;
+    const high =
+      dailyMaxBound !== null ? Math.min(dailyRuler.max, dailyMaxBound) : dailyRuler.max;
     setDailyBid((prev) => {
       if (prev >= low && prev <= high) return prev;
-      return snapAuctionPrice(Math.sqrt(low * high));
+      return snapAuctionPrice(Math.sqrt(low * high), dailyRuler.min, dailyRuler.max);
     });
-  }, [dailyMinBound, dailyMaxBound]);
+  }, [dailyMinBound, dailyMaxBound, dailyRuler.min, dailyRuler.max]);
 
-  const endlessLot = AUCTION_LOTS[endlessIndex % AUCTION_LOTS.length];
   const endlessTotalScore = endlessHistory.reduce((sum, item) => sum + item.score, 0);
 
   const activeLot = mode === "daily" ? dailyLot : endlessLot;
@@ -164,16 +170,19 @@ export function AuctionGuesser() {
   }
 
   function handleNextEndlessLot() {
+    const nextIndex = (endlessIndex + 1) % AUCTION_LOTS.length;
+    const nextRuler = getLotRulerConfig(AUCTION_LOTS[nextIndex].hammerPriceSek);
     setCurrentEndlessResult(null);
-    setEndlessIndex((prev) => (prev + 1) % AUCTION_LOTS.length);
-    setEndlessBid(DEFAULT_BID_SEK);
+    setEndlessIndex(nextIndex);
+    setEndlessBid(nextRuler.defaultBid);
   }
 
   function handleResetEndless() {
+    const firstRuler = getLotRulerConfig(AUCTION_LOTS[0].hammerPriceSek);
     setCurrentEndlessResult(null);
     setEndlessHistory([]);
     setEndlessIndex(0);
-    setEndlessBid(DEFAULT_BID_SEK);
+    setEndlessBid(firstRuler.defaultBid);
   }
 
   async function handleCopyDailyResult() {
@@ -303,6 +312,9 @@ export function AuctionGuesser() {
                   onChange={setDailyBid}
                   onSubmit={handleDailySubmit}
                   submitLabel="Place bid"
+                  minPrice={dailyRuler.min}
+                  maxPrice={dailyRuler.max}
+                  ticks={dailyRuler.ticks}
                   minBound={dailyMinBound}
                   maxBound={dailyMaxBound}
                   previousGuesses={dailyGuesses.map((g) => g.guess)}
@@ -356,6 +368,9 @@ export function AuctionGuesser() {
                   onChange={setEndlessBid}
                   onSubmit={handleEndlessSubmit}
                   submitLabel="Submit guess"
+                  minPrice={endlessRuler.min}
+                  maxPrice={endlessRuler.max}
+                  ticks={endlessRuler.ticks}
                 />
               ) : (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

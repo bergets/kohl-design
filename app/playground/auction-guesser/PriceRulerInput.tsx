@@ -7,46 +7,95 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import { formatSek } from "./scoring";
 
-export const RULER_MIN_SEK = 1000;
-export const RULER_MAX_SEK = 500000;
-
-const TICKS = [
-  { value: 1000, label: "1k" },
-  { value: 5000, label: "5k" },
-  { value: 10000, label: "10k" },
-  { value: 25000, label: "25k" },
-  { value: 50000, label: "50k" },
-  { value: 100000, label: "100k" },
-  { value: 250000, label: "250k" },
-  { value: 500000, label: "500k" },
-];
-
-const LOG_MIN = Math.log(RULER_MIN_SEK);
-const LOG_MAX = Math.log(RULER_MAX_SEK);
-
-export function priceToPercent(price: number): number {
-  const clamped = Math.max(RULER_MIN_SEK, Math.min(RULER_MAX_SEK, price));
-  return ((Math.log(clamped) - LOG_MIN) / (LOG_MAX - LOG_MIN)) * 100;
+export interface RulerTick {
+  value: number;
+  label: string;
 }
 
-export function percentToPrice(percent: number): number {
+export interface LotRulerConfig {
+  min: number;
+  max: number;
+  defaultBid: number;
+  ticks: RulerTick[];
+}
+
+export function getLotRulerConfig(hammerPriceSek: number): LotRulerConfig {
+  if (hammerPriceSek < 15000) {
+    return {
+      min: 1000,
+      max: 50000,
+      defaultBid: 7500,
+      ticks: [
+        { value: 1000, label: "1k" },
+        { value: 2500, label: "2.5k" },
+        { value: 5000, label: "5k" },
+        { value: 10000, label: "10k" },
+        { value: 25000, label: "25k" },
+        { value: 50000, label: "50k" },
+      ],
+    };
+  }
+
+  if (hammerPriceSek <= 80000) {
+    return {
+      min: 5000,
+      max: 200000,
+      defaultBid: 32000,
+      ticks: [
+        { value: 5000, label: "5k" },
+        { value: 10000, label: "10k" },
+        { value: 25000, label: "25k" },
+        { value: 50000, label: "50k" },
+        { value: 100000, label: "100k" },
+        { value: 200000, label: "200k" },
+      ],
+    };
+  }
+
+  return {
+    min: 25000,
+    max: 600000,
+    defaultBid: 125000,
+    ticks: [
+      { value: 25000, label: "25k" },
+      { value: 50000, label: "50k" },
+      { value: 100000, label: "100k" },
+      { value: 200000, label: "200k" },
+      { value: 400000, label: "400k" },
+      { value: 600000, label: "600k" },
+    ],
+  };
+}
+
+export function priceToPercent(price: number, min: number, max: number): number {
+  const logMin = Math.log(min);
+  const logMax = Math.log(max);
+  const clamped = Math.max(min, Math.min(max, price));
+  return ((Math.log(clamped) - logMin) / (logMax - logMin)) * 100;
+}
+
+export function percentToPrice(percent: number, min: number, max: number): number {
+  const logMin = Math.log(min);
+  const logMax = Math.log(max);
   const clamped = Math.max(0, Math.min(100, percent));
-  return Math.exp(LOG_MIN + (clamped / 100) * (LOG_MAX - LOG_MIN));
+  return Math.exp(logMin + (clamped / 100) * (logMax - logMin));
 }
 
-export function snapAuctionPrice(raw: number): number {
-  const clamped = Math.max(RULER_MIN_SEK, Math.min(RULER_MAX_SEK, raw));
+export function snapAuctionPrice(raw: number, min: number, max: number): number {
+  const clamped = Math.max(min, Math.min(max, raw));
   let step = 500;
   if (clamped >= 150000) step = 5000;
   else if (clamped >= 50000) step = 2500;
   else if (clamped >= 10000) step = 1000;
-  return Math.max(
-    RULER_MIN_SEK,
-    Math.min(RULER_MAX_SEK, Math.round(clamped / step) * step)
-  );
+  return Math.max(min, Math.min(max, Math.round(clamped / step) * step));
 }
 
-function stepAuctionPrice(current: number, direction: -1 | 1): number {
+function stepAuctionPrice(
+  current: number,
+  direction: -1 | 1,
+  min: number,
+  max: number
+): number {
   let step = 500;
   if (direction === 1) {
     if (current >= 150000) step = 5000;
@@ -57,7 +106,7 @@ function stepAuctionPrice(current: number, direction: -1 | 1): number {
     else if (current > 50000) step = 2500;
     else if (current > 10000) step = 1000;
   }
-  return snapAuctionPrice(current + direction * step);
+  return snapAuctionPrice(current + direction * step, min, max);
 }
 
 export interface PriceRulerInputProps {
@@ -65,6 +114,9 @@ export interface PriceRulerInputProps {
   onChange: (value: number) => void;
   onSubmit: () => void;
   submitLabel: string;
+  minPrice: number;
+  maxPrice: number;
+  ticks: RulerTick[];
   minBound?: number | null;
   maxBound?: number | null;
   previousGuesses?: number[];
@@ -75,6 +127,9 @@ export function PriceRulerInput({
   onChange,
   onSubmit,
   submitLabel,
+  minPrice,
+  maxPrice,
+  ticks,
   minBound = null,
   maxBound = null,
   previousGuesses = [],
@@ -82,15 +137,15 @@ export function PriceRulerInput({
   const trackRef = React.useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = React.useState(false);
 
-  const effectiveMin = minBound ?? RULER_MIN_SEK;
-  const effectiveMax = maxBound ?? RULER_MAX_SEK;
+  const effectiveMin = minBound !== null ? Math.max(minPrice, minBound) : minPrice;
+  const effectiveMax = maxBound !== null ? Math.min(maxPrice, maxBound) : maxPrice;
 
   const clampToBounds = React.useCallback(
     (price: number) => {
-      const snapped = snapAuctionPrice(price);
+      const snapped = snapAuctionPrice(price, minPrice, maxPrice);
       return Math.max(effectiveMin, Math.min(effectiveMax, snapped));
     },
-    [effectiveMin, effectiveMax]
+    [effectiveMin, effectiveMax, minPrice, maxPrice]
   );
 
   const updateFromClientX = React.useCallback(
@@ -99,10 +154,10 @@ export function PriceRulerInput({
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const pct = ((clientX - rect.left) / rect.width) * 100;
-      const rawPrice = percentToPrice(pct);
+      const rawPrice = percentToPrice(pct, minPrice, maxPrice);
       onChange(clampToBounds(rawPrice));
     },
-    [clampToBounds, onChange]
+    [clampToBounds, minPrice, maxPrice, onChange]
   );
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
@@ -125,19 +180,21 @@ export function PriceRulerInput({
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === "ArrowRight" || e.key === "ArrowUp") {
       e.preventDefault();
-      onChange(clampToBounds(stepAuctionPrice(value, 1)));
+      onChange(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)));
     } else if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
       e.preventDefault();
-      onChange(clampToBounds(stepAuctionPrice(value, -1)));
+      onChange(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)));
     } else if (e.key === "Enter") {
       e.preventDefault();
       onSubmit();
     }
   }
 
-  const thumbPercent = priceToPercent(value);
-  const minBoundPercent = minBound !== null ? priceToPercent(minBound) : 0;
-  const maxBoundPercent = maxBound !== null ? priceToPercent(maxBound) : 100;
+  const thumbPercent = priceToPercent(value, minPrice, maxPrice);
+  const minBoundPercent =
+    minBound !== null ? priceToPercent(minBound, minPrice, maxPrice) : 0;
+  const maxBoundPercent =
+    maxBound !== null ? priceToPercent(maxBound, minPrice, maxPrice) : 100;
 
   return (
     <div className="space-y-4">
@@ -157,7 +214,9 @@ export function PriceRulerInput({
             size="icon-lg"
             aria-label="Decrease bid"
             disabled={value <= effectiveMin}
-            onClick={() => onChange(clampToBounds(stepAuctionPrice(value, -1)))}
+            onClick={() =>
+              onChange(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
+            }
             className="min-h-[44px] min-w-[44px]"
           >
             <Icon icon={Minus} size="sm" />
@@ -168,7 +227,9 @@ export function PriceRulerInput({
             size="icon-lg"
             aria-label="Increase bid"
             disabled={value >= effectiveMax}
-            onClick={() => onChange(clampToBounds(stepAuctionPrice(value, 1)))}
+            onClick={() =>
+              onChange(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
+            }
             className="min-h-[44px] min-w-[44px]"
           >
             <Icon icon={Plus} size="sm" />
@@ -235,8 +296,8 @@ export function PriceRulerInput({
           />
 
           {/* Scale Ticks */}
-          {TICKS.map((tick) => {
-            const pct = priceToPercent(tick.value);
+          {ticks.map((tick) => {
+            const pct = priceToPercent(tick.value, minPrice, maxPrice);
             return (
               <div
                 key={tick.value}
@@ -249,7 +310,7 @@ export function PriceRulerInput({
 
           {/* Previous Guess Markers */}
           {previousGuesses.map((guess, idx) => {
-            const pct = priceToPercent(guess);
+            const pct = priceToPercent(guess, minPrice, maxPrice);
             return (
               <div
                 key={`${guess}-${idx}`}
@@ -273,10 +334,10 @@ export function PriceRulerInput({
 
         {/* Scale Labels */}
         <div className="relative h-4 w-full select-none">
-          {TICKS.map((tick, index) => {
-            const pct = priceToPercent(tick.value);
+          {ticks.map((tick, index) => {
+            const pct = priceToPercent(tick.value, minPrice, maxPrice);
             const isFirst = index === 0;
-            const isLast = index === TICKS.length - 1;
+            const isLast = index === ticks.length - 1;
             return (
               <span
                 key={tick.value}
