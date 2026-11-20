@@ -77,6 +77,20 @@ export function AuctionGuesser() {
     React.useState<EndlessResult | null>(null);
 
   React.useEffect(() => {
+    const root = document.documentElement;
+    const prevVariant = root.getAttribute("data-theme-variant");
+    root.setAttribute("data-theme-variant", "neutral");
+
+    return () => {
+      if (prevVariant) {
+        root.setAttribute("data-theme-variant", prevVariant);
+      } else {
+        root.removeAttribute("data-theme-variant");
+      }
+    };
+  }, []);
+
+  React.useEffect(() => {
     const key = getTodayKey();
     setTodayKey(key);
     const lot = AUCTION_LOTS[getDailyLotIndex(key, AUCTION_LOTS.length)];
