@@ -24,17 +24,20 @@ export default function AboutPage() {
             About
           </h1>
           <p className="text-xl sm:text-2xl text-pine-900 dark:text-white font-normal leading-relaxed">
-            I’m Henrik Kohl, a product designer and builder based in Stockholm.
+            I’m Henrik Kohl, a product designer based in Stockholm.
           </p>
         </div>
 
         {/* Bio Paragraphs */}
         <div className="space-y-6 text-base sm:text-lg text-muted-foreground leading-relaxed border-t border-pine-800/10 dark:border-[#3B7D6F]/25 pt-8">
           <p>
-            I like software that feels considered. Clear typography, calm layouts, and interactions that respond the way you expect them to.
+            I believe good design starts with knowing the people using what you build. Over the years I’ve worked across agencies, as a consultant, and inside larger product organizations — taking products from early workshops and prototypes to launch, and stepping into product management and customer-facing roles along the way.
           </p>
           <p>
-            Outside of product work, I spend time tinkering with shaders, small web tools, and building interfaces with coding agents.
+            I like software that feels considered: clear typography, calm layouts, and interactions that respond the way you expect them to.
+          </p>
+          <p>
+            Outside of work, most of my time goes to my two kids. When I get a quiet moment, you’ll find me with a good coffee, at the gym, watching Bajen, or tinkering with small web tools and coding agents.
           </p>
         </div>
 
