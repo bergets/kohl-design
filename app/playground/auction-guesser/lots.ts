@@ -132,6 +132,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Mahogany and elm burl veneer with brass fittings",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 104000,
+    imageSrc: "/playground/auction-guesser/nationalmuseiskapet.jpg",
   },
   {
     id: "asplund-library-chairs",
@@ -152,6 +153,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Botanical lithograph-covered birch and mahogany frame",
     auctionHouse: "Stockholms Auktionsverk",
     hammerPriceSek: 210000,
+    imageSrc: "/playground/auction-guesser/frank-flora-chest.jpg",
   },
   {
     id: "otto-schulz-armchairs",
