@@ -113,7 +113,7 @@ function stepAuctionPrice(
 }
 
 const MINOR_TICK_POSITIONS = Array.from({ length: 21 }, (_, i) => i * 5);
-const TRACK_INSET_PX = 20;
+const TRACK_INSET_PX = 22;
 
 export interface PriceRulerInputProps {
   value: number;
@@ -224,21 +224,13 @@ export function PriceRulerInput({
   const insetPos = (pct: number) =>
     `calc(${TRACK_INSET_PX}px + (100% - ${TRACK_INSET_PX * 2}px) * ${pct / 100})`;
 
-  const slotStartPercent = minBound !== null ? minBoundPercent : 0;
-  const slotFillWidth = Math.max(0, thumbPercent - slotStartPercent);
-
   return (
     <div className="space-y-5">
       {/* Bid Readout + Fine Nudge Controls */}
       <div className="flex items-center justify-between gap-3">
         <div className="space-y-0.5">
           <p className="text-xs text-muted-foreground">Your bid</p>
-          <p
-            className={cn(
-              "text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight origin-left transition-all duration-150",
-              isDragging ? "text-primary scale-[1.04]" : "text-foreground scale-100"
-            )}
-          >
+          <p className="text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-tight">
             {formatSek(value)}
           </p>
         </div>
@@ -273,8 +265,8 @@ export function PriceRulerInput({
         </div>
       </div>
 
-      {/* Physical Hardware Fader Track */}
-      <div className="space-y-2.5">
+      {/* Braun / Dieter Rams Precision Fader */}
+      <div className="space-y-2">
         <div
           ref={trackRef}
           role="slider"
@@ -290,63 +282,41 @@ export function PriceRulerInput({
           onPointerCancel={handlePointerUp}
           onKeyDown={handleKeyDown}
           className={cn(
-            "group relative h-14 w-full rounded-[var(--radius)] border bg-muted/60 touch-none select-none outline-none transition-all duration-150",
-            "shadow-[inset_0_2px_5px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)]",
-            "dark:shadow-[inset_0_2px_6px_rgba(0,0,0,0.45),inset_0_1px_2px_rgba(0,0,0,0.35),0_1px_0_rgba(255,255,255,0.04)]",
+            "group relative h-14 w-full rounded-[var(--radius-sm)] border bg-muted/70 touch-none select-none outline-none transition-colors duration-150",
+            "shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]",
             "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             isDragging
-              ? "cursor-grabbing border-primary/60"
+              ? "cursor-grabbing border-foreground/30"
               : "cursor-grab border-border hover:border-foreground/25"
           )}
         >
-          {/* Ruled-out lower bound overlay */}
+          {/* Ruled-out lower bound stop */}
           {minBound !== null && minBoundPercent > 0 && (
             <div
               aria-hidden="true"
               style={{ width: insetPos(minBoundPercent) }}
-              className="absolute inset-y-0 left-0 rounded-l-[var(--radius)] bg-background/70 border-r border-border/80 pointer-events-none"
+              className="absolute inset-y-0 left-0 rounded-l-[var(--radius-sm)] bg-background/75 border-r border-foreground/20 pointer-events-none"
             />
           )}
 
-          {/* Ruled-out upper bound overlay */}
+          {/* Ruled-out upper bound stop */}
           {maxBound !== null && maxBoundPercent < 100 && (
             <div
               aria-hidden="true"
               style={{ left: insetPos(maxBoundPercent), right: 0 }}
-              className="absolute inset-y-0 rounded-r-[var(--radius)] bg-background/70 border-l border-border/80 pointer-events-none"
+              className="absolute inset-y-0 rounded-r-[var(--radius-sm)] bg-background/75 border-l border-foreground/20 pointer-events-none"
             />
           )}
 
-          {/* Recessed Center Groove / Rail */}
-          <div
-            aria-hidden="true"
-            style={{ left: `${TRACK_INSET_PX}px`, right: `${TRACK_INSET_PX}px` }}
-            className="absolute top-1/2 -translate-y-1/2 h-2 rounded-full bg-background/80 border border-border/50 shadow-[inset_0_1px_2px_rgba(0,0,0,0.14)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.6)] pointer-events-none overflow-hidden"
-          >
-            {/* Active Bid Fill Inside the Groove */}
-            <div
-              style={{
-                left: `${slotStartPercent}%`,
-                width: `${slotFillWidth}%`,
-              }}
-              className={cn(
-                "absolute inset-y-0 rounded-full transition-colors duration-150",
-                isDragging ? "bg-primary" : "bg-primary/80"
-              )}
-            />
-          </div>
-
-          {/* Engraved Minor Ticks */}
+          {/* Printed Instrument Dial Ticks (Top Edge) */}
           {MINOR_TICK_POSITIONS.map((pct) => (
             <div
               key={pct}
               aria-hidden="true"
               style={{ left: insetPos(pct) }}
-              className="absolute bottom-1 h-1.5 w-px bg-foreground/15 pointer-events-none"
+              className="absolute top-0 h-1.5 w-px bg-foreground/20 pointer-events-none"
             />
           ))}
-
-          {/* Engraved Major Scale Ticks */}
           {ticks.map((tick) => {
             const pct = priceToPercent(tick.value, minPrice, maxPrice);
             return (
@@ -354,10 +324,17 @@ export function PriceRulerInput({
                 key={tick.value}
                 aria-hidden="true"
                 style={{ left: insetPos(pct) }}
-                className="absolute bottom-1 h-2.5 w-px bg-foreground/35 pointer-events-none"
+                className="absolute top-0 h-2.5 w-px bg-foreground/45 pointer-events-none"
               />
             );
           })}
+
+          {/* Milled Center Channel */}
+          <div
+            aria-hidden="true"
+            style={{ left: `${TRACK_INSET_PX}px`, right: `${TRACK_INSET_PX}px` }}
+            className="absolute top-1/2 -translate-y-1/2 h-1.5 rounded-full bg-foreground/15 dark:bg-black/65 shadow-[inset_0_1px_1px_rgba(0,0,0,0.22)] pointer-events-none"
+          />
 
           {/* Previous Guess Pins */}
           {previousGuesses.map((guess, idx) => {
@@ -367,27 +344,38 @@ export function PriceRulerInput({
                 key={`${guess}-${idx}`}
                 aria-hidden="true"
                 style={{ left: insetPos(pct) }}
-                className="absolute top-1.5 h-2 w-2 -translate-x-1/2 rounded-full bg-muted-foreground/60 ring-1 ring-background pointer-events-none"
+                className="absolute bottom-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-foreground/40 pointer-events-none"
               />
             );
           })}
 
-          {/* Overlapping 3D Fader Cap */}
+          {/* Braun Architectural Slider Cap */}
           <div
             aria-hidden="true"
             style={{ left: insetPos(thumbPercent) }}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-1 w-8 h-11 rounded-[var(--radius-sm)] bg-card border pointer-events-none transition-[transform,box-shadow,border-color] duration-150",
-              "shadow-[0_4px_10px_rgba(0,0,0,0.14),0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-1px_0_rgba(0,0,0,0.06)]",
-              "dark:shadow-[0_4px_12px_rgba(0,0,0,0.5),0_1px_3px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.35)]",
+              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-9 h-10 rounded-[3px] bg-card border pointer-events-none transition-[transform,box-shadow,border-color] duration-150",
+              "shadow-[0_3px_6px_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(0,0,0,0.08)]",
+              "dark:shadow-[0_3px_8px_rgba(0,0,0,0.55),0_1px_2px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.4)]",
               isDragging
-                ? "scale-110 -translate-y-[54%] border-primary shadow-[0_10px_20px_rgba(0,0,0,0.2),0_2px_6px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.85)] dark:shadow-[0_10px_22px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.16)]"
-                : "border-border/90 group-hover:scale-105 group-hover:border-primary/60"
+                ? "-translate-y-[53%] border-foreground/40 shadow-[0_7px_14px_rgba(0,0,0,0.22),0_2px_4px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.85)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.16)]"
+                : "border-border group-hover:border-foreground/30"
             )}
           >
-            <span className="h-4 w-px rounded-full bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.5)] dark:shadow-[1px_0_0_rgba(255,255,255,0.08)]" />
-            <span className="h-6 w-0.5 rounded-full bg-primary" />
-            <span className="h-4 w-px rounded-full bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.5)] dark:shadow-[1px_0_0_rgba(255,255,255,0.08)]" />
+            {/* Left Machined Grooves */}
+            <div className="flex items-center gap-[3px]">
+              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+            </div>
+
+            {/* Center Signal Index Hairline */}
+            <span className="mx-1.5 h-full w-[2px] bg-accent" />
+
+            {/* Right Machined Grooves */}
+            <div className="flex items-center gap-[3px]">
+              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+            </div>
           </div>
         </div>
 
