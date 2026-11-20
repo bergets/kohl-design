@@ -225,48 +225,9 @@ export function PriceRulerInput({
     `calc(${TRACK_INSET_PX}px + (100% - ${TRACK_INSET_PX * 2}px) * ${pct / 100})`;
 
   return (
-    <div className="space-y-3.5">
-      {/* Bid Readout + Fine Nudge Controls */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="space-y-0.5">
-          <p className="text-xs text-muted-foreground">Your bid</p>
-          <p className="text-2xl sm:text-3xl font-semibold text-foreground tabular-nums tracking-tight">
-            {formatSek(value)}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-lg"
-            aria-label="Decrease bid"
-            disabled={value <= effectiveMin}
-            onClick={() =>
-              commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
-            }
-            className="min-h-[44px] min-w-[44px]"
-          >
-            <Icon icon={Minus} size="sm" />
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-lg"
-            aria-label="Increase bid"
-            disabled={value >= effectiveMax}
-            onClick={() =>
-              commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
-            }
-            className="min-h-[44px] min-w-[44px]"
-          >
-            <Icon icon={Plus} size="sm" />
-          </Button>
-        </div>
-      </div>
-
+    <div className="space-y-2.5">
       {/* Braun / Dieter Rams Precision Fader */}
-      <div className="space-y-1.5">
+      <div className="space-y-1">
         <div
           ref={trackRef}
           role="slider"
@@ -282,7 +243,7 @@ export function PriceRulerInput({
           onPointerCancel={handlePointerUp}
           onKeyDown={handleKeyDown}
           className={cn(
-            "group relative h-12 w-full rounded-[var(--radius-sm)] border bg-muted/70 touch-none select-none outline-none transition-colors duration-150",
+            "group relative h-10 w-full rounded-[var(--radius-sm)] border bg-muted/70 touch-none select-none outline-none transition-colors duration-150",
             "shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]",
             "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             isDragging
@@ -324,7 +285,7 @@ export function PriceRulerInput({
                 key={tick.value}
                 aria-hidden="true"
                 style={{ left: insetPos(pct) }}
-                className="absolute top-0 h-2.5 w-px bg-foreground/45 pointer-events-none"
+                className="absolute top-0 h-2 w-px bg-foreground/45 pointer-events-none"
               />
             );
           })}
@@ -344,7 +305,7 @@ export function PriceRulerInput({
                 key={`${guess}-${idx}`}
                 aria-hidden="true"
                 style={{ left: insetPos(pct) }}
-                className="absolute bottom-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-foreground/40 pointer-events-none"
+                className="absolute bottom-1 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-foreground/40 pointer-events-none"
               />
             );
           })}
@@ -354,7 +315,7 @@ export function PriceRulerInput({
             aria-hidden="true"
             style={{ left: insetPos(thumbPercent) }}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-9 h-10 rounded-[3px] bg-card border pointer-events-none transition-[transform,box-shadow,border-color] duration-150",
+              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-[3px] bg-card border pointer-events-none transition-[transform,box-shadow,border-color] duration-150",
               "shadow-[0_3px_6px_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(0,0,0,0.08)]",
               "dark:shadow-[0_3px_8px_rgba(0,0,0,0.55),0_1px_2px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.4)]",
               isDragging
@@ -363,31 +324,31 @@ export function PriceRulerInput({
             )}
           >
             {/* Left Machined Grooves */}
-            <div className="flex items-center gap-[3px]">
-              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
-              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+            <div className="flex items-center gap-[2px]">
+              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
             </div>
 
             {/* Center Signal Index Hairline */}
             <span className="mx-1.5 h-full w-[2px] bg-accent" />
 
             {/* Right Machined Grooves */}
-            <div className="flex items-center gap-[3px]">
-              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
-              <span className="h-5 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+            <div className="flex items-center gap-[2px]">
+              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
             </div>
           </div>
         </div>
 
         {/* Scale Labels */}
-        <div className="relative h-4 w-full select-none">
+        <div className="relative h-3.5 w-full select-none">
           {ticks.map((tick) => {
             const pct = priceToPercent(tick.value, minPrice, maxPrice);
             return (
               <span
                 key={tick.value}
                 style={{ left: insetPos(pct) }}
-                className="absolute -translate-x-1/2 text-[11px] text-muted-foreground tabular-nums"
+                className="absolute -translate-x-1/2 text-[10px] text-muted-foreground tabular-nums"
               >
                 {tick.label}
               </span>
@@ -396,16 +357,50 @@ export function PriceRulerInput({
         </div>
       </div>
 
-      {/* Primary Submit Button Below Slider */}
-      <Button
-        type="button"
-        variant="default"
-        size="lg"
-        onClick={onSubmit}
-        className="w-full min-h-[44px]"
-      >
-        {submitLabel}
-      </Button>
+      {/* Compact Action Row: Bid Readout + Nudges + Submit */}
+      <div className="flex items-center justify-between gap-2.5">
+        <p className="text-lg sm:text-xl font-semibold text-foreground tabular-nums tracking-tight truncate">
+          {formatSek(value)}
+        </p>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-lg"
+            aria-label="Decrease bid"
+            disabled={value <= effectiveMin}
+            onClick={() =>
+              commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
+            }
+            className="size-11"
+          >
+            <Icon icon={Minus} size="sm" />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-lg"
+            aria-label="Increase bid"
+            disabled={value >= effectiveMax}
+            onClick={() =>
+              commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
+            }
+            className="size-11"
+          >
+            <Icon icon={Plus} size="sm" />
+          </Button>
+          <Button
+            type="button"
+            variant="default"
+            size="lg"
+            onClick={onSubmit}
+            className="h-11 px-5"
+          >
+            {submitLabel}
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
