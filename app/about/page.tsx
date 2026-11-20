@@ -5,8 +5,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About & Colophon — kohl.design",
-  description: "Bio, design philosophy, typography, and technical stack behind kohl.design.",
+  title: "About — kohl.design",
+  description: "About Henrik Kohl and how kohl.design is built.",
 };
 
 export default function AboutPage() {
@@ -24,17 +24,17 @@ export default function AboutPage() {
             About
           </h1>
           <p className="text-xl sm:text-2xl text-pine-900 dark:text-white font-normal leading-relaxed">
-            I’m Henrik Kohl — a designer and engineer focused on tactile software craft, digital identity, and playful technical execution.
+            I’m Henrik Kohl, a product designer and builder based in Stockholm.
           </p>
         </div>
 
-        {/* Ethos Paragraphs */}
+        {/* Bio Paragraphs */}
         <div className="space-y-6 text-base sm:text-lg text-muted-foreground leading-relaxed border-t border-pine-800/10 dark:border-[#3B7D6F]/25 pt-8">
           <p>
-            I believe software should have weight, texture, and physical responsiveness. The modern web is too often flattened into uniform grey cards and frictionless templates. Great craft lives in the optical micro-details: spring physics, typographic contrast, and intentional pacing.
+            I like software that feels considered. Clear typography, calm layouts, and interactions that respond the way you expect them to.
           </p>
           <p>
-            When not engineering digital products, I experiment with interactive GLSL shaders, canvas design workflows, and agentic coding with LLMs.
+            Outside of product work, I spend time tinkering with shaders, small web tools, and building interfaces with coding agents.
           </p>
         </div>
 
@@ -46,35 +46,35 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
             <div>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider block mb-1">
+              <span className="text-xs font-mono text-muted-foreground block mb-1">
                 Typography
               </span>
               <p className="text-foreground font-medium">
-                Cooper (Display & Headlines) paired with DM Sans (Body & UI).
+                Cooper for headings, DM Sans for body and UI.
               </p>
             </div>
 
             <div>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider block mb-1">
-                Colors & Atmosphere
+              <span className="text-xs font-mono text-muted-foreground block mb-1">
+                Theme
               </span>
               <p className="text-foreground font-medium">
-                Pine Forest Green (#005243), Crimson Coral, and live GLSL fluid shader canvas.
+                Pine, Crimson, and a WebGL shader background.
               </p>
             </div>
 
             <div>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider block mb-1">
+              <span className="text-xs font-mono text-muted-foreground block mb-1">
                 Stack
               </span>
               <p className="text-foreground font-medium">
-                Next.js 16 (App Router), React 19, Tailwind CSS v4, Framer Motion, and Turbopack.
+                Next.js, React, Tailwind CSS, and Framer Motion.
               </p>
             </div>
 
             <div>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider block mb-1">
-                Connect
+              <span className="text-xs font-mono text-muted-foreground block mb-1">
+                Links
               </span>
               <div className="flex items-center gap-3">
                 <a
