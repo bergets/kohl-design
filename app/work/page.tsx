@@ -34,12 +34,6 @@ const SELECTED_WORK: HighlightProject[] = [
     outcome: "Adopted by 80,000+ users across Nordic organizations.",
   },
   {
-    title: "Teamplanning (WFM Light)",
-    context: "Aditro · 2021 · UX Designer",
-    summary:
-      "Designed lightweight workforce planning and scheduling flows for teams managing everyday shifts and availability.",
-  },
-  {
     title: "Client & Agency Work",
     context: "Lovable Rogues & Telegram Studios · 2013–2017",
     summary:
