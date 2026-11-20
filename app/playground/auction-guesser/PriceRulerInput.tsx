@@ -112,6 +112,8 @@ function stepAuctionPrice(
   return snapAuctionPrice(current + direction * step, min, max);
 }
 
+const MINOR_TICK_POSITIONS = Array.from({ length: 21 }, (_, i) => i * 5);
+
 export interface PriceRulerInputProps {
   value: number;
   onChange: (value: number) => void;
@@ -138,6 +140,7 @@ export function PriceRulerInput({
   previousGuesses = [],
 }: PriceRulerInputProps) {
   const trackRef = React.useRef<HTMLDivElement>(null);
+  const lastValueRef = React.useRef<number>(value);
   const [isDragging, setIsDragging] = React.useState(false);
 
   const effectiveMin = minBound !== null ? Math.max(minPrice, minBound) : minPrice;
@@ -151,6 +154,23 @@ export function PriceRulerInput({
     [effectiveMin, effectiveMax, minPrice, maxPrice]
   );
 
+  const commitValue = React.useCallback(
+    (nextValue: number) => {
+      if (nextValue !== lastValueRef.current) {
+        lastValueRef.current = nextValue;
+        if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+          navigator.vibrate(4);
+        }
+      }
+      onChange(nextValue);
+    },
+    [onChange]
+  );
+
+  React.useEffect(() => {
+    lastValueRef.current = value;
+  }, [value]);
+
   const updateFromClientX = React.useCallback(
     (clientX: number) => {
       const el = trackRef.current;
@@ -158,9 +178,9 @@ export function PriceRulerInput({
       const rect = el.getBoundingClientRect();
       const pct = ((clientX - rect.left) / rect.width) * 100;
       const rawPrice = percentToPrice(pct, minPrice, maxPrice);
-      onChange(clampToBounds(rawPrice));
+      commitValue(clampToBounds(rawPrice));
     },
-    [clampToBounds, minPrice, maxPrice, onChange]
+    [clampToBounds, commitValue, minPrice, maxPrice]
   );
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
@@ -183,10 +203,10 @@ export function PriceRulerInput({
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === "ArrowRight" || e.key === "ArrowUp") {
       e.preventDefault();
-      onChange(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)));
+      commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)));
     } else if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
       e.preventDefault();
-      onChange(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)));
+      commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)));
     } else if (e.key === "Enter") {
       e.preventDefault();
       onSubmit();
@@ -199,18 +219,26 @@ export function PriceRulerInput({
   const maxBoundPercent =
     maxBound !== null ? priceToPercent(maxBound, minPrice, maxPrice) : 100;
 
+  const fillStart = minBoundPercent;
+  const fillWidth = Math.max(0, thumbPercent - fillStart);
+
   return (
-    <div className="space-y-4">
-      {/* Bid Readout + Step & Submit Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="space-y-5">
+      {/* Bid Readout + Fine Nudge Controls */}
+      <div className="flex items-center justify-between gap-3">
         <div className="space-y-0.5">
           <p className="text-xs text-muted-foreground">Your bid</p>
-          <p className="text-xl sm:text-2xl font-semibold text-foreground tabular-nums tracking-tight">
+          <p
+            className={cn(
+              "text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight origin-left transition-all duration-150",
+              isDragging ? "text-primary scale-[1.04]" : "text-foreground scale-100"
+            )}
+          >
             {formatSek(value)}
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           <Button
             type="button"
             variant="outline"
@@ -218,7 +246,7 @@ export function PriceRulerInput({
             aria-label="Decrease bid"
             disabled={value <= effectiveMin}
             onClick={() =>
-              onChange(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
+              commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
             }
             className="min-h-[44px] min-w-[44px]"
           >
@@ -231,26 +259,17 @@ export function PriceRulerInput({
             aria-label="Increase bid"
             disabled={value >= effectiveMax}
             onClick={() =>
-              onChange(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
+              commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
             }
             className="min-h-[44px] min-w-[44px]"
           >
             <Icon icon={Plus} size="sm" />
           </Button>
-          <Button
-            type="button"
-            variant="default"
-            size="lg"
-            onClick={onSubmit}
-            className="flex-1 sm:flex-initial min-h-[44px]"
-          >
-            {submitLabel}
-          </Button>
         </div>
       </div>
 
-      {/* Logarithmic Ruler Track */}
-      <div className="space-y-2 pt-1">
+      {/* Tactile Logarithmic Ruler */}
+      <div className="space-y-2">
         <div
           ref={trackRef}
           role="slider"
@@ -266,8 +285,10 @@ export function PriceRulerInput({
           onPointerCancel={handlePointerUp}
           onKeyDown={handleKeyDown}
           className={cn(
-            "relative h-12 w-full rounded-[var(--radius)] border border-border bg-muted/50 touch-none select-none cursor-ew-resize overflow-hidden outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-            isDragging && "border-primary/60"
+            "group relative h-14 w-full rounded-[var(--radius)] border bg-muted/50 touch-none select-none outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            isDragging
+              ? "cursor-grabbing border-primary/70 bg-muted/70"
+              : "cursor-grab border-border hover:border-foreground/25"
           )}
         >
           {/* Ruled-out lower bound */}
@@ -275,7 +296,7 @@ export function PriceRulerInput({
             <div
               aria-hidden="true"
               style={{ width: `${minBoundPercent}%` }}
-              className="absolute inset-y-0 left-0 bg-background/75 border-r border-border/80 pointer-events-none"
+              className="absolute inset-y-0 left-0 rounded-l-[var(--radius)] bg-background/75 border-r border-border/80 pointer-events-none"
             />
           )}
 
@@ -284,21 +305,31 @@ export function PriceRulerInput({
             <div
               aria-hidden="true"
               style={{ width: `${100 - maxBoundPercent}%` }}
-              className="absolute inset-y-0 right-0 bg-background/75 border-l border-border/80 pointer-events-none"
+              className="absolute inset-y-0 right-0 rounded-r-[var(--radius)] bg-background/75 border-l border-border/80 pointer-events-none"
             />
           )}
 
-          {/* Active bracket highlight */}
+          {/* Active fill up to thumb */}
           <div
             aria-hidden="true"
-            style={{
-              left: `${minBoundPercent}%`,
-              width: `${Math.max(0, maxBoundPercent - minBoundPercent)}%`,
-            }}
-            className="absolute inset-y-0 bg-primary/5 pointer-events-none"
+            style={{ left: `${fillStart}%`, width: `${fillWidth}%` }}
+            className={cn(
+              "absolute inset-y-0 pointer-events-none transition-colors duration-150",
+              isDragging ? "bg-primary/15" : "bg-primary/10"
+            )}
           />
 
-          {/* Scale Ticks */}
+          {/* Fine Ruler Ticks */}
+          {MINOR_TICK_POSITIONS.map((pct) => (
+            <div
+              key={pct}
+              aria-hidden="true"
+              style={{ left: `${pct}%` }}
+              className="absolute bottom-0 h-1.5 w-px bg-border/60 pointer-events-none"
+            />
+          ))}
+
+          {/* Major Scale Ticks */}
           {ticks.map((tick) => {
             const pct = priceToPercent(tick.value, minPrice, maxPrice);
             return (
@@ -306,7 +337,7 @@ export function PriceRulerInput({
                 key={tick.value}
                 aria-hidden="true"
                 style={{ left: `${pct}%` }}
-                className="absolute bottom-0 h-2.5 w-px bg-border pointer-events-none"
+                className="absolute bottom-0 h-3 w-px bg-foreground/25 pointer-events-none"
               />
             );
           })}
@@ -319,20 +350,25 @@ export function PriceRulerInput({
                 key={`${guess}-${idx}`}
                 aria-hidden="true"
                 style={{ left: `${pct}%` }}
-                className="absolute top-1.5 h-2 w-2 -translate-x-1/2 rounded-full bg-muted-foreground/50 pointer-events-none"
+                className="absolute top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-muted-foreground/50 pointer-events-none"
               />
             );
           })}
 
-          {/* Active Thumb Needle */}
+          {/* Tactile Grabbing Handle */}
           <div
             aria-hidden="true"
             style={{ left: `${thumbPercent}%` }}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-8 rounded-full bg-primary shadow-sm transition-transform duration-100 pointer-events-none",
-              isDragging && "scale-y-110"
+              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-0.5 w-7 h-10 rounded-[var(--radius-sm)] bg-card border-2 border-primary shadow-md pointer-events-none transition-transform duration-150",
+              isDragging
+                ? "scale-110 shadow-lg ring-4 ring-primary/15"
+                : "group-hover:scale-105"
             )}
-          />
+          >
+            <span className="h-4 w-0.5 rounded-full bg-primary/50" />
+            <span className="h-4 w-0.5 rounded-full bg-primary/50" />
+          </div>
         </div>
 
         {/* Scale Labels */}
@@ -360,6 +396,17 @@ export function PriceRulerInput({
           })}
         </div>
       </div>
+
+      {/* Primary Submit Button Below Slider */}
+      <Button
+        type="button"
+        variant="default"
+        size="lg"
+        onClick={onSubmit}
+        className="w-full min-h-[44px]"
+      >
+        {submitLabel}
+      </Button>
     </div>
   );
 }
