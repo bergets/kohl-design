@@ -9,6 +9,7 @@ export interface AuctionLot {
   materials: string;
   auctionHouse: string;
   hammerPriceSek: number;
+  imageSrc?: string;
 }
 
 export const AUCTION_LOTS: AuctionLot[] = [
@@ -21,6 +22,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Opal acrylic, chromed steel, height 55 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 3200,
+    imageSrc: "/playground/auction-guesser/ph-80-table-lamp.jpg",
   },
   {
     id: "ph-hanging-lamp",
@@ -31,6 +33,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Lacquered aluminium and spun metal shades, diameter 50 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 8500,
+    imageSrc: "/playground/auction-guesser/ph-hanging-lamp.jpg",
   },
   {
     id: "borgila-candlesticks",
@@ -41,6 +44,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Sterling silver, stamped Stockholm, height 18 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 11000,
+    imageSrc: "/playground/auction-guesser/borgila-candlesticks.jpg",
   },
   {
     id: "salto-celadon-vase",
@@ -51,6 +55,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Stoneware with celadon glaze, height 21 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 12000,
+    imageSrc: "/playground/auction-guesser/salto-celadon-vase.jpg",
   },
   {
     id: "ph-3-5-table-lamp",
@@ -61,6 +66,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Browned brass and frosted glass shades, height 45 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 22000,
+    imageSrc: "/playground/auction-guesser/ph-3-5-table-lamp.jpg",
   },
   {
     id: "estrella-t580",
@@ -71,6 +77,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Brass and perforated metal, diameter 46 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 22000,
+    imageSrc: "/playground/auction-guesser/estrella-t580.jpg",
   },
   {
     id: "ph-kontrast",
@@ -81,6 +88,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Layered white and orange lacquered aluminium, diameter 45 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 26000,
+    imageSrc: "/playground/auction-guesser/ph-kontrast.jpg",
   },
   {
     id: "jakobsson-t493",
@@ -91,6 +99,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Brushed brass with eight cylindrical shades",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 38000,
+    imageSrc: "/playground/auction-guesser/jakobsson-t493.jpg",
   },
   {
     id: "ph-artichoke",
@@ -101,6 +110,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Copper and steel frame with 72 angled leaves, diameter 60 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 70000,
+    imageSrc: "/playground/auction-guesser/ph-artichoke.jpg",
   },
   {
     id: "liljevalchs-sofa",
@@ -111,6 +121,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Upholstered frame on turned dark wood legs, length 225 cm",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 74000,
+    imageSrc: "/playground/auction-guesser/liljevalchs-sofa.jpg",
   },
   {
     id: "nationalmuseiskapet",

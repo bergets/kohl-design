@@ -245,6 +245,16 @@ export function AuctionGuesser() {
 
       <Card variant="default" className="p-0 overflow-hidden gap-0">
         <div className="divide-y divide-border/60">
+          {activeLot.imageSrc && (
+            <div className="relative aspect-[4/3] w-full bg-muted/40 overflow-hidden">
+              <img
+                src={activeLot.imageSrc}
+                alt={activeLot.title}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          )}
+
           {/* Lot Header */}
           <div className="p-5 sm:p-6 space-y-3">
             <div className="flex items-center justify-between gap-3 flex-wrap">
