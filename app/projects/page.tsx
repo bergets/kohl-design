@@ -13,28 +13,28 @@ export const metadata: Metadata = {
 
 const PROJECTS = [
   {
-    title: "kohl.design System",
-    meta: "Design System",
+    title: "kohl.design",
+    meta: "Design system",
     description:
-      "Token-driven component architecture built on Tailwind v4 and shadcn/ui. Features custom Pine and Crimson palettes, dynamic derived radii, and multi-project personality presets.",
+      "The components, tokens, and themes powering this site, built on Tailwind v4 and shadcn/ui.",
     href: "/design-system",
-    actionText: "View Design System & Switcher",
+    actionText: "Open design system",
   },
   {
-    title: "Curated LLM Skills Directory",
-    meta: "Directory",
+    title: "Skills",
+    meta: "Prompts",
     description:
-      "Curated list of favourite engineering and design skills used with LLMs, from Emil Kowalski polish to Apple design motion guides.",
+      "A collection of skills and prompts I use when building interfaces with LLMs.",
     href: "/skills",
-    actionText: "Explore Skills",
+    actionText: "View skills",
   },
   {
-    title: "GLSL Fluid Shader Canvas",
-    meta: "Shader",
+    title: "Fluid shader",
+    meta: "WebGL",
     description:
-      "Interactive ambient GPU background shaders reacting to viewport movement, color themes, and subtle fluid dynamics.",
+      "The background shader running on the start page, reacting to movement and theme.",
     href: "/",
-    actionText: "Experience on Homepage",
+    actionText: "See on start page",
   },
 ];
 
@@ -52,7 +52,7 @@ export default function ProjectsPage() {
               Side Projects
             </h1>
             <p className="max-w-2xl text-base sm:text-lg text-pine-700/80 dark:text-pine-200/80 leading-relaxed font-sans">
-              Independent tools, interactive playground experiments, design system prototypes, and small web games.
+              Small tools, experiments, and things I’m building on the side.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function ProjectsPage() {
           {/* Projects & Tools */}
           <section className="space-y-4">
             <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
-              Tools & Systems
+              Projects
             </h2>
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {PROJECTS.map((project) => (

@@ -18,27 +18,27 @@ const DESTINATIONS: NavDestination[] = [
   {
     name: "Work",
     href: "/work",
-    sub: "Career timeline, UX leadership & product design",
+    sub: "Past roles, teams, and product work",
   },
   {
     name: "Side Projects",
     href: "/projects",
-    sub: "Experiments, playground & design system",
+    sub: "Experiments, playground, and the design system",
   },
   {
     name: "Skills",
     href: "/skills",
-    sub: "Favourite LLM prompts & design engineering skills",
+    sub: "Prompts and workflows for coding agents",
   },
   {
     name: "Notes",
     href: "/notes",
-    sub: "Writing, design observations & micro-essays",
+    sub: "Short posts and writing",
   },
   {
     name: "About",
     href: "/about",
-    sub: "Bio, design ethos & colophon",
+    sub: "Bio, tools, and colophon",
   },
 ];
 

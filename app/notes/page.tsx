@@ -31,7 +31,7 @@ export default function NotesPage() {
             Notes
           </h1>
           <p className="max-w-2xl text-base sm:text-lg text-pine-700/80 dark:text-pine-200/80 leading-relaxed font-sans">
-            Short essays, design engineering observations, and notes on typography, animation, and tactile software craft.
+            Occasional writing on design, interfaces, and building for the web.
           </p>
         </div>
 

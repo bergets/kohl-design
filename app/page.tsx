@@ -14,23 +14,23 @@ interface ChapterItem {
 
 const DIRECTORY_CHAPTERS: ChapterItem[] = [
   {
-    title: "Side Projects & Playground",
-    subtitle: "Interactive experiments, token architectures & open-source tools",
+    title: "Projects & Playground",
+    subtitle: "Small tools, experiments, and the design system",
     href: "/projects",
   },
   {
-    title: "Skills Directory",
-    subtitle: "Curated LLM prompts for senior designers — Apple fluid physics",
+    title: "Skills",
+    subtitle: "Prompts and workflows I use with coding agents",
     href: "/skills",
   },
   {
-    title: "Notes & Essays",
-    subtitle: "Thoughts on craft, AI interface ergonomics & invisible details",
+    title: "Notes",
+    subtitle: "Short posts on design and building things",
     href: "/notes",
   },
   {
-    title: "About & Ethos",
-    subtitle: "Background, design philosophy, tools, typography & colophon",
+    title: "About",
+    subtitle: "Who I am, what I use, and how this site is built",
     href: "/about",
   },
 ];
@@ -104,7 +104,7 @@ export default function Home() {
         <div className="w-full max-w-5xl mx-auto space-y-8">
           <div className="flex items-center justify-between">
             <h3 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
-              Other Realms of Craft
+              More
             </h3>
 
             <BrandFlower className="size-8 text-pine-700 dark:text-[#8AD0BE] shrink-0" />
@@ -127,7 +127,7 @@ export default function Home() {
                 </div>
 
                 <div className="shrink-0 flex items-center gap-1 text-xs font-bold text-pine-600 dark:text-[#8AD0BE] group-hover:translate-x-1 transition-transform">
-                  <span>Explore ↗</span>
+                  <span>Open ↗</span>
                 </div>
               </Link>
             ))}
