@@ -226,49 +226,39 @@ export function PriceRulerInput({
 
   return (
     <div className="space-y-2.5">
-      {/* Compact Action Row Above Slider (Never Covered by Thumb) */}
-      <div className="flex items-center justify-between gap-2.5">
-        <p className="text-lg sm:text-xl font-semibold text-foreground tabular-nums tracking-tight truncate">
+      {/* Row 1: [-]  Centered Bid Readout  [+] */}
+      <div className="flex items-center justify-between gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          size="icon-lg"
+          aria-label="Decrease bid"
+          disabled={value <= effectiveMin}
+          onClick={() =>
+            commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
+          }
+          className="size-11 shrink-0"
+        >
+          <Icon icon={Minus} size="sm" />
+        </Button>
+
+        <p className="text-xl sm:text-2xl font-semibold text-foreground tabular-nums tracking-tight text-center">
           {formatSek(value)}
         </p>
 
-        <div className="flex items-center gap-2 shrink-0">
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-lg"
-            aria-label="Decrease bid"
-            disabled={value <= effectiveMin}
-            onClick={() =>
-              commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
-            }
-            className="size-11"
-          >
-            <Icon icon={Minus} size="sm" />
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-lg"
-            aria-label="Increase bid"
-            disabled={value >= effectiveMax}
-            onClick={() =>
-              commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
-            }
-            className="size-11"
-          >
-            <Icon icon={Plus} size="sm" />
-          </Button>
-          <Button
-            type="button"
-            variant="default"
-            size="lg"
-            onClick={onSubmit}
-            className="h-11 px-5"
-          >
-            {submitLabel}
-          </Button>
-        </div>
+        <Button
+          type="button"
+          variant="outline"
+          size="icon-lg"
+          aria-label="Increase bid"
+          disabled={value >= effectiveMax}
+          onClick={() =>
+            commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
+          }
+          className="size-11 shrink-0"
+        >
+          <Icon icon={Plus} size="sm" />
+        </Button>
       </div>
 
       {/* Braun / Dieter Rams Precision Fader */}
@@ -401,6 +391,17 @@ export function PriceRulerInput({
           })}
         </div>
       </div>
+
+      {/* Row 3: Full-Width Submit Button Below Slider */}
+      <Button
+        type="button"
+        variant="default"
+        size="lg"
+        onClick={onSubmit}
+        className="w-full h-11"
+      >
+        {submitLabel}
+      </Button>
     </div>
   );
 }
