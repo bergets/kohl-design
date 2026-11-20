@@ -153,6 +153,15 @@ const CAREER_EXPERIENCES: CompanyExperience[] = [
   },
 ];
 
+const BRAND_LOGOS = [
+  { name: "Quinyx", src: "/logos/quinyx.svg", className: "h-6 sm:h-7" },
+  { name: "SD Worx (Aditro)", src: "/logos/sd-worx.png", className: "h-6 sm:h-7" },
+  { name: "Nordnet", src: "/logos/nordnet.svg", className: "h-4 sm:h-5" },
+  { name: "MediaTek", src: "/logos/mediatek.svg", className: "h-5 sm:h-6" },
+  { name: "Libero", src: "/logos/libero.svg", className: "h-6 sm:h-7" },
+  { name: "Vera & John", src: "/logos/verajohn.png", className: "h-7 sm:h-8" },
+];
+
 export default function WorkPage() {
   return (
     <div className="min-h-dvh flex flex-col justify-between relative z-10">
@@ -182,6 +191,20 @@ export default function WorkPage() {
               </Button>
             </div>
           </div>
+
+          {/* Monochrome Logo Strip */}
+          <section aria-label="Companies and brands" className="border-t border-pine-800/10 dark:border-[#3B7D6F]/25 pt-6">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-5 sm:gap-x-10">
+              {BRAND_LOGOS.map((logo) => (
+                <img
+                  key={logo.name}
+                  src={logo.src}
+                  alt={logo.name}
+                  className={`${logo.className} w-auto object-contain grayscale brightness-0 dark:invert opacity-65 hover:opacity-100 transition-opacity`}
+                />
+              ))}
+            </div>
+          </section>
 
           {/* Selected Work from Portfolio */}
           <section className="space-y-4">
