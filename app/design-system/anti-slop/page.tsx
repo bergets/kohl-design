@@ -76,17 +76,19 @@ const ANTI_SLOP_RULES = [
   },
   {
     id: "anti-slop-earn-surface",
-    name: "Earn Your Surface (Never Card in Card)",
+    name: "Earn Your Card (Whitespace & Dividers First)",
     level: "MUST",
-    summary: "Group with whitespace first. Use a Card only around actionable units, and NEVER nest a Card inside another Card.",
-    rationale: "Nesting cards destroys the 5-layer elevation system and creates visual clutter.",
+    summary: "Do not wrap every list, timeline, or section in a Card box. Use whitespace and hairline dividers (border-t + divide-y) first, reserve Card for genuinely distinct interactive or elevated units, and NEVER nest Card inside Card.",
+    rationale: "Boxing every section in cards creates heavy visual noise and feels templated. Calm layouts let content breathe directly on the canvas.",
     correct: `<section className="space-y-4">
-  <h2>Settings</h2>
-  <div className="space-y-2">...</div>
+  <h2 className="font-cooper text-2xl">Experience</h2>
+  <div className="border-t border-border/60 divide-y divide-border/60">
+    <div className="py-5">Quinyx · 2022–Present</div>
+    <div className="py-5">Aditro · 2017–2022</div>
+  </div>
 </section>`,
-    wrong: `<Card>
-  <Card>Nested content</Card>
-</Card>`,
+    wrong: `<Card className="mb-4">Quinyx · 2022–Present</Card>
+<Card><Card>Nested content</Card></Card>`,
   },
   {
     id: "anti-slop-no-decoration",

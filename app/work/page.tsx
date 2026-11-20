@@ -30,7 +30,7 @@ const SELECTED_WORK: HighlightProject[] = [
     context: "Aditro · 2017–2021 · Designer & Interim PM",
     summary:
       "Built mobile HR self-service apps for employees and managers from scratch in a small UX team of five. Ran stakeholder interviews, workshops, and iterative Adobe XD user testing across Sweden, taking the product from internal beta and pilot customers to full release.",
-    outcome: "Adopted by 80,000+ users across Nordic organizations.",
+    outcome: "Adopted by 80,000+ users across Nordic organizations before Aditro was acquired by SD Worx.",
   },
   {
     title: "Mediatek, Libero Kundklubb & Vera & John",
@@ -84,7 +84,7 @@ const CAREER_EXPERIENCES: CompanyExperience[] = [
     company: "Aditro",
     location: "Stockholm",
     totalDuration: "5 yrs 10 mos",
-    overview: "Nordic HR, payroll, and employee self-service software.",
+    overview: "Nordic HR, payroll, and employee self-service software, acquired by SD Worx.",
     roles: [
       {
         title: "UX Designer & Interim Product Manager",

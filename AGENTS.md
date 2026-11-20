@@ -13,14 +13,14 @@
 - **Sentences Over Big Stat Numbers:** NEVER build dashboard slop with 3–4 boxed cards each holding a giant number (`text-3xl font-bold`) and an icon square. Instead, summarize state in a calm, human **editorial sentence** or a single inline metric with quiet contextual copy:
   - *Good:* `<p className="text-sm text-foreground">Astrid slept <span className="font-semibold">1h 45m</span> this morning · <span className="text-muted-foreground">Next nap in ~2h</span></p>`
   - *Bad:* 3 side-by-side cards with `14h 20m`, `3 naps`, `98% quality`.
-- **Single Focal Surface:** Use whitespace to separate content. Anchor the view with **exactly one primary `<Card variant="default">`** housing the main list or task, partitioned internally by hairline borders (`divide-y divide-border/60`), rather than scattering 4 separate cards across the screen.
+- **Single Focal Surface (Earn Your Cards):** Use whitespace and hairline dividers (`border-t border-border/60 divide-y divide-border/60`) directly on the canvas first — do **not** wrap every editorial list, timeline, or section in a `<Card>`. Only use a `<Card>` when a distinct container or interactive surface is genuinely needed (maximum 1 primary `<Card variant="default">` per view, never scattering 4 separate cards).
 - **Strict Uniformity:**
   - **One Control Scale per View:** Never mix control sizes. If the search input is `size="default"`, all sibling buttons, segmented tabs, and toggles must also be `size="default"`.
   - **Uniform Spacing:** Stick to predictable rhythm tokens (`space-y-6`, `p-5` or `p-6` for card containers, `gap-2.5` for control clusters). Never introduce arbitrary ad-hoc margins (`mt-7`, `mb-3`, `gap-5`).
 - **The One-Shot Golden Recipe:**
   1. **Header:** Title in `font-cooper text-2xl sm:text-3xl font-normal text-foreground`, with optional quiet single-line subtitle in `text-xs sm:text-sm text-muted-foreground`.
   2. **Context:** A single calm status row or editorial sentence (no big numbers).
-  3. **Primary Surface:** Exactly ONE `<Card variant="default">` with hairline-separated rows (`divide-y divide-border/60`).
+  3. **Primary Surface:** Hairline-separated rows (`divide-y divide-border/60`) directly on the canvas, or at most ONE `<Card variant="default">` when an elevated container is truly needed.
   4. **Primary Action:** Exactly ONE primary button (`variant="default"` for Pine/Neutral or `variant="accent"` for Crimson).
 
 ## Global Rules
@@ -44,7 +44,7 @@
 ## Anti-Slop Guide
 - **NEVER** put small uppercase category eyebrows (`OVERVIEW`, `01`) above titles.
 - **NEVER** build rows of identical 3-column stat cards with colored icon boxes or giant numbers.
-- **NEVER** fragment a view into 4+ separate small cards. Group into 1 unified surface with hairline dividers.
+- **NEVER** fragment a view into 4+ separate small cards, and **NEVER** wrap editorial lists, timelines, or text sections in `<Card>` boxes when whitespace and hairline dividers (`border-t` + `divide-y`) are enough.
 - **NEVER** nest `<Card><Card>...</Card></Card>`.
 - **NEVER** invent decorative widgets (quotes, tips, weather boxes, streak badges) unless explicitly requested.
 - **NEVER** overuse badges or pills as decorative category tags, card eyebrows, or visual filler. Use plain text or quiet typographic metadata (`text-xs text-muted-foreground`) instead; reserve `<Badge>` strictly for genuine live status or removable filter tokens (max 1–2 per view).

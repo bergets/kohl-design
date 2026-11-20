@@ -68,7 +68,7 @@ export default function CardShowcasePage() {
           Card
         </h1>
         <p className="max-w-3xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-          The primary content container component for Kohl Design. Provides 5 elevation variants, tactile click responses, and semantic subcomponent slots for clear visual hierarchy.
+          Elevated content container with 5 elevation variants and semantic subcomponents. Use sparingly — for editorial lists, timelines, and text sections, prefer plain whitespace and hairline dividers (<code className="text-xs font-mono">border-t</code> + <code className="text-xs font-mono">divide-y</code>) directly on the canvas.
         </p>
 
         {/* Foundation Bridge Callout */}
