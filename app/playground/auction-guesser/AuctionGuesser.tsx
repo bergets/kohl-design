@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import { cooper } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AUCTION_LOTS, type AuctionLot } from "./lots";
@@ -260,245 +259,245 @@ export function AuctionGuesser() {
         </Tabs>
       </div>
 
-      <Card variant="default" className="p-0 overflow-hidden gap-0">
-        <div className="divide-y divide-border/60">
-          {activeLot.imageSrc && (
-            <div className="relative aspect-[4/3] w-full bg-muted/40 overflow-hidden">
+      <div className="divide-y divide-border/60">
+        {activeLot.imageSrc && (
+          <div className="pb-6">
+            <div className="relative aspect-[4/3] w-full rounded-[var(--radius)] bg-muted/40 overflow-hidden">
               <img
                 src={activeLot.imageSrc}
                 alt={activeLot.title}
                 className="h-full w-full object-cover"
               />
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Lot Header */}
-          <div className="p-5 sm:p-6 space-y-3">
-            <div className="flex items-center justify-between gap-3 flex-wrap">
-              <div className="flex items-center gap-2">
-                <Badge variant="default" size="default">
-                  {activeLot.category}
-                </Badge>
-                <Badge variant="secondary" size="default">
-                  {activeLot.era}
-                </Badge>
-              </div>
-              <span className="text-xs text-muted-foreground">
-                {activeLot.auctionHouse}
-              </span>
+        {/* Lot Header */}
+        <div className="py-6 space-y-3 first:pt-0">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <Badge variant="default" size="default">
+                {activeLot.category}
+              </Badge>
+              <Badge variant="secondary" size="default">
+                {activeLot.era}
+              </Badge>
             </div>
-
-            <div className="space-y-1">
-              <h2
-                className={`${cooper.className} text-2xl sm:text-3xl font-normal text-foreground`}
-              >
-                {activeLot.title}
-              </h2>
-              <p className="text-sm font-medium text-foreground/85">
-                {activeLot.designer}
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {activeLot.materials}
-              </p>
-            </div>
+            <span className="text-xs text-muted-foreground">
+              {activeLot.auctionHouse}
+            </span>
           </div>
 
-          {/* Guess Input / Active Controls */}
-          {mode === "daily" ? (
-            <div className="p-5 sm:p-6 space-y-4">
-              {!dailyFinished ? (
-                <PriceRulerInput
-                  value={dailyBid}
-                  onChange={setDailyBid}
-                  onSubmit={handleDailySubmit}
-                  submitLabel="Place bid"
-                  minPrice={dailyRuler.min}
-                  maxPrice={dailyRuler.max}
-                  ticks={dailyRuler.ticks}
-                  minBound={dailyMinBound}
-                  maxBound={dailyMaxBound}
-                  previousGuesses={dailyGuesses.map((g) => g.guess)}
-                />
-              ) : (
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <p className="text-sm text-foreground">
-                      {dailyWon ? (
-                        <>
-                          Hammered in{" "}
-                          <span className="font-semibold">
-                            {dailyGuesses.length}{" "}
-                            {dailyGuesses.length === 1 ? "guess" : "guesses"}
-                          </span>{" "}
-                          for{" "}
-                          <span className="font-semibold">{dailyScore} points</span>.
-                        </>
-                      ) : (
-                        <>
-                          Out of guesses. Actual hammer price was{" "}
-                          <span className="font-semibold">
-                            {formatSek(dailyLot.hammerPriceSek)}
-                          </span>{" "}
-                          ({dailyScore} points).
-                        </>
-                      )}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Final hammer price: {formatSek(dailyLot.hammerPriceSek)}
-                    </p>
+          <div className="space-y-1">
+            <h2
+              className={`${cooper.className} text-2xl sm:text-3xl font-normal text-foreground`}
+            >
+              {activeLot.title}
+            </h2>
+            <p className="text-sm font-medium text-foreground/85">
+              {activeLot.designer}
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {activeLot.materials}
+            </p>
+          </div>
+        </div>
+
+        {/* Guess Input / Active Controls */}
+        {mode === "daily" ? (
+          <div className="py-6 space-y-4">
+            {!dailyFinished ? (
+              <PriceRulerInput
+                value={dailyBid}
+                onChange={setDailyBid}
+                onSubmit={handleDailySubmit}
+                submitLabel="Place bid"
+                minPrice={dailyRuler.min}
+                maxPrice={dailyRuler.max}
+                ticks={dailyRuler.ticks}
+                minBound={dailyMinBound}
+                maxBound={dailyMaxBound}
+                previousGuesses={dailyGuesses.map((g) => g.guess)}
+              />
+            ) : (
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <p className="text-sm text-foreground">
+                    {dailyWon ? (
+                      <>
+                        Hammered in{" "}
+                        <span className="font-semibold">
+                          {dailyGuesses.length}{" "}
+                          {dailyGuesses.length === 1 ? "guess" : "guesses"}
+                        </span>{" "}
+                        for{" "}
+                        <span className="font-semibold">{dailyScore} points</span>.
+                      </>
+                    ) : (
+                      <>
+                        Out of guesses. Actual hammer price was{" "}
+                        <span className="font-semibold">
+                          {formatSek(dailyLot.hammerPriceSek)}
+                        </span>{" "}
+                        ({dailyScore} points).
+                      </>
+                    )}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Final hammer price: {formatSek(dailyLot.hammerPriceSek)}
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  onClick={handleCopyDailyResult}
+                  className="min-h-[44px]"
+                >
+                  <Icon icon={Copy} size="sm" />
+                  Copy result
+                </Button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="py-6 space-y-4">
+            {!currentEndlessResult ? (
+              <PriceRulerInput
+                value={endlessBid}
+                onChange={setEndlessBid}
+                onSubmit={handleEndlessSubmit}
+                submitLabel="Submit guess"
+                minPrice={endlessRuler.min}
+                maxPrice={endlessRuler.max}
+                ticks={endlessRuler.ticks}
+              />
+            ) : (
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge
+                      variant={badgeVariantForBand(currentEndlessResult.band)}
+                      size="default"
+                    >
+                      {bandLabel(currentEndlessResult.band)}
+                    </Badge>
+                    <span className="text-sm text-foreground">
+                      Earned{" "}
+                      <span className="font-semibold">
+                        {currentEndlessResult.score} points
+                      </span>{" "}
+                      ({Math.round(currentEndlessResult.errorRatio * 100)}% off)
+                    </span>
                   </div>
+                  <p className="text-xs text-muted-foreground">
+                    You guessed {formatSek(currentEndlessResult.guess)} · Hammer price{" "}
+                    {formatSek(currentEndlessResult.lot.hammerPriceSek)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2.5">
                   <Button
                     type="button"
-                    variant="secondary"
+                    variant="default"
                     size="lg"
-                    onClick={handleCopyDailyResult}
+                    onClick={handleNextEndlessLot}
                     className="min-h-[44px]"
                   >
-                    <Icon icon={Copy} size="sm" />
-                    Copy result
+                    Next lot
                   </Button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="p-5 sm:p-6 space-y-4">
-              {!currentEndlessResult ? (
-                <PriceRulerInput
-                  value={endlessBid}
-                  onChange={setEndlessBid}
-                  onSubmit={handleEndlessSubmit}
-                  submitLabel="Submit guess"
-                  minPrice={endlessRuler.min}
-                  maxPrice={endlessRuler.max}
-                  ticks={endlessRuler.ticks}
-                />
-              ) : (
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <Badge
-                        variant={badgeVariantForBand(currentEndlessResult.band)}
-                        size="default"
-                      >
-                        {bandLabel(currentEndlessResult.band)}
-                      </Badge>
-                      <span className="text-sm text-foreground">
-                        Earned{" "}
-                        <span className="font-semibold">
-                          {currentEndlessResult.score} points
-                        </span>{" "}
-                        ({Math.round(currentEndlessResult.errorRatio * 100)}% off)
-                      </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      You guessed {formatSek(currentEndlessResult.guess)} · Hammer price{" "}
-                      {formatSek(currentEndlessResult.lot.hammerPriceSek)}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2.5">
+                  {endlessHistory.length > 0 && (
                     <Button
                       type="button"
-                      variant="default"
+                      variant="ghost"
                       size="lg"
-                      onClick={handleNextEndlessLot}
+                      onClick={handleResetEndless}
                       className="min-h-[44px]"
                     >
-                      Next lot
+                      <Icon icon={RotateCcw} size="sm" />
+                      Reset
                     </Button>
-                    {endlessHistory.length > 0 && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="lg"
-                        onClick={handleResetEndless}
-                        className="min-h-[44px]"
-                      >
-                        <Icon icon={RotateCcw} size="sm" />
-                        Reset
-                      </Button>
-                    )}
-                  </div>
+                  )}
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
+        )}
 
-          {/* History Rows */}
-          {mode === "daily" && dailyGuesses.length > 0 && (
-            <div className="divide-y divide-border/60">
-              {dailyGuesses.map((item, idx) => (
+        {/* History Rows */}
+        {mode === "daily" && dailyGuesses.length > 0 && (
+          <div className="divide-y divide-border/60">
+            {dailyGuesses.map((item, idx) => (
+              <div
+                key={`${item.guess}-${idx}`}
+                className="py-3.5 flex items-center justify-between gap-3"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-muted-foreground w-5 tabular-nums">
+                    #{idx + 1}
+                  </span>
+                  <span className="text-sm font-medium text-foreground tabular-nums">
+                    {formatSek(item.guess)}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <Badge variant={badgeVariantForBand(item.band)} size="sm">
+                    {bandLabel(item.band)}
+                  </Badge>
+                  {item.isWin ? (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground">
+                      <Icon icon={Check} size="xs" intent="primary" />
+                      Hammered
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                      <Icon
+                        icon={item.direction === "higher" ? ArrowUp : ArrowDown}
+                        size="xs"
+                        intent="muted"
+                      />
+                      {item.direction === "higher" ? "Higher" : "Lower"}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {mode === "endless" && endlessHistory.length > 0 && (
+          <div className="divide-y divide-border/60">
+            {endlessHistory
+              .slice()
+              .reverse()
+              .slice(0, 5)
+              .map((item, idx) => (
                 <div
-                  key={`${item.guess}-${idx}`}
-                  className="px-5 sm:px-6 py-3.5 flex items-center justify-between gap-3"
+                  key={`${item.lot.id}-${idx}`}
+                  className="py-3.5 flex items-center justify-between gap-3"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-muted-foreground w-5 tabular-nums">
-                      #{idx + 1}
-                    </span>
-                    <span className="text-sm font-medium text-foreground tabular-nums">
-                      {formatSek(item.guess)}
-                    </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-foreground truncate">
+                      {item.lot.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Guess {formatSek(item.guess)} · Hammer{" "}
+                      {formatSek(item.lot.hammerPriceSek)}
+                    </p>
                   </div>
-
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-2.5 shrink-0">
                     <Badge variant={badgeVariantForBand(item.band)} size="sm">
                       {bandLabel(item.band)}
                     </Badge>
-                    {item.isWin ? (
-                      <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground">
-                        <Icon icon={Check} size="xs" intent="primary" />
-                        Hammered
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                        <Icon
-                          icon={item.direction === "higher" ? ArrowUp : ArrowDown}
-                          size="xs"
-                          intent="muted"
-                        />
-                        {item.direction === "higher" ? "Higher" : "Lower"}
-                      </span>
-                    )}
+                    <span className="text-sm font-semibold text-foreground tabular-nums">
+                      {item.score} pts
+                    </span>
                   </div>
                 </div>
               ))}
-            </div>
-          )}
-
-          {mode === "endless" && endlessHistory.length > 0 && (
-            <div className="divide-y divide-border/60">
-              {endlessHistory
-                .slice()
-                .reverse()
-                .slice(0, 5)
-                .map((item, idx) => (
-                  <div
-                    key={`${item.lot.id}-${idx}`}
-                    className="px-5 sm:px-6 py-3.5 flex items-center justify-between gap-3"
-                  >
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">
-                        {item.lot.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Guess {formatSek(item.guess)} · Hammer{" "}
-                        {formatSek(item.lot.hammerPriceSek)}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2.5 shrink-0">
-                      <Badge variant={badgeVariantForBand(item.band)} size="sm">
-                        {bandLabel(item.band)}
-                      </Badge>
-                      <span className="text-sm font-semibold text-foreground tabular-nums">
-                        {item.score} pts
-                      </span>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          )}
-        </div>
-      </Card>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
