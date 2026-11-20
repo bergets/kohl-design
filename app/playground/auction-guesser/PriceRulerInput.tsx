@@ -377,7 +377,7 @@ export function PriceRulerInput({
             aria-hidden="true"
             style={{ left: insetPos(thumbPercent) }}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-1 w-8 h-11 rounded-[var(--radius-sm)] bg-card border pointer-events-none transition-all duration-150",
+              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-1 w-8 h-11 rounded-[var(--radius-sm)] bg-card border pointer-events-none transition-[transform,box-shadow,border-color] duration-150",
               "shadow-[0_4px_10px_rgba(0,0,0,0.14),0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-1px_0_rgba(0,0,0,0.06)]",
               "dark:shadow-[0_4px_12px_rgba(0,0,0,0.5),0_1px_3px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.35)]",
               isDragging
