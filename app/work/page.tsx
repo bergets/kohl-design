@@ -195,7 +195,30 @@ export default function WorkPage() {
 
           {/* Monochrome Logo Strip */}
           <section aria-label="Companies and brands" className="border-t border-pine-800/10 dark:border-[#3B7D6F]/25 pt-6">
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-5 sm:gap-x-10">
+            {/* Mobile: smooth infinite marquee with soft edge fade */}
+            <div className="md:hidden overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+              <div className="flex w-max animate-logo-marquee hover:[animation-play-state:paused]">
+                {[0, 1].map((dupIndex) => (
+                  <div
+                    key={dupIndex}
+                    aria-hidden={dupIndex === 1}
+                    className="flex items-center gap-10 pr-10 shrink-0"
+                  >
+                    {BRAND_LOGOS.map((logo) => (
+                      <img
+                        key={`${dupIndex}-${logo.name}`}
+                        src={logo.src}
+                        alt={dupIndex === 0 ? logo.name : ""}
+                        className={`${logo.className} w-auto shrink-0 object-contain grayscale brightness-0 dark:invert opacity-70`}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop: clean single-row strip */}
+            <div className="hidden md:flex items-center justify-between gap-8">
               {BRAND_LOGOS.map((logo) => (
                 <img
                   key={logo.name}

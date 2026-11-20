@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { X, ArrowUpRight } from "lucide-react";
+import { X } from "lucide-react";
 import { cooper } from "@/app/fonts";
 
 interface NavDestination {
@@ -208,7 +208,7 @@ export function ExploreSheet() {
                           : "border-transparent hover:bg-pine-50/50 dark:hover:bg-white/[0.04] hover:border-border/60 dark:hover:border-[#3B7D6F]/20"
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="mb-1">
                         <span
                           className={`${cooper.className} text-2xl font-normal tracking-tight transition-colors ${
                             isActive
@@ -218,10 +218,6 @@ export function ExploreSheet() {
                         >
                           {dest.name}
                         </span>
-
-                        <ArrowUpRight
-                          className="size-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200"
-                        />
                       </div>
 
                       <p className="text-xs text-muted-foreground dark:text-neutral-400 line-clamp-1">

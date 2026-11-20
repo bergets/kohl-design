@@ -20,22 +20,6 @@ const PROJECTS = [
     href: "/design-system",
     actionText: "Open design system",
   },
-  {
-    title: "Skills",
-    meta: "Prompts",
-    description:
-      "A collection of skills and prompts I use when building interfaces with LLMs.",
-    href: "/skills",
-    actionText: "View skills",
-  },
-  {
-    title: "Fluid shader",
-    meta: "WebGL",
-    description:
-      "The background shader running on the start page, reacting to movement and theme.",
-    href: "/",
-    actionText: "See on start page",
-  },
 ];
 
 export default function ProjectsPage() {
@@ -94,7 +78,7 @@ export default function ProjectsPage() {
             <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
               Projects
             </h2>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="w-full grid grid-cols-1 gap-4 sm:gap-6">
               {PROJECTS.map((project) => (
                 <Link
                   key={project.title}
