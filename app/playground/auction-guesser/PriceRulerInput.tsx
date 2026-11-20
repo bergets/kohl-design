@@ -226,6 +226,51 @@ export function PriceRulerInput({
 
   return (
     <div className="space-y-2.5">
+      {/* Compact Action Row Above Slider (Never Covered by Thumb) */}
+      <div className="flex items-center justify-between gap-2.5">
+        <p className="text-lg sm:text-xl font-semibold text-foreground tabular-nums tracking-tight truncate">
+          {formatSek(value)}
+        </p>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-lg"
+            aria-label="Decrease bid"
+            disabled={value <= effectiveMin}
+            onClick={() =>
+              commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
+            }
+            className="size-11"
+          >
+            <Icon icon={Minus} size="sm" />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon-lg"
+            aria-label="Increase bid"
+            disabled={value >= effectiveMax}
+            onClick={() =>
+              commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
+            }
+            className="size-11"
+          >
+            <Icon icon={Plus} size="sm" />
+          </Button>
+          <Button
+            type="button"
+            variant="default"
+            size="lg"
+            onClick={onSubmit}
+            className="h-11 px-5"
+          >
+            {submitLabel}
+          </Button>
+        </div>
+      </div>
+
       {/* Braun / Dieter Rams Precision Fader */}
       <div className="space-y-1">
         <div
@@ -354,51 +399,6 @@ export function PriceRulerInput({
               </span>
             );
           })}
-        </div>
-      </div>
-
-      {/* Compact Action Row: Bid Readout + Nudges + Submit */}
-      <div className="flex items-center justify-between gap-2.5">
-        <p className="text-lg sm:text-xl font-semibold text-foreground tabular-nums tracking-tight truncate">
-          {formatSek(value)}
-        </p>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-lg"
-            aria-label="Decrease bid"
-            disabled={value <= effectiveMin}
-            onClick={() =>
-              commitValue(clampToBounds(stepAuctionPrice(value, -1, minPrice, maxPrice)))
-            }
-            className="size-11"
-          >
-            <Icon icon={Minus} size="sm" />
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-lg"
-            aria-label="Increase bid"
-            disabled={value >= effectiveMax}
-            onClick={() =>
-              commitValue(clampToBounds(stepAuctionPrice(value, 1, minPrice, maxPrice)))
-            }
-            className="size-11"
-          >
-            <Icon icon={Plus} size="sm" />
-          </Button>
-          <Button
-            type="button"
-            variant="default"
-            size="lg"
-            onClick={onSubmit}
-            className="h-11 px-5"
-          >
-            {submitLabel}
-          </Button>
         </div>
       </div>
     </div>
