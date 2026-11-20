@@ -8,9 +8,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AUCTION_LOTS, type AuctionLot } from "./lots";
+import {
+  PriceRulerInput,
+  RULER_MAX_SEK,
+  RULER_MIN_SEK,
+  snapAuctionPrice,
+} from "./PriceRulerInput";
 import {
   bandLabel,
   DAILY_MAX_GUESSES,
@@ -35,6 +40,7 @@ interface EndlessResult {
 }
 
 const DAILY_STORAGE_PREFIX = "kohl-auction-daily-";
+const DEFAULT_BID_SEK = 25000;
 
 function badgeVariantForBand(
   band: ProximityBand
@@ -51,25 +57,17 @@ function badgeVariantForBand(
   }
 }
 
-function parseGuessInput(raw: string): number | null {
-  const digits = raw.replace(/[^\d]/g, "");
-  if (!digits) return null;
-  const value = Number.parseInt(digits, 10);
-  if (!Number.isFinite(value) || value <= 0) return null;
-  return value;
-}
-
 export function AuctionGuesser() {
   const [mode, setMode] = React.useState<GameMode>("daily");
   const [todayKey, setTodayKey] = React.useState<string>("2026-11-20");
 
   // Daily state
   const [dailyGuesses, setDailyGuesses] = React.useState<DailyGuessEvaluation[]>([]);
-  const [dailyInput, setDailyInput] = React.useState<string>("");
+  const [dailyBid, setDailyBid] = React.useState<number>(DEFAULT_BID_SEK);
 
   // Endless state
   const [endlessIndex, setEndlessIndex] = React.useState<number>(0);
-  const [endlessInput, setEndlessInput] = React.useState<string>("");
+  const [endlessBid, setEndlessBid] = React.useState<number>(DEFAULT_BID_SEK);
   const [endlessHistory, setEndlessHistory] = React.useState<EndlessResult[]>([]);
   const [currentEndlessResult, setCurrentEndlessResult] =
     React.useState<EndlessResult | null>(null);
@@ -105,24 +103,41 @@ export function AuctionGuesser() {
     ? scoreDailyGame(dailyWon, dailyGuesses.length, bestDailyError)
     : 0;
 
+  // Narrowing ruler bounds from Higher/Lower hints in Daily mode
+  const dailyMinBound = React.useMemo(() => {
+    const higherGuesses = dailyGuesses
+      .filter((g) => g.direction === "higher")
+      .map((g) => g.guess);
+    return higherGuesses.length > 0 ? Math.max(...higherGuesses) : null;
+  }, [dailyGuesses]);
+
+  const dailyMaxBound = React.useMemo(() => {
+    const lowerGuesses = dailyGuesses
+      .filter((g) => g.direction === "lower")
+      .map((g) => g.guess);
+    return lowerGuesses.length > 0 ? Math.min(...lowerGuesses) : null;
+  }, [dailyGuesses]);
+
+  // Keep dailyBid centered inside the narrowed bracket after each guess
+  React.useEffect(() => {
+    const low = dailyMinBound ?? RULER_MIN_SEK;
+    const high = dailyMaxBound ?? RULER_MAX_SEK;
+    setDailyBid((prev) => {
+      if (prev >= low && prev <= high) return prev;
+      return snapAuctionPrice(Math.sqrt(low * high));
+    });
+  }, [dailyMinBound, dailyMaxBound]);
+
   const endlessLot = AUCTION_LOTS[endlessIndex % AUCTION_LOTS.length];
   const endlessTotalScore = endlessHistory.reduce((sum, item) => sum + item.score, 0);
 
   const activeLot = mode === "daily" ? dailyLot : endlessLot;
 
-  function handleDailySubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function handleDailySubmit() {
     if (dailyFinished) return;
-    const guess = parseGuessInput(dailyInput);
-    if (!guess) {
-      toast.error("Enter a price in SEK to place a bid.");
-      return;
-    }
-
-    const evaluation = evaluateDailyGuess(guess, dailyLot.hammerPriceSek);
+    const evaluation = evaluateDailyGuess(dailyBid, dailyLot.hammerPriceSek);
     const nextGuesses = [...dailyGuesses, evaluation];
     setDailyGuesses(nextGuesses);
-    setDailyInput("");
 
     try {
       window.localStorage.setItem(
@@ -134,38 +149,31 @@ export function AuctionGuesser() {
     }
   }
 
-  function handleEndlessSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function handleEndlessSubmit() {
     if (currentEndlessResult) return;
-    const guess = parseGuessInput(endlessInput);
-    if (!guess) {
-      toast.error("Enter a price in SEK to place a bid.");
-      return;
-    }
-
-    const scored = scoreEndlessGuess(guess, endlessLot.hammerPriceSek);
+    const scored = scoreEndlessGuess(endlessBid, endlessLot.hammerPriceSek);
     const result: EndlessResult = {
       lot: endlessLot,
-      guess,
+      guess: endlessBid,
       score: scored.score,
       errorRatio: scored.errorRatio,
       band: scored.band,
     };
     setCurrentEndlessResult(result);
     setEndlessHistory((prev) => [...prev, result]);
-    setEndlessInput("");
   }
 
   function handleNextEndlessLot() {
     setCurrentEndlessResult(null);
     setEndlessIndex((prev) => (prev + 1) % AUCTION_LOTS.length);
+    setEndlessBid(DEFAULT_BID_SEK);
   }
 
   function handleResetEndless() {
     setCurrentEndlessResult(null);
     setEndlessHistory([]);
     setEndlessIndex(0);
-    setEndlessInput("");
+    setEndlessBid(DEFAULT_BID_SEK);
   }
 
   async function handleCopyDailyResult() {
@@ -290,27 +298,15 @@ export function AuctionGuesser() {
           {mode === "daily" ? (
             <div className="p-5 sm:p-6 space-y-4">
               {!dailyFinished ? (
-                <form
+                <PriceRulerInput
+                  value={dailyBid}
+                  onChange={setDailyBid}
                   onSubmit={handleDailySubmit}
-                  className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5"
-                >
-                  <div className="flex-1">
-                    <Input
-                      type="text"
-                      inputMode="numeric"
-                      size="lg"
-                      value={dailyInput}
-                      onChange={(e) => setDailyInput(e.target.value)}
-                      placeholder="Enter your guess (e.g. 24000)"
-                      endAdornment="SEK"
-                      aria-label="Guess hammer price in SEK"
-                      className="min-h-[44px] text-base sm:text-sm"
-                    />
-                  </div>
-                  <Button type="submit" variant="default" size="lg" className="min-h-[44px]">
-                    Place bid
-                  </Button>
-                </form>
+                  submitLabel="Place bid"
+                  minBound={dailyMinBound}
+                  maxBound={dailyMaxBound}
+                  previousGuesses={dailyGuesses.map((g) => g.guess)}
+                />
               ) : (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
@@ -355,27 +351,12 @@ export function AuctionGuesser() {
           ) : (
             <div className="p-5 sm:p-6 space-y-4">
               {!currentEndlessResult ? (
-                <form
+                <PriceRulerInput
+                  value={endlessBid}
+                  onChange={setEndlessBid}
                   onSubmit={handleEndlessSubmit}
-                  className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5"
-                >
-                  <div className="flex-1">
-                    <Input
-                      type="text"
-                      inputMode="numeric"
-                      size="lg"
-                      value={endlessInput}
-                      onChange={(e) => setEndlessInput(e.target.value)}
-                      placeholder="One-shot price guess (e.g. 24000)"
-                      endAdornment="SEK"
-                      aria-label="Guess hammer price in SEK"
-                      className="min-h-[44px] text-base sm:text-sm"
-                    />
-                  </div>
-                  <Button type="submit" variant="default" size="lg" className="min-h-[44px]">
-                    Submit guess
-                  </Button>
-                </form>
+                  submitLabel="Submit guess"
+                />
               ) : (
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1">
