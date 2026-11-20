@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { AUCTION_LOTS, type AuctionLot } from "./lots";
 import {
   getLotRulerConfig,
@@ -247,16 +248,18 @@ export function AuctionGuesser() {
           </p>
         </div>
 
-        <Tabs
-          value={mode}
-          onValueChange={(value) => setMode(value as GameMode)}
-          className="shrink-0"
-        >
-          <TabsList size="default">
-            <TabsTrigger value="daily">Daily challenge</TabsTrigger>
-            <TabsTrigger value="endless">Endless mode</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <Tabs
+            value={mode}
+            onValueChange={(value) => setMode(value as GameMode)}
+          >
+            <TabsList size="default">
+              <TabsTrigger value="daily">Daily challenge</TabsTrigger>
+              <TabsTrigger value="endless">Endless mode</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <ThemeToggle className="size-9" />
+        </div>
       </div>
 
       <div className="divide-y divide-border/60">
