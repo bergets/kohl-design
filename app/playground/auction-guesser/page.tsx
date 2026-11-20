@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AuctionGuesserPage() {
   return (
-    <div className="min-h-dvh flex flex-col justify-center relative z-10 px-6 sm:px-8 md:px-12 lg:px-14 py-10 sm:py-16">
+    <div className="min-h-dvh bg-background text-foreground flex flex-col justify-center relative z-10 px-6 sm:px-8 md:px-12 lg:px-14 py-10 sm:py-16">
       <main className="mx-auto w-full max-w-3xl">
         <AuctionGuesser />
       </main>

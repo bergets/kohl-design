@@ -3,6 +3,7 @@
 import { MeshGradient } from "@paper-design/shaders-react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const DARK_COLORS = ["#000000", "#022c22", "#064e3b", "#065f46"];
@@ -10,12 +11,17 @@ const DARK_COLORS = ["#000000", "#022c22", "#064e3b", "#065f46"];
 const LIGHT_COLORS = ["#FFFFFF", "#F4F7F5", "#E2ECE9", "#CBDED9", "#A8C6BE"];
 
 export default function BackgroundShader() {
+    const pathname = usePathname();
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    if (pathname?.startsWith("/playground/")) {
+        return null;
+    }
 
     // Use dark colors as default to match the previous dark mode preference until mounted
     // or checks resolvedTheme if mounted.
