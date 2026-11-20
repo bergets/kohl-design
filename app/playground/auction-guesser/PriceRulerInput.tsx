@@ -113,6 +113,7 @@ function stepAuctionPrice(
 }
 
 const MINOR_TICK_POSITIONS = Array.from({ length: 21 }, (_, i) => i * 5);
+const TRACK_INSET_PX = 20;
 
 export interface PriceRulerInputProps {
   value: number;
@@ -171,8 +172,6 @@ export function PriceRulerInput({
     lastValueRef.current = value;
   }, [value]);
 
-  const TRACK_INSET_PX = 16;
-
   const updateFromClientX = React.useCallback(
     (clientX: number) => {
       const el = trackRef.current;
@@ -225,8 +224,8 @@ export function PriceRulerInput({
   const insetPos = (pct: number) =>
     `calc(${TRACK_INSET_PX}px + (100% - ${TRACK_INSET_PX * 2}px) * ${pct / 100})`;
 
-  const fillStart = minBoundPercent;
-  const fillWidth = Math.max(0, thumbPercent - fillStart);
+  const slotStartPercent = minBound !== null ? minBoundPercent : 0;
+  const slotFillWidth = Math.max(0, thumbPercent - slotStartPercent);
 
   return (
     <div className="space-y-5">
@@ -274,8 +273,8 @@ export function PriceRulerInput({
         </div>
       </div>
 
-      {/* Tactile Logarithmic Ruler */}
-      <div className="space-y-2">
+      {/* Physical Hardware Fader Track */}
+      <div className="space-y-2.5">
         <div
           ref={trackRef}
           role="slider"
@@ -291,58 +290,63 @@ export function PriceRulerInput({
           onPointerCancel={handlePointerUp}
           onKeyDown={handleKeyDown}
           className={cn(
-            "group relative h-14 w-full rounded-[var(--radius)] border bg-muted/50 touch-none select-none outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "group relative h-14 w-full rounded-[var(--radius)] border bg-muted/60 touch-none select-none outline-none transition-all duration-150",
+            "shadow-[inset_0_2px_5px_rgba(0,0,0,0.08),inset_0_1px_1px_rgba(0,0,0,0.05),0_1px_0_rgba(255,255,255,0.6)]",
+            "dark:shadow-[inset_0_2px_6px_rgba(0,0,0,0.45),inset_0_1px_2px_rgba(0,0,0,0.35),0_1px_0_rgba(255,255,255,0.04)]",
+            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             isDragging
-              ? "cursor-grabbing border-primary/70 bg-muted/70"
+              ? "cursor-grabbing border-primary/60"
               : "cursor-grab border-border hover:border-foreground/25"
           )}
         >
-          {/* Ruled-out lower bound */}
+          {/* Ruled-out lower bound overlay */}
           {minBound !== null && minBoundPercent > 0 && (
             <div
               aria-hidden="true"
               style={{ width: insetPos(minBoundPercent) }}
-              className="absolute inset-y-0 left-0 rounded-l-[var(--radius)] bg-background/75 border-r border-border/80 pointer-events-none"
+              className="absolute inset-y-0 left-0 rounded-l-[var(--radius)] bg-background/70 border-r border-border/80 pointer-events-none"
             />
           )}
 
-          {/* Ruled-out upper bound */}
+          {/* Ruled-out upper bound overlay */}
           {maxBound !== null && maxBoundPercent < 100 && (
             <div
               aria-hidden="true"
               style={{ left: insetPos(maxBoundPercent), right: 0 }}
-              className="absolute inset-y-0 rounded-r-[var(--radius)] bg-background/75 border-l border-border/80 pointer-events-none"
+              className="absolute inset-y-0 rounded-r-[var(--radius)] bg-background/70 border-l border-border/80 pointer-events-none"
             />
           )}
 
-          {/* Active fill up to thumb */}
+          {/* Recessed Center Groove / Rail */}
           <div
             aria-hidden="true"
-            style={{
-              left: minBound !== null ? insetPos(fillStart) : "0px",
-              width:
-                minBound !== null
-                  ? `calc((100% - ${TRACK_INSET_PX * 2}px) * ${fillWidth / 100})`
-                  : insetPos(thumbPercent),
-            }}
-            className={cn(
-              "absolute inset-y-0 pointer-events-none transition-colors duration-150",
-              minBound === null && "rounded-l-[var(--radius)]",
-              isDragging ? "bg-primary/15" : "bg-primary/10"
-            )}
-          />
+            style={{ left: `${TRACK_INSET_PX}px`, right: `${TRACK_INSET_PX}px` }}
+            className="absolute top-1/2 -translate-y-1/2 h-2 rounded-full bg-background/80 border border-border/50 shadow-[inset_0_1px_2px_rgba(0,0,0,0.14)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.6)] pointer-events-none overflow-hidden"
+          >
+            {/* Active Bid Fill Inside the Groove */}
+            <div
+              style={{
+                left: `${slotStartPercent}%`,
+                width: `${slotFillWidth}%`,
+              }}
+              className={cn(
+                "absolute inset-y-0 rounded-full transition-colors duration-150",
+                isDragging ? "bg-primary" : "bg-primary/80"
+              )}
+            />
+          </div>
 
-          {/* Fine Ruler Ticks */}
+          {/* Engraved Minor Ticks */}
           {MINOR_TICK_POSITIONS.map((pct) => (
             <div
               key={pct}
               aria-hidden="true"
               style={{ left: insetPos(pct) }}
-              className="absolute bottom-0 h-1.5 w-px bg-border/60 pointer-events-none"
+              className="absolute bottom-1 h-1.5 w-px bg-foreground/15 pointer-events-none"
             />
           ))}
 
-          {/* Major Scale Ticks */}
+          {/* Engraved Major Scale Ticks */}
           {ticks.map((tick) => {
             const pct = priceToPercent(tick.value, minPrice, maxPrice);
             return (
@@ -350,12 +354,12 @@ export function PriceRulerInput({
                 key={tick.value}
                 aria-hidden="true"
                 style={{ left: insetPos(pct) }}
-                className="absolute bottom-0 h-3 w-px bg-foreground/25 pointer-events-none"
+                className="absolute bottom-1 h-2.5 w-px bg-foreground/35 pointer-events-none"
               />
             );
           })}
 
-          {/* Previous Guess Markers */}
+          {/* Previous Guess Pins */}
           {previousGuesses.map((guess, idx) => {
             const pct = priceToPercent(guess, minPrice, maxPrice);
             return (
@@ -363,24 +367,27 @@ export function PriceRulerInput({
                 key={`${guess}-${idx}`}
                 aria-hidden="true"
                 style={{ left: insetPos(pct) }}
-                className="absolute top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-muted-foreground/50 pointer-events-none"
+                className="absolute top-1.5 h-2 w-2 -translate-x-1/2 rounded-full bg-muted-foreground/60 ring-1 ring-background pointer-events-none"
               />
             );
           })}
 
-          {/* Tactile Grabbing Handle */}
+          {/* Overlapping 3D Fader Cap */}
           <div
             aria-hidden="true"
             style={{ left: insetPos(thumbPercent) }}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-0.5 w-7 h-10 rounded-[var(--radius-sm)] bg-card border-2 border-primary shadow-md pointer-events-none transition-transform duration-150",
+              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-1 w-8 h-11 rounded-[var(--radius-sm)] bg-card border pointer-events-none transition-all duration-150",
+              "shadow-[0_4px_10px_rgba(0,0,0,0.14),0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.75),inset_0_-1px_0_rgba(0,0,0,0.06)]",
+              "dark:shadow-[0_4px_12px_rgba(0,0,0,0.5),0_1px_3px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.35)]",
               isDragging
-                ? "scale-110 shadow-lg ring-4 ring-primary/15"
-                : "group-hover:scale-105"
+                ? "scale-110 -translate-y-[54%] border-primary shadow-[0_10px_20px_rgba(0,0,0,0.2),0_2px_6px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.85)] dark:shadow-[0_10px_22px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.16)]"
+                : "border-border/90 group-hover:scale-105 group-hover:border-primary/60"
             )}
           >
-            <span className="h-4 w-0.5 rounded-full bg-primary/50" />
-            <span className="h-4 w-0.5 rounded-full bg-primary/50" />
+            <span className="h-4 w-px rounded-full bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.5)] dark:shadow-[1px_0_0_rgba(255,255,255,0.08)]" />
+            <span className="h-6 w-0.5 rounded-full bg-primary" />
+            <span className="h-4 w-px rounded-full bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.5)] dark:shadow-[1px_0_0_rgba(255,255,255,0.08)]" />
           </div>
         </div>
 
