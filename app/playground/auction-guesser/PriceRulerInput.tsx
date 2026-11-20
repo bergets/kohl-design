@@ -83,10 +83,11 @@ export function percentToPrice(percent: number, min: number, max: number): numbe
 
 export function snapAuctionPrice(raw: number, min: number, max: number): number {
   const clamped = Math.max(min, Math.min(max, raw));
-  let step = 500;
-  if (clamped >= 150000) step = 5000;
-  else if (clamped >= 50000) step = 2500;
-  else if (clamped >= 10000) step = 1000;
+  let step = 100;
+  if (clamped >= 150000) step = 2500;
+  else if (clamped >= 50000) step = 1000;
+  else if (clamped >= 20000) step = 500;
+  else if (clamped >= 5000) step = 250;
   return Math.max(min, Math.min(max, Math.round(clamped / step) * step));
 }
 
@@ -96,15 +97,17 @@ function stepAuctionPrice(
   min: number,
   max: number
 ): number {
-  let step = 500;
+  let step = 100;
   if (direction === 1) {
-    if (current >= 150000) step = 5000;
-    else if (current >= 50000) step = 2500;
-    else if (current >= 10000) step = 1000;
+    if (current >= 150000) step = 2500;
+    else if (current >= 50000) step = 1000;
+    else if (current >= 20000) step = 500;
+    else if (current >= 5000) step = 250;
   } else {
-    if (current > 150000) step = 5000;
-    else if (current > 50000) step = 2500;
-    else if (current > 10000) step = 1000;
+    if (current > 150000) step = 2500;
+    else if (current > 50000) step = 1000;
+    else if (current > 20000) step = 500;
+    else if (current > 5000) step = 250;
   }
   return snapAuctionPrice(current + direction * step, min, max);
 }
