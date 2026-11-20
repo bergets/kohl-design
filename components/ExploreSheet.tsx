@@ -23,12 +23,7 @@ const DESTINATIONS: NavDestination[] = [
   {
     name: "Side Projects",
     href: "/projects",
-    sub: "Experiments, tools & design system",
-  },
-  {
-    name: "Playground",
-    href: "/playground",
-    sub: "Self-contained interactive experiments",
+    sub: "Experiments, playground & design system",
   },
   {
     name: "Skills",

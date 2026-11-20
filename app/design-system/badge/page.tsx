@@ -89,7 +89,7 @@ export default function BadgeShowcasePage() {
           Badge & Status Pill
         </h1>
         <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-          Compact indicators for review states, live system telemetry, categories, and removable filters. Engineered with WCAG contrast compliance, live pulsing animation, optional dismissal triggers, and dual capsule/tokenized corner shapes.
+          Compact indicators for genuine live status and removable filters. Use sparingly (max 1–2 per view) — prefer plain text or quiet typographic metadata over decorative category pills.
         </p>
       </section>
 

@@ -142,6 +142,23 @@ Body: <p className="font-sans text-sm">Description text</p>`,
   <Button size="sm">Create</Button>
 </div>`,
   },
+  {
+    id: "anti-slop-no-badge-spam",
+    name: "No Badge or Pill Spam",
+    level: "NEVER",
+    summary: "Never scatter badges or pills across every card, list row, or heading as decorative category tags. Use plain text or quiet typographic metadata instead.",
+    rationale: "Overusing rounded-full pills creates visual confetti and dilutes real status signals. Reserve <Badge> strictly for genuine live status or removable filter tokens (max 1–2 per view).",
+    correct: `<div className="space-y-1">
+  <p className="text-xs text-muted-foreground">Design System</p>
+  <h3 className="font-cooper text-2xl">kohl.design</h3>
+</div>`,
+    wrong: `<Card>
+  <Badge>Design System</Badge>
+  <Badge>Tailwind v4</Badge>
+  <Badge>Production Ready</Badge>
+  <h3>kohl.design</h3>
+</Card>`,
+  },
 ];
 
 export default function AntiSlopPage() {

@@ -47,6 +47,7 @@
 - **NEVER** fragment a view into 4+ separate small cards. Group into 1 unified surface with hairline dividers.
 - **NEVER** nest `<Card><Card>...</Card></Card>`.
 - **NEVER** invent decorative widgets (quotes, tips, weather boxes, streak badges) unless explicitly requested.
+- **NEVER** overuse badges or pills as decorative category tags, card eyebrows, or visual filler. Use plain text or quiet typographic metadata (`text-xs text-muted-foreground`) instead; reserve `<Badge>` strictly for genuine live status or removable filter tokens (max 1–2 per view).
 - **NEVER** use background gradients, floating blur blobs, or colored side rails (`border-l-4`).
 - **NEVER** build full-width edge-to-edge docked topbars or bottom navigation bars with stretched borders. Use floating translucent islands.
 - **NEVER** use `font-cooper` on body copy, table cells, or buttons.

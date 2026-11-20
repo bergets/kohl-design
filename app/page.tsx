@@ -14,14 +14,9 @@ interface ChapterItem {
 
 const DIRECTORY_CHAPTERS: ChapterItem[] = [
   {
-    title: "Side Projects",
-    subtitle: "Interactive shaders, token architectures & open-source tools",
+    title: "Side Projects & Playground",
+    subtitle: "Interactive experiments, token architectures & open-source tools",
     href: "/projects",
-  },
-  {
-    title: "Playground",
-    subtitle: "Self-contained experiments, small games & interactive prototypes",
-    href: "/playground",
   },
   {
     title: "Skills Directory",
