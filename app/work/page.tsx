@@ -159,7 +159,7 @@ const BRAND_LOGOS = [
   { name: "Nordnet", src: "/logos/nordnet.svg", className: "h-4 sm:h-5" },
   { name: "MediaTek", src: "/logos/mediatek.svg", className: "h-5 sm:h-6" },
   { name: "Libero", src: "/logos/libero.svg", className: "h-6 sm:h-7" },
-  { name: "Vera & John", src: "/logos/verajohn.png", className: "h-7 sm:h-8" },
+  { name: "Vera & John", src: "/logos/verajohn.png", className: "h-9 sm:h-10" },
 ];
 
 export default function WorkPage() {
