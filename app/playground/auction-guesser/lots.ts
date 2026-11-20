@@ -143,6 +143,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Stained birch with leather-upholstered seats",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 125000,
+    imageSrc: "/playground/auction-guesser/asplund-library-chairs.jpg",
   },
   {
     id: "frank-flora-chest",
@@ -164,6 +165,7 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Stained beech with deep-tufted upholstery",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 225000,
+    imageSrc: "/playground/auction-guesser/otto-schulz-armchairs.jpg",
   },
   {
     id: "wegner-papa-bear",
@@ -174,5 +176,6 @@ export const AUCTION_LOTS: AuctionLot[] = [
     materials: "Teak paws and legs with wool upholstery",
     auctionHouse: "Bukowskis, Stockholm",
     hammerPriceSek: 350000,
+    imageSrc: "/playground/auction-guesser/wegner-papa-bear.jpg",
   },
 ];
