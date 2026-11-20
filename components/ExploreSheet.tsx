@@ -26,6 +26,11 @@ const DESTINATIONS: NavDestination[] = [
     sub: "Experiments, tools & design system",
   },
   {
+    name: "Playground",
+    href: "/playground",
+    sub: "Self-contained interactive experiments",
+  },
+  {
     name: "Skills",
     href: "/skills",
     sub: "Favourite LLM prompts & design engineering skills",
