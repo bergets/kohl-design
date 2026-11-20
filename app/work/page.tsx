@@ -3,7 +3,6 @@ import Link from "next/link";
 import { cooper } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight } from "lucide-react";
 
@@ -21,10 +20,10 @@ interface HighlightProject {
 
 const SELECTED_WORK: HighlightProject[] = [
   {
-    title: "Quinyx Workforce Management",
+    title: "Quinyx Core Scheduling",
     context: "Quinyx · 2022–Present · Product Area Design Lead",
     summary:
-      "Leading product design across scheduling, frontline employee workflows, and AI-assisted planning tools for enterprise teams.",
+      "Leading product design for the core scheduling experience — the main product Quinyx customers use every day to plan shifts, manage staffing, and run frontline operations.",
   },
   {
     title: "Aditro Mobile HR",
@@ -34,10 +33,10 @@ const SELECTED_WORK: HighlightProject[] = [
     outcome: "Adopted by 80,000+ users across Nordic organizations.",
   },
   {
-    title: "Client & Agency Work",
+    title: "Mediatek, Libero Kundklubb & Vera & John",
     context: "Lovable Rogues & Telegram Studios · 2013–2017",
     summary:
-      "UX design, workshops, user flows, wireframes, and usability testing for products including Auddly, Dockspot, Libero Kundklubb, MammaFitness PT Online, Mediatek, and Vera & John.",
+      "Client and agency UX work for well-known brands including Mediatek (external and event sites), Libero Kundklubb (quantitative user analysis), and Vera & John (mobile-first experience), alongside products like Auddly, Dockspot, and MammaFitness PT Online.",
   },
 ];
 
@@ -70,7 +69,7 @@ const CAREER_EXPERIENCES: CompanyExperience[] = [
         type: "Full-time",
         isCurrent: true,
         description:
-          "Leading product design direction, UX strategy, and interface standards across scheduling and AI-assisted workflows.",
+          "Leading product design direction, UX strategy, and interface standards for Quinyx's core scheduling experience — the main product customers use.",
       },
       {
         title: "Product Designer",
@@ -189,30 +188,28 @@ export default function WorkPage() {
             <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
               What I’ve worked on
             </h2>
-            <Card variant="default" className="p-0 overflow-hidden gap-0">
-              <div className="divide-y divide-border/60">
-                {SELECTED_WORK.map((item) => (
-                  <div key={item.title} className="p-5 sm:p-6 space-y-2">
-                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                      <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-foreground`}>
-                        {item.title}
-                      </h3>
-                      <span className="font-mono text-xs text-muted-foreground">
-                        {item.context}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
-                      {item.summary}
-                    </p>
-                    {item.outcome && (
-                      <p className="text-xs font-medium text-foreground pt-0.5">
-                        {item.outcome}
-                      </p>
-                    )}
+            <div className="border-t border-pine-800/10 dark:border-[#3B7D6F]/25 divide-y divide-pine-800/10 dark:divide-[#3B7D6F]/25">
+              {SELECTED_WORK.map((item) => (
+                <div key={item.title} className="py-6 sm:py-7 space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                    <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-foreground`}>
+                      {item.title}
+                    </h3>
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {item.context}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </Card>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">
+                    {item.summary}
+                  </p>
+                  {item.outcome && (
+                    <p className="text-xs font-medium text-foreground pt-0.5">
+                      {item.outcome}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* Experience Timeline */}
@@ -220,10 +217,9 @@ export default function WorkPage() {
             <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
               Experience
             </h2>
-            <Card variant="default" className="p-0 overflow-hidden gap-0">
-              <div className="divide-y divide-border/60">
-                {CAREER_EXPERIENCES.map((exp) => (
-                  <div key={exp.company} className="p-5 sm:p-6 space-y-5">
+            <div className="border-t border-pine-800/10 dark:border-[#3B7D6F]/25 divide-y divide-pine-800/10 dark:divide-[#3B7D6F]/25">
+              {CAREER_EXPERIENCES.map((exp) => (
+                <div key={exp.company} className="py-6 sm:py-7 space-y-5">
                     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
                       <div>
                         <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-foreground`}>
@@ -267,9 +263,8 @@ export default function WorkPage() {
                       ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            </Card>
+              ))}
+            </div>
           </section>
         </div>
 
