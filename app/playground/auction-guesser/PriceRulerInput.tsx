@@ -225,7 +225,7 @@ export function PriceRulerInput({
     `calc(${TRACK_INSET_PX}px + (100% - ${TRACK_INSET_PX * 2}px) * ${pct / 100})`;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-3.5">
       {/* Bid Readout + Fine Nudge Controls */}
       <div className="flex items-center justify-between gap-3">
         <div className="space-y-0.5">
@@ -266,7 +266,7 @@ export function PriceRulerInput({
       </div>
 
       {/* Braun / Dieter Rams Precision Fader */}
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         <div
           ref={trackRef}
           role="slider"
@@ -282,7 +282,7 @@ export function PriceRulerInput({
           onPointerCancel={handlePointerUp}
           onKeyDown={handleKeyDown}
           className={cn(
-            "group relative h-14 w-full rounded-[var(--radius-sm)] border bg-muted/70 touch-none select-none outline-none transition-colors duration-150",
+            "group relative h-12 w-full rounded-[var(--radius-sm)] border bg-muted/70 touch-none select-none outline-none transition-colors duration-150",
             "shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]",
             "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             isDragging
