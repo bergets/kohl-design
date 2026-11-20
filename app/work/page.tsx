@@ -155,7 +155,8 @@ const CAREER_EXPERIENCES: CompanyExperience[] = [
 
 const BRAND_LOGOS = [
   { name: "Quinyx", src: "/logos/quinyx.svg", className: "h-6 sm:h-7" },
-  { name: "SD Worx (Aditro)", src: "/logos/sd-worx.png", className: "h-6 sm:h-7" },
+  { name: "Aditro", src: "/logos/aditro.png", className: "h-5 sm:h-6" },
+  { name: "SD Worx", src: "/logos/sd-worx.png", className: "h-6 sm:h-7" },
   { name: "Nordnet", src: "/logos/nordnet.svg", className: "h-4 sm:h-5" },
   { name: "MediaTek", src: "/logos/mediatek.svg", className: "h-5 sm:h-6" },
   { name: "Libero", src: "/logos/libero.svg", className: "h-6 sm:h-7" },
