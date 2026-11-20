@@ -374,22 +374,6 @@ export function PriceRulerInput({
             </div>
           </div>
         </div>
-
-        {/* Scale Labels */}
-        <div className="relative h-3.5 w-full select-none">
-          {ticks.map((tick) => {
-            const pct = priceToPercent(tick.value, minPrice, maxPrice);
-            return (
-              <span
-                key={tick.value}
-                style={{ left: insetPos(pct) }}
-                className="absolute -translate-x-1/2 text-[10px] text-muted-foreground tabular-nums"
-              >
-                {tick.label}
-              </span>
-            );
-          })}
-        </div>
       </div>
 
       {/* Row 3: Full-Width Submit Button Below Slider */}
