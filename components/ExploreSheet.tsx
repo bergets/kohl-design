@@ -177,7 +177,7 @@ export function ExploreSheet() {
               className="explore-sheet-panel pointer-events-auto relative z-10 w-full sm:max-w-md lg:max-w-lg max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2.5rem)] lg:max-h-[calc(100dvh-3rem)] sm:h-[calc(100dvh-2.5rem)] lg:h-[calc(100dvh-3rem)] flex flex-col justify-between p-6 sm:p-8 bg-white/95 dark:bg-[#011D18]/95 backdrop-blur-xl border border-border dark:border-[#3B7D6F]/50 shadow-2xl rounded-3xl sm:rounded-2xl lg:rounded-3xl overflow-y-auto"
             >
               {/* Header Row */}
-              <div className="flex items-center justify-between pb-6 border-b border-pine-800/10 dark:border-[#3B7D6F]/30 shrink-0">
+              <div className="flex items-center justify-between px-4 pb-6 border-b border-pine-800/10 dark:border-[#3B7D6F]/30 shrink-0">
                 <span className={`${cooper.className} text-3xl font-normal text-pine-900 dark:text-[#FCD3D6]`}>
                   Explore
                 </span>
@@ -229,7 +229,7 @@ export function ExploreSheet() {
               </nav>
 
               {/* Footer Row */}
-              <div className="pt-6 border-t border-pine-800/10 dark:border-[#3B7D6F]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs shrink-0">
+              <div className="pt-6 px-4 border-t border-pine-800/10 dark:border-[#3B7D6F]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs shrink-0">
                 <span className="text-muted-foreground font-mono text-[11px]">
                   kohl.design · 2026
                 </span>

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { cooper } from "./fonts";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BrandFlower } from "@/components/BrandFlower";
+import { Icon } from "@/components/ui/icon";
+import { ArrowUpRight } from "lucide-react";
 
 interface ChapterItem {
   title: string;
@@ -126,9 +128,10 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="shrink-0 flex items-center gap-1 text-xs font-bold text-pine-600 dark:text-[#8AD0BE] group-hover:translate-x-1 transition-transform">
-                  <span>Open ↗</span>
-                </div>
+                <Icon
+                  icon={ArrowUpRight}
+                  className="shrink-0 text-pine-600 dark:text-[#8AD0BE] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
             ))}
           </div>
