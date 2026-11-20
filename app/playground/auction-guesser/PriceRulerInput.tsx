@@ -171,12 +171,15 @@ export function PriceRulerInput({
     lastValueRef.current = value;
   }, [value]);
 
+  const TRACK_INSET_PX = 16;
+
   const updateFromClientX = React.useCallback(
     (clientX: number) => {
       const el = trackRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const pct = ((clientX - rect.left) / rect.width) * 100;
+      const usableWidth = Math.max(1, rect.width - TRACK_INSET_PX * 2);
+      const pct = ((clientX - rect.left - TRACK_INSET_PX) / usableWidth) * 100;
       const rawPrice = percentToPrice(pct, minPrice, maxPrice);
       commitValue(clampToBounds(rawPrice));
     },
@@ -218,6 +221,9 @@ export function PriceRulerInput({
     minBound !== null ? priceToPercent(minBound, minPrice, maxPrice) : 0;
   const maxBoundPercent =
     maxBound !== null ? priceToPercent(maxBound, minPrice, maxPrice) : 100;
+
+  const insetPos = (pct: number) =>
+    `calc(${TRACK_INSET_PX}px + (100% - ${TRACK_INSET_PX * 2}px) * ${pct / 100})`;
 
   const fillStart = minBoundPercent;
   const fillWidth = Math.max(0, thumbPercent - fillStart);
@@ -295,7 +301,7 @@ export function PriceRulerInput({
           {minBound !== null && minBoundPercent > 0 && (
             <div
               aria-hidden="true"
-              style={{ width: `${minBoundPercent}%` }}
+              style={{ width: insetPos(minBoundPercent) }}
               className="absolute inset-y-0 left-0 rounded-l-[var(--radius)] bg-background/75 border-r border-border/80 pointer-events-none"
             />
           )}
@@ -304,17 +310,24 @@ export function PriceRulerInput({
           {maxBound !== null && maxBoundPercent < 100 && (
             <div
               aria-hidden="true"
-              style={{ width: `${100 - maxBoundPercent}%` }}
-              className="absolute inset-y-0 right-0 rounded-r-[var(--radius)] bg-background/75 border-l border-border/80 pointer-events-none"
+              style={{ left: insetPos(maxBoundPercent), right: 0 }}
+              className="absolute inset-y-0 rounded-r-[var(--radius)] bg-background/75 border-l border-border/80 pointer-events-none"
             />
           )}
 
           {/* Active fill up to thumb */}
           <div
             aria-hidden="true"
-            style={{ left: `${fillStart}%`, width: `${fillWidth}%` }}
+            style={{
+              left: minBound !== null ? insetPos(fillStart) : "0px",
+              width:
+                minBound !== null
+                  ? `calc((100% - ${TRACK_INSET_PX * 2}px) * ${fillWidth / 100})`
+                  : insetPos(thumbPercent),
+            }}
             className={cn(
               "absolute inset-y-0 pointer-events-none transition-colors duration-150",
+              minBound === null && "rounded-l-[var(--radius)]",
               isDragging ? "bg-primary/15" : "bg-primary/10"
             )}
           />
@@ -324,7 +337,7 @@ export function PriceRulerInput({
             <div
               key={pct}
               aria-hidden="true"
-              style={{ left: `${pct}%` }}
+              style={{ left: insetPos(pct) }}
               className="absolute bottom-0 h-1.5 w-px bg-border/60 pointer-events-none"
             />
           ))}
@@ -336,7 +349,7 @@ export function PriceRulerInput({
               <div
                 key={tick.value}
                 aria-hidden="true"
-                style={{ left: `${pct}%` }}
+                style={{ left: insetPos(pct) }}
                 className="absolute bottom-0 h-3 w-px bg-foreground/25 pointer-events-none"
               />
             );
@@ -349,7 +362,7 @@ export function PriceRulerInput({
               <div
                 key={`${guess}-${idx}`}
                 aria-hidden="true"
-                style={{ left: `${pct}%` }}
+                style={{ left: insetPos(pct) }}
                 className="absolute top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-muted-foreground/50 pointer-events-none"
               />
             );
@@ -358,7 +371,7 @@ export function PriceRulerInput({
           {/* Tactile Grabbing Handle */}
           <div
             aria-hidden="true"
-            style={{ left: `${thumbPercent}%` }}
+            style={{ left: insetPos(thumbPercent) }}
             className={cn(
               "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-0.5 w-7 h-10 rounded-[var(--radius-sm)] bg-card border-2 border-primary shadow-md pointer-events-none transition-transform duration-150",
               isDragging
@@ -373,22 +386,13 @@ export function PriceRulerInput({
 
         {/* Scale Labels */}
         <div className="relative h-4 w-full select-none">
-          {ticks.map((tick, index) => {
+          {ticks.map((tick) => {
             const pct = priceToPercent(tick.value, minPrice, maxPrice);
-            const isFirst = index === 0;
-            const isLast = index === ticks.length - 1;
             return (
               <span
                 key={tick.value}
-                style={{ left: `${pct}%` }}
-                className={cn(
-                  "absolute text-[11px] text-muted-foreground tabular-nums",
-                  isFirst
-                    ? "translate-x-0"
-                    : isLast
-                      ? "-translate-x-full"
-                      : "-translate-x-1/2"
-                )}
+                style={{ left: insetPos(pct) }}
+                className="absolute -translate-x-1/2 text-[11px] text-muted-foreground tabular-nums"
               >
                 {tick.label}
               </span>
