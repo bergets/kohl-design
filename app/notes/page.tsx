@@ -1,34 +1,20 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { cooper } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
-import { ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Notes & Writing — kohl.design",
   description: "Essays, design engineering observations, and thoughts on software craft.",
 };
 
-const NOTES = [
-  {
-    title: "The tactile web: bringing physical weight back to pixels",
-    date: "Sep 2026",
-    readingTime: "4 min read",
-    snippet: "Why software feels dead when it lacks physical resistance, optical feedback, and organic spring easing.",
-  },
-  {
-    title: "Dual-register design: why every brand needs an editorial and utility mode",
-    date: "Aug 2026",
-    readingTime: "6 min read",
-    snippet: "Splitting a design system into expressive character surfaces and quiet utility canvases.",
-  },
-  {
-    title: "Token abstraction for personal side projects",
-    date: "Aug 2026",
-    readingTime: "3 min read",
-    snippet: "How parameterizing 3 CSS variables lets one design language spawn infinite personal project variations.",
-  },
-];
+interface NoteItem {
+  title: string;
+  date: string;
+  readingTime: string;
+  snippet: string;
+}
+
+const NOTES: NoteItem[] = [];
 
 export default function NotesPage() {
   return (
@@ -49,29 +35,34 @@ export default function NotesPage() {
           </p>
         </div>
 
-        {/* Notes List */}
+        {/* Notes List / Empty State */}
         <div className="w-full border-t border-pine-800/10 dark:border-[#3B7D6F]/25 divide-y divide-pine-800/10 dark:divide-[#3B7D6F]/25">
-          {NOTES.map((note) => (
-            <article
-              key={note.title}
-              className="group py-6 sm:py-8 space-y-2 cursor-pointer transition-colors"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-colors`}>
-                  {note.title}
-                </h2>
-                <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-all transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
-              </div>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
-                {note.snippet}
-              </p>
-              <div className="flex items-center gap-3 pt-1 text-xs font-mono text-muted-foreground/70">
-                <span>{note.date}</span>
-                <span>·</span>
-                <span>{note.readingTime}</span>
-              </div>
-            </article>
-          ))}
+          {NOTES.length === 0 ? (
+            <p className="py-8 text-sm sm:text-base text-muted-foreground">
+              No notes published yet.
+            </p>
+          ) : (
+            NOTES.map((note) => (
+              <article
+                key={note.title}
+                className="group py-6 sm:py-8 space-y-2 cursor-pointer transition-colors"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-colors`}>
+                    {note.title}
+                  </h2>
+                </div>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
+                  {note.snippet}
+                </p>
+                <div className="flex items-center gap-3 pt-1 text-xs font-mono text-muted-foreground/70">
+                  <span>{note.date}</span>
+                  <span>·</span>
+                  <span>{note.readingTime}</span>
+                </div>
+              </article>
+            ))
+          )}
         </div>
       </div>
 
