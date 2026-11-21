@@ -396,23 +396,47 @@ export function AuctionGuesser() {
         )}
       </div>
 
-      {/* Sticky Bottom Control Bar: Price, Slider & Submit Always in View */}
+      {/* Sticky Bottom Control Bar: Price, Thumbwheel & Submit Always in View */}
       <div className="sticky bottom-0 z-30 mt-auto -mx-6 sm:-mx-8 md:-mx-12 lg:-mx-14 px-6 sm:px-8 md:px-12 lg:px-14 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-background/85 backdrop-blur-md border-t border-border/60">
         <div className="mx-auto w-full max-w-3xl">
           {mode === "daily" ? (
             !dailyFinished ? (
-              <PriceRulerInput
-                value={dailyBid}
-                onChange={setDailyBid}
-                onSubmit={handleDailySubmit}
-                submitLabel="Place bid"
-                minPrice={dailyRuler.min}
-                maxPrice={dailyRuler.max}
-                ticks={dailyRuler.ticks}
-                minBound={dailyMinBound}
-                maxBound={dailyMaxBound}
-                previousGuesses={dailyGuesses.map((g) => g.guess)}
-              />
+              <div className="space-y-2.5">
+                {dailyGuesses.length > 0 && (() => {
+                  const latest = dailyGuesses[dailyGuesses.length - 1];
+                  return (
+                    <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/60 text-xs">
+                      <span className="text-muted-foreground tabular-nums">
+                        Last: <span className="font-medium text-foreground">{formatSek(latest.guess)}</span>
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <Badge variant={badgeVariantForBand(latest.band)} size="sm">
+                          {bandLabel(latest.band)}
+                        </Badge>
+                        <span className="inline-flex items-center gap-1 font-medium text-foreground">
+                          <Icon
+                            icon={latest.direction === "higher" ? ArrowUp : ArrowDown}
+                            size="xs"
+                          />
+                          {latest.direction === "higher" ? "Higher" : "Lower"}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
+                <PriceRulerInput
+                  value={dailyBid}
+                  onChange={setDailyBid}
+                  onSubmit={handleDailySubmit}
+                  submitLabel="Place bid"
+                  minPrice={dailyRuler.min}
+                  maxPrice={dailyRuler.max}
+                  ticks={dailyRuler.ticks}
+                  minBound={dailyMinBound}
+                  maxBound={dailyMaxBound}
+                  previousGuesses={dailyGuesses.map((g) => g.guess)}
+                />
+              </div>
             ) : (
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
