@@ -183,7 +183,7 @@ export function PriceRulerInput({
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (!isDragging) return;
     const dx = e.clientX - dragStartXRef.current;
-    const deltaPct = (-dx / FULL_SWEEP_PX) * 100;
+    const deltaPct = (dx / FULL_SWEEP_PX) * 100;
     const nextPct = Math.max(0, Math.min(100, dragStartPercentRef.current + deltaPct));
     const rawPrice = percentToPrice(nextPct, minPrice, maxPrice);
     commitValue(clampToBounds(rawPrice));
@@ -214,8 +214,8 @@ export function PriceRulerInput({
   const maxBoundPercent =
     maxBound !== null ? priceToPercent(maxBound, minPrice, maxPrice) : 100;
 
-  // Scroll the drum ribs 1:1 with finger movement (swipe left = higher price)
-  const drumOffsetPx = -(currentPercent / 100) * FULL_SWEEP_PX;
+  // Scroll the drum ribs proportionally to logarithmic progress
+  const drumOffsetPx = (currentPercent / 100) * FULL_SWEEP_PX;
   const modOffset = ((drumOffsetPx % RIB_SPACING_PX) + RIB_SPACING_PX) % RIB_SPACING_PX;
 
   return (
