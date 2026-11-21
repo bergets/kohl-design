@@ -255,8 +255,28 @@ export function PriceRulerInput({
         </Button>
       </div>
 
-      {/* Row 2: Braun / Dieter Rams Cylindrical Edge-Thumbwheel */}
+      {/* Row 2: Range Bar (Above Thumb) + Braun Cylindrical Edge-Thumbwheel */}
       <div className="space-y-1.5">
+        {/* Range & Bracket Indicator Bar — always visible above your thumb */}
+        <div
+          aria-hidden="true"
+          className="relative h-1.5 w-full rounded-full bg-muted overflow-hidden"
+        >
+          {/* Active bracket */}
+          <div
+            style={{
+              left: `${minBoundPercent}%`,
+              width: `${Math.max(0, maxBoundPercent - minBoundPercent)}%`,
+            }}
+            className="absolute inset-y-0 bg-foreground/20"
+          />
+          {/* Current position pip */}
+          <div
+            style={{ left: `${currentPercent}%` }}
+            className="absolute top-0 bottom-0 w-2.5 -translate-x-1/2 rounded-full bg-foreground"
+          />
+        </div>
+
         <div className="relative flex flex-col items-center">
           {/* Fixed Braun Index Triangle */}
           <div
@@ -318,26 +338,6 @@ export function PriceRulerInput({
               className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-accent/80 pointer-events-none"
             />
           </div>
-        </div>
-
-        {/* Subtle Range & Bracket Indicator Bar */}
-        <div
-          aria-hidden="true"
-          className="relative h-1 w-full rounded-full bg-muted overflow-hidden"
-        >
-          {/* Active bracket */}
-          <div
-            style={{
-              left: `${minBoundPercent}%`,
-              width: `${Math.max(0, maxBoundPercent - minBoundPercent)}%`,
-            }}
-            className="absolute inset-y-0 bg-foreground/20"
-          />
-          {/* Current position pip */}
-          <div
-            style={{ left: `${currentPercent}%` }}
-            className="absolute top-0 bottom-0 w-2 -translate-x-1/2 rounded-full bg-foreground"
-          />
         </div>
       </div>
 
