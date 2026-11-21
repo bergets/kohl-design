@@ -460,8 +460,8 @@ export function AuctionGuesser() {
 
   return (
     <div className="space-y-6 flex-1 flex flex-col">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div className="space-y-1.5">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => setMode(null)}
@@ -470,54 +470,65 @@ export function AuctionGuesser() {
             <Icon icon={ArrowLeft} size="xs" />
             <span>Change mode</span>
           </button>
-          <h1
-            className={`${cooper.className} text-3xl sm:text-4xl font-normal tracking-tight text-foreground`}
-          >
-            Auction price guesser
-          </h1>
-          <p className="text-sm text-muted-foreground font-sans">
-            {mode === "daily" ? (
-              bothDailyFinished ? (
-                <>
-                  Today finished with{" "}
-                  <span className="font-semibold text-foreground">
-                    {dailyTotalScore} / 2 000 points
-                  </span>
-                  {dailyStreak > 0 && (
-                    <>
-                      {" "}
-                      · <span className="text-muted-foreground">{dailyStreak}-day streak</span>
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  Lot {dailySlot + 1} of 2 · Guess within{" "}
-                  <span className="font-semibold text-foreground">5%</span> ·{" "}
-                  <span className="text-muted-foreground">
-                    Attempt {Math.min(activeDailyState.evaluations.length + 1, DAILY_MAX_GUESSES)} of{" "}
-                    {DAILY_MAX_GUESSES}
-                  </span>
-                </>
-              )
-            ) : (
-              <>
-                One guess per lot ·{" "}
-                <span className="font-semibold text-foreground">
-                  {endlessTotalScore} points
-                </span>{" "}
-                <span className="text-muted-foreground">
-                  across {endlessHistory.length}{" "}
-                  {endlessHistory.length === 1 ? "lot" : "lots"}
-                </span>
-              </>
-            )}
-          </p>
+          <ThemeToggle className="size-9 shrink-0" />
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div className="space-y-1.5">
+            <h1
+              className={`${cooper.className} text-3xl sm:text-4xl font-normal tracking-tight text-foreground`}
+            >
+              Auction price guesser
+            </h1>
+            <p className="text-sm text-muted-foreground font-sans">
+              {mode === "daily" ? (
+                bothDailyFinished ? (
+                  <>
+                    Today finished with{" "}
+                    <span className="font-semibold text-foreground">
+                      {dailyTotalScore} / 2 000 points
+                    </span>
+                    {dailyStreak > 0 && (
+                      <>
+                        {" "}
+                        ·{" "}
+                        <span className="text-muted-foreground">
+                          {dailyStreak}-day streak
+                        </span>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    Lot {dailySlot + 1} of 2 · Guess within{" "}
+                    <span className="font-semibold text-foreground">5%</span> ·{" "}
+                    <span className="text-muted-foreground">
+                      Attempt{" "}
+                      {Math.min(
+                        activeDailyState.evaluations.length + 1,
+                        DAILY_MAX_GUESSES
+                      )}{" "}
+                      of {DAILY_MAX_GUESSES}
+                    </span>
+                  </>
+                )
+              ) : (
+                <>
+                  One guess per lot ·{" "}
+                  <span className="font-semibold text-foreground">
+                    {endlessTotalScore} points
+                  </span>{" "}
+                  <span className="text-muted-foreground">
+                    across {endlessHistory.length}{" "}
+                    {endlessHistory.length === 1 ? "lot" : "lots"}
+                  </span>
+                </>
+              )}
+            </p>
+          </div>
+
           {mode === "daily" && (
-            <div className="inline-flex items-center rounded-[var(--radius)] border border-border bg-muted/50 p-0.5">
+            <div className="inline-flex items-center self-start sm:self-auto rounded-[var(--radius)] border border-border bg-muted/50 p-0.5 shrink-0">
               {([0, 1] as DailySlot[]).map((slot) => {
                 const state = slot === 0 ? slot0State : slot1State;
                 const active = dailySlot === slot;
@@ -539,8 +550,6 @@ export function AuctionGuesser() {
               })}
             </div>
           )}
-
-          <ThemeToggle className="size-9" />
         </div>
       </div>
 
