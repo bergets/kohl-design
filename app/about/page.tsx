@@ -42,64 +42,45 @@ export default function AboutPage() {
         </div>
 
         {/* Colophon Section */}
-        <div className="p-6 sm:p-8 rounded-[var(--radius)] border border-pine-800/10 dark:border-[#3B7D6F]/30 bg-white/60 dark:bg-black/20 backdrop-blur-sm space-y-6">
-          <h2 className={`${cooper.className} text-2xl font-normal text-pine-900 dark:text-white`}>
+        <section className="border-t border-pine-800/10 dark:border-[#3B7D6F]/25 pt-8 space-y-5">
+          <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
             Colophon
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
-            <div>
-              <span className="text-xs font-mono text-muted-foreground block mb-1">
-                Typography
-              </span>
-              <p className="text-foreground font-medium">
-                Cooper for headings, DM Sans for body and UI.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-xs font-mono text-muted-foreground block mb-1">
-                Theme
-              </span>
-              <p className="text-foreground font-medium">
-                Pine, Crimson, and a WebGL shader background.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-xs font-mono text-muted-foreground block mb-1">
-                Stack
-              </span>
-              <p className="text-foreground font-medium">
-                Next.js, React, Tailwind CSS, and Framer Motion.
-              </p>
-            </div>
-
-            <div>
-              <span className="text-xs font-mono text-muted-foreground block mb-1">
-                Links
-              </span>
-              <div className="flex items-center gap-3">
-                <a
-                  href="https://linkedin.com/in/henrikkohl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary dark:text-[#A8E3D2] hover:underline font-medium inline-flex items-center gap-1"
-                >
-                  LinkedIn <ArrowUpRight className="size-3" />
-                </a>
-                <a
-                  href="https://github.com/bergets"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary dark:text-[#A8E3D2] hover:underline font-medium inline-flex items-center gap-1"
-                >
-                  GitHub <ArrowUpRight className="size-3" />
-                </a>
-              </div>
-            </div>
+          <div className="space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
+            <p>
+              This site is my small corner of the web — a place to try out ideas, maintain a{" "}
+              <Link href="/design-system" className="text-foreground underline underline-offset-4 hover:text-primary dark:hover:text-[#A8E3D2] transition-colors">
+                design system
+              </Link>{" "}
+              I actually enjoy using, and build things alongside coding agents after the kids are asleep.
+            </p>
+            <p>
+              Set in <span className="text-foreground font-medium">Cooper</span> for headings because it brings a bit of warmth, and <span className="text-foreground font-medium">DM Sans</span> to keep everything else easy to read, paired with deep Pine, Crimson, and a slow WebGL shader in the background.
+            </p>
           </div>
-        </div>
+
+          <div className="flex flex-wrap items-center gap-5 pt-2 text-sm">
+            <a
+              href="https://linkedin.com/in/henrikkohl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground hover:text-primary dark:hover:text-[#A8E3D2] font-medium inline-flex items-center gap-1 transition-colors"
+            >
+              <span>LinkedIn</span>
+              <ArrowUpRight className="size-3.5" />
+            </a>
+            <a
+              href="https://github.com/bergets"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground hover:text-primary dark:hover:text-[#A8E3D2] font-medium inline-flex items-center gap-1 transition-colors"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="size-3.5" />
+            </a>
+          </div>
+        </section>
       </div>
 
       {/* Footer */}
