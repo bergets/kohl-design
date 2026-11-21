@@ -18,7 +18,26 @@ const PROJECTS = [
     description:
       "The components, tokens, and themes powering this site, built on Tailwind v4 and shadcn/ui.",
     href: "/design-system",
+    external: false,
     actionText: "Open design system",
+  },
+  {
+    title: "Köhlisar",
+    meta: "Calorie & recipe app",
+    description:
+      "Calorie tracking, meal sharing, and collaborative recipe collections.",
+    href: "https://kohlisar.vercel.app/",
+    external: true,
+    actionText: "Open Köhlisar",
+  },
+  {
+    title: "Kohlala",
+    meta: "Infant sleep & care",
+    description:
+      "Mobile-first infant sleep tracking and caregiver handover companion.",
+    href: "https://nanny-agent-dun.vercel.app/",
+    external: true,
+    actionText: "Open Kohlala",
   },
 ];
 
@@ -78,31 +97,46 @@ export default function ProjectsPage() {
             <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
               Projects
             </h2>
-            <div className="w-full grid grid-cols-1 gap-4 sm:gap-6">
-              {PROJECTS.map((project) => (
-                <Link
-                  key={project.title}
-                  href={project.href}
-                  className="group p-6 sm:p-7 rounded-[var(--radius)] border border-pine-800/10 dark:border-[#3B7D6F]/30 bg-white/60 dark:bg-black/20 backdrop-blur-sm space-y-4 shadow-2xs hover:border-primary/50 dark:hover:border-[#A8E3D2]/50 hover:bg-white/80 dark:hover:bg-black/40 transition-all flex flex-col justify-between"
-                >
-                  <div className="space-y-2.5">
-                    <p className="font-mono text-xs text-muted-foreground">
-                      {project.meta}
-                    </p>
-                    <h3 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
+            <div className="border-t border-pine-800/10 dark:border-[#3B7D6F]/25 divide-y divide-pine-800/10 dark:divide-[#3B7D6F]/25">
+              {PROJECTS.map((project) => {
+                const content = (
+                  <>
+                    <div className="space-y-1.5">
+                      <div className="flex items-baseline gap-2.5 flex-wrap">
+                        <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
+                          {project.title}
+                        </h3>
+                        <span className="font-mono text-xs text-muted-foreground">
+                          {project.meta}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                        {project.description}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1.5" />
+                  </>
+                );
 
-                  <div className="pt-2 flex items-center gap-1 text-xs font-semibold text-primary dark:text-[#A8E3D2]">
-                    <span>{project.actionText}</span>
-                    <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
-                </Link>
-              ))}
+                const rowClassName =
+                  "group flex items-start justify-between gap-4 py-6 sm:py-7 hover:pl-2 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+                return project.external ? (
+                  <a
+                    key={project.title}
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={rowClassName}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <Link key={project.title} href={project.href} className={rowClassName}>
+                    {content}
+                  </Link>
+                );
+              })}
             </div>
           </section>
         </div>
