@@ -178,4 +178,15 @@ export const AUCTION_LOTS: AuctionLot[] = [
     hammerPriceSek: 350000,
     imageSrc: "/playground/auction-guesser/wegner-papa-bear.jpg",
   },
+  {
+    id: "hedberg-faience-apple",
+    title: "Faience sculpture of an apple",
+    designer: "Hans Hedberg, Biot, France",
+    category: "Decor",
+    era: "Mid-century",
+    materials: "Glazed earthenware with craquelure polychrome glaze",
+    auctionHouse: "Bukowskis, Stockholm",
+    hammerPriceSek: 22000,
+    imageSrc: "/playground/auction-guesser/hedberg-faience-apple.jpg",
+  },
 ];
