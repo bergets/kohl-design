@@ -463,58 +463,64 @@ export function AuctionGuesser() {
       <div className="space-y-2.5">
         {/* Minimal Top Bar */}
         <div className="flex items-center justify-between gap-4">
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={() => setMode(null)}
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer min-h-[36px]"
+            aria-label="Back to mode selection"
+            className="size-9 -ml-2"
           >
-            <Icon icon={ArrowLeft} size="xs" />
-            <span>Modes</span>
-          </button>
+            <Icon icon={ArrowLeft} size="sm" />
+          </Button>
 
           {mode === "daily" ? (
-            <div
-              role="tablist"
-              aria-label="Daily lots"
-              className="inline-flex items-center gap-4"
-            >
-              {([0, 1] as DailySlot[]).map((slot) => {
-                const state = slot === 0 ? slot0State : slot1State;
-                const active = dailySlot === slot;
-                return (
-                  <button
-                    key={slot}
-                    type="button"
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => handleSelectDailySlot(slot)}
-                    className={`relative py-1.5 text-xs tabular-nums transition-colors cursor-pointer ${
-                      active
-                        ? "font-semibold text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    <span className="inline-flex items-center gap-1">
-                      <span>0{slot + 1}</span>
-                      {state.finished && (
+            bothDailyFinished ? (
+              <div
+                role="tablist"
+                aria-label="Review daily lots"
+                className="inline-flex items-center gap-4"
+              >
+                {([0, 1] as DailySlot[]).map((slot) => {
+                  const state = slot === 0 ? slot0State : slot1State;
+                  const active = dailySlot === slot;
+                  return (
+                    <button
+                      key={slot}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => handleSelectDailySlot(slot)}
+                      className={`relative py-1.5 text-xs tabular-nums transition-colors cursor-pointer ${
+                        active
+                          ? "font-semibold text-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      <span className="inline-flex items-center gap-1">
+                        <span>0{slot + 1}</span>
                         <span
                           aria-label={state.won ? "Hammered" : "Finished"}
                           className={`inline-block size-1.5 rounded-full ${
                             state.won ? "bg-foreground" : "bg-muted-foreground/50"
                           }`}
                         />
+                      </span>
+                      {active && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-x-0 bottom-0 h-[1.5px] bg-foreground"
+                        />
                       )}
-                    </span>
-                    {active && (
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-x-0 bottom-0 h-[1.5px] bg-foreground"
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <span className="text-xs font-medium text-muted-foreground tabular-nums">
+                Daily · {dailySlot + 1} of 2
+              </span>
+            )
           ) : (
             <span className="text-xs font-medium text-muted-foreground">
               Endless
