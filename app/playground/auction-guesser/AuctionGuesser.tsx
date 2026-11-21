@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowDown, ArrowUp, Check, Copy, RotateCcw } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, Check, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { cooper } from "@/app/fonts";
 import { Badge } from "@/components/ui/badge";
@@ -114,7 +114,7 @@ function computeDailyStreak(log: Record<string, DailyDayRecord>, todayKey: strin
 }
 
 export function AuctionGuesser() {
-  const [mode, setMode] = React.useState<GameMode>("daily");
+  const [mode, setMode] = React.useState<GameMode | null>(null);
   const [todayKey, setTodayKey] = React.useState<string>("2026-11-21");
   const [dailySlot, setDailySlot] = React.useState<DailySlot>(0);
   const [dailyLog, setDailyLog] = React.useState<Record<string, DailyDayRecord>>({});
@@ -343,10 +343,134 @@ export function AuctionGuesser() {
     }
   }
 
+  if (mode === null) {
+    const todayRecord = dailyLog[todayKey];
+    const dailyStatusLabel = bothDailyFinished
+      ? `${dailyTotalScore} / 2 000 pts`
+      : todayRecord
+        ? "In progress"
+        : "2 lots today";
+
+    return (
+      <div className="space-y-8 py-4 sm:py-6">
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1.5">
+            <h1
+              className={`${cooper.className} text-3xl sm:text-4xl font-normal tracking-tight text-foreground`}
+            >
+              Auction price guesser
+            </h1>
+            <p className="text-sm sm:text-base text-muted-foreground font-sans">
+              Guess the hammer price of classic Scandinavian furniture, lamps, and decor.
+            </p>
+          </div>
+          <ThemeToggle className="size-9 shrink-0" />
+        </div>
+
+        <div className="divide-y divide-border/60 border-y border-border/60">
+          <button
+            type="button"
+            onClick={() => setMode("daily")}
+            className="group w-full py-5 flex items-start justify-between gap-4 text-left transition-colors hover:bg-muted/30 px-2 -mx-2 rounded-[var(--radius)] cursor-pointer"
+          >
+            <div className="space-y-1">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Daily challenge
+                </span>
+                <Badge variant={bothDailyFinished ? "success" : "default"} size="sm">
+                  {dailyStatusLabel}
+                </Badge>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Two curated lots each day. Up to 6 guesses per lot with Higher/Lower hints.
+              </p>
+            </div>
+            <Icon
+              icon={ArrowUpRight}
+              size="sm"
+              intent="muted"
+              className="mt-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
+            />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMode("endless")}
+            className="group w-full py-5 flex items-start justify-between gap-4 text-left transition-colors hover:bg-muted/30 px-2 -mx-2 rounded-[var(--radius)] cursor-pointer"
+          >
+            <div className="space-y-1">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Endless mode
+                </span>
+                <Badge variant="secondary" size="sm">
+                  {AUCTION_LOTS.length} lots
+                </Badge>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                One shot per lot across the full catalog, scored by how close you get.
+              </p>
+            </div>
+            <Icon
+              icon={ArrowUpRight}
+              size="sm"
+              intent="muted"
+              className="mt-1 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
+            />
+          </button>
+        </div>
+
+        {recentDailyHistory.length > 0 && (
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-medium text-muted-foreground">
+                Daily log
+              </p>
+              {dailyStreak > 0 && (
+                <p className="text-xs text-muted-foreground tabular-nums">
+                  {dailyStreak}-day streak
+                </p>
+              )}
+            </div>
+            <div className="divide-y divide-border/60 border-t border-border/60">
+              {recentDailyHistory.map((day) => (
+                <div
+                  key={day.date}
+                  className="py-2.5 flex items-center justify-between gap-3 text-xs"
+                >
+                  <span className="font-medium text-foreground tabular-nums">
+                    {day.date === todayKey ? `${day.date} (Today)` : day.date}
+                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-muted-foreground">
+                      {day.completed ? `${day.wonCount}/2 hammered` : "In progress"}
+                    </span>
+                    <span className="font-semibold text-foreground tabular-nums">
+                      {day.totalScore} pts
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 flex-1 flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div className="space-y-1.5">
+          <button
+            type="button"
+            onClick={() => setMode(null)}
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          >
+            <Icon icon={ArrowLeft} size="xs" />
+            <span>Change mode</span>
+          </button>
           <h1
             className={`${cooper.className} text-3xl sm:text-4xl font-normal tracking-tight text-foreground`}
           >
