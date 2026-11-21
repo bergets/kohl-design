@@ -459,76 +459,25 @@ export function AuctionGuesser() {
   }
 
   return (
-    <div className="space-y-6 flex-1 flex flex-col">
-      <div className="space-y-3">
+    <div className="space-y-5 flex-1 flex flex-col">
+      <div className="space-y-2.5">
+        {/* Minimal Top Bar */}
         <div className="flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => setMode(null)}
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer min-h-[36px]"
           >
             <Icon icon={ArrowLeft} size="xs" />
-            <span>Change mode</span>
+            <span>Modes</span>
           </button>
-          <ThemeToggle className="size-9 shrink-0" />
-        </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div className="space-y-1.5">
-            <h1
-              className={`${cooper.className} text-3xl sm:text-4xl font-normal tracking-tight text-foreground`}
+          {mode === "daily" ? (
+            <div
+              role="tablist"
+              aria-label="Daily lots"
+              className="inline-flex items-center gap-4"
             >
-              Auction price guesser
-            </h1>
-            <p className="text-sm text-muted-foreground font-sans">
-              {mode === "daily" ? (
-                bothDailyFinished ? (
-                  <>
-                    Today finished with{" "}
-                    <span className="font-semibold text-foreground">
-                      {dailyTotalScore} / 2 000 points
-                    </span>
-                    {dailyStreak > 0 && (
-                      <>
-                        {" "}
-                        ·{" "}
-                        <span className="text-muted-foreground">
-                          {dailyStreak}-day streak
-                        </span>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    Lot {dailySlot + 1} of 2 · Guess within{" "}
-                    <span className="font-semibold text-foreground">5%</span> ·{" "}
-                    <span className="text-muted-foreground">
-                      Attempt{" "}
-                      {Math.min(
-                        activeDailyState.evaluations.length + 1,
-                        DAILY_MAX_GUESSES
-                      )}{" "}
-                      of {DAILY_MAX_GUESSES}
-                    </span>
-                  </>
-                )
-              ) : (
-                <>
-                  One guess per lot ·{" "}
-                  <span className="font-semibold text-foreground">
-                    {endlessTotalScore} points
-                  </span>{" "}
-                  <span className="text-muted-foreground">
-                    across {endlessHistory.length}{" "}
-                    {endlessHistory.length === 1 ? "lot" : "lots"}
-                  </span>
-                </>
-              )}
-            </p>
-          </div>
-
-          {mode === "daily" && (
-            <div className="inline-flex items-center self-start sm:self-auto rounded-[var(--radius)] border border-border bg-muted/50 p-0.5 shrink-0">
               {([0, 1] as DailySlot[]).map((slot) => {
                 const state = slot === 0 ? slot0State : slot1State;
                 const active = dailySlot === slot;
@@ -536,21 +485,78 @@ export function AuctionGuesser() {
                   <button
                     key={slot}
                     type="button"
+                    role="tab"
+                    aria-selected={active}
                     onClick={() => handleSelectDailySlot(slot)}
-                    className={`px-2.5 h-8 rounded-[calc(var(--radius)-2px)] text-xs font-medium transition-colors cursor-pointer ${
+                    className={`relative py-1.5 text-xs tabular-nums transition-colors cursor-pointer ${
                       active
-                        ? "bg-background text-foreground shadow-2xs"
+                        ? "font-semibold text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    Lot {slot + 1}
-                    {state.finished ? (state.won ? " ✓" : " ·") : ""}
+                    <span className="inline-flex items-center gap-1">
+                      <span>0{slot + 1}</span>
+                      {state.finished && (
+                        <span
+                          aria-label={state.won ? "Hammered" : "Finished"}
+                          className={`inline-block size-1.5 rounded-full ${
+                            state.won ? "bg-foreground" : "bg-muted-foreground/50"
+                          }`}
+                        />
+                      )}
+                    </span>
+                    {active && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 bottom-0 h-[1.5px] bg-foreground"
+                      />
+                    )}
                   </button>
                 );
               })}
             </div>
+          ) : (
+            <span className="text-xs font-medium text-muted-foreground">
+              Endless
+            </span>
           )}
+
+          <ThemeToggle className="size-9 shrink-0" />
         </div>
+
+        {/* Calm 1-Line Status */}
+        <p className="text-xs sm:text-sm text-muted-foreground font-sans">
+          {mode === "daily" ? (
+            bothDailyFinished ? (
+              <>
+                Today finished with{" "}
+                <span className="font-semibold text-foreground">
+                  {dailyTotalScore} / 2 000 points
+                </span>
+                {dailyStreak > 0 && <> · {dailyStreak}-day streak</>}
+              </>
+            ) : (
+              <>
+                Attempt{" "}
+                <span className="font-semibold text-foreground">
+                  {Math.min(
+                    activeDailyState.evaluations.length + 1,
+                    DAILY_MAX_GUESSES
+                  )}
+                </span>{" "}
+                of {DAILY_MAX_GUESSES} · Guess within 5%
+              </>
+            )
+          ) : (
+            <>
+              <span className="font-semibold text-foreground">
+                {endlessTotalScore} points
+              </span>{" "}
+              across {endlessHistory.length}{" "}
+              {endlessHistory.length === 1 ? "lot" : "lots"} · One guess per lot
+            </>
+          )}
+        </p>
       </div>
 
       <div className="divide-y divide-border/60">
