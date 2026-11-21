@@ -32,9 +32,9 @@ const PROJECTS = [
   },
   {
     title: "Kohlala",
-    meta: "Infant sleep & care",
+    meta: "Baby & sleep tracker",
     description:
-      "Mobile-first infant sleep tracking and caregiver handover companion.",
+      "Simple nap, feed, and daily routine tracking for parents.",
     href: "https://nanny-agent-dun.vercel.app/",
     external: true,
     actionText: "Open Kohlala",
