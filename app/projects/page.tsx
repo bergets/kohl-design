@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cooper } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
+import { BrandFlower } from "@/components/BrandFlower";
 import { Card } from "@/components/ui/card";
 import { PLAYGROUND_EXPERIMENTS } from "@/app/playground/experiments";
 import { ArrowUpRight, Gavel } from "lucide-react";
@@ -19,7 +20,6 @@ const PROJECTS = [
       "The components, tokens, and themes powering this site, built on Tailwind v4 and shadcn/ui.",
     href: "/design-system",
     external: false,
-    icon: "/icon.svg",
   },
   {
     title: "Köhlisar",
@@ -107,11 +107,17 @@ export default function ProjectsPage() {
                 const content = (
                   <>
                     <div className="flex items-start gap-4">
-                      <img
-                        src={project.icon}
-                        alt=""
-                        className="size-10 rounded-xl object-cover shrink-0 mt-0.5 border border-border/50 shadow-2xs"
-                      />
+                      {project.icon ? (
+                        <img
+                          src={project.icon}
+                          alt=""
+                          className="size-10 rounded-xl object-cover shrink-0 mt-0.5 border border-border/50 shadow-2xs"
+                        />
+                      ) : (
+                        <div className="size-10 rounded-xl bg-white dark:bg-[#01201a] border border-border/50 shadow-2xs flex items-center justify-center shrink-0 mt-0.5">
+                          <BrandFlower className="size-7 text-pine-700 dark:text-[#FCD3D6]" />
+                        </div>
+                      )}
                       <div className="space-y-1.5">
                         <div className="flex items-baseline gap-2.5 flex-wrap">
                           <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
