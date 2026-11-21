@@ -20,7 +20,7 @@ import {
   DAILY_MAX_GUESSES,
   evaluateDailyGuess,
   formatSek,
-  getDailyLotIndex,
+  getDailyLotIndices,
   getTodayKey,
   scoreDailyGame,
   scoreEndlessGuess,
@@ -29,6 +29,15 @@ import {
 } from "./scoring";
 
 type GameMode = "daily" | "endless";
+type DailySlot = 0 | 1;
+
+interface DailyDayRecord {
+  date: string;
+  lotGuesses: [number[], number[]];
+  completed: boolean;
+  totalScore: number;
+  wonCount: number;
+}
 
 interface EndlessResult {
   lot: AuctionLot;
@@ -38,7 +47,8 @@ interface EndlessResult {
   band: ProximityBand;
 }
 
-const DAILY_STORAGE_PREFIX = "kohl-auction-daily-";
+const DAILY_LOG_STORAGE_KEY = "kohl-auction-daily-log";
+const LEGACY_DAILY_STORAGE_PREFIX = "kohl-auction-daily-";
 
 function badgeVariantForBand(
   band: ProximityBand
@@ -55,15 +65,72 @@ function badgeVariantForBand(
   }
 }
 
+function evaluateSlot(guesses: number[], lot: AuctionLot) {
+  const evaluations: DailyGuessEvaluation[] = guesses.map((g) =>
+    evaluateDailyGuess(g, lot.hammerPriceSek)
+  );
+  const won = evaluations.some((g) => g.isWin);
+  const lost = !won && evaluations.length >= DAILY_MAX_GUESSES;
+  const finished = won || lost;
+  const bestError =
+    evaluations.length > 0
+      ? Math.min(...evaluations.map((g) => g.errorRatio))
+      : 1;
+  const score = finished ? scoreDailyGame(won, evaluations.length, bestError) : 0;
+  return { evaluations, won, lost, finished, score };
+}
+
+function computeDailyStreak(log: Record<string, DailyDayRecord>, todayKey: string): number {
+  const completedDates = Object.values(log)
+    .filter((d) => d.completed)
+    .map((d) => d.date)
+    .sort()
+    .reverse();
+
+  if (completedDates.length === 0) return 0;
+
+  // Check if streak starts today or yesterday
+  const todayDate = new Date(`${todayKey}T12:00:00`);
+  const yesterdayDate = new Date(todayDate);
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterdayKey = yesterdayDate.toISOString().slice(0, 10);
+
+  if (completedDates[0] !== todayKey && completedDates[0] !== yesterdayKey) {
+    return 0;
+  }
+
+  let streak = 0;
+  let expected = new Date(`${completedDates[0]}T12:00:00`);
+  for (const dateStr of completedDates) {
+    const expectedKey = expected.toISOString().slice(0, 10);
+    if (dateStr === expectedKey) {
+      streak += 1;
+      expected.setDate(expected.getDate() - 1);
+    } else if (dateStr < expectedKey) {
+      break;
+    }
+  }
+  return streak;
+}
+
 export function AuctionGuesser() {
   const [mode, setMode] = React.useState<GameMode>("daily");
-  const [todayKey, setTodayKey] = React.useState<string>("2026-11-20");
+  const [todayKey, setTodayKey] = React.useState<string>("2026-11-21");
+  const [dailySlot, setDailySlot] = React.useState<DailySlot>(0);
+  const [dailyLog, setDailyLog] = React.useState<Record<string, DailyDayRecord>>({});
+  const [dailySlotGuesses, setDailySlotGuesses] = React.useState<[number[], number[]]>([
+    [],
+    [],
+  ]);
 
-  const dailyLot = AUCTION_LOTS[getDailyLotIndex(todayKey, AUCTION_LOTS.length)];
-  const dailyRuler = getLotRulerConfig(dailyLot.hammerPriceSek);
+  const [lotIdx1, lotIdx2] = getDailyLotIndices(todayKey, AUCTION_LOTS.length);
+  const dailyLots: [AuctionLot, AuctionLot] = [
+    AUCTION_LOTS[lotIdx1],
+    AUCTION_LOTS[lotIdx2],
+  ];
+  const currentDailyLot = dailyLots[dailySlot];
+  const dailyRuler = getLotRulerConfig(currentDailyLot.hammerPriceSek);
 
-  // Daily state
-  const [dailyGuesses, setDailyGuesses] = React.useState<DailyGuessEvaluation[]>([]);
   const [dailyBid, setDailyBid] = React.useState<number>(dailyRuler.defaultBid);
 
   // Endless state
@@ -93,51 +160,75 @@ export function AuctionGuesser() {
   React.useEffect(() => {
     const key = getTodayKey();
     setTodayKey(key);
-    const lot = AUCTION_LOTS[getDailyLotIndex(key, AUCTION_LOTS.length)];
-    const ruler = getLotRulerConfig(lot.hammerPriceSek);
-    setDailyBid(ruler.defaultBid);
+    const [i1, i2] = getDailyLotIndices(key, AUCTION_LOTS.length);
+    const lotsForToday: [AuctionLot, AuctionLot] = [AUCTION_LOTS[i1], AUCTION_LOTS[i2]];
+
     try {
-      const saved = window.localStorage.getItem(`${DAILY_STORAGE_PREFIX}${key}`);
-      if (saved) {
-        const parsed = JSON.parse(saved) as { guesses?: number[] };
-        if (Array.isArray(parsed.guesses)) {
-          setDailyGuesses(
-            parsed.guesses.map((g) => evaluateDailyGuess(g, lot.hammerPriceSek))
-          );
+      const rawLog = window.localStorage.getItem(DAILY_LOG_STORAGE_KEY);
+      const parsedLog: Record<string, DailyDayRecord> = rawLog ? JSON.parse(rawLog) : {};
+
+      // Migrate legacy single-lot key if present
+      if (!parsedLog[key]) {
+        const legacyRaw = window.localStorage.getItem(
+          `${LEGACY_DAILY_STORAGE_PREFIX}${key}`
+        );
+        if (legacyRaw) {
+          const legacyParsed = JSON.parse(legacyRaw) as { guesses?: number[] };
+          if (Array.isArray(legacyParsed.guesses) && legacyParsed.guesses.length > 0) {
+            const s1 = evaluateSlot(legacyParsed.guesses, lotsForToday[0]);
+            parsedLog[key] = {
+              date: key,
+              lotGuesses: [legacyParsed.guesses, []],
+              completed: false,
+              totalScore: s1.score,
+              wonCount: s1.won ? 1 : 0,
+            };
+          }
         }
+      }
+
+      setDailyLog(parsedLog);
+
+      const todayRecord = parsedLog[key];
+      if (todayRecord) {
+        setDailySlotGuesses(todayRecord.lotGuesses);
+        const slot0 = evaluateSlot(todayRecord.lotGuesses[0], lotsForToday[0]);
+        const slot1 = evaluateSlot(todayRecord.lotGuesses[1], lotsForToday[1]);
+        const initialSlot: DailySlot = slot0.finished && !slot1.finished ? 1 : 0;
+        setDailySlot(initialSlot);
+        const ruler = getLotRulerConfig(lotsForToday[initialSlot].hammerPriceSek);
+        setDailyBid(ruler.defaultBid);
+      } else {
+        const ruler = getLotRulerConfig(lotsForToday[0].hammerPriceSek);
+        setDailyBid(ruler.defaultBid);
       }
     } catch {
       // Ignore storage errors
     }
   }, []);
 
-  const dailyWon = dailyGuesses.some((g) => g.isWin);
-  const dailyLost = !dailyWon && dailyGuesses.length >= DAILY_MAX_GUESSES;
-  const dailyFinished = dailyWon || dailyLost;
-  const bestDailyError =
-    dailyGuesses.length > 0
-      ? Math.min(...dailyGuesses.map((g) => g.errorRatio))
-      : 1;
-  const dailyScore = dailyFinished
-    ? scoreDailyGame(dailyWon, dailyGuesses.length, bestDailyError)
-    : 0;
+  const slot0State = evaluateSlot(dailySlotGuesses[0], dailyLots[0]);
+  const slot1State = evaluateSlot(dailySlotGuesses[1], dailyLots[1]);
+  const activeDailyState = dailySlot === 0 ? slot0State : slot1State;
+  const bothDailyFinished = slot0State.finished && slot1State.finished;
+  const dailyTotalScore = slot0State.score + slot1State.score;
 
-  // Narrowing ruler bounds from Higher/Lower hints in Daily mode
+  // Narrowing ruler bounds from Higher/Lower hints in active Daily slot
   const dailyMinBound = React.useMemo(() => {
-    const higherGuesses = dailyGuesses
+    const higherGuesses = activeDailyState.evaluations
       .filter((g) => g.direction === "higher")
       .map((g) => g.guess);
     return higherGuesses.length > 0 ? Math.max(...higherGuesses) : null;
-  }, [dailyGuesses]);
+  }, [activeDailyState.evaluations]);
 
   const dailyMaxBound = React.useMemo(() => {
-    const lowerGuesses = dailyGuesses
+    const lowerGuesses = activeDailyState.evaluations
       .filter((g) => g.direction === "lower")
       .map((g) => g.guess);
     return lowerGuesses.length > 0 ? Math.min(...lowerGuesses) : null;
-  }, [dailyGuesses]);
+  }, [activeDailyState.evaluations]);
 
-  // Keep dailyBid centered inside the narrowed bracket after each guess
+  // Keep dailyBid centered inside the narrowed bracket after each guess or slot switch
   React.useEffect(() => {
     const low =
       dailyMinBound !== null ? Math.max(dailyRuler.min, dailyMinBound) : dailyRuler.min;
@@ -147,26 +238,56 @@ export function AuctionGuesser() {
       if (prev >= low && prev <= high) return prev;
       return snapAuctionPrice(Math.sqrt(low * high), dailyRuler.min, dailyRuler.max);
     });
-  }, [dailyMinBound, dailyMaxBound, dailyRuler.min, dailyRuler.max]);
+  }, [dailyMinBound, dailyMaxBound, dailyRuler.min, dailyRuler.max, dailySlot]);
 
   const endlessTotalScore = endlessHistory.reduce((sum, item) => sum + item.score, 0);
+  const activeLot = mode === "daily" ? currentDailyLot : endlessLot;
 
-  const activeLot = mode === "daily" ? dailyLot : endlessLot;
+  const recentDailyHistory = React.useMemo(() => {
+    return Object.values(dailyLog)
+      .filter((d) => d.lotGuesses[0].length > 0 || d.lotGuesses[1].length > 0)
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 7);
+  }, [dailyLog]);
 
-  function handleDailySubmit() {
-    if (dailyFinished) return;
-    const evaluation = evaluateDailyGuess(dailyBid, dailyLot.hammerPriceSek);
-    const nextGuesses = [...dailyGuesses, evaluation];
-    setDailyGuesses(nextGuesses);
+  const dailyStreak = React.useMemo(
+    () => computeDailyStreak(dailyLog, todayKey),
+    [dailyLog, todayKey]
+  );
 
+  function persistDailyGuesses(nextPair: [number[], number[]]) {
+    const s0 = evaluateSlot(nextPair[0], dailyLots[0]);
+    const s1 = evaluateSlot(nextPair[1], dailyLots[1]);
+    const record: DailyDayRecord = {
+      date: todayKey,
+      lotGuesses: nextPair,
+      completed: s0.finished && s1.finished,
+      totalScore: s0.score + s1.score,
+      wonCount: (s0.won ? 1 : 0) + (s1.won ? 1 : 0),
+    };
+    const nextLog = { ...dailyLog, [todayKey]: record };
+    setDailyLog(nextLog);
     try {
-      window.localStorage.setItem(
-        `${DAILY_STORAGE_PREFIX}${todayKey}`,
-        JSON.stringify({ guesses: nextGuesses.map((g) => g.guess) })
-      );
+      window.localStorage.setItem(DAILY_LOG_STORAGE_KEY, JSON.stringify(nextLog));
     } catch {
       // Ignore storage errors
     }
+  }
+
+  function handleDailySubmit() {
+    if (activeDailyState.finished) return;
+    const nextPair: [number[], number[]] = [
+      dailySlot === 0 ? [...dailySlotGuesses[0], dailyBid] : dailySlotGuesses[0],
+      dailySlot === 1 ? [...dailySlotGuesses[1], dailyBid] : dailySlotGuesses[1],
+    ];
+    setDailySlotGuesses(nextPair);
+    persistDailyGuesses(nextPair);
+  }
+
+  function handleSelectDailySlot(slot: DailySlot) {
+    setDailySlot(slot);
+    const ruler = getLotRulerConfig(dailyLots[slot].hammerPriceSek);
+    setDailyBid(ruler.defaultBid);
   }
 
   function handleEndlessSubmit() {
@@ -200,19 +321,23 @@ export function AuctionGuesser() {
   }
 
   async function handleCopyDailyResult() {
-    const markers = dailyGuesses
-      .map((g) => {
-        if (g.isWin) return "✓";
-        return g.direction === "higher" ? "↑" : "↓";
-      })
-      .join(" ");
-    const text = `Auction price guesser · ${todayKey}\n${dailyLot.title}\n${
-      dailyWon ? `${dailyGuesses.length}/${DAILY_MAX_GUESSES}` : `X/${DAILY_MAX_GUESSES}`
-    } · ${dailyScore} pts (${markers})`;
+    const formatMarkers = (evals: DailyGuessEvaluation[], won: boolean) => {
+      const marks = evals
+        .map((g) => (g.isWin ? "✓" : g.direction === "higher" ? "↑" : "↓"))
+        .join("");
+      return `${won ? evals.length : "X"}/${DAILY_MAX_GUESSES} ${marks}`;
+    };
+
+    const text = [
+      `Auction price guesser · ${todayKey}`,
+      `Lot 1: ${dailyLots[0].title} (${formatMarkers(slot0State.evaluations, slot0State.won)})`,
+      `Lot 2: ${dailyLots[1].title} (${formatMarkers(slot1State.evaluations, slot1State.won)})`,
+      `Score: ${dailyTotalScore} / 2 000 pts${dailyStreak > 1 ? ` · ${dailyStreak}-day streak` : ""}`,
+    ].join("\n");
 
     try {
       await navigator.clipboard.writeText(text);
-      toast.success("Result copied to clipboard.");
+      toast.success("Daily result copied to clipboard.");
     } catch {
       toast.error("Could not copy result.");
     }
@@ -229,21 +354,26 @@ export function AuctionGuesser() {
           </h1>
           <p className="text-sm text-muted-foreground font-sans">
             {mode === "daily" ? (
-              dailyFinished ? (
+              bothDailyFinished ? (
                 <>
-                  Daily lot finished with{" "}
-                  <span className="font-semibold text-foreground">{dailyScore} points</span>{" "}
-                  ·{" "}
-                  <span className="text-muted-foreground">
-                    Hammer price {formatSek(dailyLot.hammerPriceSek)}
+                  Today finished with{" "}
+                  <span className="font-semibold text-foreground">
+                    {dailyTotalScore} / 2 000 points
                   </span>
+                  {dailyStreak > 0 && (
+                    <>
+                      {" "}
+                      · <span className="text-muted-foreground">{dailyStreak}-day streak</span>
+                    </>
+                  )}
                 </>
               ) : (
                 <>
-                  Guess within <span className="font-semibold text-foreground">5%</span> of
-                  the hammer price ·{" "}
+                  Lot {dailySlot + 1} of 2 · Guess within{" "}
+                  <span className="font-semibold text-foreground">5%</span> ·{" "}
                   <span className="text-muted-foreground">
-                    Attempt {dailyGuesses.length + 1} of {DAILY_MAX_GUESSES}
+                    Attempt {Math.min(activeDailyState.evaluations.length + 1, DAILY_MAX_GUESSES)} of{" "}
+                    {DAILY_MAX_GUESSES}
                   </span>
                 </>
               )
@@ -262,7 +392,31 @@ export function AuctionGuesser() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+          {mode === "daily" && (
+            <div className="inline-flex items-center rounded-[var(--radius)] border border-border bg-muted/50 p-0.5">
+              {([0, 1] as DailySlot[]).map((slot) => {
+                const state = slot === 0 ? slot0State : slot1State;
+                const active = dailySlot === slot;
+                return (
+                  <button
+                    key={slot}
+                    type="button"
+                    onClick={() => handleSelectDailySlot(slot)}
+                    className={`px-2.5 h-8 rounded-[calc(var(--radius)-2px)] text-xs font-medium transition-colors cursor-pointer ${
+                      active
+                        ? "bg-background text-foreground shadow-2xs"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    Lot {slot + 1}
+                    {state.finished ? (state.won ? " ✓" : " ·") : ""}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           <Tabs
             value={mode}
             onValueChange={(value) => setMode(value as GameMode)}
@@ -320,10 +474,10 @@ export function AuctionGuesser() {
           </div>
         </div>
 
-        {/* History Rows */}
-        {mode === "daily" && dailyGuesses.length > 0 && (
+        {/* History Rows for Active Mode */}
+        {mode === "daily" && activeDailyState.evaluations.length > 0 && (
           <div className="divide-y divide-border/60">
-            {dailyGuesses.map((item, idx) => (
+            {activeDailyState.evaluations.map((item, idx) => (
               <div
                 key={`${item.guess}-${idx}`}
                 className="py-3.5 flex items-center justify-between gap-3"
@@ -362,6 +516,42 @@ export function AuctionGuesser() {
           </div>
         )}
 
+        {/* Daily Log (Day-by-Day Tracker) */}
+        {mode === "daily" && recentDailyHistory.length > 0 && (
+          <div className="py-5 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-medium text-muted-foreground">
+                Daily log
+              </p>
+              {dailyStreak > 0 && (
+                <p className="text-xs text-muted-foreground tabular-nums">
+                  {dailyStreak}-day streak
+                </p>
+              )}
+            </div>
+            <div className="divide-y divide-border/60">
+              {recentDailyHistory.map((day) => (
+                <div
+                  key={day.date}
+                  className="py-2.5 flex items-center justify-between gap-3 text-xs"
+                >
+                  <span className="font-medium text-foreground tabular-nums">
+                    {day.date === todayKey ? `${day.date} (Today)` : day.date}
+                  </span>
+                  <div className="flex items-center gap-3 text-muted-nums">
+                    <span className="text-muted-foreground">
+                      {day.completed ? `${day.wonCount}/2 hammered` : "In progress"}
+                    </span>
+                    <span className="font-semibold text-foreground tabular-nums">
+                      {day.totalScore} pts
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {mode === "endless" && endlessHistory.length > 0 && (
           <div className="divide-y divide-border/60">
             {endlessHistory
@@ -396,34 +586,41 @@ export function AuctionGuesser() {
         )}
       </div>
 
-      {/* Sticky Bottom Control Bar: Price, Thumbwheel & Submit Always in View */}
+      {/* Sticky Bottom Control Bar: Price, Tuning Wheel & Submit Always in View */}
       <div className="sticky bottom-0 z-30 mt-auto -mx-6 sm:-mx-8 md:-mx-12 lg:-mx-14 px-6 sm:px-8 md:px-12 lg:px-14 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-background/85 backdrop-blur-md border-t border-border/60">
         <div className="mx-auto w-full max-w-3xl">
           {mode === "daily" ? (
-            !dailyFinished ? (
+            !activeDailyState.finished ? (
               <div className="space-y-2.5">
-                {dailyGuesses.length > 0 && (() => {
-                  const latest = dailyGuesses[dailyGuesses.length - 1];
-                  return (
-                    <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/60 text-xs">
-                      <span className="text-muted-foreground tabular-nums">
-                        Last: <span className="font-medium text-foreground">{formatSek(latest.guess)}</span>
-                      </span>
-                      <div className="flex items-center gap-2">
-                        <Badge variant={badgeVariantForBand(latest.band)} size="sm">
-                          {bandLabel(latest.band)}
-                        </Badge>
-                        <span className="inline-flex items-center gap-1 font-medium text-foreground">
-                          <Icon
-                            icon={latest.direction === "higher" ? ArrowUp : ArrowDown}
-                            size="xs"
-                          />
-                          {latest.direction === "higher" ? "Higher" : "Lower"}
+                {activeDailyState.evaluations.length > 0 &&
+                  (() => {
+                    const latest =
+                      activeDailyState.evaluations[
+                        activeDailyState.evaluations.length - 1
+                      ];
+                    return (
+                      <div className="flex items-center justify-between gap-2 pb-2 border-b border-border/60 text-xs">
+                        <span className="text-muted-foreground tabular-nums">
+                          Last:{" "}
+                          <span className="font-medium text-foreground">
+                            {formatSek(latest.guess)}
+                          </span>
                         </span>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={badgeVariantForBand(latest.band)} size="sm">
+                            {bandLabel(latest.band)}
+                          </Badge>
+                          <span className="inline-flex items-center gap-1 font-medium text-foreground">
+                            <Icon
+                              icon={latest.direction === "higher" ? ArrowUp : ArrowDown}
+                              size="xs"
+                            />
+                            {latest.direction === "higher" ? "Higher" : "Lower"}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })()}
+                    );
+                  })()}
                 <PriceRulerInput
                   value={dailyBid}
                   onChange={setDailyBid}
@@ -434,47 +631,70 @@ export function AuctionGuesser() {
                   ticks={dailyRuler.ticks}
                   minBound={dailyMinBound}
                   maxBound={dailyMaxBound}
-                  previousGuesses={dailyGuesses.map((g) => g.guess)}
+                  previousGuesses={activeDailyState.evaluations.map((g) => g.guess)}
                 />
               </div>
             ) : (
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="space-y-1">
                   <p className="text-sm text-foreground">
-                    {dailyWon ? (
+                    {activeDailyState.won ? (
                       <>
-                        Hammered in{" "}
+                        Lot {dailySlot + 1} hammered in{" "}
                         <span className="font-semibold">
-                          {dailyGuesses.length}{" "}
-                          {dailyGuesses.length === 1 ? "guess" : "guesses"}
+                          {activeDailyState.evaluations.length}{" "}
+                          {activeDailyState.evaluations.length === 1
+                            ? "guess"
+                            : "guesses"}
                         </span>{" "}
                         for{" "}
-                        <span className="font-semibold">{dailyScore} points</span>.
+                        <span className="font-semibold">
+                          {activeDailyState.score} points
+                        </span>
+                        .
                       </>
                     ) : (
                       <>
-                        Out of guesses. Actual hammer price was{" "}
+                        Lot {dailySlot + 1}: Hammer price was{" "}
                         <span className="font-semibold">
-                          {formatSek(dailyLot.hammerPriceSek)}
+                          {formatSek(currentDailyLot.hammerPriceSek)}
                         </span>{" "}
-                        ({dailyScore} points).
+                        ({activeDailyState.score} points).
                       </>
                     )}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    Final hammer price: {formatSek(dailyLot.hammerPriceSek)}
+                    Hammer price: {formatSek(currentDailyLot.hammerPriceSek)} · Daily
+                    total: {dailyTotalScore} / 2 000 pts
                   </p>
                 </div>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="lg"
-                  onClick={handleCopyDailyResult}
-                  className="min-h-[44px]"
-                >
-                  <Icon icon={Copy} size="sm" />
-                  Copy result
-                </Button>
+
+                <div className="flex items-center gap-2.5 shrink-0">
+                  {!bothDailyFinished ? (
+                    <Button
+                      type="button"
+                      variant="default"
+                      size="lg"
+                      onClick={() =>
+                        handleSelectDailySlot(dailySlot === 0 ? 1 : 0)
+                      }
+                      className="min-h-[44px]"
+                    >
+                      {dailySlot === 0 ? "Next daily lot (2/2)" : "Play lot 1/2"}
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="lg"
+                      onClick={handleCopyDailyResult}
+                      className="min-h-[44px]"
+                    >
+                      <Icon icon={Copy} size="sm" />
+                      Copy result
+                    </Button>
+                  )}
+                </div>
               </div>
             )
           ) : !currentEndlessResult ? (

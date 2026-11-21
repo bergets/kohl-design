@@ -32,6 +32,20 @@ export function getDailyLotIndex(dateKey: string, totalLots: number): number {
   return hash % totalLots;
 }
 
+export function getDailyLotIndices(
+  dateKey: string,
+  totalLots: number
+): [number, number] {
+  const first = getDailyLotIndex(dateKey, totalLots);
+  let hash2 = 7;
+  for (let i = 0; i < dateKey.length; i += 1) {
+    hash2 = (hash2 * 37 + dateKey.charCodeAt(i)) >>> 0;
+  }
+  const offset = 1 + (hash2 % Math.max(1, totalLots - 1));
+  const second = (first + offset) % totalLots;
+  return [first, second];
+}
+
 export function getProximityBand(errorRatio: number): ProximityBand {
   if (errorRatio <= WIN_TOLERANCE_RATIO) return "hammered";
   if (errorRatio <= 0.15) return "very-close";
