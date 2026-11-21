@@ -156,6 +156,42 @@ export function AuctionGuesser() {
     };
   }, []);
 
+  const selectMode = React.useCallback((nextMode: GameMode | null) => {
+    setMode(nextMode);
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (nextMode) {
+      url.searchParams.set("mode", nextMode);
+      window.history.pushState({ mode: nextMode }, "", url.toString());
+    } else {
+      url.searchParams.delete("mode");
+      window.history.pushState({ mode: null }, "", url.toString());
+    }
+  }, []);
+
+  const handleBackToModes = React.useCallback(() => {
+    if (typeof window !== "undefined" && window.history.state?.mode) {
+      window.history.back();
+    } else {
+      selectMode(null);
+    }
+  }, [selectMode]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const syncFromUrl = () => {
+      const param = new URLSearchParams(window.location.search).get("mode");
+      if (param === "daily" || param === "endless") {
+        setMode(param);
+      } else {
+        setMode(null);
+      }
+    };
+    syncFromUrl();
+    window.addEventListener("popstate", syncFromUrl);
+    return () => window.removeEventListener("popstate", syncFromUrl);
+  }, []);
+
   React.useEffect(() => {
     const key = getTodayKey();
     setTodayKey(key);
@@ -369,7 +405,7 @@ export function AuctionGuesser() {
         <div className="divide-y divide-border/60 border-y border-border/60">
           <button
             type="button"
-            onClick={() => setMode("daily")}
+            onClick={() => selectMode("daily")}
             className="group w-full py-5 flex items-start justify-between gap-4 text-left transition-colors hover:bg-muted/30 px-2 -mx-2 rounded-[var(--radius)] cursor-pointer"
           >
             <div className="space-y-1">
@@ -395,7 +431,7 @@ export function AuctionGuesser() {
 
           <button
             type="button"
-            onClick={() => setMode("endless")}
+            onClick={() => selectMode("endless")}
             className="group w-full py-5 flex items-start justify-between gap-4 text-left transition-colors hover:bg-muted/30 px-2 -mx-2 rounded-[var(--radius)] cursor-pointer"
           >
             <div className="space-y-1">
@@ -467,7 +503,7 @@ export function AuctionGuesser() {
             type="button"
             variant="ghost"
             size="icon"
-            onClick={() => setMode(null)}
+            onClick={handleBackToModes}
             aria-label="Back to mode selection"
             className="size-9 -ml-2"
           >
