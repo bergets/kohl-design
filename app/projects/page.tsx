@@ -4,7 +4,7 @@ import { cooper } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Card } from "@/components/ui/card";
 import { PLAYGROUND_EXPERIMENTS } from "@/app/playground/experiments";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Gavel } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Side Projects & Playground — kohl.design",
@@ -19,7 +19,7 @@ const PROJECTS = [
       "The components, tokens, and themes powering this site, built on Tailwind v4 and shadcn/ui.",
     href: "/design-system",
     external: false,
-    actionText: "Open design system",
+    icon: "/icon.svg",
   },
   {
     title: "Köhlisar",
@@ -28,7 +28,7 @@ const PROJECTS = [
       "Calorie tracking, meal sharing, and collaborative recipe collections.",
     href: "https://kohlisar.vercel.app/",
     external: true,
-    actionText: "Open Köhlisar",
+    icon: "/logos/kohlisar-icon.svg",
   },
   {
     title: "Kohlala",
@@ -37,7 +37,7 @@ const PROJECTS = [
       "Simple nap, feed, and daily routine tracking for parents.",
     href: "https://nanny-agent-dun.vercel.app/",
     external: true,
-    actionText: "Open Kohlala",
+    icon: "/logos/kohlala-icon.svg",
   },
 ];
 
@@ -72,18 +72,23 @@ export default function ProjectsPage() {
                     href={experiment.href}
                     className="group flex items-start justify-between gap-4 p-5 sm:p-6 transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    <div className="space-y-1">
-                      <div className="flex items-baseline gap-2.5 flex-wrap">
-                        <span className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
-                          {experiment.title}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {experiment.status}
-                        </span>
+                    <div className="flex items-start gap-4">
+                      <div className="size-10 rounded-xl bg-muted border border-border/60 flex items-center justify-center shrink-0 mt-0.5 text-foreground">
+                        <Gavel className="size-4.5 stroke-[1.5]" />
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                        {experiment.summary}
-                      </p>
+                      <div className="space-y-1">
+                        <div className="flex items-baseline gap-2.5 flex-wrap">
+                          <span className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {experiment.title}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {experiment.status}
+                          </span>
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                          {experiment.summary}
+                        </p>
+                      </div>
                     </div>
                     <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1" />
                   </Link>
@@ -101,18 +106,25 @@ export default function ProjectsPage() {
               {PROJECTS.map((project) => {
                 const content = (
                   <>
-                    <div className="space-y-1.5">
-                      <div className="flex items-baseline gap-2.5 flex-wrap">
-                        <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
-                          {project.title}
-                        </h3>
-                        <span className="font-mono text-xs text-muted-foreground">
-                          {project.meta}
-                        </span>
+                    <div className="flex items-start gap-4">
+                      <img
+                        src={project.icon}
+                        alt=""
+                        className="size-10 rounded-xl object-cover shrink-0 mt-0.5 border border-border/50 shadow-2xs"
+                      />
+                      <div className="space-y-1.5">
+                        <div className="flex items-baseline gap-2.5 flex-wrap">
+                          <h3 className={`${cooper.className} text-xl sm:text-2xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#FCD3D6] transition-colors`}>
+                            {project.title}
+                          </h3>
+                          <span className="font-mono text-xs text-muted-foreground">
+                            {project.meta}
+                          </span>
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                          {project.description}
+                        </p>
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                        {project.description}
-                      </p>
                     </div>
                     <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1.5" />
                   </>
