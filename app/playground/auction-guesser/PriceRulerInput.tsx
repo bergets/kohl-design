@@ -112,8 +112,9 @@ function stepAuctionPrice(
   return snapAuctionPrice(current + direction * step, min, max);
 }
 
-const MINOR_TICK_POSITIONS = Array.from({ length: 21 }, (_, i) => i * 5);
-const TRACK_INSET_PX = 22;
+const RIB_SPACING_PX = 14;
+const RIB_INDICES = Array.from({ length: 48 }, (_, i) => i);
+const FULL_SWEEP_PX = 260;
 
 export interface PriceRulerInputProps {
   value: number;
@@ -135,13 +136,13 @@ export function PriceRulerInput({
   submitLabel,
   minPrice,
   maxPrice,
-  ticks,
   minBound = null,
   maxBound = null,
-  previousGuesses = [],
 }: PriceRulerInputProps) {
-  const trackRef = React.useRef<HTMLDivElement>(null);
+  const wheelRef = React.useRef<HTMLDivElement>(null);
   const lastValueRef = React.useRef<number>(value);
+  const dragStartXRef = React.useRef<number>(0);
+  const dragStartPercentRef = React.useRef<number>(0);
   const [isDragging, setIsDragging] = React.useState(false);
 
   const effectiveMin = minBound !== null ? Math.max(minPrice, minBound) : minPrice;
@@ -172,28 +173,20 @@ export function PriceRulerInput({
     lastValueRef.current = value;
   }, [value]);
 
-  const updateFromClientX = React.useCallback(
-    (clientX: number) => {
-      const el = trackRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const usableWidth = Math.max(1, rect.width - TRACK_INSET_PX * 2);
-      const pct = ((clientX - rect.left - TRACK_INSET_PX) / usableWidth) * 100;
-      const rawPrice = percentToPrice(pct, minPrice, maxPrice);
-      commitValue(clampToBounds(rawPrice));
-    },
-    [clampToBounds, commitValue, minPrice, maxPrice]
-  );
-
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     e.currentTarget.setPointerCapture(e.pointerId);
+    dragStartXRef.current = e.clientX;
+    dragStartPercentRef.current = priceToPercent(value, minPrice, maxPrice);
     setIsDragging(true);
-    updateFromClientX(e.clientX);
   }
 
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
     if (!isDragging) return;
-    updateFromClientX(e.clientX);
+    const dx = e.clientX - dragStartXRef.current;
+    const deltaPct = (dx / FULL_SWEEP_PX) * 100;
+    const nextPct = Math.max(0, Math.min(100, dragStartPercentRef.current + deltaPct));
+    const rawPrice = percentToPrice(nextPct, minPrice, maxPrice);
+    commitValue(clampToBounds(rawPrice));
   }
 
   function handlePointerUp(e: React.PointerEvent<HTMLDivElement>) {
@@ -215,14 +208,15 @@ export function PriceRulerInput({
     }
   }
 
-  const thumbPercent = priceToPercent(value, minPrice, maxPrice);
+  const currentPercent = priceToPercent(value, minPrice, maxPrice);
   const minBoundPercent =
     minBound !== null ? priceToPercent(minBound, minPrice, maxPrice) : 0;
   const maxBoundPercent =
     maxBound !== null ? priceToPercent(maxBound, minPrice, maxPrice) : 100;
 
-  const insetPos = (pct: number) =>
-    `calc(${TRACK_INSET_PX}px + (100% - ${TRACK_INSET_PX * 2}px) * ${pct / 100})`;
+  // Scroll the drum ribs proportionally to logarithmic progress
+  const drumOffsetPx = (currentPercent / 100) * FULL_SWEEP_PX;
+  const modOffset = ((drumOffsetPx % RIB_SPACING_PX) + RIB_SPACING_PX) % RIB_SPACING_PX;
 
   return (
     <div className="space-y-2.5">
@@ -261,122 +255,93 @@ export function PriceRulerInput({
         </Button>
       </div>
 
-      {/* Braun / Dieter Rams Precision Fader */}
-      <div className="space-y-1">
-        <div
-          ref={trackRef}
-          role="slider"
-          tabIndex={0}
-          aria-label="Auction price slider in SEK"
-          aria-valuemin={effectiveMin}
-          aria-valuemax={effectiveMax}
-          aria-valuenow={value}
-          aria-valuetext={formatSek(value)}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-          onKeyDown={handleKeyDown}
-          className={cn(
-            "group relative h-10 w-full rounded-[var(--radius-sm)] border bg-muted/70 touch-none select-none outline-none transition-colors duration-150",
-            "shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]",
-            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-            isDragging
-              ? "cursor-grabbing border-foreground/30"
-              : "cursor-grab border-border hover:border-foreground/25"
-          )}
-        >
-          {/* Ruled-out lower bound stop */}
-          {minBound !== null && minBoundPercent > 0 && (
-            <div
-              aria-hidden="true"
-              style={{ width: insetPos(minBoundPercent) }}
-              className="absolute inset-y-0 left-0 rounded-l-[var(--radius-sm)] bg-background/75 border-r border-foreground/20 pointer-events-none"
-            />
-          )}
-
-          {/* Ruled-out upper bound stop */}
-          {maxBound !== null && maxBoundPercent < 100 && (
-            <div
-              aria-hidden="true"
-              style={{ left: insetPos(maxBoundPercent), right: 0 }}
-              className="absolute inset-y-0 rounded-r-[var(--radius-sm)] bg-background/75 border-l border-foreground/20 pointer-events-none"
-            />
-          )}
-
-          {/* Printed Instrument Dial Ticks (Top Edge) */}
-          {MINOR_TICK_POSITIONS.map((pct) => (
-            <div
-              key={pct}
-              aria-hidden="true"
-              style={{ left: insetPos(pct) }}
-              className="absolute top-0 h-1.5 w-px bg-foreground/20 pointer-events-none"
-            />
-          ))}
-          {ticks.map((tick) => {
-            const pct = priceToPercent(tick.value, minPrice, maxPrice);
-            return (
-              <div
-                key={tick.value}
-                aria-hidden="true"
-                style={{ left: insetPos(pct) }}
-                className="absolute top-0 h-2 w-px bg-foreground/45 pointer-events-none"
-              />
-            );
-          })}
-
-          {/* Milled Center Channel */}
+      {/* Row 2: Braun / Dieter Rams Cylindrical Edge-Thumbwheel */}
+      <div className="space-y-1.5">
+        <div className="relative flex flex-col items-center">
+          {/* Fixed Braun Index Triangle */}
           <div
             aria-hidden="true"
-            style={{ left: `${TRACK_INSET_PX}px`, right: `${TRACK_INSET_PX}px` }}
-            className="absolute top-1/2 -translate-y-1/2 h-1.5 rounded-full bg-foreground/15 dark:bg-black/65 shadow-[inset_0_1px_1px_rgba(0,0,0,0.22)] pointer-events-none"
+            className="mb-1 h-0 w-0 border-x-[5px] border-x-transparent border-t-[6px] border-t-foreground"
           />
 
-          {/* Previous Guess Pins */}
-          {previousGuesses.map((guess, idx) => {
-            const pct = priceToPercent(guess, minPrice, maxPrice);
-            return (
-              <div
-                key={`${guess}-${idx}`}
-                aria-hidden="true"
-                style={{ left: insetPos(pct) }}
-                className="absolute bottom-1 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-foreground/40 pointer-events-none"
-              />
-            );
-          })}
-
-          {/* Braun Architectural Slider Cap */}
+          {/* Recessed Thumbwheel Drum */}
           <div
-            aria-hidden="true"
-            style={{ left: insetPos(thumbPercent) }}
+            ref={wheelRef}
+            role="slider"
+            tabIndex={0}
+            aria-label="Auction price thumbwheel in SEK"
+            aria-valuemin={effectiveMin}
+            aria-valuemax={effectiveMax}
+            aria-valuenow={value}
+            aria-valuetext={formatSek(value)}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+            onKeyDown={handleKeyDown}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-[3px] bg-card border pointer-events-none transition-[transform,box-shadow,border-color] duration-150",
-              "shadow-[0_3px_6px_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(0,0,0,0.08)]",
-              "dark:shadow-[0_3px_8px_rgba(0,0,0,0.55),0_1px_2px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.4)]",
+              "relative h-11 w-full rounded-[var(--radius-sm)] border bg-card touch-none select-none overflow-hidden outline-none transition-colors duration-150",
+              "shadow-[inset_0_2px_6px_rgba(0,0,0,0.16),inset_0_-1px_2px_rgba(0,0,0,0.08)]",
+              "dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.65),inset_0_-1px_3px_rgba(0,0,0,0.45)]",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               isDragging
-                ? "-translate-y-[53%] border-foreground/40 shadow-[0_7px_14px_rgba(0,0,0,0.22),0_2px_4px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.85)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.16)]"
-                : "border-border group-hover:border-foreground/30"
+                ? "cursor-grabbing border-foreground/40"
+                : "cursor-grab border-border hover:border-foreground/30"
             )}
           >
-            {/* Left Machined Grooves */}
-            <div className="flex items-center gap-[2px]">
-              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
-              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+            {/* Scrolling Machined Drum Ribs */}
+            <div
+              aria-hidden="true"
+              style={{ transform: `translate3d(${modOffset - RIB_SPACING_PX}px, 0, 0)` }}
+              className="absolute inset-y-0 -left-4 -right-4 flex items-center pointer-events-none"
+            >
+              {RIB_INDICES.map((i) => (
+                <div
+                  key={i}
+                  style={{ width: `${RIB_SPACING_PX}px` }}
+                  className="shrink-0 h-full flex items-center justify-center"
+                >
+                  <span className="h-6 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.6)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
+                </div>
+              ))}
             </div>
 
-            {/* Center Signal Index Hairline */}
-            <span className="mx-1.5 h-full w-[2px] bg-accent" />
+            {/* Cylindrical Edge Vignette Shading */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 pointer-events-none bg-[linear-gradient(90deg,rgba(0,0,0,0.14)_0%,transparent_22%,transparent_78%,rgba(0,0,0,0.14)_100%)] dark:bg-[linear-gradient(90deg,rgba(0,0,0,0.55)_0%,transparent_22%,transparent_78%,rgba(0,0,0,0.55)_100%)]"
+            />
 
-            {/* Right Machined Grooves */}
-            <div className="flex items-center gap-[2px]">
-              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
-              <span className="h-4 w-px bg-foreground/20 shadow-[1px_0_0_rgba(255,255,255,0.55)] dark:shadow-[1px_0_0_rgba(255,255,255,0.06)]" />
-            </div>
+            {/* Fixed Center Index Hairline */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-accent/80 pointer-events-none"
+            />
           </div>
+        </div>
+
+        {/* Subtle Range & Bracket Indicator Bar */}
+        <div
+          aria-hidden="true"
+          className="relative h-1 w-full rounded-full bg-muted overflow-hidden"
+        >
+          {/* Active bracket */}
+          <div
+            style={{
+              left: `${minBoundPercent}%`,
+              width: `${Math.max(0, maxBoundPercent - minBoundPercent)}%`,
+            }}
+            className="absolute inset-y-0 bg-foreground/20"
+          />
+          {/* Current position pip */}
+          <div
+            style={{ left: `${currentPercent}%` }}
+            className="absolute top-0 bottom-0 w-2 -translate-x-1/2 rounded-full bg-foreground"
+          />
         </div>
       </div>
 
-      {/* Row 3: Full-Width Submit Button Below Slider */}
+      {/* Row 3: Full-Width Submit Button Below Thumbwheel */}
       <Button
         type="button"
         variant="default"
