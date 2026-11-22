@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 const Tabs = TabsPrimitive.Root
 
-type TabsVariant = "default" | "underline" | "pills"
+type TabsVariant = "default" | "underline" | "pills" | "tactile"
 type TabsSize = "xs" | "sm" | "default" | "lg" | "xl"
 
 interface TabsListContextValue {
@@ -30,6 +30,8 @@ const tabsListVariants = cva(
           "border-b border-border w-full justify-start gap-1 bg-transparent p-0 rounded-none",
         pills:
           "gap-1.5 bg-transparent p-0",
+        tactile:
+          "bg-muted/80 p-1 text-muted-foreground rounded-full border border-border/70 [box-shadow:var(--shadow-track)]",
       },
       size: {
         xs: "h-7 p-0.5 rounded-[var(--radius-sm)]",
@@ -39,6 +41,12 @@ const tabsListVariants = cva(
         xl: "h-12 p-1.5 rounded-[var(--radius-lg)]",
       },
     },
+    compoundVariants: [
+      {
+        variant: "tactile",
+        className: "rounded-full",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",
@@ -57,6 +65,8 @@ const tabsTriggerVariants = cva(
           "border-b-2 border-transparent -mb-px text-muted-foreground hover:text-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:font-semibold",
         pills:
           "rounded-full text-muted-foreground hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold",
+        tactile:
+          "rounded-full text-muted-foreground hover:text-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-border/60 data-[state=active]:[box-shadow:var(--shadow-bezel)]",
       },
       size: {
         xs: "text-[11px] px-2 gap-1 [&_svg:not([class*='size-'])]:size-3",

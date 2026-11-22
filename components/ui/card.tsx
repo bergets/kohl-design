@@ -12,13 +12,13 @@ const cardVariants = cva(
         default:
           "bg-card border border-border shadow-xs",
         elevated:
-          "bg-card border border-border/80 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.45)]",
+          "bg-card border border-border/80 [box-shadow:0_2px_8px_-2px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04),var(--specular-rim)] dark:[box-shadow:0_4px_16px_-4px_rgba(0,0,0,0.45),var(--specular-rim)]",
         interactive:
           "bg-card border border-border shadow-xs hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.995] cursor-pointer",
         sunken:
           "bg-muted/50 border border-border/70 text-foreground",
         glass:
-          "bg-background/80 border border-border/80 backdrop-blur-md shadow-xs text-foreground",
+          "bg-background/80 border border-border/80 backdrop-blur-md [box-shadow:0_1px_2px_rgba(0,0,0,0.05),var(--specular-rim)] text-foreground",
       },
       size: {
         default: "rounded-[var(--radius)] p-6 gap-6",

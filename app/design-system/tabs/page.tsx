@@ -23,7 +23,7 @@ export default function TabsPage() {
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
 
   // Playground state
-  const [selectedVariant, setSelectedVariant] = React.useState<"default" | "underline" | "pills">("default");
+  const [selectedVariant, setSelectedVariant] = React.useState<"default" | "underline" | "pills" | "tactile">("default");
   const [selectedSize, setSelectedSize] = React.useState<"xs" | "sm" | "default" | "lg" | "xl">("default");
   const [activeTab, setActiveTab] = React.useState("overview");
 
@@ -101,8 +101,8 @@ export default function TabsPage() {
           <Card variant="default" className="lg:col-span-4 p-5 space-y-5">
             <div className="space-y-2">
               <label className="text-xs font-semibold text-foreground">Variant</label>
-              <div className="grid grid-cols-3 gap-1.5">
-                {(["default", "underline", "pills"] as const).map((v) => (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                {(["default", "underline", "pills", "tactile"] as const).map((v) => (
                   <button
                     key={v}
                     type="button"

@@ -46,7 +46,7 @@ const BottomBarList = React.forwardRef<
     ref={ref}
     role="tablist"
     className={cn(
-      "flex items-center gap-0.5 rounded-full border border-border/50 bg-background/60 dark:bg-card/60 p-1 backdrop-blur-md shadow-lg",
+      "flex items-center gap-0.5 rounded-full border border-border/50 bg-background/60 dark:bg-card/60 p-1 backdrop-blur-md [box-shadow:0_10px_25px_-5px_rgba(0,0,0,0.12),var(--specular-rim)] dark:[box-shadow:0_10px_25px_-5px_rgba(0,0,0,0.5),var(--specular-rim)]",
       className
     )}
     {...props}
