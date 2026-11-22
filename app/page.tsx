@@ -38,6 +38,14 @@ const DIRECTORY_CHAPTERS: ChapterItem[] = [
   },
 ];
 
+const HOME_NOTES = [
+  {
+    title: "Compound Design",
+    date: "Nov 22, 2026",
+    href: "/notes/compound-design",
+  },
+];
+
 export default function Home() {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -220,8 +228,41 @@ export default function Home() {
       */}
       <section
         id="realms"
-        className="w-full py-20 sm:py-28 px-6 sm:px-8 md:px-12 lg:px-14 bg-pine-50/20 dark:bg-[#011612]/30 backdrop-blur-xs border-t border-border/70 dark:border-pine-400/20"
+        className="w-full py-20 sm:py-28 px-6 sm:px-8 md:px-12 lg:px-14 bg-pine-50/20 dark:bg-[#011612]/30 backdrop-blur-xs border-t border-border/70 dark:border-pine-400/20 space-y-16 sm:space-y-20"
       >
+        <div className="w-full max-w-5xl mx-auto space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
+              Notes
+            </h3>
+
+            <Link
+              href="/notes"
+              className="text-xs sm:text-sm font-medium text-pine-700 dark:text-[#8AD0BE] hover:text-primary dark:hover:text-white transition-colors"
+            >
+              All notes →
+            </Link>
+          </div>
+
+          <div className="border-t border-border/80 dark:border-pine-500/30 divide-y divide-border/60 dark:divide-pine-500/20">
+            {HOME_NOTES.map((note) => (
+              <Link
+                key={note.href}
+                href={note.href}
+                className="group flex items-baseline justify-between py-5 sm:py-6 gap-4 hover:pl-2 transition-all duration-200"
+              >
+                <h4 className={`${cooper.className} text-xl sm:text-2xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-pine-200 transition-colors`}>
+                  {note.title}
+                </h4>
+
+                <span className="shrink-0 font-mono text-xs text-pine-600 dark:text-[#8AD0BE]">
+                  {note.date}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         <div className="w-full max-w-5xl mx-auto space-y-8">
           <div className="flex items-center justify-between">
             <h3 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
