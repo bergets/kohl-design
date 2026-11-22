@@ -81,7 +81,7 @@ export default function Home() {
         {/* Bottom Bar: Explore Cue & Edition */}
         <div className="w-full relative z-10 flex items-center justify-between pt-6 border-t border-border/40 dark:border-pine-400/20 max-w-7xl">
           <a
-            href="#realms"
+            href="#intro"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-pine-700 dark:text-[#6FB4A3] hover:text-primary dark:hover:text-white transition-colors"
           >
             <span>Explore</span>
@@ -96,7 +96,127 @@ export default function Home() {
 
       {/* 
         ========================================================================
-        2. REALMS & SITE DIRECTORY (SCANDINAVIAN TYPOGRAPHIC TABLE)
+        2. ABOUT & WORK SUMMARY
+        ========================================================================
+      */}
+      <section
+        id="intro"
+        className="w-full py-20 sm:py-28 px-6 sm:px-8 md:px-12 lg:px-14 border-t border-border/70 dark:border-pine-400/20"
+      >
+        <div className="w-full max-w-5xl mx-auto">
+          <div className="max-w-xl space-y-6">
+            <div className="space-y-1">
+              <h2 className="text-base sm:text-lg font-medium text-pine-900 dark:text-white">
+                Henrik Kohl
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Updated Nov 2026
+              </p>
+            </div>
+
+            <div className="space-y-5 text-base sm:text-[17px] leading-relaxed text-pine-900/90 dark:text-neutral-200">
+              <p>
+                I live in Stockholm with my family and two kids.
+              </p>
+
+              <p>
+                I currently work at{" "}
+                <a
+                  href="https://www.quinyx.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  Quinyx
+                </a>{" "}
+                as Product Area Design Lead, leading design for the core scheduling experience.
+              </p>
+
+              <p>
+                Previously, I spent nearly six years at{" "}
+                <Link
+                  href="/work"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  Aditro
+                </Link>{" "}
+                designing mobile HR self-service apps used by 80,000+ people and stepping in as interim PM before it was acquired by{" "}
+                <a
+                  href="https://www.sdworx.com/en-en/aditro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  SD Worx
+                </a>
+                . Before that, I worked at agencies on products for MediaTek, Libero, Vera &amp; John, and Nordnet.
+              </p>
+
+              <p>
+                Outside of work, I build small web apps and tools like{" "}
+                <a
+                  href="https://kohlisar.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  Köhlisar
+                </a>
+                ,{" "}
+                <a
+                  href="https://nanny-agent-dun.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  Kohlala
+                </a>
+                , and the{" "}
+                <Link
+                  href="/design-system"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  kohl.design
+                </Link>{" "}
+                system.
+              </p>
+
+              <p>
+                You can find me on{" "}
+                <a
+                  href="https://linkedin.com/in/henrikkohl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  LinkedIn
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://github.com/bergets"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  GitHub
+                </a>
+                , or read more about{" "}
+                <Link
+                  href="/work"
+                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                >
+                  my work
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 
+        ========================================================================
+        3. REALMS & SITE DIRECTORY (SCANDINAVIAN TYPOGRAPHIC TABLE)
         ========================================================================
       */}
       <section
