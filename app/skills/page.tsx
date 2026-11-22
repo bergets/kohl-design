@@ -10,6 +10,7 @@ interface SkillItem {
 }
 
 const SKILLS: SkillItem[] = [
+  { name: "compound-design", href: "https://github.com/bergets/skills", external: true },
   { name: "emil-design-eng", href: "https://emilkowal.ski", external: true },
   { name: "apple-design", href: "https://developer.apple.com/design", external: true },
   { name: "pen-dev", href: "https://pen.dev", external: true },
