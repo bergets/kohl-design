@@ -53,10 +53,13 @@ export default function CompoundDesignNotePage() {
             </p>
 
             <p>
-              When you design with an LLM, you end up giving the same feedback
-              over and over. Use lighter borders. Don&apos;t wrap every list in
-              a card. Skip the big stat boxes. Those decisions usually stay
-              stuck in that one chat, so you have to repeat yourself next time.
+              You rarely have all the design rules figured out from the start. A
+              system forms as you actually start designing and people start
+              experiencing it. When you work with an LLM, you end up giving the
+              same feedback over and over. Use lighter borders. Don&apos;t wrap
+              every list in a card. Skip the big stat boxes. Those decisions
+              usually stay stuck in that one chat, so you have to repeat
+              yourself next time.
             </p>
 
             <p>
