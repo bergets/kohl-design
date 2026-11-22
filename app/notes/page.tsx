@@ -23,7 +23,7 @@ const NOTES: NoteItem[] = [
     date: "Nov 22, 2026",
     readingTime: "2 min read",
     snippet:
-      "A skill that plugs into any design system to extract rules, taste decisions, and anti-patterns from LLM conversations—so your system compounds over time.",
+      "A small skill that pulls design rules and anti-patterns out of your LLM chats and saves them to your design system, so you stop repeating yourself.",
   },
 ];
 
