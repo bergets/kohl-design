@@ -100,7 +100,7 @@
   --radius: 0.5rem;
 
   /* Light Mode (New Brand Colors) */
-  --background: #ffffff;
+  --background: hsla(160, 30%, 96%, 1);
   --foreground: hsla(168, 94%, 6%, 1);
 
   --card: #ffffff;

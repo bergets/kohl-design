@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { cooper } from "./fonts";
 import { SiteHeader } from "@/components/SiteHeader";
+import BackgroundShader from "@/components/BackgroundShader";
 import { BrandFlower } from "@/components/BrandFlower";
 import { Icon } from "@/components/ui/icon";
 import { ArrowUpRight } from "lucide-react";
@@ -44,55 +45,53 @@ export default function Home() {
     <div ref={containerRef} className="relative z-10 w-full min-h-dvh flex flex-col">
       {/* 
         ========================================================================
-        STICKY NAVIGATION HEADER
+        1. HERO SECTION: EXCEED EXPECTATIONS & CTA (WITH SHADER BACKGROUND)
         ========================================================================
       */}
-      <SiteHeader />
+      <div className="relative overflow-hidden">
+        <BackgroundShader />
+        <SiteHeader />
 
-      {/* 
-        ========================================================================
-        1. HERO SECTION: EXCEED EXPECTATIONS & CTA
-        ========================================================================
-      */}
-      <section className="min-h-[calc(100dvh-5rem)] w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-12 sm:pb-16 relative overflow-hidden">
-        {/* Hero Headline & CTA */}
-        <div className="my-auto py-12 sm:py-20 w-full relative z-10 max-w-6xl space-y-6 sm:space-y-8">
-          <h1
-            className={`${cooper.className} text-5xl sm:text-7xl md:text-8xl lg:text-[100px] xl:text-[116px] leading-[0.95] font-normal tracking-tight text-pine-900 dark:text-white transition-colors duration-300 max-w-5xl`}
-          >
-            Exceed expectations.
-          </h1>
+        <section className="min-h-[calc(100dvh-5rem)] w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-12 sm:pb-16 relative">
+          {/* Hero Headline & CTA */}
+          <div className="my-auto py-12 sm:py-20 w-full relative z-10 max-w-6xl space-y-6 sm:space-y-8">
+            <h1
+              className={`${cooper.className} text-5xl sm:text-7xl md:text-8xl lg:text-[100px] xl:text-[116px] leading-[0.95] font-normal tracking-tight text-pine-900 dark:text-white transition-colors duration-300 max-w-5xl`}
+            >
+              Exceed expectations.
+            </h1>
 
-          <div className="space-y-2 max-w-2xl">
-            <p className="text-xl sm:text-2xl md:text-3xl text-pine-800 dark:text-[#A8E3D2]">
-              It’s great business.{" "}
-              <a
-                href="https://linkedin.com/in/henrikkohl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-6 font-semibold text-pine-950 dark:text-white hover:text-primary dark:hover:text-[#8AD0BE] transition-colors inline-block"
-              >
-                Say hi on LinkedIn ↗
-              </a>
-            </p>
+            <div className="space-y-2 max-w-2xl">
+              <p className="text-xl sm:text-2xl md:text-3xl text-pine-800 dark:text-[#A8E3D2]">
+                It’s great business.{" "}
+                <a
+                  href="https://linkedin.com/in/henrikkohl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-6 font-semibold text-pine-950 dark:text-white hover:text-primary dark:hover:text-[#8AD0BE] transition-colors inline-block"
+                >
+                  Say hi on LinkedIn ↗
+                </a>
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Bottom Bar: Explore Cue & Edition */}
-        <div className="w-full relative z-10 flex items-center justify-between pt-6 border-t border-border/40 dark:border-pine-400/20 max-w-7xl">
-          <a
-            href="#intro"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-pine-700 dark:text-[#6FB4A3] hover:text-primary dark:hover:text-white transition-colors"
-          >
-            <span>Explore</span>
-            <span className="text-base animate-bounce">↓</span>
-          </a>
+          {/* Bottom Bar: Explore Cue & Edition */}
+          <div className="w-full relative z-10 flex items-center justify-between pt-6 border-t border-border/40 dark:border-pine-400/20 max-w-7xl">
+            <a
+              href="#intro"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-pine-700 dark:text-[#6FB4A3] hover:text-primary dark:hover:text-white transition-colors"
+            >
+              <span>Explore</span>
+              <span className="text-base animate-bounce">↓</span>
+            </a>
 
-          <div className="font-mono text-xs font-semibold tracking-[0.2em] uppercase text-pine-600 dark:text-[#8AD0BE] select-none">
-            EDITION 2026 · STOCKHOLM
+            <div className="font-mono text-xs font-semibold tracking-[0.2em] uppercase text-pine-600 dark:text-[#8AD0BE] select-none">
+              EDITION 2026 · STOCKHOLM
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* 
         ========================================================================

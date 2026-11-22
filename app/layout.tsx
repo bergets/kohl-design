@@ -3,8 +3,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-import BackgroundShader from "@/components/BackgroundShader";
-
 import { dmSans, cooper } from "./fonts";
 
 
@@ -51,7 +49,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <BackgroundShader />
           {children}
           <Toaster />
         </ThemeProvider>
