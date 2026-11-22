@@ -2,13 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cooper } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
-import { Button } from "@/components/ui/button";
+import { InstallBar } from "./InstallBar";
 
 export const metadata: Metadata = {
   title: "Compound Design — kohl.design",
   description:
-    "Extracting design rules and taste decisions from LLM conversations so your design system compounds over time.",
+    "A small skill that pulls design rules and anti-patterns out of your LLM chats and saves them to your design system.",
 };
+
+const STEPS = [
+  {
+    step: "1. Design & critique",
+    detail: "Work through layouts and give feedback like you normally do.",
+  },
+  {
+    step: "2. Extract rules",
+    detail: "Pull out the taste decisions and anti-patterns you landed on.",
+  },
+  {
+    step: "3. Write to system",
+    detail: "Save them into AGENTS.md or design-system.md for next time.",
+  },
+];
 
 export default function CompoundDesignNotePage() {
   return (
@@ -35,32 +50,73 @@ export default function CompoundDesignNotePage() {
             </p>
           </div>
 
-          <div className="border-t border-border/60 pt-8 space-y-5 font-sans text-base text-foreground/90 leading-relaxed">
-            <p>
-              I put together a small agent skill called{" "}
-              <strong className="font-semibold text-foreground">
-                compound-design
-              </strong>
-              . It plugs into whatever design system you use—an{" "}
-              <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
-                AGENTS.md
-              </code>
-              , a{" "}
-              <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
-                design-system.md
-              </code>
-              , or just a notes file.
-            </p>
+          <div className="border-t border-border/60 pt-8 space-y-8 font-sans text-base text-foreground/90 leading-relaxed">
+            <div className="space-y-5">
+              <p>
+                I put together a small agent skill called{" "}
+                <strong className="font-semibold text-foreground">
+                  compound-design
+                </strong>
+                . It plugs into whatever design system you use—an{" "}
+                <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
+                  AGENTS.md
+                </code>
+                , a{" "}
+                <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
+                  design-system.md
+                </code>
+                , or just a notes file.
+              </p>
+
+              <InstallBar />
+            </div>
+
+            <blockquote className="rounded-xl bg-muted/40 border border-border/60 p-5 space-y-1.5">
+              <p className="text-xs font-mono text-muted-foreground">
+                The idea
+              </p>
+              <p className="text-sm sm:text-base text-foreground leading-relaxed">
+                You rarely have all the design rules figured out from the
+                start. A system forms as you actually start designing and people
+                start experiencing it.
+              </p>
+            </blockquote>
 
             <p>
-              You rarely have all the design rules figured out from the start. A
-              system forms as you actually start designing and people start
-              experiencing it. When you work with an LLM, you end up giving the
-              same feedback over and over. Use lighter borders. Don&apos;t wrap
-              every list in a card. Skip the big stat boxes. Those decisions
-              usually stay stuck in that one chat, so you have to repeat
-              yourself next time.
+              When you work with an LLM, you end up giving the same feedback
+              over and over. Use lighter borders. Don&apos;t wrap every list in
+              a card. Skip the big stat boxes. Those decisions usually stay
+              stuck in that one chat, so you have to repeat yourself next time.
             </p>
+
+            {/* Side-by-side comparison */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded-xl bg-muted/30 border border-border/60 p-5 space-y-2.5">
+                <p className="text-xs font-mono text-muted-foreground">
+                  In the chat
+                </p>
+                <p className="text-sm text-foreground/85 leading-relaxed">
+                  &ldquo;Make the borders lighter. Don&apos;t wrap every list in
+                  a card. Skip the big stat boxes.&rdquo;
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-muted/60 border border-border/60 p-5 space-y-2.5">
+                <p className="text-xs font-mono text-foreground">
+                  Saved to AGENTS.md
+                </p>
+                <ul className="space-y-2 text-sm text-foreground/90 leading-relaxed">
+                  <li>
+                    Use hairline dividers (
+                    <code className="font-mono text-xs bg-background/80 px-1 py-0.5 rounded">
+                      divide-y divide-border/60
+                    </code>
+                    ) before reaching for a Card.
+                  </li>
+                  <li>Never build 3-column stat boxes with giant numbers.</li>
+                </ul>
+              </div>
+            </div>
 
             <p>
               This skill fixes that. After a design session, it reads through
@@ -69,21 +125,22 @@ export default function CompoundDesignNotePage() {
               time you start a chat, it already knows your taste.
             </p>
 
-            <div className="pt-3 space-y-4">
-              <div className="rounded-lg bg-muted/60 border border-border/60 px-4 py-3 font-mono text-xs sm:text-sm text-foreground">
-                npx skills add bergets/skills
-              </div>
-
-              <div>
-                <Button asChild variant="default">
-                  <a
-                    href="https://github.com/bergets/skills"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View on GitHub ↗
-                  </a>
-                </Button>
+            {/* 3-step strip */}
+            <div className="border-t border-border/60 pt-6 space-y-4">
+              <p className="text-xs font-mono text-muted-foreground">
+                How a session compounds
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {STEPS.map((item) => (
+                  <div key={item.step} className="space-y-1">
+                    <p className="text-sm font-medium text-foreground">
+                      {item.step}
+                    </p>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {item.detail}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
