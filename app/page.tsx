@@ -27,9 +27,9 @@ const DIRECTORY_CHAPTERS: ChapterItem[] = [
     href: "/skills",
   },
   {
-    title: "Notes",
-    subtitle: "Short posts on design and building things",
-    href: "/notes",
+    title: "Work",
+    subtitle: "Selected product design work and case studies",
+    href: "/work",
   },
   {
     title: "About",
