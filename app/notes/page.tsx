@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { cooper } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -9,12 +10,22 @@ export const metadata: Metadata = {
 
 interface NoteItem {
   title: string;
+  href: string;
   date: string;
   readingTime: string;
   snippet: string;
 }
 
-const NOTES: NoteItem[] = [];
+const NOTES: NoteItem[] = [
+  {
+    title: "Compound Design",
+    href: "/notes/compound-design",
+    date: "Nov 22, 2026",
+    readingTime: "2 min read",
+    snippet:
+      "A skill that plugs into any design system to extract rules, taste decisions, and anti-patterns from LLM conversations—so your system compounds over time.",
+  },
+];
 
 export default function NotesPage() {
   return (
@@ -43,24 +54,27 @@ export default function NotesPage() {
             </p>
           ) : (
             NOTES.map((note) => (
-              <article
+              <Link
                 key={note.title}
-                className="group py-6 sm:py-8 space-y-2 cursor-pointer transition-colors"
+                href={note.href}
+                className="block group py-6 sm:py-8 space-y-2 transition-colors"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-colors`}>
-                    {note.title}
-                  </h2>
-                </div>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
-                  {note.snippet}
-                </p>
-                <div className="flex items-center gap-3 pt-1 text-xs font-mono text-muted-foreground/70">
-                  <span>{note.date}</span>
-                  <span>·</span>
-                  <span>{note.readingTime}</span>
-                </div>
-              </article>
+                <article className="space-y-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <h2 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white group-hover:text-primary dark:group-hover:text-[#A8E3D2] transition-colors`}>
+                      {note.title}
+                    </h2>
+                  </div>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
+                    {note.snippet}
+                  </p>
+                  <div className="flex items-center gap-3 pt-1 text-xs font-mono text-muted-foreground/70">
+                    <span>{note.date}</span>
+                    <span>·</span>
+                    <span>{note.readingTime}</span>
+                  </div>
+                </article>
+              </Link>
             ))
           )}
         </div>
