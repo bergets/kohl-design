@@ -35,39 +35,38 @@ export default function CompoundDesignNotePage() {
             </p>
           </div>
 
-          <div className="border-t border-border/60 pt-8 space-y-6 font-sans text-base text-foreground/90 leading-relaxed">
+          <div className="border-t border-border/60 pt-8 space-y-5 font-sans text-base text-foreground/90 leading-relaxed">
             <p>
-              Every time you design or critique UI with an LLM, small taste
-              decisions surface—how tight a toolbar should feel, when to use a
-              hairline divider instead of a card, or what visual clutter to
-              avoid. Normally, those insights evaporate the moment the
-              conversation ends.
-            </p>
-
-            <p>
+              I put together a small agent skill called{" "}
               <strong className="font-semibold text-foreground">
-                Compound Design
-              </strong>{" "}
-              is a simple skill built to close that loop. It plugs into any
-              design system—whether that is{" "}
+                compound-design
+              </strong>
+              . It plugs into whatever design system you use—an{" "}
               <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
                 AGENTS.md
               </code>
-              ,{" "}
+              , a{" "}
               <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
                 design-system.md
               </code>
-              , or your own token documentation—and extracts the rules,
-              anti-patterns, and visual decisions from a session so every future
-              prompt starts from a higher baseline.
+              , or just a notes file.
             </p>
 
             <p>
-              Instead of repeating the same feedback across chats, your design
-              system quietly compounds with every iteration.
+              When you design with an LLM, you end up giving the same feedback
+              over and over. Use lighter borders. Don&apos;t wrap every list in
+              a card. Skip the big stat boxes. Those decisions usually stay
+              stuck in that one chat, so you have to repeat yourself next time.
             </p>
 
-            <div className="pt-2 space-y-4">
+            <p>
+              This skill fixes that. After a design session, it reads through
+              the conversation, pulls out the rules and anti-patterns you
+              landed on, and writes them back into your design system. Next
+              time you start a chat, it already knows your taste.
+            </p>
+
+            <div className="pt-3 space-y-4">
               <div className="rounded-lg bg-muted/60 border border-border/60 px-4 py-3 font-mono text-xs sm:text-sm text-foreground">
                 npx skills add bergets/skills
               </div>
