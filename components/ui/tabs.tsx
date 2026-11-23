@@ -31,7 +31,7 @@ const tabsListVariants = cva(
         pills:
           "gap-1.5 bg-transparent p-0",
         tactile:
-          "bg-muted/80 p-1 text-muted-foreground rounded-full border border-border/70 [box-shadow:var(--shadow-track)]",
+          "bg-muted/90 dark:bg-muted/80 p-1 text-muted-foreground rounded-full border border-border/70 dark:border-pine-400/20 [box-shadow:var(--shadow-track)]",
       },
       size: {
         xs: "h-7 p-0.5 rounded-[var(--radius-sm)]",
@@ -66,7 +66,7 @@ const tabsTriggerVariants = cva(
         pills:
           "rounded-full text-muted-foreground hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:font-semibold",
         tactile:
-          "rounded-full text-muted-foreground hover:text-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-border/60 data-[state=active]:[box-shadow:var(--shadow-bezel)]",
+          "rounded-full text-muted-foreground hover:text-foreground data-[state=active]:bg-secondary/90 dark:data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:font-semibold data-[state=active]:border data-[state=active]:border-border/80 dark:data-[state=active]:border-pine-400/30 data-[state=active]:[box-shadow:var(--shadow-bezel)]",
       },
       size: {
         xs: "text-[11px] px-2 gap-1 [&_svg:not([class*='size-'])]:size-3",
