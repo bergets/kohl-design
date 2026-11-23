@@ -33,13 +33,13 @@ export function SignatureStamp() {
           <motion.div
             key={stampCount}
             exit={{ opacity: 0, transition: { duration: 0.12 } }}
-            className="inline-flex flex-col items-stretch max-w-full"
+            className="relative inline-block max-w-full pb-2.5"
           >
             <motion.p
               initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
               animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="font-cooper italic text-xl sm:text-2xl text-pine-900 dark:text-white leading-snug"
+              className="font-cooper italic text-lg sm:text-2xl text-pine-900 dark:text-white leading-snug"
             >
               {currentPhrase}
             </motion.p>
@@ -49,7 +49,7 @@ export function SignatureStamp() {
               preserveAspectRatio="none"
               fill="none"
               aria-hidden="true"
-              className="w-full h-2.5 mt-0.5 text-emblem/80 overflow-visible"
+              className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-2.5 text-emblem/80 overflow-visible"
             >
               <motion.path
                 d="M2 6 C42 2, 110 2, 178 5"
