@@ -32,8 +32,7 @@ const DRIFT_PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   duration: 3.4 + (i % 4) * 0.45,
   sway: i % 2 === 0 ? 22 : -22,
   rotate: i % 2 === 0 ? 140 : -140,
-  isFlower: i % 3 === 0,
-  sizeClass: i % 5 === 0 ? "size-3.5" : "size-2.5",
+  sizeClass: i % 3 === 0 ? "size-3.5" : i % 2 === 0 ? "size-3" : "size-2.5",
 }));
 
 export function SignatureStamp() {
@@ -212,13 +211,9 @@ export function SignatureStamp() {
                       }}
                       className="absolute top-0"
                     >
-                      {p.isFlower ? (
-                        <BrandFlower
-                          className={`${p.sizeClass} text-emblem/70`}
-                        />
-                      ) : (
-                        <span className="block size-1.5 rounded-full bg-emblem/50 dark:bg-pine-200/50" />
-                      )}
+                      <BrandFlower
+                        className={`${p.sizeClass} text-emblem/70`}
+                      />
                     </motion.span>
                   ))}
                 </div>
