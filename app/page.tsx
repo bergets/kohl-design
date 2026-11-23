@@ -262,8 +262,6 @@ export default function Home() {
             <h3 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
               More
             </h3>
-
-            <BrandFlower className="size-8 text-pine-700 dark:text-[#8AD0BE] shrink-0" />
           </div>
 
           <div className="border-t border-border/80 dark:border-pine-500/30 divide-y divide-border/60 dark:divide-pine-500/20">
