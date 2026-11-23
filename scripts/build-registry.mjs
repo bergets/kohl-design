@@ -620,3 +620,13 @@ fs.writeFileSync(
   "utf8"
 );
 console.log(`Generated public/r/index.json (${registryItems.length} items)`);
+
+// Publish AGENTS.md and design-system.md so consumer projects can fetch them directly
+for (const docFile of ["AGENTS.md", "design-system.md"]) {
+  fs.copyFileSync(
+    path.resolve(rootDir, docFile),
+    path.resolve(rootDir, "public", docFile)
+  );
+  console.log(`Published public/${docFile}`);
+}
+

@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SetupPromptCard } from "./SetupPromptCard";
 
 export default function DesignSystemIndexPage() {
   return (
@@ -35,6 +36,8 @@ export default function DesignSystemIndexPage() {
           A high-craft design system built for utilitarian consumer and productivity applications. Rooted in Midnight Forest Pine, warm Crimson Coral accents, Cooper editorial headlines, and 5-layer elevation.
         </p>
       </div>
+
+      <SetupPromptCard />
 
       {/* Foundations Quick Access */}
       <section className="space-y-4">
