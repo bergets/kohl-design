@@ -236,13 +236,6 @@ export default function Home() {
             <h3 className={`${cooper.className} text-2xl sm:text-3xl font-normal text-pine-900 dark:text-white`}>
               Notes
             </h3>
-
-            <Link
-              href="/notes"
-              className="text-xs sm:text-sm font-medium text-pine-700 dark:text-[#8AD0BE] hover:text-primary dark:hover:text-white transition-colors"
-            >
-              All notes →
-            </Link>
           </div>
 
           <div className="border-t border-border/80 dark:border-pine-500/30 divide-y divide-border/60 dark:divide-pine-500/20">
