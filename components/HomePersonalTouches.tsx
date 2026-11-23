@@ -28,41 +28,42 @@ export function SignatureStamp() {
 
   return (
     <div className="pt-5 flex items-center justify-between gap-4 border-t border-border/60">
-      <div className="min-w-0 flex flex-col gap-1.5">
-        <div className="relative inline-block w-fit max-w-full">
-          <AnimatePresence mode="wait">
+      <div className="min-w-0 flex flex-col items-start gap-1.5">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={stampCount}
+            exit={{ opacity: 0, transition: { duration: 0.12 } }}
+            className="inline-flex flex-col items-stretch max-w-full"
+          >
             <motion.p
-              key={stampCount}
               initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
               animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.12 } }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="font-cooper italic text-xl sm:text-2xl text-pine-900 dark:text-white leading-snug"
             >
               {currentPhrase}
             </motion.p>
-          </AnimatePresence>
 
-          <svg
-            key={`flourish-${stampCount}`}
-            viewBox="0 0 180 10"
-            preserveAspectRatio="none"
-            fill="none"
-            aria-hidden="true"
-            className="w-full h-2.5 mt-0.5 text-emblem/80 overflow-visible"
-          >
-            <motion.path
-              d="M2 6 C42 2, 110 2, 178 5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              vectorEffect="non-scaling-stroke"
-              strokeLinecap="round"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </svg>
-        </div>
+            <svg
+              viewBox="0 0 180 10"
+              preserveAspectRatio="none"
+              fill="none"
+              aria-hidden="true"
+              className="w-full h-2.5 mt-0.5 text-emblem/80 overflow-visible"
+            >
+              <motion.path
+                d="M2 6 C42 2, 110 2, 178 5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                vectorEffect="non-scaling-stroke"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </svg>
+          </motion.div>
+        </AnimatePresence>
 
         <span className="font-mono text-[11px] text-muted-foreground">
           Stockholm · Nov 2026

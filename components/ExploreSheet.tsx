@@ -183,15 +183,16 @@ export function ExploreSheet() {
                   Explore
                 </span>
 
-                <button
+                <Button
                   type="button"
+                  variant="tactile"
+                  size="icon-lg"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close menu"
-                  className="group inline-flex items-center gap-1.5 h-8 px-2.5 rounded-[var(--radius-sm)] border border-border/80 dark:border-[#3B7D6F]/60 bg-transparent hover:bg-neutral-100 dark:hover:bg-black/30 transition-all cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground active:scale-95"
+                  className="group text-pine-900 dark:text-emblem hover:text-primary dark:hover:text-white"
                 >
-                  <X className="size-3.5 transition-transform group-hover:rotate-90" />
-                  <span>Close</span>
-                </button>
+                  <X className="size-4 transition-transform group-hover:rotate-90" strokeWidth={1.5} />
+                </Button>
               </div>
 
               {/* Navigation List */}
