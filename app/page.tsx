@@ -141,7 +141,7 @@ export default function Home() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="space-y-1">
                   <h2 className="text-base sm:text-lg font-medium text-pine-900 dark:text-white">
-                    Henrik Kohl
+                    Henrik Köhl
                   </h2>
                   <p className="text-sm text-muted-foreground">
                     Updated Nov 2026
@@ -365,7 +365,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <BrandFlower className="size-4 text-pine-600 dark:text-[#8AD0BE]" />
               <span className="font-mono text-pine-600 dark:text-[#6FB4A3]">
-                kohl.design · Henrik Kohl · Stockholm, Sweden
+                kohl.design · Henrik Köhl · Stockholm, Sweden
               </span>
             </div>
 
