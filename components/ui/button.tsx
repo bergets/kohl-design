@@ -1,9 +1,12 @@
+"use client"
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { playTactileClick } from "@/lib/tactile-sound"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius)] font-sans font-medium text-sm transition-all duration-150 ease-out outline-none select-none cursor-pointer disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] disabled:active:scale-100 shrink-0 [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -71,6 +74,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       loading = false,
       disabled,
+      onClick,
       children,
       ...props
     },
@@ -78,6 +82,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : "button"
     const isDisabled = disabled || loading
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (variant === "tactile" && !isDisabled) {
+        playTactileClick()
+      }
+      onClick?.(e)
+    }
 
     return (
       <Comp
@@ -87,6 +98,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-size={size}
         data-shape={shape}
         disabled={isDisabled}
+        onClick={handleClick}
         className={cn(buttonVariants({ variant, size, shape, className }))}
         {...props}
       >

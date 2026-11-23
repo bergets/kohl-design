@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { BrandFlower } from "@/components/BrandFlower";
 import { Button } from "@/components/ui/button";
+import { playTactileBloom } from "@/lib/tactile-sound";
 
 /* ============================================================================
    1 & 4. ANIMATED SIGN-OFF PHRASES + TACTILE BRANDFLOWER STAMP + FULL BLOOM
@@ -70,8 +71,11 @@ export function SignatureStamp() {
   const handleStamp = () => {
     const next = stampCount + 1;
     setStampCount(next);
-    if (next % 8 === 0 && !shouldReduceMotion) {
-      setBloomId(next);
+    if (next % 8 === 0) {
+      playTactileBloom();
+      if (!shouldReduceMotion) {
+        setBloomId(next);
+      }
     }
   };
 

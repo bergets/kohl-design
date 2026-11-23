@@ -1,8 +1,11 @@
+"use client"
+
 import * as React from "react"
 import * as TabsPrimitive from "@radix-ui/react-tabs"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { playTactileTab } from "@/lib/tactile-sound"
 
 const Tabs = TabsPrimitive.Root
 
@@ -117,14 +120,22 @@ export interface TabsTriggerProps
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   TabsTriggerProps
->(({ className, variant, size, ...props }, ref) => {
+>(({ className, variant, size, onClick, ...props }, ref) => {
   const context = React.useContext(TabsListContext)
   const resolvedVariant = variant ?? context.variant
   const resolvedSize = size ?? context.size
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (resolvedVariant === "tactile" && !props.disabled) {
+      playTactileTab()
+    }
+    onClick?.(e)
+  }
+
   return (
     <TabsPrimitive.Trigger
       ref={ref}
+      onClick={handleClick}
       className={cn(
         tabsTriggerVariants({
           variant: resolvedVariant,

@@ -5,9 +5,15 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Volume2, VolumeX } from "lucide-react";
 import { cooper } from "@/app/fonts";
 import { Button } from "@/components/ui/button";
+import {
+  isTactileSoundEnabled,
+  setTactileSoundEnabled,
+  subscribeTactileSound,
+  playTactileClick,
+} from "@/lib/tactile-sound";
 
 interface NavDestination {
   name: string;
@@ -49,6 +55,19 @@ export function ExploreSheet() {
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotion();
+  const soundEnabled = React.useSyncExternalStore(
+    subscribeTactileSound,
+    isTactileSoundEnabled,
+    () => false
+  );
+
+  const handleToggleSound = () => {
+    const next = !soundEnabled;
+    setTactileSoundEnabled(next);
+    if (next) {
+      playTactileClick({ force: true });
+    }
+  };
 
   React.useEffect(() => {
     setMounted(true);
@@ -183,16 +202,35 @@ export function ExploreSheet() {
                   Explore
                 </span>
 
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-lg"
-                  onClick={() => setIsOpen(false)}
-                  aria-label="Close menu"
-                  className="group text-pine-900 dark:text-emblem hover:text-primary dark:hover:text-white"
-                >
-                  <X className="size-4 transition-transform group-hover:rotate-90" strokeWidth={1.5} />
-                </Button>
+                <div className="flex items-center gap-1">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-lg"
+                    onClick={handleToggleSound}
+                    aria-pressed={soundEnabled}
+                    aria-label={soundEnabled ? "Mute tactile sounds" : "Enable tactile sounds"}
+                    title={soundEnabled ? "Tactile sound: On" : "Tactile sound: Off"}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    {soundEnabled ? (
+                      <Volume2 className="size-4 text-pine-900 dark:text-emblem" strokeWidth={1.5} />
+                    ) : (
+                      <VolumeX className="size-4" strokeWidth={1.5} />
+                    )}
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-lg"
+                    onClick={() => setIsOpen(false)}
+                    aria-label="Close menu"
+                    className="group text-pine-900 dark:text-emblem hover:text-primary dark:hover:text-white"
+                  >
+                    <X className="size-4 transition-transform group-hover:rotate-90" strokeWidth={1.5} />
+                  </Button>
+                </div>
               </div>
 
               {/* Navigation List */}
