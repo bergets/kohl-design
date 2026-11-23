@@ -125,6 +125,15 @@ export default function CompoundDesignNotePage() {
               time you start a chat, it already knows your taste.
             </p>
 
+            <p>
+              There is also a companion skill called{" "}
+              <strong className="font-semibold text-foreground">
+                review-design
+              </strong>{" "}
+              in the same repo. Before you ship, it reads those rules—even from
+              an upstream design system—and checks your UI against them.
+            </p>
+
             {/* 3-step strip */}
             <div className="border-t border-border/60 pt-6 space-y-4">
               <p className="text-xs font-mono text-muted-foreground">
