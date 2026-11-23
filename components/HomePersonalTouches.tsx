@@ -46,14 +46,16 @@ export function SignatureStamp() {
           <svg
             key={`flourish-${stampCount}`}
             viewBox="0 0 180 10"
+            preserveAspectRatio="none"
             fill="none"
             aria-hidden="true"
-            className="w-32 sm:w-36 h-2.5 mt-0.5 text-emblem/80 overflow-visible"
+            className="w-full h-2.5 mt-0.5 text-emblem/80 overflow-visible"
           >
             <motion.path
               d="M2 6 C42 2, 110 2, 178 5"
               stroke="currentColor"
               strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
               strokeLinecap="round"
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
