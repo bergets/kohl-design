@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { cooper } from "./fonts";
 import { SiteHeader } from "@/components/SiteHeader";
 import BackgroundShader from "@/components/BackgroundShader";
@@ -54,6 +55,7 @@ const HOME_NOTES = [
 
 export default function Home() {
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <div ref={containerRef} className="relative z-10 w-full min-h-dvh flex flex-col">
@@ -83,14 +85,25 @@ export default function Home() {
             <div className="space-y-2 max-w-2xl">
               <p className="text-xl sm:text-2xl md:text-3xl text-pine-800 dark:text-[#A8E3D2]">
                 <SpeakText text="It’s great business." delay={0.55} />{" "}
-                <a
+                <motion.a
                   href="https://linkedin.com/in/henrikkohl"
                   target="_blank"
                   rel="noopener noreferrer"
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : { y: 12, opacity: 0, filter: "blur(4px)" }
+                  }
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  transition={{
+                    duration: 0.45,
+                    delay: shouldReduceMotion ? 0 : 0.92,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="underline underline-offset-6 font-semibold text-pine-950 dark:text-white hover:text-primary dark:hover:text-[#8AD0BE] transition-colors inline-block"
                 >
                   Say hi on LinkedIn ↗
-                </a>
+                </motion.a>
               </p>
             </div>
           </div>
