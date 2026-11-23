@@ -47,22 +47,47 @@ export function subscribeTactileSound(listener: () => void): () => void {
   };
 }
 
-function triggerHaptic(pattern: number | number[]): void {
-  if (typeof navigator === "undefined" || typeof navigator.vibrate !== "function") {
-    return;
-  }
+function triggerIosSwitchHaptic(): void {
+  if (typeof document === "undefined") return;
   try {
-    navigator.vibrate(pattern);
+    const label = document.createElement("label");
+    label.ariaHidden = "true";
+    label.style.position = "fixed";
+    label.style.opacity = "0";
+    label.style.pointerEvents = "none";
+    label.style.width = "0";
+    label.style.height = "0";
+
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.setAttribute("switch", "");
+    label.appendChild(input);
+
+    document.body.appendChild(label);
+    label.click();
+    document.body.removeChild(label);
   } catch {
-    // Ignore if blocked by browser policy
+    // Ignore if unsupported
   }
+}
+
+function triggerHaptic(pattern: number | number[]): void {
+  if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+    try {
+      const ok = navigator.vibrate(pattern);
+      if (ok) return;
+    } catch {
+      // Fall through to iOS switch fallback
+    }
+  }
+  triggerIosSwitchHaptic();
 }
 
 /**
  * Soft, damped mechanical keycap tick + crisp haptic pulse for tactile buttons.
  */
 export function playTactileClick({ force = false }: { force?: boolean } = {}): void {
-  triggerHaptic(10);
+  triggerHaptic(14);
   if (!force && !isTactileSoundEnabled()) return;
   const ctx = getAudioContext();
   if (!ctx) return;
@@ -75,7 +100,7 @@ export function playTactileClick({ force = false }: { force?: boolean } = {}): v
   osc.frequency.setValueAtTime(340, now);
   osc.frequency.exponentialRampToValueAtTime(115, now + 0.018);
 
-  gain.gain.setValueAtTime(0.065, now);
+  gain.gain.setValueAtTime(0.11, now);
   gain.gain.exponentialRampToValueAtTime(0.001, now + 0.022);
 
   osc.connect(gain);
@@ -89,7 +114,7 @@ export function playTactileClick({ force = false }: { force?: boolean } = {}): v
  * Crisp, lighter tap + light haptic tick for tactile segmented tabs.
  */
 export function playTactileTab(): void {
-  triggerHaptic(8);
+  triggerHaptic(11);
   if (!isTactileSoundEnabled()) return;
   const ctx = getAudioContext();
   if (!ctx) return;
@@ -102,7 +127,7 @@ export function playTactileTab(): void {
   osc.frequency.setValueAtTime(520, now);
   osc.frequency.exponentialRampToValueAtTime(220, now + 0.014);
 
-  gain.gain.setValueAtTime(0.045, now);
+  gain.gain.setValueAtTime(0.08, now);
   gain.gain.exponentialRampToValueAtTime(0.001, now + 0.016);
 
   osc.connect(gain);
@@ -116,7 +141,7 @@ export function playTactileTab(): void {
  * Gentle 3-note Nordic chime + celebratory haptic pattern for Full 360° Bloom.
  */
 export function playTactileBloom(): void {
-  triggerHaptic([12, 45, 18, 45, 24]);
+  triggerHaptic([14, 50, 18, 50, 24]);
   if (!isTactileSoundEnabled()) return;
   const ctx = getAudioContext();
   if (!ctx) return;
@@ -134,7 +159,7 @@ export function playTactileBloom(): void {
     osc.frequency.setValueAtTime(freq, start);
 
     gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.linearRampToValueAtTime(0.04, start + 0.015);
+    gain.gain.linearRampToValueAtTime(0.07, start + 0.015);
     gain.gain.exponentialRampToValueAtTime(0.0008, start + 0.45);
 
     osc.connect(gain);
