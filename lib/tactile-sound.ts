@@ -84,37 +84,48 @@ function triggerHaptic(pattern: number | number[]): void {
 }
 
 /**
- * Soft, damped mechanical keycap tick + crisp haptic pulse for tactile buttons.
+ * Soft, damped mechanical keycap tick + subtle haptic pulse for tactile buttons.
  */
 export function playTactileClick({ force = false }: { force?: boolean } = {}): void {
-  triggerHaptic(14);
+  triggerHaptic(10);
   if (!force && !isTactileSoundEnabled()) return;
   const ctx = getAudioContext();
   if (!ctx) return;
 
   const now = ctx.currentTime;
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
 
-  osc.type = "triangle";
-  osc.frequency.setValueAtTime(340, now);
-  osc.frequency.exponentialRampToValueAtTime(115, now + 0.018);
+  // Warm keycap body thock
+  const bodyOsc = ctx.createOscillator();
+  const bodyGain = ctx.createGain();
+  bodyOsc.type = "triangle";
+  bodyOsc.frequency.setValueAtTime(380, now);
+  bodyOsc.frequency.exponentialRampToValueAtTime(130, now + 0.026);
+  bodyGain.gain.setValueAtTime(0.24, now);
+  bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+  bodyOsc.connect(bodyGain);
+  bodyGain.connect(ctx.destination);
+  bodyOsc.start(now);
+  bodyOsc.stop(now + 0.032);
 
-  gain.gain.setValueAtTime(0.11, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.022);
-
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-
-  osc.start(now);
-  osc.stop(now + 0.025);
+  // Crisp upper switch transient (cuts cleanly through phone speakers)
+  const snapOsc = ctx.createOscillator();
+  const snapGain = ctx.createGain();
+  snapOsc.type = "sine";
+  snapOsc.frequency.setValueAtTime(1350, now);
+  snapOsc.frequency.exponentialRampToValueAtTime(480, now + 0.014);
+  snapGain.gain.setValueAtTime(0.22, now);
+  snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.016);
+  snapOsc.connect(snapGain);
+  snapGain.connect(ctx.destination);
+  snapOsc.start(now);
+  snapOsc.stop(now + 0.018);
 }
 
 /**
- * Crisp, lighter tap + light haptic tick for tactile segmented tabs.
+ * Crisp, lighter tap + subtle haptic tick for tactile segmented tabs.
  */
 export function playTactileTab(): void {
-  triggerHaptic(11);
+  triggerHaptic(8);
   if (!isTactileSoundEnabled()) return;
   const ctx = getAudioContext();
   if (!ctx) return;
@@ -124,24 +135,24 @@ export function playTactileTab(): void {
   const gain = ctx.createGain();
 
   osc.type = "sine";
-  osc.frequency.setValueAtTime(520, now);
-  osc.frequency.exponentialRampToValueAtTime(220, now + 0.014);
+  osc.frequency.setValueAtTime(920, now);
+  osc.frequency.exponentialRampToValueAtTime(340, now + 0.018);
 
-  gain.gain.setValueAtTime(0.08, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.016);
+  gain.gain.setValueAtTime(0.2, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.022);
 
   osc.connect(gain);
   gain.connect(ctx.destination);
 
   osc.start(now);
-  osc.stop(now + 0.02);
+  osc.stop(now + 0.024);
 }
 
 /**
  * Gentle 3-note Nordic chime + celebratory haptic pattern for Full 360° Bloom.
  */
 export function playTactileBloom(): void {
-  triggerHaptic([14, 50, 18, 50, 24]);
+  triggerHaptic([10, 50, 12, 50, 16]);
   if (!isTactileSoundEnabled()) return;
   const ctx = getAudioContext();
   if (!ctx) return;
@@ -159,7 +170,7 @@ export function playTactileBloom(): void {
     osc.frequency.setValueAtTime(freq, start);
 
     gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.linearRampToValueAtTime(0.07, start + 0.015);
+    gain.gain.linearRampToValueAtTime(0.16, start + 0.015);
     gain.gain.exponentialRampToValueAtTime(0.0008, start + 0.45);
 
     osc.connect(gain);
