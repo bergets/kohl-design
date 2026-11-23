@@ -18,6 +18,14 @@ interface NoteItem {
 
 const NOTES: NoteItem[] = [
   {
+    title: "Type Scale Modes",
+    href: "/notes/type-scale-modes",
+    date: "Nov 23, 2026",
+    readingTime: "2 min read",
+    snippet:
+      "Why one rigid type scale isn't enough, and how compact, editorial, and expressive modes let the same system fit different screens.",
+  },
+  {
     title: "Compound Design",
     href: "/notes/compound-design",
     date: "Nov 22, 2026",

@@ -47,6 +47,11 @@ const DIRECTORY_CHAPTERS: ChapterItem[] = [
 
 const HOME_NOTES = [
   {
+    title: "Type Scale Modes",
+    date: "Nov 23, 2026",
+    href: "/notes/type-scale-modes",
+  },
+  {
     title: "Compound Design",
     date: "Nov 22, 2026",
     href: "/notes/compound-design",
