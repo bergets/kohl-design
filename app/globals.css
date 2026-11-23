@@ -821,3 +821,49 @@ a.inline-link:hover {
     animation: none;
   }
 }
+
+/* ============================================================================
+ * TYPE SCALE MODES (compact · editorial · expressive)
+ * ========================================================================== */
+:root,
+[data-type-scale="editorial"] {
+  --text-h1: 2.25rem;
+  --text-h2: 1.5625rem;
+  --text-h3: 1.325rem;
+  --text-body: 1rem;
+  --text-meta: 0.75rem;
+  --leading-display: 1.1;
+  --leading-body: 1.6;
+  --tracking-display: -0.025em;
+  --measure: 62ch;
+  --space-section: 1.5rem;
+  --space-stack: 0.75rem;
+}
+
+[data-type-scale="compact"] {
+  --text-h1: 1.75rem;
+  --text-h2: 1.25rem;
+  --text-h3: 1.1rem;
+  --text-body: 0.875rem;
+  --text-meta: 0.75rem;
+  --leading-display: 1.15;
+  --leading-body: 1.45;
+  --tracking-display: -0.02em;
+  --measure: 58ch;
+  --space-section: 1.25rem;
+  --space-stack: 0.5rem;
+}
+
+[data-type-scale="expressive"] {
+  --text-h1: 2.75rem;
+  --text-h2: 1.775rem;
+  --text-h3: 1.4375rem;
+  --text-body: 1rem;
+  --text-meta: 0.8125rem;
+  --leading-display: 1.05;
+  --leading-body: 1.65;
+  --tracking-display: -0.03em;
+  --measure: 66ch;
+  --space-section: 2rem;
+  --space-stack: 0.875rem;
+}

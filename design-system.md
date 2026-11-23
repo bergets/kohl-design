@@ -212,6 +212,16 @@ Every view follows this standard structure:
 
 ---
 
+### 2. Type Scale Modes
+
+Kohl supports three named rhythm modes via `data-type-scale` on a root or section container (defined in `app/globals.css`):
+
+| Mode | Use Case | Base / Ratio | H1 | Body Leading | Display Tracking | Measure |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `compact` | Dense tools, schedules, tables, settings | `14px` / `1.20` | `1.75rem` | `1.45` | `-0.02em` | `58ch` |
+| `editorial` *(default)* | Reading, notes, calm consumer apps | `16px` / `1.25` | `2.25rem` | `1.60` | `-0.025em` | `62ch` |
+| `expressive` | Landing pages, hero sections, storytelling | `16px` / `1.333` | `2.75rem` | `1.65` | `-0.03em` | `66ch` |
+
 ## Component Registry
 
 Every component in Kohl Design is available through the custom shadcn registry:

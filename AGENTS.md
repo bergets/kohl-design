@@ -28,6 +28,7 @@
 - **Tokens Only:** Never write arbitrary Tailwind colors (`bg-[#005243]`) or generic grays (`zinc`, `slate`). Use semantic tokens (`bg-primary`, `bg-card`, `bg-background`) or brand scales (`pine-*`, `crimson-*`, `neutral-*`).
 - **One Action Per View:** One primary Pine (`variant="default"`) or Crimson (`variant="accent"`) action per screen; all others are secondary, outline, or ghost.
 - **Font Hierarchy:** `font-cooper` (Cooper Regular) is strictly for hero/display titles and section headings. Body text and all UI controls must use `font-sans` (DM Sans).
+- **Type Scale Modes:** Choose a rhythm mode via `data-type-scale` (`compact` for dense tools/schedules/tables, `editorial` [default] for reading/notes/calm consumer apps, `expressive` for landing pages/heroes). Use the CSS tokens (`--text-h1`..`--text-meta`, `--leading-body`, `--tracking-display`, `--measure`) instead of ad-hoc font sizes.
 - **Elevation Layers:**
   - Level 0: Canvas (`bg-background`)
   - Level 1: Surface (`<Card variant="default">`)
