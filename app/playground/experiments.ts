@@ -23,4 +23,12 @@ export const PLAYGROUND_EXPERIMENTS: PlaygroundExperiment[] = [
     status: "Tool",
     href: "/playground/type-sandbox",
   },
+  {
+    slug: "branching-critique",
+    title: "Branching critique canvas",
+    summary:
+      "Branch UI iterations on a 2D canvas, mark Keep or Reject, and extract AGENTS.md rules from the difference.",
+    status: "Prototype",
+    href: "/playground/branching-critique",
+  },
 ];

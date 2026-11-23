@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { BrandFlower } from "@/components/BrandFlower";
 import { Card } from "@/components/ui/card";
 import { PLAYGROUND_EXPERIMENTS } from "@/app/playground/experiments";
-import { ArrowUpRight, Gavel, Type } from "lucide-react";
+import { ArrowUpRight, Gavel, GitBranch, Type } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Side Projects & Playground — kohl.design",
@@ -76,6 +76,8 @@ export default function ProjectsPage() {
                       <div className="size-10 rounded-xl bg-background border border-border/70 dark:border-pine-400/25 shadow-2xs flex items-center justify-center shrink-0 mt-0.5 text-emblem">
                         {experiment.slug === "type-sandbox" ? (
                           <Type className="size-5 stroke-[1.5]" />
+                        ) : experiment.slug === "branching-critique" ? (
+                          <GitBranch className="size-5 stroke-[1.5]" />
                         ) : (
                           <Gavel className="size-5 stroke-[1.5]" />
                         )}
