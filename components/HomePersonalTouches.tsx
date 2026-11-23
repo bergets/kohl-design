@@ -1,12 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { BrandFlower } from "@/components/BrandFlower";
 import { Button } from "@/components/ui/button";
 
 /* ============================================================================
-   1 & 4. ANIMATED SIGN-OFF PHRASES + TACTILE BRANDFLOWER STAMP
+   1 & 4. ANIMATED SIGN-OFF PHRASES + TACTILE BRANDFLOWER STAMP + FULL BLOOM
    ============================================================================ */
 
 const SIGN_OFF_PHRASES = [
@@ -18,12 +19,52 @@ const SIGN_OFF_PHRASES = [
   "Fika soon?",
 ] as const;
 
+const SECRET_BLOOM_PHRASES = [
+  "You found the secret bloom.",
+  "Still clicking? Let’s grab a fika.",
+  "A little Nordic snowfall for you.",
+] as const;
+
+const DRIFT_PARTICLES = Array.from({ length: 18 }, (_, i) => ({
+  id: i,
+  left: `${4 + ((i * 37) % 92)}%`,
+  delay: (i % 6) * 0.22,
+  duration: 3.4 + (i % 4) * 0.45,
+  sway: i % 2 === 0 ? 22 : -22,
+  rotate: i % 2 === 0 ? 140 : -140,
+  isFlower: i % 3 === 0,
+  sizeClass: i % 5 === 0 ? "size-3.5" : "size-2.5",
+}));
+
 export function SignatureStamp() {
   const [stampCount, setStampCount] = React.useState(0);
-  const currentPhrase = SIGN_OFF_PHRASES[stampCount % SIGN_OFF_PHRASES.length];
+  const [bloomId, setBloomId] = React.useState<number | null>(null);
+  const [mounted, setMounted] = React.useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isFullBloom = stampCount > 0 && stampCount % 8 === 0;
+  const bloomCycle = Math.floor(stampCount / 8);
+
+  const currentPhrase = isFullBloom
+    ? SECRET_BLOOM_PHRASES[(bloomCycle - 1) % SECRET_BLOOM_PHRASES.length]
+    : SIGN_OFF_PHRASES[stampCount % SIGN_OFF_PHRASES.length];
+
+  React.useEffect(() => {
+    if (bloomId === null) return;
+    const timer = setTimeout(() => setBloomId(null), 4800);
+    return () => clearTimeout(timer);
+  }, [bloomId]);
 
   const handleStamp = () => {
-    setStampCount((c) => c + 1);
+    const next = stampCount + 1;
+    setStampCount(next);
+    if (next % 8 === 0 && !shouldReduceMotion) {
+      setBloomId(next);
+    }
   };
 
   return (
@@ -67,6 +108,9 @@ export function SignatureStamp() {
 
         <span className="font-mono text-[11px] text-muted-foreground">
           Stockholm · Nov 2026
+          {isFullBloom && (
+            <span className="text-emblem"> · Full bloom</span>
+          )}
         </span>
       </div>
 
@@ -78,7 +122,7 @@ export function SignatureStamp() {
         onClick={handleStamp}
         aria-label="Cycle sign-off phrase"
         title="Click for another sign-off"
-        className="relative"
+        className="relative overflow-visible"
       >
         <AnimatePresence>
           {stampCount > 0 && (
@@ -86,11 +130,48 @@ export function SignatureStamp() {
               key={stampCount}
               aria-hidden="true"
               initial={{ scale: 0.85, opacity: 0.7 }}
-              animate={{ scale: 1.75, opacity: 0 }}
+              animate={{
+                scale: isFullBloom ? 2.2 : 1.75,
+                opacity: 0,
+              }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.55, ease: "easeOut" }}
+              transition={{ duration: isFullBloom ? 0.75 : 0.55, ease: "easeOut" }}
               className="pointer-events-none absolute inset-0 rounded-full border border-emblem"
             />
+          )}
+        </AnimatePresence>
+
+        {/* Radial petal burst on every full 360° rotation (8th click) */}
+        <AnimatePresence>
+          {isFullBloom && !shouldReduceMotion && (
+            <span
+              key={`burst-${stampCount}`}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center"
+            >
+              {Array.from({ length: 8 }, (_, idx) => {
+                const rad = (idx * 45 * Math.PI) / 180;
+                const tx = Math.cos(rad) * 46;
+                const ty = Math.sin(rad) * 46;
+                return (
+                  <motion.span
+                    key={idx}
+                    initial={{ x: 0, y: 0, scale: 0.3, opacity: 0.95, rotate: 0 }}
+                    animate={{
+                      x: tx,
+                      y: ty,
+                      scale: [0.4, 1, 0.5],
+                      opacity: [0.95, 0.85, 0],
+                      rotate: idx % 2 === 0 ? 90 : -90,
+                    }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute"
+                  >
+                    <BrandFlower className="size-3.5 text-emblem" />
+                  </motion.span>
+                );
+              })}
+            </span>
           )}
         </AnimatePresence>
 
@@ -102,6 +183,50 @@ export function SignatureStamp() {
           <BrandFlower className="size-5 text-emblem" />
         </motion.span>
       </Button>
+
+      {/* Gentle petal & snowfall drift across the viewport on Full Bloom */}
+      {mounted && typeof document !== "undefined"
+        ? createPortal(
+            <AnimatePresence>
+              {bloomId !== null && (
+                <div
+                  key={bloomId}
+                  aria-hidden="true"
+                  className="pointer-events-none fixed inset-0 z-40 overflow-hidden"
+                >
+                  {DRIFT_PARTICLES.map((p) => (
+                    <motion.span
+                      key={p.id}
+                      style={{ left: p.left }}
+                      initial={{ y: "-6vh", x: 0, opacity: 0, rotate: 0 }}
+                      animate={{
+                        y: "106vh",
+                        x: [0, p.sway, -p.sway * 0.5, p.sway * 0.3],
+                        opacity: [0, 0.75, 0.75, 0],
+                        rotate: p.rotate,
+                      }}
+                      transition={{
+                        duration: p.duration,
+                        delay: p.delay,
+                        ease: "linear",
+                      }}
+                      className="absolute top-0"
+                    >
+                      {p.isFlower ? (
+                        <BrandFlower
+                          className={`${p.sizeClass} text-emblem/70`}
+                        />
+                      ) : (
+                        <span className="block size-1.5 rounded-full bg-emblem/50 dark:bg-pine-200/50" />
+                      )}
+                    </motion.span>
+                  ))}
+                </div>
+              )}
+            </AnimatePresence>,
+            document.body
+          )
+        : null}
     </div>
   );
 }
