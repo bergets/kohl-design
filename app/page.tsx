@@ -51,6 +51,8 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="relative z-10 w-full min-h-dvh flex flex-col">
+      <SiteHeader position="fixed" />
+
       {/* 
         ========================================================================
         1. HERO SECTION: EXCEED EXPECTATIONS & CTA (WITH SHADER BACKGROUND)
@@ -58,9 +60,8 @@ export default function Home() {
       */}
       <div className="relative overflow-hidden">
         <BackgroundShader />
-        <SiteHeader />
 
-        <section className="min-h-[calc(100dvh-5rem)] w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-12 sm:pb-16 relative">
+        <section className="min-h-dvh pt-20 sm:pt-24 w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-12 sm:pb-16 relative">
           {/* Hero Headline & CTA */}
           <div className="my-auto py-12 sm:py-20 w-full relative z-10 max-w-6xl space-y-6 sm:space-y-8">
             <h1

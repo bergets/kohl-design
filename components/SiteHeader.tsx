@@ -6,7 +6,13 @@ import { BrandFlower } from "@/components/BrandFlower";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ExploreSheet } from "@/components/ExploreSheet";
 
-export function SiteHeader({ className = "" }: { className?: string }) {
+export function SiteHeader({
+  className = "",
+  position = "sticky",
+}: {
+  className?: string;
+  position?: "sticky" | "fixed";
+}) {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -21,7 +27,7 @@ export function SiteHeader({ className = "" }: { className?: string }) {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ease-out ${
+      className={`${position} top-0 left-0 right-0 z-50 w-full transition-all duration-300 ease-out ${
         isScrolled ? "py-2 sm:py-2.5" : "py-4 sm:py-5"
       } ${className}`}
     >
