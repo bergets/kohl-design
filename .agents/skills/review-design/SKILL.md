@@ -8,8 +8,9 @@ Audit UI code, layouts, or diffs against the rules and taste decisions accumulat
 
 ## 1. Load the Design System's Rules
 Before reviewing anything, locate and read the target design system's documentation:
-- **In the current workspace:** Read `AGENTS.md`, `CLAUDE.md`, `design-system.md`, token definitions (e.g., `globals.css`), and existing UI primitives (`components/ui/*`).
-- **If multiple or none exist:** Ask the user which design system rules to review against.
+- **Local workspace:** Read `AGENTS.md`, `CLAUDE.md`, `design-system.md`, token definitions (e.g., `globals.css`), and existing UI primitives (`components/ui/*`).
+- **Upstream design system (for consumer projects):** If the project consumes an external design system (check `AGENTS.md`, `components.json` `registries`, or `package.json` for a reference like `bergets/kohl-design` or a registry URL), also read the upstream design system's `AGENTS.md` and `design-system.md` from a sibling workspace, local path, or GitHub/URL so its **Anti-Slop Guide**, **Editorial Restraint**, and **Priority Order** rules are enforced too.
+- **If no rules are found locally or upstream:** Ask the user which design system rules to review against.
 - Extract the active **Priority Order**, **Global Rules**, **Anti-Slop Guide**, **Control Scales**, **Typography & Elevation rules**, and **Mobile/Accessibility requirements**.
 
 ## 2. Inspect the Target Work

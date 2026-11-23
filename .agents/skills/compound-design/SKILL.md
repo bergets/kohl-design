@@ -9,6 +9,7 @@ Turn fleeting design decisions, critiques, and taste refinements from a conversa
 ## 1. Locate & Read the Target Design System
 Identify which design system to plug into:
 - **In the current workspace:** Look for `AGENTS.md`, `CLAUDE.md`, `design-system.md`, `docs/`, `README.md`, or token/component files (e.g. `globals.css`, `tokens.json`).
+- **Upstream design system (for consumer projects):** Check `AGENTS.md`, `components.json` (`registries`), or `package.json` for a referenced upstream design system (e.g. `bergets/kohl-design`). If found, read its `AGENTS.md` / `design-system.md` from a sibling workspace, local path, or GitHub/URL.
 - **If multiple or none exist:** Ask the user which design system repo or file(s) to target.
 - **Read existing rules first** so you understand the system's structure, terminology, semantic tokens, and existing constraints—never add duplicates or contradict established rules without flagging it.
 
@@ -32,6 +33,8 @@ Before editing, present a brief summary of the extracted findings and where each
 - **Agent behavior & guardrails** → `AGENTS.md` (e.g. Priority Order, Global Rules, Anti-Slop Guide)
 - **System architecture, tokens & components** → `design-system.md` (or equivalent system spec)
 - **Unproven experiments / inspirations** → Design inbox or backlog note
+
+When working in a **consumer project**, distinguish between **app-specific rules** (write to the local project's `AGENTS.md`) and **system-wide rules** (propose updating the upstream design system repo, e.g. `kohl-design`).
 
 If a finding refines or supersedes an existing rule, propose updating that rule in place rather than appending a conflicting one. Ask the user to confirm (unless they already asked you to apply directly).
 
