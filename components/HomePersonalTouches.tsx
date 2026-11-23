@@ -33,7 +33,7 @@ export function SignatureStamp() {
           <motion.div
             key={stampCount}
             exit={{ opacity: 0, transition: { duration: 0.12 } }}
-            className="relative inline-block max-w-full pb-2.5"
+            className="relative inline-block max-w-full pb-3"
           >
             <motion.p
               initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
@@ -49,10 +49,10 @@ export function SignatureStamp() {
               preserveAspectRatio="none"
               fill="none"
               aria-hidden="true"
-              className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-2.5 text-emblem/80 overflow-visible"
+              className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-2.5 text-accent/65 dark:text-emblem/80 overflow-visible"
             >
               <motion.path
-                d="M2 6 C42 2, 110 2, 178 5"
+                d="M2 4 C52 8, 128 7, 178 3"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 vectorEffect="non-scaling-stroke"
