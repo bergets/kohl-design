@@ -15,4 +15,12 @@ export const PLAYGROUND_EXPERIMENTS: PlaygroundExperiment[] = [
     status: "Playable",
     href: "/playground/auction-guesser",
   },
+  {
+    slug: "type-sandbox",
+    title: "Editorial type & rhythm",
+    summary:
+      "Test display and UI font pairings with real product copy, then export CSS tokens.",
+    status: "Tool",
+    href: "/playground/type-sandbox",
+  },
 ];
