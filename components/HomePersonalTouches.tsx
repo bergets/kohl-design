@@ -6,38 +6,62 @@ import { BrandFlower } from "@/components/BrandFlower";
 import { Button } from "@/components/ui/button";
 
 /* ============================================================================
-   1 & 4. ANIMATED SIGNATURE + TACTILE BRANDFLOWER STAMP
+   1 & 4. ANIMATED SIGN-OFF PHRASES + TACTILE BRANDFLOWER STAMP
    ============================================================================ */
+
+const SIGN_OFF_PHRASES = [
+  "All the best from Stockholm,",
+  "Warmly, Henrik",
+  "Make something nice today,",
+  "Stay curious,",
+  "Until next time,",
+  "Fika soon?",
+] as const;
 
 export function SignatureStamp() {
   const [stampCount, setStampCount] = React.useState(0);
+  const currentPhrase = SIGN_OFF_PHRASES[stampCount % SIGN_OFF_PHRASES.length];
 
   const handleStamp = () => {
     setStampCount((c) => c + 1);
   };
 
   return (
-    <div className="pt-4 flex items-center justify-between gap-4 border-t border-border/60">
-      <div className="flex flex-col gap-1">
-        <svg
-          key={stampCount}
-          viewBox="0 0 210 52"
-          fill="none"
-          aria-label="Henrik Kohl signature"
-          className="w-40 sm:w-44 h-11 text-pine-900 dark:text-white overflow-visible"
-        >
-          {/* Calligraphic H + flowing Henrik Kohl stroke */}
-          <motion.path
-            d="M12 40 C14 24, 18 10, 20 8 C19 18, 16 32, 15 41 M16 25 C24 23, 33 21, 38 19 M37 9 C35 20, 32 34, 31 42 C36 33, 44 26, 49 27 C52 28, 49 36, 54 36 C59 36, 65 27, 69 27 C72 27, 70 35, 75 35 C80 35, 86 24, 92 14 C94 10, 91 10, 89 15 C86 23, 84 32, 86 35 C89 38, 96 31, 102 28 C105 27, 104 35, 109 35 C115 35, 124 22, 130 11 M128 28 C135 23, 144 19, 149 20 C142 25, 134 31, 133 34 C133 37, 142 36, 151 33 C158 30, 165 27, 171 29 C175 30, 173 35, 178 35 C185 35, 194 29, 202 26"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0.2 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </svg>
+    <div className="pt-5 flex items-center justify-between gap-4 border-t border-border/60">
+      <div className="min-w-0 flex flex-col gap-1.5">
+        <div className="relative inline-block w-fit max-w-full">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={stampCount}
+              initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
+              animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.12 } }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="font-cooper italic text-xl sm:text-2xl text-pine-900 dark:text-white leading-snug"
+            >
+              {currentPhrase}
+            </motion.p>
+          </AnimatePresence>
+
+          <svg
+            key={`flourish-${stampCount}`}
+            viewBox="0 0 180 10"
+            fill="none"
+            aria-hidden="true"
+            className="w-32 sm:w-36 h-2.5 mt-0.5 text-accent/75 overflow-visible"
+          >
+            <motion.path
+              d="M2 6 C42 2, 110 2, 178 5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </svg>
+        </div>
+
         <span className="font-mono text-[11px] text-muted-foreground">
           Stockholm · Nov 2026
         </span>
@@ -49,8 +73,8 @@ export function SignatureStamp() {
         shape="pill"
         size="icon-xl"
         onClick={handleStamp}
-        aria-label="Stamp Henrik's mark"
-        title="Press to stamp"
+        aria-label="Cycle sign-off phrase"
+        title="Click for another sign-off"
         className="relative"
       >
         <AnimatePresence>
