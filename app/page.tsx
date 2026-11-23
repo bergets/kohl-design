@@ -7,6 +7,12 @@ import { SiteHeader } from "@/components/SiteHeader";
 import BackgroundShader from "@/components/BackgroundShader";
 import { BrandFlower } from "@/components/BrandFlower";
 import { Icon } from "@/components/ui/icon";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  SignatureStamp,
+  StockholmHorizon,
+  CraftLens,
+} from "@/components/HomePersonalTouches";
 import { ArrowUpRight } from "lucide-react";
 
 interface ChapterItem {
@@ -104,121 +110,190 @@ export default function Home() {
 
       {/* 
         ========================================================================
-        2. ABOUT & WORK SUMMARY
+        2. ABOUT & WORK SUMMARY + PERSONAL MARGINALIA
         ========================================================================
       */}
       <section
         id="intro"
         className="w-full py-20 sm:py-28 px-6 sm:px-8 md:px-12 lg:px-14 border-t border-border/70 dark:border-pine-400/20"
       >
-        <div className="w-full max-w-5xl mx-auto">
-          <div className="max-w-xl space-y-6">
-            <div className="space-y-1">
-              <h2 className="text-base sm:text-lg font-medium text-pine-900 dark:text-white">
-                Henrik Kohl
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Updated Nov 2026
-              </p>
-            </div>
+        <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left column: Signed Editorial Letter with Tactile Perspectives */}
+          <div className="lg:col-span-7 max-w-xl space-y-6">
+            <Tabs defaultValue="bio" className="space-y-6">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h2 className="text-base sm:text-lg font-medium text-pine-900 dark:text-white">
+                    Henrik Kohl
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Updated Nov 2026
+                  </p>
+                </div>
 
-            <div className="space-y-5 text-base sm:text-[17px] leading-relaxed text-pine-900/90 dark:text-neutral-200">
-              <p>
-                I live in Stockholm with my family and two kids.
-              </p>
+                <TabsList variant="tactile" size="sm">
+                  <TabsTrigger value="bio">Bio</TabsTrigger>
+                  <TabsTrigger value="work">How I work</TabsTrigger>
+                  <TabsTrigger value="colophon">Colophon</TabsTrigger>
+                </TabsList>
+              </div>
 
-              <p>
-                I currently work at{" "}
-                <a
-                  href="https://www.quinyx.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  Quinyx
-                </a>{" "}
-                as Product Area Design Lead, leading design for the core scheduling experience.
-              </p>
+              <TabsContent
+                value="bio"
+                className="space-y-5 text-base sm:text-[17px] leading-relaxed text-pine-900/90 dark:text-neutral-200 mt-0"
+              >
+                <p>
+                  I live in Stockholm with my family and two kids.
+                </p>
 
-              <p>
-                Previously, I spent nearly six years at{" "}
-                <Link
-                  href="/work"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  Aditro
-                </Link>{" "}
-                designing mobile HR self-service apps used by 80,000+ people and stepping in as interim PM before it was acquired by{" "}
-                <a
-                  href="https://www.sdworx.com/en-en/aditro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  SD Worx
-                </a>
-                . Before that, I worked at agencies on products for MediaTek, Libero, Vera &amp; John, and Nordnet.
-              </p>
+                <p>
+                  I currently work at{" "}
+                  <a
+                    href="https://www.quinyx.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    Quinyx
+                  </a>{" "}
+                  as Product Area Design Lead, leading design for the core scheduling experience.
+                </p>
 
-              <p>
-                Outside of work, I build small web apps and tools like{" "}
-                <a
-                  href="https://kohlisar.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  Köhlisar
-                </a>
-                ,{" "}
-                <a
-                  href="https://nanny-agent-dun.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  Kohlala
-                </a>
-                , and the{" "}
-                <Link
-                  href="/design-system"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  kohl.design
-                </Link>{" "}
-                system.
-              </p>
+                <p>
+                  Previously, I spent nearly six years at{" "}
+                  <Link
+                    href="/work"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    Aditro
+                  </Link>{" "}
+                  designing mobile HR self-service apps used by 80,000+ people and stepping in as interim PM before it was acquired by{" "}
+                  <a
+                    href="https://www.sdworx.com/en-en/aditro"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    SD Worx
+                  </a>
+                  . Before that, I worked at agencies on products for MediaTek, Libero, Vera &amp; John, and Nordnet.
+                </p>
 
-              <p>
-                You can find me on{" "}
-                <a
-                  href="https://linkedin.com/in/henrikkohl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  LinkedIn
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://github.com/bergets"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  GitHub
-                </a>
-                , or read more about{" "}
-                <Link
-                  href="/work"
-                  className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                >
-                  my work
-                </Link>
-                .
-              </p>
-            </div>
+                <p>
+                  Outside of work, I build small web apps and tools like{" "}
+                  <a
+                    href="https://kohlisar.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    Köhlisar
+                  </a>
+                  ,{" "}
+                  <a
+                    href="https://nanny-agent-dun.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    Kohlala
+                  </a>
+                  , and the{" "}
+                  <Link
+                    href="/design-system"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    kohl.design
+                  </Link>{" "}
+                  system.
+                </p>
+
+                <p>
+                  You can find me on{" "}
+                  <a
+                    href="https://linkedin.com/in/henrikkohl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    LinkedIn
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://github.com/bergets"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    GitHub
+                  </a>
+                  , or read more about{" "}
+                  <Link
+                    href="/work"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    my work
+                  </Link>
+                  .
+                </p>
+              </TabsContent>
+
+              <TabsContent
+                value="work"
+                className="space-y-5 text-base sm:text-[17px] leading-relaxed text-pine-900/90 dark:text-neutral-200 mt-0"
+              >
+                <p>
+                  I care about calm, legible software — interfaces that respect people&apos;s attention and earn every border, badge, and pixel on screen.
+                </p>
+                <p>
+                  I prototype early in real code rather than polishing static slides. Seeing how a layout breathes at 375px, how a focus ring lands, or how a spring settles tells you things a mockup never will.
+                </p>
+                <p>
+                  Lately I&apos;ve been exploring{" "}
+                  <Link
+                    href="/notes/compound-design"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    compound design
+                  </Link>{" "}
+                  — turning every UI critique and taste decision into durable rules that both humans and coding agents can build from.
+                </p>
+              </TabsContent>
+
+              <TabsContent
+                value="colophon"
+                className="space-y-5 text-base sm:text-[17px] leading-relaxed text-pine-900/90 dark:text-neutral-200 mt-0"
+              >
+                <p>
+                  Set in <span className="font-cooper">Cooper</span> for display titles and <span className="font-medium">DM Sans</span> for UI and prose, over a Nordic pine and crimson palette.
+                </p>
+                <p>
+                  Built with Next.js, Tailwind CSS, Radix primitives, and a live WebGL mesh shader from Paper Design on the hero canvas.
+                </p>
+                <p>
+                  Every component on this page lives in the open{" "}
+                  <Link
+                    href="/design-system"
+                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
+                  >
+                    kohl.design system
+                  </Link>{" "}
+                  and can be installed directly via the registry.
+                </p>
+              </TabsContent>
+            </Tabs>
+
+            <SignatureStamp />
           </div>
+
+          {/* Right column: Quiet Marginalia (Stockholm Daylight + Craft Lens) */}
+          <aside className="lg:col-span-5 lg:pt-1 space-y-8 border-t border-border/60 pt-8 lg:border-t-0 lg:border-l lg:pl-10">
+            <StockholmHorizon />
+
+            <div className="border-t border-border/60 pt-8">
+              <CraftLens />
+            </div>
+          </aside>
         </div>
       </section>
 
