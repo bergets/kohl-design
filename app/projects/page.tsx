@@ -90,7 +90,6 @@ export default function ProjectsPage() {
                         </p>
                       </div>
                     </div>
-                    <ArrowUpRight className="size-4 text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1" />
                   </Link>
                 ))}
               </div>
