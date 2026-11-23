@@ -38,9 +38,10 @@ export default function ButtonShowcasePage() {
 
   // Playground state
   const [selectedVariant, setSelectedVariant] = React.useState<
-    "default" | "editorial" | "secondary" | "outline" | "ghost" | "destructive" | "link"
+    "default" | "editorial" | "secondary" | "outline" | "ghost" | "destructive" | "link" | "tactile"
   >("default");
   const [selectedSize, setSelectedSize] = React.useState<"xs" | "sm" | "default" | "lg" | "xl">("default");
+  const [selectedShape, setSelectedShape] = React.useState<"default" | "pill">("default");
   const [playgroundText, setPlaygroundText] = React.useState("Continue Project");
   const [showLeftIcon, setShowLeftIcon] = React.useState(false);
   const [showRightIcon, setShowRightIcon] = React.useState(true);
@@ -57,7 +58,7 @@ export default function ButtonShowcasePage() {
 
   const playgroundJsx = `<Button
   variant="${selectedVariant}"
-  size="${selectedSize}"${isLoading ? "\n  loading" : ""}${isDisabled ? "\n  disabled" : ""}
+  size="${selectedSize}"${selectedShape === "pill" ? '\n  shape="pill"' : ""}${isLoading ? "\n  loading" : ""}${isDisabled ? "\n  disabled" : ""}
 >${showLeftIcon ? '\n  <Sparkles />' : ''}
   ${playgroundText}${showRightIcon ? '\n  <ArrowRight />' : ''}
 </Button>`;
@@ -719,7 +720,7 @@ export default function ButtonShowcasePage() {
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {(
-                    ["default", "editorial", "secondary", "outline", "ghost", "destructive", "link"] as const
+                    ["default", "editorial", "secondary", "outline", "ghost", "destructive", "link", "tactile"] as const
                   ).map((v) => (
                     <button
                       key={v}
@@ -754,6 +755,28 @@ export default function ButtonShowcasePage() {
                       }`}
                     >
                       {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block mb-2">
+                  Shape
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {(["default", "pill"] as const).map((sh) => (
+                    <button
+                      key={sh}
+                      type="button"
+                      onClick={() => setSelectedShape(sh)}
+                      className={`px-3 py-1.5 text-xs font-medium rounded-[var(--radius-sm)] border transition-all cursor-pointer ${
+                        selectedShape === sh
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-background text-foreground border-border hover:bg-muted"
+                      }`}
+                    >
+                      {sh}
                     </button>
                   ))}
                 </div>
@@ -799,6 +822,7 @@ export default function ButtonShowcasePage() {
                 <Button
                   variant={selectedVariant}
                   size={selectedSize}
+                  shape={selectedShape}
                   loading={isLoading}
                   disabled={isDisabled}
                 >

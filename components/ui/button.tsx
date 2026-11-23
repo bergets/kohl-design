@@ -26,6 +26,8 @@ const buttonVariants = cva(
           "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 active:bg-destructive/80",
         link:
           "text-[var(--link,var(--primary))] hover:text-[var(--link-hover,var(--primary-hover))] underline-offset-4 hover:underline decoration-[var(--link-decoration,currentColor)] p-0 h-auto font-medium active:scale-100 shadow-none",
+        tactile:
+          "bg-card text-foreground border border-border/70 [box-shadow:var(--shadow-bezel)] hover:bg-neutral-50 dark:hover:bg-neutral-900/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]",
       },
       size: {
         xs: "h-7 px-2.5 text-xs gap-1.5 rounded-[var(--radius-sm)] [&_svg:not([class*='size-'])]:size-3",
@@ -39,10 +41,15 @@ const buttonVariants = cva(
         "icon-lg": "size-10 p-0 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-4",
         "icon-xl": "size-12 p-0 rounded-[var(--radius-lg)] [&_svg:not([class*='size-'])]:size-5",
       },
+      shape: {
+        default: "",
+        pill: "rounded-full",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      shape: "default",
     },
   }
 )
@@ -60,6 +67,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant = "default",
       size = "default",
+      shape = "default",
       asChild = false,
       loading = false,
       disabled,
@@ -77,8 +85,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-slot="button"
         data-variant={variant}
         data-size={size}
+        data-shape={shape}
         disabled={isDisabled}
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, shape, className }))}
         {...props}
       >
         {loading ? (

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrandFlower } from "@/components/BrandFlower";
+import { Button } from "@/components/ui/button";
 
 /* ============================================================================
    1 & 4. ANIMATED SIGNATURE + TACTILE BRANDFLOWER STAMP
@@ -42,12 +43,15 @@ export function SignatureStamp() {
         </span>
       </div>
 
-      <button
+      <Button
         type="button"
+        variant="tactile"
+        shape="pill"
+        size="icon-xl"
         onClick={handleStamp}
         aria-label="Stamp Henrik's mark"
         title="Press to stamp"
-        className="relative size-11 shrink-0 rounded-full bg-card border border-border/70 [box-shadow:var(--shadow-bezel)] flex items-center justify-center cursor-pointer outline-none transition-transform duration-150 active:scale-95 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="relative"
       >
         <AnimatePresence>
           {stampCount > 0 && (
@@ -70,7 +74,7 @@ export function SignatureStamp() {
         >
           <BrandFlower className="size-5 text-accent" />
         </motion.span>
-      </button>
+      </Button>
     </div>
   );
 }
