@@ -12,6 +12,7 @@ import {
   SignatureStamp,
   StockholmHorizon,
 } from "@/components/HomePersonalTouches";
+import { SpeakText } from "@/components/SpeakText";
 import { ArrowUpRight } from "lucide-react";
 
 interface ChapterItem {
@@ -72,12 +73,16 @@ export default function Home() {
             <h1
               className={`${cooper.className} text-5xl sm:text-7xl md:text-8xl lg:text-[100px] xl:text-[116px] leading-[0.95] font-normal tracking-tight text-pine-900 dark:text-white transition-colors duration-300 max-w-5xl`}
             >
-              Exceed expectations.
+              <SpeakText
+                text="Exceed expectations."
+                emphasis={["expectations"]}
+                delay={0.1}
+              />
             </h1>
 
             <div className="space-y-2 max-w-2xl">
               <p className="text-xl sm:text-2xl md:text-3xl text-pine-800 dark:text-[#A8E3D2]">
-                It’s great business.{" "}
+                <SpeakText text="It’s great business." delay={0.55} />{" "}
                 <a
                   href="https://linkedin.com/in/henrikkohl"
                   target="_blank"
