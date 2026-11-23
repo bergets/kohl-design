@@ -27,7 +27,7 @@ const buttonVariants = cva(
         link:
           "text-[var(--link,var(--primary))] hover:text-[var(--link-hover,var(--primary-hover))] underline-offset-4 hover:underline decoration-[var(--link-decoration,currentColor)] p-0 h-auto font-medium active:scale-100 shadow-none",
         tactile:
-          "bg-card text-foreground border border-border/70 [box-shadow:var(--shadow-bezel)] hover:bg-neutral-50 dark:hover:bg-neutral-900/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]",
+          "bg-card text-foreground border border-border/70 dark:border-pine-400/25 [box-shadow:var(--shadow-bezel)] hover:bg-neutral-50 dark:hover:bg-secondary/80 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]",
       },
       size: {
         xs: "h-7 px-2.5 text-xs gap-1.5 rounded-[var(--radius-sm)] [&_svg:not([class*='size-'])]:size-3",

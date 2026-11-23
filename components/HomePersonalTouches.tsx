@@ -48,7 +48,7 @@ export function SignatureStamp() {
             viewBox="0 0 180 10"
             fill="none"
             aria-hidden="true"
-            className="w-32 sm:w-36 h-2.5 mt-0.5 text-accent/75 overflow-visible"
+            className="w-32 sm:w-36 h-2.5 mt-0.5 text-emblem/80 overflow-visible"
           >
             <motion.path
               d="M2 6 C42 2, 110 2, 178 5"
@@ -86,7 +86,7 @@ export function SignatureStamp() {
               animate={{ scale: 1.75, opacity: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
-              className="pointer-events-none absolute inset-0 rounded-full border border-accent"
+              className="pointer-events-none absolute inset-0 rounded-full border border-emblem"
             />
           )}
         </AnimatePresence>
@@ -96,7 +96,7 @@ export function SignatureStamp() {
           transition={{ type: "spring", stiffness: 320, damping: 20 }}
           className="inline-flex items-center justify-center"
         >
-          <BrandFlower className="size-5 text-accent" />
+          <BrandFlower className="size-5 text-emblem" />
         </motion.span>
       </Button>
     </div>
