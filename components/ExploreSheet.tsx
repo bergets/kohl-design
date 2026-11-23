@@ -185,7 +185,7 @@ export function ExploreSheet() {
 
                 <Button
                   type="button"
-                  variant="tactile"
+                  variant="ghost"
                   size="icon-lg"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close menu"
