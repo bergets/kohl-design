@@ -25,14 +25,23 @@ const SECRET_BLOOM_PHRASES = [
   "A little Nordic snowfall for you.",
 ] as const;
 
-const DRIFT_PARTICLES = Array.from({ length: 18 }, (_, i) => ({
+const DRIFT_PARTICLES = Array.from({ length: 32 }, (_, i) => ({
   id: i,
-  left: `${4 + ((i * 37) % 92)}%`,
-  delay: (i % 6) * 0.22,
-  duration: 3.4 + (i % 4) * 0.45,
-  sway: i % 2 === 0 ? 22 : -22,
-  rotate: i % 2 === 0 ? 140 : -140,
-  sizeClass: i % 3 === 0 ? "size-3.5" : i % 2 === 0 ? "size-3" : "size-2.5",
+  left: `${2 + ((i * 29) % 96)}%`,
+  delay: (i % 8) * 0.16,
+  duration: 3.6 + (i % 5) * 0.45,
+  sway: (i % 2 === 0 ? 1 : -1) * (18 + (i % 4) * 9),
+  rotate: (i % 2 === 0 ? 1 : -1) * (160 + (i % 3) * 60),
+  sizeClass:
+    i % 5 === 0
+      ? "size-6"
+      : i % 3 === 0
+      ? "size-5"
+      : i % 2 === 0
+      ? "size-4"
+      : "size-3",
+  opacityClass:
+    i % 3 === 0 ? "text-emblem/85" : i % 2 === 0 ? "text-emblem/65" : "text-emblem/45",
 }));
 
 export function SignatureStamp() {
@@ -54,7 +63,7 @@ export function SignatureStamp() {
 
   React.useEffect(() => {
     if (bloomId === null) return;
-    const timer = setTimeout(() => setBloomId(null), 4800);
+    const timer = setTimeout(() => setBloomId(null), 5400);
     return () => clearTimeout(timer);
   }, [bloomId]);
 
@@ -126,21 +135,35 @@ export function SignatureStamp() {
         <AnimatePresence>
           {stampCount > 0 && (
             <motion.span
-              key={stampCount}
+              key={`ring-1-${stampCount}`}
               aria-hidden="true"
-              initial={{ scale: 0.85, opacity: 0.7 }}
+              initial={{ scale: 0.85, opacity: 0.75 }}
               animate={{
-                scale: isFullBloom ? 2.2 : 1.75,
+                scale: isFullBloom ? 2.4 : 1.75,
                 opacity: 0,
               }}
               exit={{ opacity: 0 }}
-              transition={{ duration: isFullBloom ? 0.75 : 0.55, ease: "easeOut" }}
+              transition={{ duration: isFullBloom ? 0.85 : 0.55, ease: "easeOut" }}
               className="pointer-events-none absolute inset-0 rounded-full border border-emblem"
             />
           )}
         </AnimatePresence>
 
-        {/* Radial petal burst on every full 360° rotation (8th click) */}
+        <AnimatePresence>
+          {isFullBloom && !shouldReduceMotion && (
+            <motion.span
+              key={`ring-2-${stampCount}`}
+              aria-hidden="true"
+              initial={{ scale: 0.9, opacity: 0.55 }}
+              animate={{ scale: 3.1, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.05, delay: 0.1, ease: "easeOut" }}
+              className="pointer-events-none absolute inset-0 rounded-full border border-emblem/60"
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Double radial petal burst on every full 360° rotation (8th click) */}
         <AnimatePresence>
           {isFullBloom && !shouldReduceMotion && (
             <span
@@ -150,18 +173,18 @@ export function SignatureStamp() {
             >
               {Array.from({ length: 8 }, (_, idx) => {
                 const rad = (idx * 45 * Math.PI) / 180;
-                const tx = Math.cos(rad) * 46;
-                const ty = Math.sin(rad) * 46;
+                const tx = Math.cos(rad) * 44;
+                const ty = Math.sin(rad) * 44;
                 return (
                   <motion.span
-                    key={idx}
+                    key={`inner-${idx}`}
                     initial={{ x: 0, y: 0, scale: 0.3, opacity: 0.95, rotate: 0 }}
                     animate={{
                       x: tx,
                       y: ty,
-                      scale: [0.4, 1, 0.5],
-                      opacity: [0.95, 0.85, 0],
-                      rotate: idx % 2 === 0 ? 90 : -90,
+                      scale: [0.4, 1.05, 0.5],
+                      opacity: [0.95, 0.9, 0],
+                      rotate: idx % 2 === 0 ? 110 : -110,
                     }}
                     transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute"
@@ -170,12 +193,38 @@ export function SignatureStamp() {
                   </motion.span>
                 );
               })}
+
+              {Array.from({ length: 8 }, (_, idx) => {
+                const rad = ((idx * 45 + 22.5) * Math.PI) / 180;
+                const tx = Math.cos(rad) * 72;
+                const ty = Math.sin(rad) * 72;
+                return (
+                  <motion.span
+                    key={`outer-${idx}`}
+                    initial={{ x: 0, y: 0, scale: 0.2, opacity: 0.85, rotate: 0 }}
+                    animate={{
+                      x: tx,
+                      y: ty,
+                      scale: [0.3, 1.15, 0.4],
+                      opacity: [0.85, 0.8, 0],
+                      rotate: idx % 2 === 0 ? -135 : 135,
+                    }}
+                    transition={{ duration: 1.15, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute"
+                  >
+                    <BrandFlower className="size-4 text-emblem/80" />
+                  </motion.span>
+                );
+              })}
             </span>
           )}
         </AnimatePresence>
 
         <motion.span
-          animate={{ rotate: stampCount * 45 }}
+          animate={{
+            rotate: stampCount * 45,
+            scale: isFullBloom ? [1, 1.18, 1] : 1,
+          }}
           transition={{ type: "spring", stiffness: 320, damping: 20 }}
           className="inline-flex items-center justify-center"
         >
@@ -183,7 +232,7 @@ export function SignatureStamp() {
         </motion.span>
       </Button>
 
-      {/* Gentle petal & snowfall drift across the viewport on Full Bloom */}
+      {/* Lush BrandFlower drift across the viewport on Full Bloom */}
       {mounted && typeof document !== "undefined"
         ? createPortal(
             <AnimatePresence>
@@ -197,11 +246,12 @@ export function SignatureStamp() {
                     <motion.span
                       key={p.id}
                       style={{ left: p.left }}
-                      initial={{ y: "-6vh", x: 0, opacity: 0, rotate: 0 }}
+                      initial={{ y: "-6vh", x: 0, opacity: 0, scale: 0.75, rotate: 0 }}
                       animate={{
                         y: "106vh",
-                        x: [0, p.sway, -p.sway * 0.5, p.sway * 0.3],
-                        opacity: [0, 0.75, 0.75, 0],
+                        x: [0, p.sway, -p.sway * 0.6, p.sway * 0.35],
+                        opacity: [0, 0.9, 0.85, 0],
+                        scale: [0.75, 1.05, 0.95, 0.8],
                         rotate: p.rotate,
                       }}
                       transition={{
@@ -212,7 +262,7 @@ export function SignatureStamp() {
                       className="absolute top-0"
                     >
                       <BrandFlower
-                        className={`${p.sizeClass} text-emblem/70`}
+                        className={`${p.sizeClass} ${p.opacityClass}`}
                       />
                     </motion.span>
                   ))}
