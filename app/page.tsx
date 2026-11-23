@@ -133,7 +133,6 @@ export default function Home() {
                 <TabsList variant="tactile" size="sm">
                   <TabsTrigger value="bio">Bio</TabsTrigger>
                   <TabsTrigger value="work">How I work</TabsTrigger>
-                  <TabsTrigger value="colophon">Colophon</TabsTrigger>
                 </TabsList>
               </div>
 
@@ -256,28 +255,6 @@ export default function Home() {
                     compound design
                   </Link>{" "}
                   — turning every UI critique and taste decision into durable rules that both humans and coding agents can build from.
-                </p>
-              </TabsContent>
-
-              <TabsContent
-                value="colophon"
-                className="space-y-5 text-base sm:text-[17px] leading-relaxed text-pine-900/90 dark:text-neutral-200 mt-0"
-              >
-                <p>
-                  Set in <span className="font-cooper">Cooper</span> for display titles and <span className="font-medium">DM Sans</span> for UI and prose, over a Nordic pine and crimson palette.
-                </p>
-                <p>
-                  Built with Next.js, Tailwind CSS, Radix primitives, and a live WebGL mesh shader from Paper Design on the hero canvas.
-                </p>
-                <p>
-                  Every component on this page lives in the open{" "}
-                  <Link
-                    href="/design-system"
-                    className="underline underline-offset-4 decoration-pine-400/50 dark:decoration-[#8AD0BE]/40 hover:decoration-foreground transition-colors"
-                  >
-                    kohl.design system
-                  </Link>{" "}
-                  and can be installed directly via the registry.
                 </p>
               </TabsContent>
             </Tabs>
