@@ -73,8 +73,8 @@ export default function ProjectsPage() {
                     className="group flex items-start justify-between gap-4 p-5 sm:p-6 transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="size-10 rounded-xl bg-muted border border-border/60 flex items-center justify-center shrink-0 mt-0.5 text-foreground">
-                        <Gavel className="size-4.5 stroke-[1.5]" />
+                      <div className="size-10 rounded-xl bg-background border border-border/70 dark:border-pine-400/25 shadow-2xs flex items-center justify-center shrink-0 mt-0.5 text-emblem">
+                        <Gavel className="size-5 stroke-[1.5]" />
                       </div>
                       <div className="space-y-1">
                         <div className="flex items-baseline gap-2.5 flex-wrap">
