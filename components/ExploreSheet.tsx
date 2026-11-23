@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { cooper } from "@/app/fonts";
+import { Button } from "@/components/ui/button";
 
 interface NavDestination {
   name: string;
@@ -104,17 +105,17 @@ export function ExploreSheet() {
   return (
     <>
       {/* Tactile Trigger Button */}
-      <button
+      <Button
         type="button"
+        variant="tactile"
+        size="lg"
         onClick={() => setIsOpen(true)}
         aria-expanded={isOpen}
         aria-label="Open Explore Navigation"
-        className="group inline-flex items-center gap-2 h-10 px-3.5 rounded-[var(--radius)] border border-border/80 dark:border-[#3B7D6F]/60 bg-white/70 dark:bg-black/30 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs"
+        className="group px-3.5 text-pine-900 dark:text-emblem hover:text-primary dark:hover:text-white"
       >
-        <span className="text-sm font-medium text-pine-900 dark:text-[#FCD3D6] group-hover:text-primary dark:group-hover:text-white transition-colors">
-          Explore
-        </span>
-      </button>
+        Explore
+      </Button>
 
       {/* Drawer Overlay & Detached Island Panel (portaled to document.body) */}
       {mounted && typeof document !== "undefined"
