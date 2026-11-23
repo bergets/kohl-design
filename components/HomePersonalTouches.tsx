@@ -36,32 +36,32 @@ export function SignatureStamp() {
             className="relative inline-block max-w-full pb-3"
           >
             <motion.p
-              initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
-              animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
+              initial={{ clipPath: "inset(-15% 100% -15% -4%)", opacity: 0.35 }}
+              animate={{ clipPath: "inset(-15% -12% -15% -4%)", opacity: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="font-cooper italic text-lg sm:text-2xl text-pine-900 dark:text-white leading-snug"
             >
               {currentPhrase}
             </motion.p>
 
-            <svg
+            <motion.svg
               viewBox="0 0 180 10"
               preserveAspectRatio="none"
               fill="none"
               aria-hidden="true"
-              className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-2.5 text-accent/65 dark:text-emblem/80 overflow-visible"
+              initial={{ clipPath: "inset(-20% 100% -20% -5%)", opacity: 0 }}
+              animate={{ clipPath: "inset(-20% -5% -20% -5%)", opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-2.5 text-emblem/80 overflow-visible"
             >
-              <motion.path
-                d="M2 4 C52 8, 128 7, 178 3"
+              <path
+                d="M0 4 C52 8, 128 7, 180 3"
                 stroke="currentColor"
                 strokeWidth="1.5"
                 vectorEffect="non-scaling-stroke"
                 strokeLinecap="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               />
-            </svg>
+            </motion.svg>
           </motion.div>
         </AnimatePresence>
 
