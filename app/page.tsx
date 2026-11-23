@@ -11,7 +11,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   SignatureStamp,
   StockholmHorizon,
-  CraftLens,
 } from "@/components/HomePersonalTouches";
 import { ArrowUpRight } from "lucide-react";
 
@@ -117,9 +116,9 @@ export default function Home() {
         id="intro"
         className="w-full py-20 sm:py-28 px-6 sm:px-8 md:px-12 lg:px-14 border-t border-border/70 dark:border-pine-400/20"
       >
-        <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left column: Signed Editorial Letter with Tactile Perspectives */}
-          <div className="lg:col-span-7 max-w-xl space-y-6">
+        <div className="w-full max-w-5xl mx-auto">
+          {/* Signed Editorial Letter with Tactile Perspectives */}
+          <div className="max-w-xl space-y-6">
             <Tabs defaultValue="bio" className="space-y-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="space-y-1">
@@ -285,15 +284,6 @@ export default function Home() {
 
             <SignatureStamp />
           </div>
-
-          {/* Right column: Quiet Marginalia (Stockholm Daylight + Craft Lens) */}
-          <aside className="lg:col-span-5 lg:pt-1 space-y-8 border-t border-border/60 pt-8 lg:border-t-0 lg:border-l lg:pl-10">
-            <StockholmHorizon />
-
-            <div className="border-t border-border/60 pt-8">
-              <CraftLens />
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -370,14 +360,19 @@ export default function Home() {
         3. FOOTER & COLOPHON
         ========================================================================
       */}
-      <footer className="w-full py-8 sm:py-10 px-6 sm:px-8 md:px-12 lg:px-14 border-t border-border/70 dark:border-pine-400/20 text-xs">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <BrandFlower className="size-4 text-pine-600 dark:text-[#8AD0BE]" />
-            <span className="font-mono text-pine-600 dark:text-[#6FB4A3]">
-              kohl.design · Henrik Kohl · Stockholm, Sweden
-            </span>
+      <footer className="w-full py-10 sm:py-12 px-6 sm:px-8 md:px-12 lg:px-14 border-t border-border/70 dark:border-pine-400/20 text-xs">
+        <div className="max-w-5xl mx-auto space-y-10">
+          <div className="max-w-sm">
+            <StockholmHorizon />
           </div>
+
+          <div className="pt-6 border-t border-border/60 dark:border-pine-400/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <BrandFlower className="size-4 text-pine-600 dark:text-[#8AD0BE]" />
+              <span className="font-mono text-pine-600 dark:text-[#6FB4A3]">
+                kohl.design · Henrik Kohl · Stockholm, Sweden
+              </span>
+            </div>
 
           <div className="flex items-center gap-6 font-medium">
             <a
@@ -402,6 +397,7 @@ export default function Home() {
             >
               Design System ↗
             </Link>
+            </div>
           </div>
         </div>
       </footer>

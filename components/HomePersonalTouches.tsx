@@ -3,8 +3,6 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrandFlower } from "@/components/BrandFlower";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 
 /* ============================================================================
    1 & 4. ANIMATED SIGNATURE + TACTILE BRANDFLOWER STAMP
@@ -279,87 +277,6 @@ export function StockholmHorizon() {
         ) : (
           "Calculating Stockholm solar arc…"
         )}
-      </p>
-    </div>
-  );
-}
-
-/* ============================================================================
-   5. INTERACTIVE CRAFT LENS SPECIMEN
-   ============================================================================ */
-
-export function CraftLens() {
-  const [lens, setLens] = React.useState<"raw" | "polished">("polished");
-  const isPolished = lens === "polished";
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-medium text-foreground">Craft lens</span>
-
-        <Tabs
-          value={lens}
-          onValueChange={(v) => setLens(v as "raw" | "polished")}
-        >
-          <TabsList variant="tactile" size="xs">
-            <TabsTrigger value="raw">Raw</TabsTrigger>
-            <TabsTrigger value="polished">Polished</TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
-
-      {/* Live UI specimen */}
-      <div
-        className={cn(
-          "transition-all duration-300 ease-out",
-          isPolished
-            ? "rounded-[var(--radius-lg)] bg-card border border-border/70 p-4 [box-shadow:var(--shadow-bezel)]"
-            : "rounded-none bg-background border border-border p-3 shadow-none"
-        )}
-      >
-        <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0">
-            <p
-              className={cn(
-                "truncate transition-all duration-300",
-                isPolished
-                  ? "font-cooper text-base text-foreground leading-tight"
-                  : "font-sans text-sm font-bold text-foreground"
-              )}
-            >
-              Morning shift
-            </p>
-            <p
-              className={cn(
-                "transition-all duration-300 mt-0.5",
-                isPolished
-                  ? "text-xs text-muted-foreground"
-                  : "text-[11px] text-muted-foreground font-mono"
-              )}
-            >
-              08:00 – 16:30 · Stockholm
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setLens(isPolished ? "raw" : "polished")}
-            className={cn(
-              "shrink-0 cursor-pointer transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              isPolished
-                ? "h-8 px-3.5 rounded-full bg-primary text-primary-foreground text-xs font-medium [box-shadow:0_1px_2px_rgba(0,0,0,0.12),var(--specular-rim)] hover:-translate-y-0.5 active:translate-y-0"
-                : "h-7 px-2.5 rounded-none bg-foreground text-background text-xs font-normal"
-            )}
-          >
-            Confirm
-          </button>
-        </div>
-      </div>
-
-      <p className="text-xs leading-relaxed text-muted-foreground">
-        {isPolished
-          ? "Specular rim, optical radius, Cooper + DM Sans hierarchy, and spring lift."
-          : "Unstyled box, sharp corners, flat contrast, and zero surface depth."}
       </p>
     </div>
   );
