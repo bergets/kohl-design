@@ -79,9 +79,9 @@ export default function CanvasAndHarnessNotePage() {
             <p>
               Put together, you stop repeating yourself, explore faster on the
               canvas, and feed whatever you learn back into the harness. And if
-              deploying and sharing is built right in, you can loop in teammates
-              with a link—getting real feedback on work that would otherwise
-              stay stuck on{" "}
+              deploying and sharing is built right in, you can loop in
+              teammates, users, or anyone else who can give good feedback with a
+              link—instead of keeping explorations stuck on{" "}
               <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
                 localhost
               </code>
