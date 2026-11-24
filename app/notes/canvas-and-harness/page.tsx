@@ -41,18 +41,27 @@ export default function CanvasAndHarnessNotePage() {
               Chat is fine for asking a question, but it is a frustrating place
               to design. You ask an agent for a layout, tweak it four times, and
               by the fifth version you have scrolled past everything you tried
-              earlier. And every new prototype starts by burning tokens on the
-              same navigation, shells, and boilerplate.
+              earlier. Every new prototype starts by burning tokens on the same
+              navigation and boilerplate—and even when you get something good,
+              it stays stuck on{" "}
+              <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
+                localhost
+              </code>
+              .
             </p>
 
             <p>
-              A better setup has three pieces: a{" "}
+              A better setup has four pieces: a{" "}
               <strong className="font-semibold text-foreground">canvas</strong>,
               a{" "}
               <strong className="font-semibold text-foreground">harness</strong>
-              , and{" "}
+              ,{" "}
               <strong className="font-semibold text-foreground">
                 pre-configured templates
+              </strong>
+              , and a{" "}
+              <strong className="font-semibold text-foreground">
+                simple way to share
               </strong>
               .
             </p>
@@ -68,24 +77,22 @@ export default function CanvasAndHarnessNotePage() {
                 AGENTS.md
               </code>
               , and anti-slop rules—keeps every branch on-brand from the first
-              pass. And{" "}
+              pass.{" "}
               <strong className="font-semibold text-foreground">
-                pre-configured templates
+                Pre-configured templates
               </strong>{" "}
               give you page shells and common views out of the box so you spend
-              tokens on the actual idea, not setup.
+              tokens on the actual idea. And{" "}
+              <strong className="font-semibold text-foreground">
+                built-in deploy and share
+              </strong>{" "}
+              lets you send a link to teammates, users, or anyone else who can
+              give real feedback.
             </p>
 
             <p>
-              Put together, you stop repeating yourself, explore faster on the
-              canvas, and feed whatever you learn back into the harness. And if
-              deploying and sharing is built right in, you can loop in
-              teammates, users, or anyone else who can give good feedback with a
-              link—instead of keeping explorations stuck on{" "}
-              <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
-                localhost
-              </code>
-              .
+              Put together, you explore faster on the canvas, get real reactions
+              early, and feed what you learn back into the harness.
             </p>
 
             <div className="pt-3 flex flex-wrap items-center gap-3">
