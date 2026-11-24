@@ -41,42 +41,44 @@ export default function CanvasAndHarnessNotePage() {
               Chat is fine for asking a question, but it is a frustrating place
               to design. You ask an agent for a layout, tweak it four times, and
               by the fifth version you have scrolled past everything you tried
-              earlier. You cannot compare two directions side by side.
+              earlier. And every new prototype starts by burning tokens on the
+              same navigation, shells, and boilerplate.
             </p>
 
             <p>
-              Working in a{" "}
+              A better setup has three pieces: a{" "}
+              <strong className="font-semibold text-foreground">canvas</strong>,
+              a{" "}
+              <strong className="font-semibold text-foreground">harness</strong>
+              , and{" "}
+              <strong className="font-semibold text-foreground">
+                pre-configured templates
+              </strong>
+              .
+            </p>
+
+            <p>
+              The{" "}
               <strong className="font-semibold text-foreground">canvas</strong>{" "}
-              fixes that. Instead of overwriting the last screen, each critique
-              branches a new frame next to the old one. You see the whole tree
-              at once, mark what works, and leave notes where something feels
-              off.
-            </p>
-
-            <p>
-              On its own, though, a canvas still gives you generic AI output if
-              the agent has nothing to push against. That is where the{" "}
-              <strong className="font-semibold text-foreground">harness</strong>{" "}
-              comes in—your product&apos;s design system. Your tokens, your
-              components, your{" "}
+              lets you branch variations side by side instead of overwriting the
+              last screen. The{" "}
+              <strong className="font-semibold text-foreground">harness</strong>
+              —your tokens, components,{" "}
               <code className="font-mono text-sm text-foreground bg-muted px-1.5 py-0.5 rounded">
                 AGENTS.md
               </code>
-              , and the anti-slop rules you have built up over time.
+              , and anti-slop rules—keeps every branch on-brand from the first
+              pass. And{" "}
+              <strong className="font-semibold text-foreground">
+                pre-configured templates
+              </strong>{" "}
+              give you page shells and common views out of the box so you spend
+              tokens on the actual idea, not setup.
             </p>
 
             <p>
-              The same goes for pre-configured templates and page shells. Having
-              layouts, navigation, and common views already wired up means you
-              don&apos;t waste tokens—or time—rewriting the same boilerplate from
-              scratch every time you want to prototype an idea.
-            </p>
-
-            <p>
-              Put them together and the loop gets much calmer. The design system
-              keeps every branch on-brand from the first pass, and the canvas
-              lets you compare, curate, and feed new rules back into the
-              harness.
+              Put together, you stop repeating yourself, explore faster on the
+              canvas, and feed whatever you learn back into the harness.
             </p>
 
             <div className="pt-3 flex flex-wrap items-center gap-3">
