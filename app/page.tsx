@@ -272,7 +272,7 @@ export default function Home() {
                   I care about calm, legible software — interfaces that respect people&apos;s attention and earn every border, badge, and pixel on screen.
                 </p>
                 <p>
-                  I prototype early in real code rather than polishing static slides. Seeing how a layout breathes at 375px, how a focus ring lands, or how a spring settles tells you things a mockup never will.
+                  Most of the work is looping between figuring out the right thing to solve and testing it in whatever medium the question calls for — sketches, static frames, or real code. When it comes to how a layout breathes at 375px, how a focus ring lands, or how a spring settles, you only really know once it&apos;s running.
                 </p>
                 <p>
                   Lately I&apos;ve been exploring{" "}
