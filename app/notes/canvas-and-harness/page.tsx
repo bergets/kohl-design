@@ -66,6 +66,13 @@ export default function CanvasAndHarnessNotePage() {
             </p>
 
             <p>
+              The same goes for pre-configured templates and page shells. Having
+              layouts, navigation, and common views already wired up means you
+              don&apos;t waste tokens—or time—rewriting the same boilerplate from
+              scratch every time you want to prototype an idea.
+            </p>
+
+            <p>
               Put them together and the loop gets much calmer. The design system
               keeps every branch on-brand from the first pass, and the canvas
               lets you compare, curate, and feed new rules back into the
