@@ -168,7 +168,7 @@ export default function WorkPage() {
     <div className="min-h-dvh flex flex-col justify-between relative z-10">
       <SiteHeader />
       <main className="flex-1 w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-6 sm:pb-8 md:pb-12 lg:pb-14">
-        <div className="my-auto py-10 sm:py-16 w-full max-w-4xl space-y-12 sm:space-y-16">
+        <div className="my-auto py-10 sm:py-16 w-full max-w-5xl mx-auto space-y-12 sm:space-y-16">
           {/* Header */}
           <div className="space-y-4">
             <h1
@@ -316,7 +316,7 @@ export default function WorkPage() {
         </div>
 
         {/* Footer */}
-        <footer className="w-full pt-6 text-xs text-pine-600/70 dark:text-pine-400/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <footer className="w-full max-w-5xl mx-auto pt-6 text-xs text-pine-600/70 dark:text-pine-400/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <span>kohl.design · 2026</span>
           <div className="flex items-center gap-4">
             <Link href="/" className="hover:text-primary dark:hover:text-[#A8E3D2] transition-colors">

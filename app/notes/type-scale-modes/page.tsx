@@ -33,7 +33,8 @@ export default function TypeScaleModesNotePage() {
     <div className="min-h-dvh flex flex-col justify-between relative z-10">
       <SiteHeader />
       <main className="flex-1 w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-28 md:pb-14">
-        <article className="my-auto py-10 sm:py-16 w-full max-w-2xl space-y-8">
+        <div className="my-auto py-10 sm:py-16 w-full max-w-5xl mx-auto">
+          <article className="w-full max-w-2xl space-y-8">
           <div className="space-y-4">
             <Link
               href="/notes"
@@ -111,9 +112,10 @@ export default function TypeScaleModesNotePage() {
               </Button>
             </div>
           </div>
-        </article>
+          </article>
+        </div>
 
-        <footer className="w-full pt-6 text-xs text-pine-600/70 dark:text-pine-400/50">
+        <footer className="w-full max-w-5xl mx-auto pt-6 text-xs text-pine-600/70 dark:text-pine-400/50">
           <span>kohl.design · 2026</span>
         </footer>
       </main>

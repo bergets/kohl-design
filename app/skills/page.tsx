@@ -36,7 +36,7 @@ export default function SkillsPage() {
       <main className="flex-1 w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-6 sm:pb-8 md:pb-12 lg:pb-14">
 
       {/* Main Content Area */}
-      <div className="my-auto py-10 sm:py-16 w-full max-w-4xl">
+      <div className="my-auto py-10 sm:py-16 w-full max-w-5xl mx-auto">
         {/* Headline */}
         <h1
           className={`${cooper.className} text-5xl sm:text-6xl md:text-7xl font-normal tracking-tight text-pine-800 dark:text-crimson-100 transition-colors duration-300 mb-8 sm:mb-12`}
@@ -71,7 +71,7 @@ export default function SkillsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="w-full pt-6 text-xs text-pine-600/70 dark:text-pine-400/50">
+      <footer className="w-full max-w-5xl mx-auto pt-6 text-xs text-pine-600/70 dark:text-pine-400/50">
         <span>kohl.design · 2026</span>
       </footer>
       </main>
