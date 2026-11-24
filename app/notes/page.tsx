@@ -18,6 +18,14 @@ interface NoteItem {
 
 const NOTES: NoteItem[] = [
   {
+    title: "The Canvas and the Harness",
+    href: "/notes/canvas-and-harness",
+    date: "Nov 24, 2026",
+    readingTime: "2 min read",
+    snippet:
+      "Why designing with coding agents works best when you pair a spatial canvas for branching with your product's design system as the harness.",
+  },
+  {
     title: "Type Scale Modes",
     href: "/notes/type-scale-modes",
     date: "Nov 23, 2026",

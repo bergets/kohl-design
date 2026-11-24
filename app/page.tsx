@@ -47,6 +47,11 @@ const DIRECTORY_CHAPTERS: ChapterItem[] = [
 
 const HOME_NOTES = [
   {
+    title: "The Canvas and the Harness",
+    date: "Nov 24, 2026",
+    href: "/notes/canvas-and-harness",
+  },
+  {
     title: "Type Scale Modes",
     date: "Nov 23, 2026",
     href: "/notes/type-scale-modes",
