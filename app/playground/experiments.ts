@@ -31,4 +31,12 @@ export const PLAYGROUND_EXPERIMENTS: PlaygroundExperiment[] = [
     status: "Prototype",
     href: "/playground/branching-critique",
   },
+  {
+    slug: "research-artifacts",
+    title: "Service design research artifacts",
+    summary:
+      "Turn raw qualitative interviews into Journey Maps, Service Blueprints, Stakeholder Maps, and Opportunity Trees.",
+    status: "Prototype",
+    href: "/playground/research-artifacts",
+  },
 ];
