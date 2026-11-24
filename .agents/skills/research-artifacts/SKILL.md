@@ -37,6 +37,16 @@ Use when the question is: *"Who influences this service and where do incentives 
 - Group actors by proximity (**Core Users**, **Internal Operators**, **External / Ecosystem**).
 - Show what each actor **needs**, what they **control**, and **tensions / value flows** between them.
 
+### Ecosystem / Value Flow Map — *Data, Trust & Handoffs*
+Use when the question is: *"What actually moves between systems and teams, and where does 'human middleware' fill the gaps?"*
+- Map **directional flows** between actors and systems (`Source → Target`), tagged by flow type (**Data**, **Approval**, **Money**, **Trust/Status**).
+- Explicitly mark **manual workarounds** (e.g., copy-pasting PDFs, ad-hoc phone calls) and **broken/missing loops** (e.g., no confirmation returned to the user).
+
+### Behavioral Archetypes — *Modes Over Demographics*
+Use when the question is: *"How do different user mindsets or situations change what the service needs to do?"*
+- **NEVER build demographic persona bios** (*"Sarah, 34, likes coffee"*). Build **behavioral modes** grounded in observed triggers, constraints, preferred channels, and definitions of "done".
+- One person can move between archetypes depending on context (e.g., *Urgent First-Timer* vs. *Routine Repeat*).
+
 ### Opportunity Solution Tree (OST) — *Research to Product Bets*
 Use when the question is: *"What should we build or test next based on what we learned?"*
 - **Root:** One clear **Desired Outcome** (behavioral or business metric).
@@ -45,10 +55,11 @@ Use when the question is: *"What should we build or test next based on what we l
 
 ## 3. Anti-Slop Rules for Research Synthesis
 - **NEVER** flatten rich qualitative research into a 40-bullet markdown summary when a spatial, temporal, or relational artifact is needed.
+- **NEVER** invent fictional demographic persona bios; use evidence-backed Behavioral Archetypes instead.
 - **NEVER** invent quotes or metrics—every node or stage must link back to at least one `P#` source or explicitly flag `[Assumption — needs validation]`.
 - **NEVER** use rainbow sticky-note clutter or decorative badges; use calm editorial hierarchy (hairline borders, clear lane labels, restrained semantic accents for friction vs. opportunity).
 - **ALWAYS** surface the 2–3 highest-leverage **inflection points** (biggest drop in emotion, slowest backstage handoff, or most-cited opportunity) so the team knows where to act.
 
 ## 4. Output Format
-- **When visual UI / HTML is available** (e.g. `generative_ui` or a web canvas): Render an interactive, inspectable artifact where clicking a stage, lane, or opportunity reveals the underlying verbatim `P#` quotes and proposed next steps, plus a switcher to view the same dataset as a Journey Map, Service Blueprint, Stakeholder Map, or OST.
+- **When visual UI / HTML is available** (e.g. `generative_ui` or a web canvas): Render an interactive, inspectable artifact where clicking a stage, lane, flow, archetype, or opportunity reveals the underlying verbatim `P#` quotes and proposed next steps, plus a switcher to view the same dataset across lenses.
 - **When text-only:** Use clean Markdown tables or Mermaid diagrams (`flowchart LR` / `flowchart TD`) with explicit lane/stage structure and inline `(P1, P3)` citations.

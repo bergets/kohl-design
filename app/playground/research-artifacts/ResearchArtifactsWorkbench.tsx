@@ -2,14 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Check, Copy, FileText, Layers } from "lucide-react";
+import { ArrowRight, Check, Copy, FileText, Layers } from "lucide-react";
 import { cooper } from "@/app/fonts";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
-type ArtifactLens = "journey" | "blueprint" | "stakeholder" | "ost";
+type ArtifactLens = "journey" | "blueprint" | "stakeholder" | "ecosystem" | "archetypes" | "ost";
 type EmotionLevel = "high" | "neutral" | "low";
 
 interface EvidenceQuote {
@@ -52,6 +52,27 @@ interface StakeholderActor {
   evidence: EvidenceQuote[];
 }
 
+interface EcosystemFlow {
+  id: string;
+  source: string;
+  target: string;
+  flowType: "Data" | "Trust / Status" | "Approval" | "Money";
+  mechanism: string;
+  health: "automated" | "manual-workaround" | "broken-loop";
+  note: string;
+  evidence: EvidenceQuote[];
+}
+
+interface BehavioralArchetype {
+  id: string;
+  mode: string;
+  trigger: string;
+  constraint: string;
+  preferredChannel: string;
+  doneLooksLike: string;
+  evidence: EvidenceQuote[];
+}
+
 interface OstOpportunity {
   id: string;
   title: string;
@@ -73,6 +94,8 @@ interface ResearchDataset {
   journey: JourneyStage[];
   blueprint: BlueprintColumn[];
   stakeholders: StakeholderActor[];
+  ecosystem: EcosystemFlow[];
+  archetypes: BehavioralArchetype[];
   ost: OstOpportunity[];
 }
 
@@ -308,6 +331,134 @@ const DATASETS: ResearchDataset[] = [
         needs: "Strict access controls and audit logging.",
         controls: "Diagnostic PDFs and turnaround times.",
         tension: "No automated API sync forces manual backstage workarounds.",
+        evidence: [
+          {
+            id: "P3",
+            role: "Triage Nurse",
+            quote: "I spend half my morning copying PDF lab numbers from the regional portal into our EHR.",
+          },
+        ],
+      },
+    ],
+    ecosystem: [
+      {
+        id: "eco-1",
+        source: "Patient",
+        target: "Clinic Intake Portal",
+        flowType: "Data",
+        mechanism: "24h expiring SMS magic link",
+        health: "broken-loop",
+        note: "Link expires before evening; patient receives no confirmation receipt.",
+        evidence: [
+          {
+            id: "P1",
+            role: "Patient, 34",
+            quote: "I hit submit and got a blank thank-you screen. I had no idea if anyone actually saw it.",
+          },
+          {
+            id: "P2",
+            role: "Patient, 51",
+            quote: "The text link expired before I got home from work, so I had to call reception twice.",
+          },
+        ],
+      },
+      {
+        id: "eco-2",
+        source: "Regional Lab Portal",
+        target: "Clinic EHR",
+        flowType: "Data",
+        mechanism: "Triage nurse downloads PDF & re-keys values",
+        health: "manual-workaround",
+        note: "Human middleware bottleneck adds 3–5 days of queue latency.",
+        evidence: [
+          {
+            id: "P3",
+            role: "Triage Nurse",
+            quote: "I spend half my morning copying PDF lab numbers from the regional portal into our EHR.",
+          },
+        ],
+      },
+      {
+        id: "eco-3",
+        source: "Clinic EHR",
+        target: "Patient",
+        flowType: "Trust / Status",
+        mechanism: "Static 'we will contact you' page",
+        health: "broken-loop",
+        note: "No queue position or prep reminder until 24h before call.",
+        evidence: [
+          {
+            id: "P4",
+            role: "Patient, 42",
+            quote: "Once I was on the video call it was great—I just wish I'd known to fast beforehand.",
+          },
+        ],
+      },
+      {
+        id: "eco-4",
+        source: "Triage Nurse",
+        target: "Specialist MD",
+        flowType: "Approval",
+        mechanism: "EHR slot release",
+        health: "automated",
+        note: "Works smoothly once labs are attached, but misses pre-visit fasting checks.",
+        evidence: [
+          {
+            id: "P6",
+            role: "Specialist MD",
+            quote: "Finding out five minutes before a call that labs are missing wastes everyone's slot.",
+          },
+        ],
+      },
+    ],
+    archetypes: [
+      {
+        id: "arch-1",
+        mode: "Anxious First-Timer",
+        trigger: "Receives unexpected specialist referral from GP",
+        constraint: "Low tolerance for silence; worries referral was lost",
+        preferredChannel: "SMS status updates with clear next-step timestamps",
+        doneLooksLike: "Knows exact date, prep rules, and that labs arrived",
+        evidence: [
+          {
+            id: "P1",
+            role: "Patient, 34",
+            quote: "I hit submit and got a blank thank-you screen. I had no idea if anyone actually saw it.",
+          },
+          {
+            id: "P5",
+            role: "Patient, 29",
+            quote: "I guessed on one checkbox and it delayed my whole booking by four days.",
+          },
+        ],
+      },
+      {
+        id: "arch-2",
+        mode: "After-Hours Commuter",
+        trigger: "Opens clinic invite on the train or after work",
+        constraint: "Can't call reception during 9–5; 24h links expire",
+        preferredChannel: "Persistent mobile web link (no phone fallback)",
+        doneLooksLike: "Completes intake in 3 minutes on mobile without calling",
+        evidence: [
+          {
+            id: "P2",
+            role: "Patient, 51",
+            quote: "The text link expired before I got home from work, so I had to call reception twice.",
+          },
+          {
+            id: "P1",
+            role: "Patient, 34",
+            quote: "The doctor explained it well, then sent a four-page PDF I couldn't read on my phone.",
+          },
+        ],
+      },
+      {
+        id: "arch-3",
+        mode: "Human Middleware Operator",
+        trigger: "Starts morning triage shift with 40+ unverified referrals",
+        constraint: "Disconnected regional lab portal forces manual PDF transcription",
+        preferredChannel: "Structured EHR inbox with auto-parsed lab flags",
+        doneLooksLike: "Approves ready charts in <60s without switching tabs",
         evidence: [
           {
             id: "P3",
@@ -564,6 +715,93 @@ const DATASETS: ResearchDataset[] = [
         ],
       },
     ],
+    ecosystem: [
+      {
+        id: "beco-1",
+        source: "Team Champion",
+        target: "Invited Teammates",
+        flowType: "Trust / Status",
+        mechanism: "Domain-locked SSO wall",
+        health: "broken-loop",
+        note: "Teammates get invited but hit an immediate IT lock with zero preview.",
+        evidence: [
+          {
+            id: "P1",
+            role: "Design Lead",
+            quote: "I invited my whole team, then everyone got blocked by an IT approval screen.",
+          },
+        ],
+      },
+      {
+        id: "beco-2",
+        source: "Solutions & Support",
+        target: "IT & Security",
+        flowType: "Approval",
+        mechanism: "Ad-hoc email with SOC2 PDFs",
+        health: "manual-workaround",
+        note: "Manual email back-and-forth stalls rollout by 3–7 days.",
+        evidence: [
+          {
+            id: "P3",
+            role: "IT Admin",
+            quote: "I had to email support just to get your SOC2 report and data residency sheet.",
+          },
+        ],
+      },
+      {
+        id: "beco-3",
+        source: "Product Ops",
+        target: "Billing System",
+        flowType: "Money",
+        mechanism: "Corporate card gate before sample data",
+        health: "broken-loop",
+        note: "Evaluator bounces before seeing the template gallery.",
+        evidence: [
+          {
+            id: "P2",
+            role: "Product Ops",
+            quote: "I just wanted to test with dummy data, why do I need a corporate card on step two?",
+          },
+        ],
+      },
+    ],
+    archetypes: [
+      {
+        id: "barch-1",
+        mode: "Internal Champion",
+        trigger: "Needs a quick team win before Friday's product review",
+        constraint: "Loses credibility if invited teammates hit a wall",
+        preferredChannel: "Shareable template sandbox without SSO gate",
+        doneLooksLike: "Team collaborates on a live template in 10 minutes",
+        evidence: [
+          {
+            id: "P1",
+            role: "Design Lead",
+            quote: "I invited my whole team, then everyone got blocked by an IT approval screen.",
+          },
+          {
+            id: "P5",
+            role: "Staff Designer",
+            quote: "Once we got past the gates, the template gallery got us running in ten minutes.",
+          },
+        ],
+      },
+      {
+        id: "barch-2",
+        mode: "Risk-Averse Gatekeeper",
+        trigger: "Receives surprise Slack ping asking to approve SSO & billing",
+        constraint: "Won't sign off without SOC2, DPA, and data residency proof",
+        preferredChannel: "Self-serve Trust Center link",
+        doneLooksLike: "Verifies compliance in 2 minutes without emailing support",
+        evidence: [
+          {
+            id: "P3",
+            role: "IT Admin",
+            quote: "I had to email support just to get your SOC2 report and data residency sheet.",
+          },
+        ],
+      },
+    ],
     ost: [
       {
         id: "bost-1",
@@ -630,6 +868,20 @@ function buildMarkdownExport(dataset: ResearchDataset, lens: ArtifactLens): stri
     );
     return `## Stakeholder Map — ${dataset.label}\n\n${rows.join("\n")}`;
   }
+  if (lens === "ecosystem") {
+    const header = `| Source | Target | Flow Type | Mechanism | Health | Note |\n| --- | --- | --- | --- | --- | --- |`;
+    const rows = dataset.ecosystem.map(
+      (f) => `| ${f.source} | ${f.target} | ${f.flowType} | ${f.mechanism} | ${f.health} | ${f.note} |`
+    );
+    return `## Ecosystem / Value Flow Map — ${dataset.label}\n\n${header}\n${rows.join("\n")}`;
+  }
+  if (lens === "archetypes") {
+    const rows = dataset.archetypes.map(
+      (a) =>
+        `- **${a.mode}**\n  - Trigger: ${a.trigger}\n  - Constraint: ${a.constraint}\n  - Preferred channel: ${a.preferredChannel}\n  - Done looks like: ${a.doneLooksLike}`
+    );
+    return `## Behavioral Archetypes — ${dataset.label}\n\n${rows.join("\n")}`;
+  }
   const branches = dataset.ost.map(
     (o) =>
       `### Opportunity: ${o.title} (${o.evidenceSummary})\n${o.solutions
@@ -655,6 +907,8 @@ export function ResearchArtifactsWorkbench() {
     if (lens === "journey") setSelectedId(dataset.journey[1]?.id ?? dataset.journey[0].id);
     if (lens === "blueprint") setSelectedId(dataset.blueprint[1]?.id ?? dataset.blueprint[0].id);
     if (lens === "stakeholder") setSelectedId(dataset.stakeholders[0].id);
+    if (lens === "ecosystem") setSelectedId(dataset.ecosystem[0].id);
+    if (lens === "archetypes") setSelectedId(dataset.archetypes[0].id);
     if (lens === "ost") setSelectedId(dataset.ost[0].id);
   }, [dataset, lens]);
 
@@ -668,6 +922,12 @@ export function ResearchArtifactsWorkbench() {
     if (lens === "stakeholder") {
       return dataset.stakeholders.find((s) => s.id === selectedId)?.evidence ?? dataset.stakeholders[0].evidence;
     }
+    if (lens === "ecosystem") {
+      return dataset.ecosystem.find((f) => f.id === selectedId)?.evidence ?? dataset.ecosystem[0].evidence;
+    }
+    if (lens === "archetypes") {
+      return dataset.archetypes.find((a) => a.id === selectedId)?.evidence ?? dataset.archetypes[0].evidence;
+    }
     return dataset.ost.find((o) => o.id === selectedId)?.evidence ?? dataset.ost[0].evidence;
   }, [dataset, lens, selectedId]);
 
@@ -680,6 +940,13 @@ export function ResearchArtifactsWorkbench() {
     }
     if (lens === "stakeholder") {
       return dataset.stakeholders.find((s) => s.id === selectedId)?.name ?? dataset.stakeholders[0].name;
+    }
+    if (lens === "ecosystem") {
+      const flow = dataset.ecosystem.find((f) => f.id === selectedId) ?? dataset.ecosystem[0];
+      return `${flow.source} → ${flow.target}`;
+    }
+    if (lens === "archetypes") {
+      return dataset.archetypes.find((a) => a.id === selectedId)?.mode ?? dataset.archetypes[0].mode;
     }
     return dataset.ost.find((o) => o.id === selectedId)?.title ?? dataset.ost[0].title;
   }, [dataset, lens, selectedId]);
@@ -740,6 +1007,8 @@ export function ResearchArtifactsWorkbench() {
             <TabsTrigger value="journey">Journey map</TabsTrigger>
             <TabsTrigger value="blueprint">Service blueprint</TabsTrigger>
             <TabsTrigger value="stakeholder">Stakeholder map</TabsTrigger>
+            <TabsTrigger value="ecosystem">Ecosystem flow</TabsTrigger>
+            <TabsTrigger value="archetypes">Archetypes</TabsTrigger>
             <TabsTrigger value="ost">Opportunity tree</TabsTrigger>
           </TabsList>
         </Tabs>
@@ -1077,6 +1346,101 @@ export function ResearchArtifactsWorkbench() {
                         Key tension
                       </div>
                       <p className="text-xs text-foreground/90 leading-relaxed">{actor.tension}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {lens === "ecosystem" && (
+            <div className="divide-y divide-border/60">
+              {dataset.ecosystem.map((flow) => {
+                const isSelected = flow.id === selectedId;
+                const healthLabel =
+                  flow.health === "broken-loop"
+                    ? "Broken loop"
+                    : flow.health === "manual-workaround"
+                      ? "Manual workaround"
+                      : "Automated";
+                return (
+                  <button
+                    key={flow.id}
+                    type="button"
+                    onClick={() => setSelectedId(flow.id)}
+                    className={cn(
+                      "w-full text-left p-5 grid gap-4 sm:grid-cols-[240px_1fr_160px] items-start transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      isSelected ? "bg-primary/5" : "hover:bg-muted/30"
+                    )}
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 text-sm font-semibold text-foreground flex-wrap">
+                        <span>{flow.source}</span>
+                        <ArrowRight className="size-3.5 text-muted-foreground shrink-0" />
+                        <span>{flow.target}</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground">{flow.flowType}</div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="text-xs font-medium text-foreground">{flow.mechanism}</div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{flow.note}</p>
+                    </div>
+
+                    <div className="sm:text-right">
+                      <span
+                        className={cn(
+                          "text-xs font-medium",
+                          flow.health === "automated"
+                            ? "text-primary"
+                            : "text-crimson-600 dark:text-crimson-300"
+                        )}
+                      >
+                        {healthLabel}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {lens === "archetypes" && (
+            <div className="divide-y divide-border/60">
+              {dataset.archetypes.map((arch) => {
+                const isSelected = arch.id === selectedId;
+                return (
+                  <button
+                    key={arch.id}
+                    type="button"
+                    onClick={() => setSelectedId(arch.id)}
+                    className={cn(
+                      "w-full text-left p-5 grid gap-4 sm:grid-cols-[200px_1fr_1fr] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      isSelected ? "bg-primary/5" : "hover:bg-muted/30"
+                    )}
+                  >
+                    <div className="space-y-1">
+                      <div className="text-sm font-semibold text-foreground">{arch.mode}</div>
+                      <div className="text-xs text-muted-foreground leading-relaxed">
+                        Trigger: {arch.trigger}
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-xs font-medium text-crimson-600 dark:text-crimson-300">
+                        Constraint
+                      </div>
+                      <p className="text-xs text-foreground/90 leading-relaxed">{arch.constraint}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-xs font-medium text-primary">
+                        Channel &amp; done state
+                      </div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {arch.preferredChannel}
+                      </p>
+                      <p className="text-xs text-foreground/90 leading-relaxed">
+                        Done: {arch.doneLooksLike}
+                      </p>
                     </div>
                   </button>
                 );
