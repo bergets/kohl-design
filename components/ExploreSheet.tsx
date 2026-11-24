@@ -58,7 +58,7 @@ export function ExploreSheet() {
   const soundEnabled = React.useSyncExternalStore(
     subscribeTactileSound,
     isTactileSoundEnabled,
-    () => false
+    () => true
   );
 
   const handleToggleSound = () => {
