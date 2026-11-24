@@ -91,8 +91,11 @@ export default function CanvasAndHarnessNotePage() {
             </p>
 
             <p>
-              Put together, you explore faster on the canvas, get real reactions
-              early, and feed what you learn back into the harness.
+              Ideally you want a fast path to production, too—but that
+              doesn&apos;t mean you shouldn&apos;t have an even faster path to a
+              prototype first. Put together, you explore quickly on the canvas,
+              get real reactions early, and feed what you learn back into the
+              harness.
             </p>
 
             <div className="pt-3 flex flex-wrap items-center gap-3">
