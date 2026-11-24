@@ -81,7 +81,7 @@ export default function Home() {
 
         <section className="min-h-dvh pt-20 sm:pt-24 w-full flex flex-col justify-between px-6 sm:px-8 md:px-12 lg:px-14 pb-12 sm:pb-16 relative">
           {/* Hero Headline & CTA */}
-          <div className="my-auto py-12 sm:py-20 w-full relative z-10 max-w-6xl space-y-6 sm:space-y-8">
+          <div className="my-auto py-12 sm:py-20 w-full relative z-10 max-w-5xl mx-auto space-y-6 sm:space-y-8">
             <h1
               className={`${cooper.className} text-5xl sm:text-7xl md:text-8xl lg:text-[100px] xl:text-[116px] leading-[0.95] font-normal tracking-tight text-pine-900 dark:text-white transition-colors duration-300 max-w-5xl`}
             >
