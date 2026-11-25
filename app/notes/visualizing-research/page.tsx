@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Visualizing Research with Service Design Artifacts — kohl.design",
+  title: "Visualise Research — kohl.design",
   description:
     "Why LLMs shouldn't flatten user interviews into walls of markdown bullets—and how service design artifacts keep synthesis spatial, relational, and grounded in evidence.",
 };
@@ -28,7 +28,7 @@ export default function VisualizingResearchNotePage() {
               <h1
                 className={`${cooper.className} text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-pine-800 dark:text-crimson-100`}
               >
-                Visualizing Research with Service Design Artifacts
+                Visualise Research
               </h1>
 
               <p className="text-xs font-mono text-muted-foreground">

@@ -18,7 +18,7 @@ interface NoteItem {
 
 const NOTES: NoteItem[] = [
   {
-    title: "Visualizing Research with Service Design Artifacts",
+    title: "Visualise Research",
     href: "/notes/visualizing-research",
     date: "Nov 25, 2026",
     readingTime: "3 min read",
