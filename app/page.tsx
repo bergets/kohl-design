@@ -47,6 +47,11 @@ const DIRECTORY_CHAPTERS: ChapterItem[] = [
 
 const HOME_NOTES = [
   {
+    title: "Visualizing Research with Service Design Artifacts",
+    date: "Nov 25, 2026",
+    href: "/notes/visualizing-research",
+  },
+  {
     title: "The Canvas and the Harness",
     date: "Nov 24, 2026",
     href: "/notes/canvas-and-harness",

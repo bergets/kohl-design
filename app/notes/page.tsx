@@ -18,6 +18,14 @@ interface NoteItem {
 
 const NOTES: NoteItem[] = [
   {
+    title: "Visualizing Research with Service Design Artifacts",
+    href: "/notes/visualizing-research",
+    date: "Nov 25, 2026",
+    readingTime: "3 min read",
+    snippet:
+      "Why LLMs shouldn't flatten interviews into markdown bullet walls—and how service design artifacts keep synthesis spatial, relational, and grounded in evidence.",
+  },
+  {
     title: "The Canvas and the Harness",
     href: "/notes/canvas-and-harness",
     date: "Nov 24, 2026",
